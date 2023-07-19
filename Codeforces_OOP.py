@@ -1,6 +1,8 @@
+import sys
 import os
 import re
-import sys
+from shutil import rmtree
+from inspect import currentframe
 from requests import get
 from bs4 import BeautifulSoup
 from typing import TypeAlias
@@ -75,8 +77,8 @@ class contest:
         ok += 1
       if p1 != -1 and p2 == -1:
         ok += 1
+    self._path_exist_error(f"{self._id}", "d")
     slash = self._define_slash()
-    contest._path_exist_error(f"{self._id}", "d")
     if os.path.basename(path) != self._id:
       os.mkdir(f"{self._id}")
     os.chdir(f"{self._id}")
@@ -99,20 +101,22 @@ class problem:
   
   def __init__(self, problem_code: ProblemCodeOrFile) -> None:
     self.__letter_index = None
-    self._code = self.__check_entry(problem_code)
+    self._code = self.__check_entry(problem_code.upper())
     self._content = self.__content()
     self.__pex = self.__search_examples_tag()
     self.__pn = None
     self.name = self._content[0]
-    self.__slash = None
+    self.__slash = contest._define_slash()
     self.__data_path = None
 
 
   def __check_entry(self, problem_code):
     
+
     def enter_code():
       self._code = input("Please enter the problem code: ")
       self._check_problem_code()
+
 
     def __desired(aux):
       c = input(f"'{aux}' Is this the desired problem code? [Y/n]")
@@ -161,8 +165,6 @@ class problem:
     response.raise_for_status()
     # s = response.text
     s = response.text
-    with open("/home/ghoudiy/test_1.txt", 'w') as file:
-      file.write(s)
     s = s[s.find('class="problem-statement"') + 26:]
     
     p = s.find("</p></div></div>")
@@ -225,8 +227,6 @@ class problem:
       if path == "":
         path = os.getcwd()
       contest._check_path_existence(path, 'd')
-      if self.__slash == None:
-        self.__slash = contest._define_slash()
       with open(f"{path}{self.__slash}{self._code}.txt", 'w') as file:
         file.write(" ".join(" ".join(L).split("$$$")))
       return f"Problem statement saved in {path}{self.__slash}{self._code}.txt"
@@ -238,93 +238,78 @@ class problem:
     return self.problem_statement(True, True, True, True, True, True)
 
 
-  def extract(self, path: Directory = os.getcwd(), CreateTestsDir: bool = True):
+  def extract(self, path: Directory = None, CreateTestsDir: bool = True):
     
-    contest._check_path_existence(path, 'd')
+    if path == None: 
+      path = os.getcwd()
+    else: 
+      contest._check_path_existence(path, 'd')
+    
     os.chdir(path)
-    if self.__pn == None:
-      R = self._content[self.__pex+1:]
-    else:
-      R = self._content[self.__pex+1:self.__pn]
+    
+    if self.__pn == None: R = self._content[self.__pex+1:]
+    else: R = self._content[self.__pex+1:self.__pn]
+    
     nr = R.count("Input")
     aux = nr
     if CreateTestsDir:
+  
       def tmp(x): os.mkdir(x); return f"{x}"
       if os.path.exists("tests"):
         Lo = [file for file in os.listdir() if re.search(rf"{self._code}_\d.out", file) != None]
         Li = [file for file in os.listdir() if re.search(rf"{self._code}_\d.in", file) != None]
-        if self.__slash == None:
-          self.__slash = contest._define_slash()
         if len(Lo) != len(Li):
           c = input("Another folder with the same name already exists\n[W]rite in the same folder or [R]eplace or [C]reate a new one with another name? ").lower()
           while c != 'r' and c != 'c' and c != "w":
             c = input("[W/r/c]")
           if c == 'r' or c == "replace":
-            from shutil import rmtree
             rmtree(f"{path}{self.__slash}tests")
             self.__data_path = tmp("tests")
           elif c == 'c' or c == "create":
             name = input("Folder name: ")
             contest._path_exist_error(name, "d")
             self.__data_path = tmp(name)
-          else:
-            self.__data_path = "tests"
-        else:
-          self.__data_path = "tests"
-      else:
-        self.__data_path = tmp("tests")
-    else:
-      self.__data_path = path
+          else: self.__data_path = "tests"
+        else: self.__data_path = "tests"
+      else: self.__data_path = tmp("tests")
+    else: self.__data_path = path
+    
     while nr > 0:
-
+  
       def in_out_files(nr1, nr2, ext, start, end):
-        with open(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
-          for data in R[start+1:end]:
-            ff.write(f"{data}\n")
+        if not os.path.exists(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}"):
+          with open(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
+            for data in R[start+1:end]:
+              ff.write(f"{data}\n")
+
       pi = R.index("Input")
       po = R.index("Output")
       in_out_files(aux, nr, "in", pi, po) # in
       R[pi] = "input-done"
-      if "Input" in R:
-        pi = R.index("Input")
-      else:
-        pi = len(R)
+      pi = R.index("Input") if "Input" in R else len(R)
       in_out_files(aux, nr, "out", po, pi) # out
       R[po] = "output-done"
       nr -= 1
 
 
   def run_demo(self, path: File = sys.argv[0]):
-    try:
-      aux = re.search(r"\A\d{1,4}[A-z]", os.path.basename(path))
-      tmp = self._code
-      self._code = aux
-      self._check_problem_code()
-      self._code = tmp
-    except:
-      try:
-        dir_name = os.path.dirname(path)
-        contest._check_contest_id(int(dir_name)) if dir_name.isdecimal() else None
-      except:
-        raise SyntaxError("The problem is not compatible with the file")
-  
     contest._check_path_existence(path, 'f')
-    from io import StringIO
 
-    if self.__data_path == None:
-      self.extract(os.path.dirname(path), True)
-    os.chdir(f"{os.path.dirname(path)}{self.__slash}{self.__data_path}")
+    from io import StringIO
+    dir_name = os.path.dirname(path)
+    if self.__data_path == None: self.extract(dir_name, True)
+    os.chdir(f"{dir_name}{self.__slash}{self.__data_path}")
+
     Lo = [file for file in os.listdir() if re.search(rf"{self._code}_\d.out", file) != None]
     Li = [file for file in os.listdir() if re.search(rf"{self._code}_\d.in", file) != None]
-
     verdict = []
     for i in range(len(Li)):
-
       with open(Li[i], 'r') as file:
         input_file = file.read().strip()
 
       # Store the original stdin and stdout
       original_stdin = sys.stdin
+
       saved_stdout = sys.stdout
 
       try:
@@ -337,7 +322,8 @@ class problem:
         # Create a new stream for capturing the output
         output_stream = sys.stdout = StringIO()
 
-        exec(open(path).read())
+        code = open(path).readlines()[currentframe().f_back.f_lineno:]
+        exec("".join(code))
       finally:
           # Restore stdin and stdout to their original values
           sys.stdin = original_stdin
@@ -347,18 +333,36 @@ class problem:
 
       # Write the captured output to .out file
       test_case = f"{self._code}_test_case{i+1}.out"
-      
       with open(test_case, 'w') as file:
         file.write(output_stream.getvalue())
-      if open(test_case, 'r').read() == open(Lo[i], 'r').read():
-        verdict.append((f"test_case{i+1}", "OK"))
-      else:
-        verdict.append((f"test_case{i+1}", "Wrong answer"))
-    # Remove samples if Ok
-    if all([x[1] for x in verdict]):
-      [os.remove(x) for x in Li]
-      [os.remove(x) for x in Lo]
 
+      if open(test_case, 'r').read() == open(Lo[i], 'r').read():
+        verdict.append((f"test case {i+1}", "OK"))
+
+      else:
+        verdict.append((f"test case {i+1}", "Wrong answer"))
+
+    # Remove samples if all tests passed
+    i = 0
+    ok = True
+    while ok and i < len(verdict):
+      ok = verdict[i][1] == "OK"
+      i += 1
+    if ok:
+      print("Demo Accepeted")
+      l = len(Li)
+      if len(os.listdir()) == len(Li) * 4:
+        rmtree(os.getcwd())
+      else:
+        [os.remove(x) for x in Li]
+        [os.remove(x) for x in [f"{self._code}_test_case{i}.in" for i in range(1, l)]]
+        [os.remove(x) for x in Lo]
+        [os.remove(x) for x in [f"{self._code}_test_case{i}.out" for i in range(1, l)]]
+    else:
+      print(f"Wrong answer on test {i}")
+      for v in verdict:
+        print(f"{v[0]} => {v[1]}")
+    exit()
 
   def _file_name(self, name="", code=""):
     if name == "":
@@ -376,8 +380,8 @@ class problem:
 
 
 if __name__ == "__main__":
-  one = problem("50A")
-  one.run_demo("/home/ghoudiy/Documents/Programming/Python/Competitive_Programming/CodeForces/A_Problems/Optimization/50A_Domino_piling.py")
-  one = contest(1844)
-  one.create_problems_files(os.getcwd(), True)
+  # one = problem("50A")
+  # one.run_demo("/home/ghoudiy/Documents/Programming/Python/Competitive_Programming/CodeForces/A_Problems/Optimization/50A_Domino_piling.py")
+  # one = contest(1844)
+  # one.create_problems_files(os.getcwd(), True)
   pass
