@@ -1,6 +1,7 @@
 import sys
 import os
 import re
+from subprocess import run
 from shutil import rmtree
 from inspect import currentframe
 from requests import get
@@ -109,31 +110,28 @@ class contest:
 
 class problem:
   
-  # @print_function_name
   def __init__(self, problem_code: ProblemCodeOrFile) -> None:
     self.__letter_index = None
+    self.__pn = None
+    self.__pex = None
     self._code = self.__check_entry(problem_code.upper())
     self._content = self.__content()
-    self.__pex = self.__search_examples_tag()
     self.name = self._content[0]
     self.__slash = contest._define_slash()
     self.__data_path = None
-    try:
-      self.__pn = self._content.index("Note")
-    except:
-      self.__pn = None
+    self.__Lo = None
+    self.__Li = None
+    self.__fwrong = None
+    self.__tfwrong = None
+    self.__nfwrong = None
 
-  # @print_function_name
+
   def __check_entry(self, problem_code):
     
-
-    # @print_function_name
     def enter_code():
       self._code = input("Please enter the problem code: ")
       self._check_problem_code()
 
-
-    # @print_function_name
     def __desired(aux):
       c = input(f"'{aux}' Is this the desired problem code? [Y/n]")
       if c == "y" or c == "": return aux
@@ -164,7 +162,6 @@ class problem:
       raise ValueError("The input is not valid")
 
 
-  # @print_function_name
   def _check_problem_code(self):
     p = len(self._code) - 1 if self._code[-1].isalpha() and len(re.findall(r"[A-z]", self._code)) == 1 else len(self._code) - 2
     contest._check_contest_id(int(self._code[:p]))      
@@ -175,32 +172,26 @@ class problem:
     self.__letter_index = p
 
 
-  # @print_function_name
   def __content(self):
 
     # Problem statement
     response = get(f"https://codeforces.com/problemset/problem/{self._code[:self.__letter_index]}/{self._code[self.__letter_index:]}")
     response.raise_for_status()
-    # s = response.text
     s = response.text
-    s = s[s.find('class="problem-statement"') + 26:]
-    
-    p = s.find("</p></div></div>")
-    if p != -1: # Note tag
-      return [string for string in BeautifulSoup(s[:p], "html.parser").stripped_strings]
+    s = s[s.find('class="problem-statement"') + 26:]    
+    p = s.find("</p></div></div>") # Note section tag
+    if p != -1:
+      aux = [string for string in BeautifulSoup(s[:p], "html.parser").stripped_strings]
+      self.__pn = aux.index("Note")
     else:
-      return [string for string in BeautifulSoup(s[:s.find("</pre></div></div></div>")], "html.parser").stripped_strings]
-
-
-  # @print_function_name
-  def __search_examples_tag(self):
+      aux = [string for string in BeautifulSoup(s[:s.find("</pre></div></div></div>")], "html.parser").stripped_strings]
     try:
-      return self._content.index("Examples")
+      self.__pex = aux.index("Examples")
     except ValueError:
-      return self._content.index("Example")
+      self.__pex = aux.index("Example")
+    return aux
 
 
-  # @print_function_name
   def problem_statement(self, saveInFile: bool = False, note: bool = False, examples: bool = False, time_limit: bool = False, memory_limit: bool = False, input_type: bool = False, output_type: bool = False) -> str:
     tmp = lambda x: print(f"{self._content[x]}: {self._content[x+1]}")
       
@@ -253,32 +244,26 @@ class problem:
       return " ".join(" ".join(L).split("$$$"))
 
 
-  # @print_function_name
   def problem_statement_WithDetails(self):
     return self.problem_statement(True, True, True, True, True, True)
 
 
-  # @print_function_name
   def extract(self, path: Directory = None, CreateTestsDir: bool = True):
-    if path == None: 
-      path = os.getcwd()
-    else: 
-      contest._check_path_existence(path, 'd')
-    
+
+    if path == None: path = os.getcwd()
+    else: contest._check_path_existence(path, 'd')
+
     os.chdir(path)
     
-    R = self._content[self.__pex+1:] if self.__pn == None else self._content[self.__pex+1:self.__pn]
-
-    nr = R.count("Input")
-    aux = nr
     if CreateTestsDir:
   
-      # @print_function_name
       def tmp(x): os.mkdir(x); return f"{x}"
+      
       if os.path.exists("tests"):
-        Lo = [file for file in os.listdir() if re.search(rf"{self._code}_\d.out", file) != None]
-        Li = [file for file in os.listdir() if re.search(rf"{self._code}_\d.in", file) != None]
-        if len(Lo) != len(Li):
+        L = os.listdir("tests")
+        self.__Lo = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
+        self.__Li = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
+        if len(self.__Lo) != len(self.__Li):
           c = input("Another folder with the same name already exists\n[W]rite in the same folder or [R]eplace or [C]reate a new one with another name? ").lower()
           while c != 'r' and c != 'c' and c != "w":
             c = input("[W/r/c]")
@@ -294,9 +279,11 @@ class problem:
       else: self.__data_path = tmp("tests")
     else: self.__data_path = path
 
+    R = self._content[self.__pex+1:] if self.__pn == None else self._content[self.__pex+1:self.__pn]
+    nr = R.count("Input")
+    aux = nr
     while nr > 0:
   
-      # @print_function_name
       def in_out_files(nr1, nr2, ext, start, end):
         if not os.path.exists(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}"):
           with open(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
@@ -313,10 +300,13 @@ class problem:
       nr -= 1
 
 
-  # @print_function_name
   def run_demo(self, path: File = None):
-    from io import StringIO
+    def read_file(x):
+      with open(x, 'r') as file:
+        y = file.read()
+      return y
 
+    from io import StringIO
 
     if path == None: path = sys.argv[0]; _argv = True
     else: contest._check_path_existence(path, 'f'); _argv = False
@@ -329,45 +319,63 @@ class problem:
     os.chdir(f"{dir_name}{self.__slash}{self.__data_path}")
 
     L = os.listdir()
-    Lo = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
-    Li = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
+    if self.__Li == None:
+      self.__Li = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
+      self.__Lo = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
+    verdict = [(None, None)] * len(self.__Li)
+    accepeted = True
 
-    verdict = []
-    for i in range(len(Li)):
-      with open(Li[i], 'r') as file:
-        input_file = file.read().strip()
+    for i in range(len(self.__Li)):
+      test_case = f"{self._code}_test_case{i+1}.out"
 
-      # Store the original stdin and stdout
-      original_stdin = sys.stdin
+      c = [("python", run("python --version", shell=True, capture_output=True).returncode), ("python3", run("python3 --version", shell=True, capture_output=True).returncode), ("py", run("py --version", shell=True, capture_output=True).returncode)]
 
-      saved_stdout = sys.stdout
+      def test_interpreter(c):
+        k = -1
+        test = False
+        while k < 3 and not test:
+          k += 1
+          test = c[k][1] == 0
+        return k if test else -1
+  
+      k = test_interpreter(c)
+      interpreter = lambda x: run(f"{c[k][0]} {x} < {self.__Li[i]} > {test_case}", shell=True) if k != -1 else None
 
-      try:
-
-        if _argv:
-          l = currentframe().f_back.f_lineno
-          code = open(path).readlines()
-          for j in range(len(code[:l])):
-            pc = code[j].find("codeforces_oop")
-            if pc != -1:
-              p = code[j].find("import")
-              p1 = code[j].find(",")
-              if (p != -1 and p1 == -1 or code[j].find("from") != -1):
-                code[j] = f"# {code[j]}\n"
-              elif p != -1 and p1 != -1: # import math, codeforces_oop
-                code[j] = code[j].split(",")
-                if code[j][0].find("codeforces_oop") != -1:
-                  if len(code[j][1:]) > 1:
-                    code[j] = f"import {', '.join(code[j][1:])}\n"
-                  else:
-                    code[j] = f"import {code[j][1]}\n"
+      line_number = currentframe().f_back.f_lineno
+      if _argv: # If working in the solution file itself
+        with open(path) as file:
+          code = file.readlines()
+        for j in range(len(code[:line_number-1])):
+          pc = code[j].find("codeforces_oop")
+          if pc != -1:
+            p = code[j].find("import")
+            p1 = code[j].find(",")
+            if (p != -1 and p1 == -1 or code[j].find("from") != -1):
+              code[j] = f"# {code[j]}\n"
+            elif p != -1 and p1 != -1: # import math, codeforces_oop
+              code[j] = code[j].split(",")
+              if code[j][0].find("codeforces_oop") != -1:
+                if len(code[j][1:]) > 1:
+                  code[j] = f"import {', '.join(code[j][1:])}\n"
                 else:
-                  code[j] = list(map(lambda x: x.replace("codeforces_oop", "").strip(), code[j]))
-                  code[j] = ", ".join(list(filter(lambda x: bool(x), code[j]))) + "\n"
-          code = "".join(code[:l-1] + code[l+1:])
-        
-        else: code = open(f"{dir_name}{self.__slash}{path}").read() if path.find("/") == -1 else open(path).read()
-        
+                  code[j] = f"import {code[j][1]}\n"
+              else:
+                code[j] = list(map(lambda x: x.replace("codeforces_oop", "").strip(), code[j]))
+                code[j] = ", ".join(list(filter(lambda x: bool(x), code[j]))) + "\n"
+        with open("codeforces_module_user_code.py", 'w') as file: file.write("".join(code[:line_number-1] + code[line_number:]))
+        interpreter("codeforces_module_user_code.py")
+        os.remove("codeforces_module_user_code.py")         
+  
+      else: interpreter(f"{dir_name}{self.__slash}{path}") if path.find(self.__slash) == -1 else interpreter(path)
+
+      if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
+
+        input_file = read_file(self.__Li[i]).strip()
+        # Store the original stdin and stdout
+        original_stdin = sys.stdin
+
+        saved_stdout = sys.stdout
+
         # Create a file-like object from the input string
         input_stream = StringIO(input_file)
 
@@ -379,46 +387,127 @@ class problem:
 
         exec(code)
 
-      finally:
-          # Restore stdin and stdout to their original values
-          sys.stdin = original_stdin
+        # Restore stdin and stdout to their original values
+        sys.stdin = original_stdin
 
-          # Restore the original stdout
-          sys.stdout = saved_stdout
+        # Restore the original stdout
+        sys.stdout = saved_stdout
 
-      # Write the captured output to .out file
-      test_case = f"{self._code}_test_case{i+1}.out"
-      with open(test_case, 'w') as file:
-        file.write(output_stream.getvalue())
+        # Write the captured output to .out file
+        with open(test_case, 'w') as file:
+          file.write(output_stream.getvalue())
 
-      if open(test_case, 'r').read() == open(Lo[i], 'r').read():
-        verdict.append((f"test case {i+1}", "OK"))
+      expected = read_file(self.__Lo[i])
+      observed = read_file(test_case)
+      if expected == observed:
+        verdict[i] = (f"test case {i+1}", "OK")
+        accepeted = accepeted and True
 
       else:
-        verdict.append((f"test case {i+1}", "Wrong answer"))
+        # In case of results are floating point numbers
+        K = expected.split("\n")[:-1]
+        tmp = len(K)
+        V = [[None, None, None]] * tmp # Float numbers
+        F = [[None, None, None]] * tmp # All data except float
+        for l in range(len(K)):
+          T = K[l].split(' ')
+          V[l] = [l]
+          F[l] = [l]
+          for j in range(len(T)):
+            p = T[j].find(".")
+            V[l].append((j, T[j])) if p != -1 and (T[j][:p] + T[j][p+1:]).isdigit() else F[l].append((j, T[j]))
 
-    # Remove samples if all tests passed
-    k = 0
-    ok = len(verdict) >= 1
-    while ok and k < len(verdict):
-      ok = verdict[k][1] == "OK"
-      k += 1
-    if ok:
+        def tmp(X, Y, Z):
+          try:
+            for m in range(len(Z)):
+              for v in Z[m][1:]:
+                Y[m] = float(X[Z[m][0]].split(" ")[v[0]])
+            return Y
+          except IndexError:
+            pass
+        def Compare_lists(Y, Z, aux, t=""):
+          p = 0
+          ok = True
+          while ok and p < l:
+            j = 1
+            while ok and j < len(Z[p]):
+              a = Z[p][j][1]
+              b = Y[p]
+              if a.isdigit() and b.isdigit() or t == "f":
+                ok = aux(float(a), float(b))
+                if not ok and self.__tfwrong == None:
+                  self.__tfwrong = "wrong answer 5th numbers differ - expected: '2', found: '1'"
+              else:
+                ok = aux(a, b)
+              j += 1
+            p += 1
+          return ok
+        K = observed.split("\n")[:-1]
+        E = tmp(K, [None] * len(F), F)
+        ok = False
+        l = len(V)
+        if l:
+          X = [None] * l
+          X = tmp(K, X, V)
+
+
+          if Compare_lists(E, F, lambda a, b: a == b):
+            ok = Compare_lists(X, V, lambda a, b: abs(a, b) <= max((1.5E-5 + 1E-15) * max(abs(a), abs(b)), 0), 'f')
+
+        if ok:
+          verdict[i] = (f"test case {i+1}", "OK")
+          accepeted = accepeted and True
+        else:
+          accepeted = False
+          verdict[i] = (f"test case {i+1}", "Wrong answer")
+          if self.__fwrong == None: self.__fwrong = i + 1
+
+    # Remove samples if accepeted
+  
+    if accepeted:
       print("Demo Accepeted")
-      l = len(Li)
-      if len(os.listdir()) == len(Li) * 3:
+      l = len(self.__Li)
+      if len(os.listdir()) == len(self.__Li) * 3:
         rmtree(os.getcwd())
       else:
-        [os.remove(x) for x in Li]
-        [os.remove(x) for x in Lo]
-        [os.remove(x) for x in [f"{self._code}_test_case{i}.out" for i in range(1, l+1)]]
+        def remove_files(file_list):
+          for file in file_list:
+            os.remove(file)
+      
+        remove_files(self.__Li)
+        remove_files(self.__Lo)
+        remove_files([f"{self._code}_test_case{i}.out" for i in range(1, l+1)])
     else:
-      print(f"Wrong answer on test {k+1}")
+      print(f"Wrong answer on test {self.__fwrong}")
       for v in verdict:
         print(f"{v[0]} => {v[1]}")
+    
+    if _argv and any(code[line_number:]):
 
+      def tmp():
+        sys.stdout = saved_stdout
+        sys.stdin = saved_stdin
+        c = input("Finish executing the program? [N/y] ").lower()
+        if c == "" or c == "n":
+          exit()
+        elif c == "y":
+          pass
+        else:
+          print("Abort.")
+          exit()
 
-  # @print_function_name
+      try:
+        saved_stdin = sys.stdin
+        input_stream = sys.stdin = StringIO(None)
+        saved_stdout = sys.stdout
+        output_stream = sys.stdout = StringIO()
+        exec("".join(code[line_number:]))
+        if output_stream.getvalue():
+          tmp()          
+      except EOFError:
+        tmp()
+
+      
   def _file_name(self, name="", code=""):
     if name == "":
       name = self.name[2:]
@@ -430,9 +519,20 @@ class problem:
     return name
 
   
-  # @print_function_name
   def create_problem_file(self):
     pass
+
+def english_ending(x):
+  x %= 100
+  if x // 10 == 1:
+      return "th"
+  if x % 10 == 1:
+      return "st"
+  if x % 10 == 2:
+      return "nd"
+  if x % 10 == 3:
+      return "rd"
+  return "th"
 
 
 if __name__ == "__main__":
