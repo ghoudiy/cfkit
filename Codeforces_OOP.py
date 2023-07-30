@@ -433,11 +433,3 @@ class problem:
   # @print_function_name
   def create_problem_file(self):
     pass
-
-
-if __name__ == "__main__":
-  # one = problem("50A")
-  # one.run_demo("/home/ghoudiy/Documents/Programming/Python/Competitive_Programming/CodeForces/A_Problems/Optimization/50A_Domino_piling.py")
-  # one = contest(1844)
-  # one.create_problems_files(os.getcwd(), True)
-  pass
