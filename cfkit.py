@@ -6,6 +6,7 @@ from shutil import rmtree
 from inspect import currentframe
 from requests import get
 from bs4 import BeautifulSoup
+from mechanicalsoup import StatefulBrowser
 from typing import TypeAlias
 File: TypeAlias = str
 Directory: TypeAlias = str
@@ -13,36 +14,33 @@ FileOrDirectory: TypeAlias = str
 ProblemCodeOrFile: TypeAlias = str
 
 
-python_template = lambda problem_code: f"""
-def main():
-  # Write your code here
+def test(path: File = sys.argv[0]):
+  if path == "":
+    path = input("Problem path: ")
+    contest._check_path_existence(path, 'f')
+  if os.path.samefile(sys.argv[0], path):
+    problem(path).run_demo()
+  else:
+    contest._check_path_existence(path, 'f')
+    problem(path).run_demo()
 
-main()
 
+def print_function_name(func):
+    def wrapper(*args, **kwargs):
+        print("Executing function:", func.__name__)
+        return func(*args, **kwargs)
+    return wrapper
 
-try:
-  import cfkit
-  testlib("{problem_code}").run_demo()
-except:
-  pass
-
-"""
-
-cpp_template = lambda problem_code: """#include<bits/stdc++.h>
-using namespace std;
-
-int main() {
-
-}
-"""
 
 class contest:
+  @print_function_name
   def __init__(self, contestId: int) -> None:
     self._id = contestId
     self._check_contest_id(contestId)
     self._content = self.__content_contest()
   
 
+  @print_function_name
   def __content_contest(self):
     response = get(f"https://codeforces.com/contest/{self._id}")
     response.raise_for_status()
@@ -51,6 +49,7 @@ class contest:
     return s[:s.find('</table>')].split("\n")
 
   @staticmethod
+  @print_function_name
   def _check_contest_id(contestId: int):    
     ok = type(contestId) == int
     if type(contestId) == str and not ok  and contestId.isdigit():
@@ -67,6 +66,7 @@ class contest:
       raise ValueError("contestId must be an integer")
 
   @staticmethod
+  @print_function_name
   def _define_slash():
     if sys.platform == "win32":
       return "\\"
@@ -75,16 +75,19 @@ class contest:
   
 
   @staticmethod
+  @print_function_name
   def _check_path_existence(path, fileOrDir):
     if not os.path.exists(path):
       raise FileNotFoundError(f"No such file: '{path}'" if fileOrDir == "f" else f"No such directory '{path}'")
   
   
   @staticmethod
+  @print_function_name
   def _path_exist_error(path, fileorDir):
     if os.path.exists(path):
       raise FileExistsError(f"File exists '{path}'" if fileorDir == "f" else f"Directory exists '{path}'")
 
+  @print_function_name
   def create_problems_files(self, ext: str, path: Directory = None, addProblemNameToFileName: bool = False):
     if path == None: path = os.getcwd()
     else: self._check_path_existence(path, 'd')
@@ -126,11 +129,13 @@ class contest:
 
 class problem:
   
-  def __init__(self, problem_code: ProblemCodeOrFile) -> None:
+  @print_function_name
+  def __init__(self, problem_code: ProblemCodeOrFile = sys.argv[0]) -> None:
     self.__slash = contest._define_slash()
     self.__letter_index = None
     self.__pn = None
     self.__pex = None
+    self.__path = None
     self._code = self.__check_entry(problem_code)
     self._content = self.__content()
     self.name = self._content[0]
@@ -141,6 +146,7 @@ class problem:
     self.__tfwrong = None
 
 
+  @print_function_name
   def _check_problem_code(self, code):
     p = len(code) - 1 if code[-1].isalpha() and len(re.findall(r"[A-z]", code)) == 1 else len(code) - 2
     contest._check_contest_id(int(code[:p]))      
@@ -151,39 +157,59 @@ class problem:
     self.__letter_index = p
 
 
+  @print_function_name
   def __check_entry(self, problem_code):
     
-    enter_code = lambda: self._check_problem_code(input("Please enter the problem code: "))
+    @print_function_name
+    def enter_code():
+      self._code = input("Please enter the problem code: ")
+      self._check_problem_code(self._code)
 
-    def __desired(aux):
-      c = input(f"'{aux}' Is this the desired problem code? [Y/n]")
-      if c == "y" or c == "": return aux
-      else: return enter_code()
-
+    # def expected(aux): # Need to be updated
+    #   c = input(f"'{aux}' Is this the desired problem code? [Y/n] ")
+    #   if c == "" or c == "y": 
+    #     return aux
+    #   elif c == "n":
+    #     return enter_code()
+ 
+    contest._check_path_existence(problem_code, 'f')
     is_file = os.path.isfile(problem_code)
-    if not is_file:
-      self._check_problem_code(self, problem_code)
-      return self._code
+    p = problem_code.find(self.__slash)
+    if not is_file and p == -1:
+      self._check_problem_code(problem_code)
+      return problem_code
     elif is_file:
       base_name = os.path.basename(problem_code)
       # Searching for problem code in path
       aux = re.search(r"\A\d{1,4}[A-z]", base_name[:re.search(r"\W", base_name).start()])
+ 
       if aux != None: # if the file name contain the problem code
         try:
           aux = aux.group()
           self._check_problem_code(aux)
-          code = __desired(aux)
+          # code = expected(aux)
+          self.__path = problem_code
+
         except SyntaxError:
           print("Problem code couldn't be recognized from the given path")
           code = enter_code()
       else:
-        print("Problem code couldn't be recognized from the given path")
-        code = enter_code()
+        dir_name = os.path.dirname(problem_code) # 1234/a.py
+        if dir_name.isdigit():
+          contest._check_contest_id(int(dir_name))
+          # code = expected(dir_name + base_name[0])
+          self._check_problem_code(code)
+          self.__path = problem_code
+        else:
+          print("Problem code couldn't be recognized from the given path")
+          code = enter_code()
       return code
+    elif p != -1:
+      raise FileNotFoundError(f"No such file {problem_code}") 
     else:
-      raise ValueError("Please enter the problem code or the problem file")
+      raise ValueError("Please enter the problem code or the problem file correctly")
 
-
+  @print_function_name
   def __content(self):
 
     # Problem statement
@@ -204,6 +230,35 @@ class problem:
     return aux
 
 
+  @print_function_name
+  @staticmethod
+  def __english_ending(x):
+    x %= 100
+    if x // 10 == 1:
+        return "th"
+    if x % 10 == 1:
+        return "st"
+    if x % 10 == 2:
+        return "nd"
+    if x % 10 == 3:
+        return "rd"
+    return "th"
+
+
+  @print_function_name
+  def _file_name(self, name="", code=""):
+    if name == "":
+      name = self.name[2:]
+      code = self._code
+    name = re.sub("[A-z]'(s|S)", "s", name)
+    name = re.sub(r"\W", "_", name)
+    name = re.sub(r"(___|__)", "_", name)
+    name = f"{code}{name[:-1]}" if name[-1] == "_" else f"{code}{name}"
+    return name
+
+
+
+  @print_function_name
   def problem_statement(self, saveInFile: bool = False, note: bool = False, examples: bool = False, time_limit: bool = False, memory_limit: bool = False, IO: bool = False) -> str:
     tmp = lambda x: print(f"{self._content[x]}: {self._content[x+1]}")
       
@@ -247,7 +302,8 @@ class problem:
       path = input("Path to save problem statement text in: ")
       if path == "":
         path = os.getcwd()
-      contest._check_path_existence(path, 'd')
+      else:
+        contest._check_path_existence(path, 'd')
       with open(f"{path}{self.__slash}{self._code}.txt", 'w') as file:
         file.write(" ".join(" ".join(L).split("$$$")))
       return f"Problem statement saved in {path}{self.__slash}{self._code}.txt"
@@ -255,19 +311,23 @@ class problem:
       return " ".join(" ".join(L).split("$$$"))
 
 
+  @print_function_name
   def problem_statement_WithDetails(self):
     return self.problem_statement(True, True, True, True, True, True)
 
 
-  def extract(self, path: Directory = None, CreateTestsDir: bool = True):
+  @print_function_name
+  def extract(self, path: Directory = None, CreateTestsDir: bool = True, __check_path: bool = True):
 
     if path == None: path = os.getcwd()
-    else: contest._check_path_existence(path, 'd')
+    elif path != None and __check_path: 
+      contest._check_path_existence(path, 'd')
 
     os.chdir(path)
     
     if CreateTestsDir:
   
+      @print_function_name
       def tmp(x): os.mkdir(x); return f"{x}"
       
       if os.path.exists("tests"):
@@ -302,6 +362,7 @@ class problem:
     aux = nr
     while nr > 0:
   
+      @print_function_name
       def in_out_files(nr1, nr2, ext, start, end):
         if not os.path.exists(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}"):
           with open(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
@@ -318,36 +379,44 @@ class problem:
       nr -= 1
 
 
-  @staticmethod
-  def __english_ending(x):
-    x %= 100
-    if x // 10 == 1:
-        return "th"
-    if x % 10 == 1:
-        return "st"
-    if x % 10 == 2:
-        return "nd"
-    if x % 10 == 3:
-        return "rd"
-    return "th"
-
-
+  # @print_function_name
   def run_demo(self, path: File = None):
+   
+    # @print_function_name
     def read_file(x):
       with open(x, 'r') as file:
         y = file.read()
       return y
-
+    
+    # @print_function_name
+    def __tmp(x):
+      contest._check_path_existence(x, 'f')
+      while os.path.isdir(x):
+        x = input("The file path you provided is a directory.\nPlease provide the path to a file instead: ")
+      return x
+  
     from io import StringIO
+    _argv = False
+    if path == None and self.__path == None: # When the user enter 234A
+      self.__path = sys.argv[0]
+      if not self.__path:
+        self.__path = __tmp(input("Path of the problem file: "))
+      else:
+        _argv = True
+ 
+    elif path != None and self.__path == None: # When the user enter the path e.g. problems/1234A.py in run_demo function
+      self.__path = __tmp(path)
+    
+    elif path == None and self.__path != None: # When the user enter the path in test or __init__ functions or leave it empty and the working file is the problem file
+      _argv = True
 
-    if path == None: path = sys.argv[0]; _argv = True
-    else: contest._check_path_existence(path, 'f'); _argv = False
-
-    dir_name = os.path.dirname(path)
+    del path
+    dir_name = os.path.dirname(self.__path)
     if dir_name == "":
       dir_name = os.getcwd()
+      self.__path = f"{dir_name}{self.__slash}{self.__path}"
 
-    if self.__data_path == None: self.extract(dir_name, True)
+    if self.__data_path == None: self.extract(dir_name, True, False)
     os.chdir(f"{dir_name}{self.__slash}{self.__data_path}")
 
     L = os.listdir()
@@ -360,12 +429,19 @@ class problem:
     for i in range(len(self.__Li)):
       test_case = f"{self._code}_test_case{i+1}.out"
 
-      c = [("python", run("python --version", shell=True, capture_output=True).returncode), ("python3", run("python3 --version", shell=True, capture_output=True).returncode), ("py", run("py --version", shell=True, capture_output=True).returncode)]
-
+      c = [("python", 
+            (("python", run("python --version", shell=True, capture_output=True).returncode), 
+            ("python3", run("python3 --version", shell=True, capture_output=True).returncode), 
+            ("py", run("py --version", shell=True, capture_output=True).returncode))),
+            ("c++")]
+ 
+ 
+      # @print_function_name
       def test_interpreter(c):
+        # need to fix it
         k = -1
         test = False
-        while k < 3 and not test:
+        while k < len(c) and not test:
           k += 1
           test = c[k][1] == 0
         return k if test else -1
@@ -373,9 +449,13 @@ class problem:
       k = test_interpreter(c)
       interpreter = lambda x: run(f"{c[k][0]} {x} < {self.__Li[i]} > {test_case}", shell=True) if k != -1 else None
 
-      line_number = currentframe().f_back.f_lineno
+
+      if currentframe().f_back.f_code.co_name == "test":
+        line_number = currentframe().f_back.f_back.f_lineno
+      elif currentframe().f_back.f_code.co_name == "<module>":
+        line_number = currentframe().f_back.f_lineno
       if _argv: # If working in the solution file itself
-        with open(path) as file:
+        with open(self.__path) as file:
           code = file.readlines()
         for j in range(len(code[:line_number-1])):
           pc = code[j].find("cfkit")
@@ -394,14 +474,15 @@ class problem:
               else:
                 code[j] = list(map(lambda x: x.replace("cfkit", "").strip(), code[j]))
                 code[j] = ", ".join(list(filter(lambda x: bool(x), code[j]))) + "\n"
-        with open("codeforces_module_user_code.py", 'w') as file: file.write("".join(code[:line_number-1] + code[line_number:]))
+                  
+        with open("codeforces_module_user_code.py", 'w') as file:
+          file.write("".join(code[:line_number-1] + code[line_number:]))
         interpreter("codeforces_module_user_code.py")
         os.remove("codeforces_module_user_code.py")         
-  
-      else: interpreter(f"{dir_name}{self.__slash}{path}") if path.find(self.__slash) == -1 else interpreter(path)
+
+      else: interpreter(f"{dir_name}{self.__slash}{self.__path}") if self.__path.find(self.__slash) == -1 else interpreter(self.__path)
 
       if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
-
         input_file = read_file(self.__Li[i]).strip()
         # Store the original stdin and stdout
         original_stdin = sys.stdin
@@ -449,6 +530,7 @@ class problem:
             p = T[j].find(".")
             V[l].append((j, T[j])) if p != -1 and (T[j][:p] + T[j][p+1:]).isdigit() else F[l].append((j, T[j]))
 
+        # @print_function_name
         def tmp(X, Y, Z):
           try:
             for m in range(len(Z)):
@@ -457,6 +539,7 @@ class problem:
             return Y
           except IndexError:
             pass
+        # @print_function_name
         def Compare_lists(Y, Z, aux, t=""):
           p = 0 # lines
           ok = True
@@ -478,6 +561,7 @@ class problem:
             p += 1
           return ok
         K = observed.split("\n")[:-1]
+        print(F, "F", "\n", K, "K")
         E = tmp(K, [None] * len(F), F)
         ok = Compare_lists(E, F, lambda a, b: a == b)
         l = len(V)
@@ -503,6 +587,7 @@ class problem:
       if len(os.listdir()) == len(self.__Li) * 3:
         rmtree(os.getcwd())
       else:
+        # @print_function_name
         def remove_files(file_list):
           for file in file_list:
             os.remove(file)
@@ -518,15 +603,14 @@ class problem:
     
     if _argv and any(code[line_number:]):
 
+      # @print_function_name
       def tmp():
         sys.stdout = saved_stdout
         sys.stdin = saved_stdin
         c = input("Finish executing the program? [N/y] ").lower()
         if c == "" or c == "n":
           exit()
-        elif c == "y":
-          pass
-        else:
+        elif c != "y":
           print("Abort.")
           exit()
 
@@ -541,18 +625,8 @@ class problem:
       except EOFError:
         tmp()
 
-      
-  def _file_name(self, name="", code=""):
-    if name == "":
-      name = self.name[2:]
-      code = self._code
-    name = re.sub("[A-z]'(s|S)", "s", name)
-    name = re.sub(r"\W", "_", name)
-    name = re.sub(r"(___|__)", "_", name)
-    name = f"{code}{name[:-1]}" if name[-1] == "_" else f"{code}{name}"
-    return name
-
   
+  # @print_function_name
   def create_problem_file(self, ext: str, addProblemNameToFileName: bool = False, path: Directory = os.getcwd()):
     pass
 
