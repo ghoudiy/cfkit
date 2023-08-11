@@ -61,10 +61,13 @@ class contest:
       ub = ub[ub.find('<a href="/problemset/problem/') + 29:]
       ub = BeautifulSoup(ub[:ub.find('/')], "html.parser") # Or to the last <script> tag
       if not 1 <= contestId <= int(str(ub)):
-        raise SyntaxError(f"invalid contestId '{contestId}'")
-    else:
-      raise ValueError("contestId must be an integer")
-
+        # raise SyntaxError(f"invalid contestId '{contestId}'")
+        print(f"Invalid contestId '{contestId}'")
+        sys.exit(1)
+    else: 
+      # raise ValueError("contestId must be an integer")
+        print(f"Contest ID must be an integer")
+        sys.exit()
   @staticmethod
   @print_function_name
   def _define_slash():
@@ -78,14 +81,16 @@ class contest:
   @print_function_name
   def _check_path_existence(path, fileOrDir):
     if not os.path.exists(path):
-      raise FileNotFoundError(f"No such file: '{path}'" if fileOrDir == "f" else f"No such directory '{path}'")
-  
+      # raise FileNotFoundError(f"No such file: '{path}'" if fileOrDir == "f" else f"No such directory '{path}'")
+      print(f"No such file: '{path}'" if fileOrDir == 'f' else f"No such directory '{path}'")
+      sys.exit(1)
   
   @staticmethod
   @print_function_name
   def _path_exist_error(path, fileorDir):
     if os.path.exists(path):
-      raise FileExistsError(f"File exists '{path}'" if fileorDir == "f" else f"Directory exists '{path}'")
+      # raise FileExistsError(f"File exists '{path}'" if fileorDir == "f" else f"Directory exists '{path}'")
+      print(f"File exists '{path}'" if fileorDir == 'f' else f"Directory exists '{path}'")
 
   @print_function_name
   def create_problems_files(self, ext: str, path: Directory = None, addProblemNameToFileName: bool = False):
@@ -148,13 +153,16 @@ class problem:
 
   @print_function_name
   def _check_problem_code(self, code):
-    p = len(code) - 1 if code[-1].isalpha() and len(re.findall(r"[A-z]", code)) == 1 else len(code) - 2
-    contest._check_contest_id(int(code[:p]))      
-    response = get(f"https://codeforces.com/problemset/problem/{code[:p]}/{code[p:]}")
-    response.raise_for_status()
-    if response.text.find('<div class="problem-statement">') == -1:
-      raise SyntaxError(f"invalid problem code '{code}")
-    self.__letter_index = p
+    if re.search(r"\A[1-9]{1}\d{,3}[A-z]\d?$", code) != None:
+      p = len(code) - 1 if code[-1].isalpha() and len(re.findall(r"[A-z]", code)) == 1 else len(code) - 2
+      contest._check_contest_id(int(code[:p]))      
+      response = get(f"https://codeforces.com/problemset/problem/{code[:p]}/{code[p:]}")
+      response.raise_for_status()
+      if response.text.find('<div class="problem-statement">') == -1:
+        # raise SyntaxError(f"invalid problem code '{code}")
+        print(f"Invalid problem code '{code}'")
+        sys.exit(1)
+      self.__letter_index = p
 
 
   @print_function_name
@@ -171,23 +179,24 @@ class problem:
     #     return aux
     #   elif c == "n":
     #     return enter_code()
- 
-    contest._check_path_existence(problem_code, 'f')
+
     is_file = os.path.isfile(problem_code)
-    p = problem_code.find(self.__slash)
-    if not is_file and p == -1:
+ 
+    if not is_file:
       self._check_problem_code(problem_code)
       return problem_code
+ 
     elif is_file:
       base_name = os.path.basename(problem_code)
       # Searching for problem code in path
-      aux = re.search(r"\A\d{1,4}[A-z]", base_name[:re.search(r"\W", base_name).start()])
+      aux = re.search(r"\A[1-9]{1}\d{,3}[A-z]\d?", base_name[:re.search(r"\W", base_name).start()])
  
       if aux != None: # if the file name contain the problem code
         try:
           aux = aux.group()
           self._check_problem_code(aux)
           # code = expected(aux)
+          code = aux
           self.__path = problem_code
 
         except SyntaxError:
@@ -198,16 +207,19 @@ class problem:
         if dir_name.isdigit():
           contest._check_contest_id(int(dir_name))
           # code = expected(dir_name + base_name[0])
+          code = dir_name + base_name[0]
           self._check_problem_code(code)
           self.__path = problem_code
         else:
           print("Problem code couldn't be recognized from the given path")
           code = enter_code()
       return code
-    elif p != -1:
-      raise FileNotFoundError(f"No such file {problem_code}") 
-    else:
-      raise ValueError("Please enter the problem code or the problem file correctly")
+ 
+    else: 
+      # raise ValueError("Please enter the problem code or the problem file correctly")
+      print("Please enter the problem code or the problem file correctly")
+    sys.exit(1)
+
 
   @print_function_name
   def __content(self):
@@ -257,14 +269,8 @@ class problem:
     return name
 
 
-
   @print_function_name
-  def problem_statement(self, saveInFile: bool = False, note: bool = False, examples: bool = False, time_limit: bool = False, memory_limit: bool = False, IO: bool = False) -> str:
-    tmp = lambda x: print(f"{self._content[x]}: {self._content[x+1]}")
-      
-    if time_limit: tmp(1)
-    if memory_limit: tmp(3)
-    if IO: tmp(5); tmp(7)
+  def problem_statement(self, saveInFile: bool = False, note: bool = True, examples: bool = True, time_limit: bool = True, memory_limit: bool = True, IO: bool = True) -> str:
 
     L = self._content[9:]
     # Printing the note and examples
@@ -297,7 +303,22 @@ class problem:
     L[0] = "\n" + L[0]
     if not note_test:
       L.append("Note section is not available")
-    
+    def tmp(x) -> None:
+      if saveInFile:
+        aux = 9
+      else:
+        aux = os.get_terminal_size().columns - 5
+      if x != 0:
+        return f"{(self._content[x] + ': ' + self._content[x+1]).center(aux - 9)}"
+      else:
+        return f"{self._content[x].center(aux - 9)}"
+
+    R = []
+    R.append(f"{tmp(0)}\n") # Problem Name
+    if time_limit: R.append(f"{tmp(1)}\n")
+    if memory_limit: R.append(f"{tmp(3)}\n")
+    if IO: R.append(f"{tmp(5)}\n"); R.append(f"{tmp(7)}\n")
+
     if saveInFile:
       path = input("Path to save problem statement text in: ")
       if path == "":
@@ -305,15 +326,11 @@ class problem:
       else:
         contest._check_path_existence(path, 'd')
       with open(f"{path}{self.__slash}{self._code}.txt", 'w') as file:
-        file.write(" ".join(" ".join(L).split("$$$")))
+        file.write(" ".join(" ".join(R + L).split("$$$")))
       return f"Problem statement saved in {path}{self.__slash}{self._code}.txt"
     else:
+      print(*R)
       return " ".join(" ".join(L).split("$$$"))
-
-
-  @print_function_name
-  def problem_statement_WithDetails(self):
-    return self.problem_statement(True, True, True, True, True, True)
 
 
   @print_function_name
@@ -426,28 +443,110 @@ class problem:
     verdict = [(None, None)] * len(self.__Li)
     accepeted = True
 
+    language = lambda x: run(x, shell=True, capture_output=True).returncode == 0
+    # languages = [
+    #   ("python",
+    #     "python3 --version",
+    #     "python --version",
+    #     "py --version"),
+      
+    #   ("C++",
+    #     ("GNU C++",
+    #     "g++ --version",
+    #     "c++ --version",
+    #     "gcc --version"),
+    #     "clang++ --version"),
+
+    #     ("MSVC",
+    #      "cl /V")
+
+    #   ("C",
+    #     "gcc --version"),
+
+    #   ("D",
+    #     "gdc --version",
+    #     "dmd --version"),
+
+    #   ("Go",
+    #   "go version"),
+
+    #   ("Haskell",
+    #   "ghc --version"),
+
+    #   ("Java",
+    #   "java -version"),
+
+    #   ("Kotlin",
+    #   "kotlin -version"),
+
+    #   ("OCaml",
+    #   "ocaml -version"),
+
+    #   ("Delphi",
+    #   "delphi -version"),
+
+    #   ("Free Pascal",
+    #   "fpc -version"),
+
+    #   ("Perl",
+    #   "perl -v"),
+
+    #   ("PHP",
+    #   "php -v"),
+
+    #   ("Ruby",
+    #   "ruby -v"),
+
+    #   ("Rust",
+    #   "rustc --version"),
+
+    #   ("Scala",
+    #   "scala -version"),
+
+    #   ("JavaScript (Node.js)",
+    #   "d8 --version"),
+
+    #   ("Node.js",
+    #   "node -v"),
+    # ]
+    # extensions = [
+    #   ("C++", ("cpp", "cxx", "C", "cc")),
+    #   ("C", ("c")),
+    #   ('C#', ('.cs',)),
+    #   ('D', ('.d',)),
+    #   ('Go', ('.go',)),
+    #   ('Haskell GHC', ('.hs',)),
+    #   ('Java', ('.java')),
+    #   ('Kotlin', ('.kt',)),
+    #   ('OCaml', ('.ml',)),
+    #   ('Delphi', ('.pas',)),
+    #   ('Pascal', ('.pas',)),
+    #   ('Perl', ('.pl',)),
+    #   ('PHP', ('.php', '.phar',)),
+    #   ("Python", ("py", "pyc", "pyo")),
+    #   ('Ruby', ('.rb',)),
+    #   ('Rust', ('.rs',)),
+    #   ('Scala', ('.scala',)),
+    #   ('JavaScript', ('.js',)),
+    #   ('Node.js', ('.js',)),
+    # ]
+
+
     for i in range(len(self.__Li)):
       test_case = f"{self._code}_test_case{i+1}.out"
-
-      c = [("python", 
-            (("python", run("python --version", shell=True, capture_output=True).returncode), 
-            ("python3", run("python3 --version", shell=True, capture_output=True).returncode), 
-            ("py", run("py --version", shell=True, capture_output=True).returncode))),
-            ("c++")]
- 
  
       # @print_function_name
-      def test_interpreter(c):
-        # need to fix it
-        k = -1
-        test = False
-        while k < len(c) and not test:
-          k += 1
-          test = c[k][1] == 0
-        return k if test else -1
-  
-      k = test_interpreter(c)
-      interpreter = lambda x: run(f"{c[k][0]} {x} < {self.__Li[i]} > {test_case}", shell=True) if k != -1 else None
+      def test_interpreter(c, ext):
+        p = ext.rfind(".")
+        if p == -1:
+          print("Please add the extension to file name in order to detect the programming language")
+          sys.exit(1)
+        else:
+          ext = ext[ext.rfind(".")+1:]
+
+        pass
+      # k = test_interpreter(commands)
+      interpreter = lambda x: run(f"python3 {x} < {self.__Li[i]} > {test_case}", shell=True) if False else None
 
 
       if currentframe().f_back.f_code.co_name == "test":
@@ -480,10 +579,12 @@ class problem:
         interpreter("codeforces_module_user_code.py")
         os.remove("codeforces_module_user_code.py")         
 
-      else: interpreter(f"{dir_name}{self.__slash}{self.__path}") if self.__path.find(self.__slash) == -1 else interpreter(self.__path)
+      else: interpreter(f"{dir_name}{self.__slash}{self.__path}", self.__path[self.__path.rfind(".")+1:]) if self.__path.find(self.__slash) == -1 else interpreter(self.__path, os.path.basename(self.__path))
 
-      if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
+      # if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
+      if False: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
         input_file = read_file(self.__Li[i]).strip()
+
         # Store the original stdin and stdout
         original_stdin = sys.stdin
 
@@ -609,10 +710,10 @@ class problem:
         sys.stdin = saved_stdin
         c = input("Finish executing the program? [N/y] ").lower()
         if c == "" or c == "n":
-          exit()
+          sys.exit(1)
         elif c != "y":
           print("Abort.")
-          exit()
+          sys.exit(1)
 
       try:
         saved_stdin = sys.stdin
@@ -636,4 +737,5 @@ if __name__ == "__main__":
   # one.run_demo("/home/ghoudiy/Documents/Programming/Python/Competitive_Programming/CodeForces/A_Problems/Optimization/50A_Domino_piling.py")
   # one = contest(1844)
   # one.create_problems_files(os.getcwd(), True)
+  print(problem("4A").problem_statement())
   pass
