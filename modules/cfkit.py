@@ -7,7 +7,6 @@ from inspect import currentframe
 from requests import get
 from bs4 import BeautifulSoup
 from mechanicalsoup import StatefulBrowser
-import commands
 from typing import TypeAlias
 File: TypeAlias = str
 Directory: TypeAlias = str
@@ -271,6 +270,70 @@ class problem:
 
 
   @print_function_name
+  def problem_statement(self, saveInFile: bool = False, note: bool = True, examples: bool = True, time_limit: bool = True, memory_limit: bool = True, IO: bool = True) -> str:
+
+    L = self._content[9:]
+    # Printing the note and examples
+    note_test = True
+    if note:
+      try:
+
+        if examples:
+          L[self.__pex-9] = "\n\nExamples"
+          L[self.__pex-8] = "\nInput\n"
+          L[L[self.__pex-8:].index("Output") + (self.__pex - 8)] = "\n\nOutput\n"
+          L[self.__pn-9] = "\n\nNote\n"
+
+        elif not examples:
+          L[self.__pn-9] = "\n\nNote\n"
+          L = L[:self.__pex-9] + L[self.__pn-9:]
+      except ValueError:
+        note_test = False
+    
+    elif not note and examples:
+      try:
+        L = self._content[9:self._content.index("Note")]
+      except ValueError:
+        L = self._content[9:]
+    else:
+      L = self._content[9:self.__pex]
+
+    L[L.index("Input")] = "\n\nInput\n"
+    L[L.index("Output")] = "\n\nOutput\n"
+    L[0] = "\n" + L[0]
+    if not note_test:
+      L.append("Note section is not available")
+    def tmp(x) -> None:
+      if saveInFile:
+        aux = 9
+      else:
+        aux = os.get_terminal_size().columns - 5
+      if x != 0:
+        return f"{(self._content[x] + ': ' + self._content[x+1]).center(aux - 9)}"
+      else:
+        return f"{self._content[x].center(aux - 9)}"
+
+    R = []
+    R.append(f"{tmp(0)}\n") # Problem Name
+    if time_limit: R.append(f"{tmp(1)}\n")
+    if memory_limit: R.append(f"{tmp(3)}\n")
+    if IO: R.append(f"{tmp(5)}\n"); R.append(f"{tmp(7)}\n")
+
+    if saveInFile:
+      path = input("Path to save problem statement text in: ")
+      if path == "":
+        path = os.getcwd()
+      else:
+        contest._check_path_existence(path, 'd')
+      with open(f"{path}{self.__slash}{self._code}.txt", 'w') as file:
+        file.write(" ".join(" ".join(R + L).split("$$$")))
+      return f"Problem statement saved in {path}{self.__slash}{self._code}.txt"
+    else:
+      print(*R)
+      return " ".join(" ".join(L).split("$$$"))
+
+
+  @print_function_name
   def extract(self, path: Directory = None, CreateTestsDir: bool = True, __check_path: bool = True):
 
     if path == None: path = os.getcwd()
@@ -380,10 +443,111 @@ class problem:
     verdict = [(None, None)] * len(self.__Li)
     accepeted = True
 
+    language = lambda x: run(x, shell=True, capture_output=True).returncode == 0
+    # languages = [
+    #   ("python",
+    #     "python3 --version",
+    #     "python --version",
+    #     "py --version"),
       
+    #   ("C++",
+    #     ("GNU C++",
+    #     "g++ --version",
+    #     "c++ --version",
+    #     "gcc --version"),
+    #     "clang++ --version"),
+
+    #     ("MSVC",
+    #      "cl /V")
+
+    #   ("C",
+    #     "gcc --version"),
+
+    #   ("D",
+    #     "gdc --version",
+    #     "dmd --version"),
+
+    #   ("Go",
+    #   "go version"),
+
+    #   ("Haskell",
+    #   "ghc --version"),
+
+    #   ("Java",
+    #   "java -version"),
+
+    #   ("Kotlin",
+    #   "kotlin -version"),
+
+    #   ("OCaml",
+    #   "ocaml -version"),
+
+    #   ("Delphi",
+    #   "delphi -version"),
+
+    #   ("Free Pascal",
+    #   "fpc -version"),
+
+    #   ("Perl",
+    #   "perl -v"),
+
+    #   ("PHP",
+    #   "php -v"),
+
+    #   ("Ruby",
+    #   "ruby -v"),
+
+    #   ("Rust",
+    #   "rustc --version"),
+
+    #   ("Scala",
+    #   "scala -version"),
+
+    #   ("JavaScript (Node.js)",
+    #   "d8 --version"),
+
+    #   ("Node.js",
+    #   "node -v"),
+    # ]
+    # extensions = [
+    #   ("C++", ("cpp", "cxx", "C", "cc")),
+    #   ("C", ("c")),
+    #   ('C#', ('.cs',)),
+    #   ('D', ('.d',)),
+    #   ('Go', ('.go',)),
+    #   ('Haskell GHC', ('.hs',)),
+    #   ('Java', ('.java')),
+    #   ('Kotlin', ('.kt',)),
+    #   ('OCaml', ('.ml',)),
+    #   ('Delphi', ('.pas',)),
+    #   ('Pascal', ('.pas',)),
+    #   ('Perl', ('.pl',)),
+    #   ('PHP', ('.php', '.phar',)),
+    #   ("Python", ("py", "pyc", "pyo")),
+    #   ('Ruby', ('.rb',)),
+    #   ('Rust', ('.rs',)),
+    #   ('Scala', ('.scala',)),
+    #   ('JavaScript', ('.js',)),
+    #   ('Node.js', ('.js',)),
+    # ]
+
 
     for i in range(len(self.__Li)):
       test_case = f"{self._code}_test_case{i+1}.out"
+ 
+      # @print_function_name
+      def test_interpreter(c, ext):
+        p = ext.rfind(".")
+        if p == -1:
+          print("Please add the extension to file name in order to detect the programming language")
+          sys.exit(1)
+        else:
+          ext = ext[ext.rfind(".")+1:]
+
+        pass
+      # k = test_interpreter(commands)
+      interpreter = lambda x: run(f"python3 {x} < {self.__Li[i]} > {test_case}", shell=True) if False else None
+
 
       if currentframe().f_back.f_code.co_name == "test":
         line_number = currentframe().f_back.f_back.f_lineno
@@ -415,7 +579,7 @@ class problem:
         interpreter("codeforces_module_user_code.py")
         os.remove("codeforces_module_user_code.py")         
 
-      else: command(f"{dir_name}{self.__slash}{self.__path}", self.__path[self.__path.rfind(".")+1:]) if self.__path.find(self.__slash) == -1 else command(self.__path, os.path.basename(self.__path))
+      else: interpreter(f"{dir_name}{self.__slash}{self.__path}", self.__path[self.__path.rfind(".")+1:]) if self.__path.find(self.__slash) == -1 else interpreter(self.__path, os.path.basename(self.__path))
 
       # if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
       if False: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
@@ -573,5 +737,5 @@ if __name__ == "__main__":
   # one.run_demo("/home/ghoudiy/Documents/Programming/Python/Competitive_Programming/CodeForces/A_Problems/Optimization/50A_Domino_piling.py")
   # one = contest(1844)
   # one.create_problems_files(os.getcwd(), True)
-  # print(problem("1857G").problem_statement())
+  print(problem("4A").problem_statement())
   pass

@@ -1,30 +1,21 @@
 from mechanicalsoup import StatefulBrowser
+from re import search
 
 def codeforces_login(username, password, problem_code, programming_language, path):
-    # Create a browser object
     browser = StatefulBrowser()
-
-    # Navigate to the Codeforces login page
     login_url = 'https://codeforces.com/enter'
     browser.open(login_url)
-
-    # Find the login form
     browser.select_form('form[id="enterForm"]')
-
-    # Fill out the login form
     browser["handleOrEmail"] = username
     browser["password"] = password
 
-    # Submit the form
     browser.submit_selected()
 
     # Check if login was successful
     pass
 
-    form_url = 'https://codeforces.com/problemset/submit'
+    form_url = f'https://codeforces.com/contest/{search(r"[A-z]", problem_code).start()}/submit'
     browser.open(form_url)
-
-    # Find the form on the submission page
     form = browser.select_form(f'form[class="submit-form"]')
 
     # Fill out the form fields
@@ -36,9 +27,12 @@ def codeforces_login(username, password, problem_code, programming_language, pat
     # Submit the form
     browser.submit_selected()
 
-    # Check if the submission was successful (You may need to implement additional checks depending on the response)
+    # Check if the submission was successful (You may need to implement additional script depending on the response)
     pass
 
 
-if __name__ == "__main__":
-    codeforces_login("ghoudiy", "codeforcesGh2202", "144A", "31", "/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/A_Problems/144A_Arrival_of_the_General.py")
+# if __name__ == "__main__":
+#     codeforces_login("ghoudiy", "codeforcesGh2202", "144A", "31", "/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/A_Problems/144A_Arrival_of_the_General.py")
+a = {"test": 1, "hello": 2}
+b = a.pop("hey", a)
+print(b)
