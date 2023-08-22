@@ -2,7 +2,7 @@ from inspect import currentframe
 from shutil import rmtree
 from typing import TypeAlias
 from util.util import *
-import commands
+from commands import execute_file
 File: TypeAlias = str
 
 
@@ -82,10 +82,10 @@ def run_demo(self, path: File = None):
                 
       with open("codeforces_module_user_code.py", 'w') as file:
         file.write("".join(code[:line_number-1] + code[line_number:]))
-      executing_command("codeforces_module_user_code.py")
+      execute_file("codeforces_module_user_code.py")
       os.remove("codeforces_module_user_code.py")         
 
-    else: command(os.path.join(dir_name, self.__path), self.__path[self.__path.rfind(".")+1:]) if self.__path.find(system_slash) == -1 else command(self.__path, os.path.basename(self.__path))
+    else: execute_file(os.path.join(dir_name, self.__path), self.__path[self.__path.rfind(".")+1:]) if self.__path.find(system_slash) == -1 else command(self.__path, os.path.basename(self.__path))
 
     # if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
     if False: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.

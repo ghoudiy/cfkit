@@ -57,4 +57,18 @@ def file_name(name, code):
   name = f"{code}{name[:-1]}" if name[-1] == "_" else f"{code}{name}"
   return name
 
+
+def yesOrNo(message):
+  c = input(f"{message}? [Y/n] ").lower()
+  if c in ("yes", "y", ""):
+    return True
+  elif c in ("no", "n"):
+     return False
+  else:
+    yesOrNo(message)
+
+def confirm(x, z):
+  if not yesOrNo(f"Confirm the {z}"):
+    return input(f"Please retype the {z}:\n")
+  return x
 machine = sys.platform
