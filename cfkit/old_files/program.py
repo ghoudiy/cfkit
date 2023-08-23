@@ -41,7 +41,7 @@ class contest:
   def __init__(self, contestId: int) -> None:
     self._id = contestId
     self._check_contest_id(contestId)
-    self._content = self.__content_contest()
+    self._content = self._content_contest()
   
 
   @print_function_name
@@ -140,19 +140,19 @@ class problem:
   
   @print_function_name
   def __init__(self, problem_code: ProblemCodeOrFile = sys.argv[0]) -> None:
-    self.__slash = contest._define_slash()
-    self.__letter_index = None
-    self.__pn = None
-    self.__pex = None
-    self.__path = None
-    self._code = self.__check_entry(problem_code)
-    self._content = self.__content()
+    self._slash = contest._define_slash()
+    self._letter_index = None
+    self._note_index = None
+    self._example.index = None
+    self._path = None
+    self._code = self._check_entry(problem_code)
+    self._content = self._content()
     self.name = self._content[0]
-    self.__data_path = None
-    self.__Lo = None
-    self.__Li = None
-    self.__fwrong = None
-    self.__tfwrong = None
+    self._data_path = None
+    self._expected_output_list = None
+    self._samples_list = None
+    self._fwrong = None
+    self._tfwrong = None
 
 
   @print_function_name
@@ -166,7 +166,7 @@ class problem:
         # raise SyntaxError(f"invalid problem code '{code}")
         print(f"Invalid problem code '{code}'")
         sys.exit(1)
-      self.__letter_index = p
+      self._letter_index = p
 
 
   @print_function_name
@@ -201,7 +201,7 @@ class problem:
           self._check_problem_code(aux)
           # code = expected(aux)
           code = aux
-          self.__path = problem_code
+          self._path = problem_code
 
         except SyntaxError:
           print("Problem code couldn't be recognized from the given path")
@@ -213,7 +213,7 @@ class problem:
           # code = expected(dir_name + base_name[0])
           code = dir_name + base_name[0]
           self._check_problem_code(code)
-          self.__path = problem_code
+          self._path = problem_code
         else:
           print("Problem code couldn't be recognized from the given path")
           code = enter_code()
@@ -229,20 +229,20 @@ class problem:
   def __content(self):
 
     # Problem statement
-    response = get(f"https://codeforces.com/problemset/problem/{self._code[:self.__letter_index]}/{self._code[self.__letter_index:]}")
+    response = get(f"https://codeforces.com/problemset/problem/{self._code[:self._letter_index]}/{self._code[self._letter_index:]}")
     response.raise_for_status()
     s = response.text
     s = s[s.find('class="problem-statement"') + 26:]    
     p = s.find("</p></div></div>") # Note section tag
     if p != -1:
       aux = [string for string in BeautifulSoup(s[:p], "html.parser").stripped_strings]
-      self.__pn = aux.index("Note")
+      self._note_index = aux.index("Note")
     else:
       aux = [string for string in BeautifulSoup(s[:s.find("</pre></div></div></div>")], "html.parser").stripped_strings]
     try:
-      self.__pex = aux.index("Examples")
+      self._example.index = aux.index("Examples")
     except ValueError:
-      self.__pex = aux.index("Example")
+      self._example.index = aux.index("Example")
     return aux
 
 
@@ -289,40 +289,40 @@ class problem:
       
       if os.path.exists("tests"):
         L = os.listdir("tests")
-        self.__Lo = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
-        self.__Li = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
-        if len(self.__Lo) != len(self.__Li):
+        self._expected_output_list = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
+        self._samples_list = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
+        if len(self._expected_output_list) != len(self._samples_list):
         
           c = input("Another folder with the same name already exists\n\[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").lower()
           while c != 'r' and c != 'c' and c != "w":
             c = input("[W/r/c]")
         
           if c == 'r':
-            rmtree(f"{path}{self.__slash}tests")
-            self.__data_path = tmp("tests")
+            rmtree(f"{path}{self._slash}tests")
+            self._data_path = tmp("tests")
         
           elif c == 'c':
             name = input("Folder name: ")
             contest._path_exist_error(name, "d")
-            self.__data_path = tmp(name)
+            self._data_path = tmp(name)
         
-          else: self.__data_path = "tests"
+          else: self._data_path = "tests"
         
-        else: self.__data_path = "tests"
+        else: self._data_path = "tests"
       
-      else: self.__data_path = tmp("tests")
+      else: self._data_path = tmp("tests")
     
-    else: self.__data_path = path
+    else: self._data_path = path
 
-    R = self._content[self.__pex+1:] if self.__pn == None else self._content[self.__pex+1:self.__pn]
+    R = self._content[self._example.index+1:] if self._note_index == None else self._content[self._example.index+1:self._note_index]
     nr = R.count("Input")
     aux = nr
     while nr > 0:
   
       @print_function_name
       def in_out_files(nr1, nr2, ext, start, end):
-        if not os.path.exists(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}"):
-          with open(f"{self.__data_path}{self.__slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
+        if not os.path.exists(f"{self._data_path}{self._slash}{self._code}_{nr1 - nr2 + 1}.{ext}"):
+          with open(f"{self._data_path}{self._slash}{self._code}_{nr1 - nr2 + 1}.{ext}", 'w') as ff:
             for data in R[start+1:end]:
               ff.write(f"{data}\n")
 
@@ -354,36 +354,36 @@ class problem:
   
     from io import StringIO
     _argv = False
-    if path == None and self.__path == None: # When the user enter 234A
-      self.__path = sys.argv[0]
-      if not self.__path:
-        self.__path = __tmp(input("Path of the problem file: "))
+    if path == None and self._path == None: # When the user enter 234A
+      self._path = sys.argv[0]
+      if not self._path:
+        self._path = __tmp(input("Path of the problem file: "))
       else:
         _argv = True
  
-    elif path != None and self.__path == None: # When the user enter the path e.g. problems/1234A.py in run_demo function
-      self.__path = __tmp(path)
+    elif path != None and self._path == None: # When the user enter the path e.g. problems/1234A.py in run_demo function
+      self._path = __tmp(path)
     
-    elif path == None and self.__path != None: # When the user enter the path in test or __init__ functions or leave it empty and the working file is the problem file
+    elif path == None and self._path != None: # When the user enter the path in test or __init__ functions or leave it empty and the working file is the problem file
       _argv = True
 
     del path
-    dir_name = os.path.dirname(self.__path)
+    dir_name = os.path.dirname(self._path)
     if dir_name == "":
       dir_name = os.getcwd()
-      self.__path = f"{dir_name}{self.__slash}{self.__path}"
+      self._path = f"{dir_name}{self._slash}{self._path}"
 
-    if self.__data_path == None: self.extract(dir_name, True, False)
-    os.chdir(f"{dir_name}{self.__slash}{self.__data_path}")
+    if self._data_path == None: self.extract(dir_name, True, False)
+    os.chdir(f"{dir_name}{self._slash}{self._data_path}")
 
     L = os.listdir()
-    if self.__Li == None:
-      self.__Li = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
-      self.__Lo = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
-    verdict = [(None, None)] * len(self.__Li)
+    if self._samples_list == None:
+      self._samples_list = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
+      self._expected_output_list = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
+    verdict = [(None, None)] * len(self._samples_list)
     accepeted = True
 
-    for i in range(len(self.__Li)):
+    for i in range(len(self._samples_list)):
       test_case = f"{self._code}_test_case{i+1}.out"
 
       if _argv: # If working with the solution file itself and it's a python file
@@ -393,7 +393,7 @@ class problem:
         elif currentframe().f_back.f_code.co_name == "<module>":
           line_number = currentframe().f_back.f_lineno
 
-        with open(self.__path) as file:
+        with open(self._path) as file:
           code = file.readlines()
         for j in range(len(code[:line_number-1])):
           pc = code[j].find("cfkit")
@@ -415,14 +415,14 @@ class problem:
                   
         with open("codeforces_module_user_code.py", 'w') as file:
           file.write("".join(code[:line_number-1] + code[line_number:]))
-        executing_command("codeforces_module_user_code.py")
+        # executing_command("codeforces_module_user_code.py")
         os.remove("codeforces_module_user_code.py")         
 
-      else: command(f"{dir_name}{self.__slash}{self.__path}", self.__path[self.__path.rfind(".")+1:]) if self.__path.find(self.__slash) == -1 else command(self.__path, os.path.basename(self.__path))
+      # else: exec(f"{dir_name}{self._slash}{self._path}", self._path[self._path.rfind(".")+1:]) if self._path.find(self._slash) == -1 else command(self._path, os.path.basename(self._path))
 
       # if k == -1: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
       if False: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
-        input_file = read_file(self.__Li[i]).strip()
+        input_file = read_file(self._samples_list[i]).strip()
 
         # Store the original stdin and stdout
         original_stdin = sys.stdin
@@ -450,7 +450,7 @@ class problem:
         with open(test_case, 'w') as file:
           file.write(output_stream.getvalue())
 
-      expected = read_file(self.__Lo[i])
+      expected = read_file(self._expected_output_list[i])
       observed = read_file(test_case)
       if expected == observed:
         verdict[i] = (f"test case {i+1}", "OK")
@@ -484,19 +484,19 @@ class problem:
           p = 0 # lines
           ok = True
           while ok and p < l:
-            aux = lambda p, j, x: f"wrong answer in {self.__english_ending(p)} line {self.__english_ending(j)} {x} differ - expected: '{a}', found: '{b}'"
+            aux = lambda p, j, x: f"wrong answer in {self._english_ending(p)} line {self._english_ending(j)} {x} differ - expected: '{a}', found: '{b}'"
             j = 1 # Columns
             while ok and j < len(Z[p]):
               a = Z[p][j][1]
               b = Y[p]
               if a.isdigit() and b.isdigit() or t == "f":
                 ok = aux(float(a), float(b))
-                if not ok and self.__tfwrong == None:
-                  self.__tfwrong = aux(p, j, "numbers")
+                if not ok and self._tfwrong == None:
+                  self._tfwrong = aux(p, j, "numbers")
               else:
                 ok = aux(a, b)
-                if not ok and self.__tfwrong == None:
-                  self.__tfwrong = aux(p, j, "words")
+                if not ok and self._tfwrong == None:
+                  self._tfwrong = aux(p, j, "words")
               j += 1
             p += 1
           return ok
@@ -517,14 +517,14 @@ class problem:
         else:
           accepeted = False
           verdict[i] = (f"test case {i+1}", "Wrong answer")
-          if self.__fwrong == None: self.__fwrong = i + 1
+          if self._fwrong == None: self._fwrong = i + 1
 
     # Remove samples if accepeted
   
     if accepeted:
       print("Demo Accepeted")
-      l = len(self.__Li)
-      if len(os.listdir()) == len(self.__Li) * 3:
+      l = len(self._samples_list)
+      if len(os.listdir()) == len(self._samples_list) * 3:
         rmtree(os.getcwd())
       else:
         # @print_function_name
@@ -532,12 +532,12 @@ class problem:
           for file in file_list:
             os.remove(file)
       
-        remove_files(self.__Li)
-        remove_files(self.__Lo)
+        remove_files(self._samples_list)
+        remove_files(self._expected_output_list)
         remove_files([f"{self._code}_test_case{i}.out" for i in range(1, l+1)])
     else:
-      print(f"Wrong answer on test {self.__fwrong}")
-      print(f"Checker log:\n{self.__tfwrong}")
+      print(f"Wrong answer on test {self._fwrong}")
+      print(f"Checker log:\n{self._tfwrong}")
       for v in verdict:
         print(f"{v[0]} => {v[1]}")
     

@@ -2,6 +2,7 @@ from .util.util import *
 from typing import TypeAlias
 Directory: TypeAlias = str
 
+
 class contest:
   def __init__(self, contestId: int) -> None:
     self._id = contestId
@@ -48,8 +49,8 @@ class contest:
         aux = file_name(self, N[i], f"{letter}_") + f".{ext}"
       else:
         aux = letter
-      if ext == "py":
-        with open(aux, 'a') as file:
-          with open(f"{os.path.dirname(__file__)}{system_slash}python_template.py", 'r') as ff:
-            file.write(ff.read())
-      else: open(aux, 'x').close()
+      # if ext == "py":
+      #   with open(aux, 'a') as file:
+      #     with open(os.path.join(os.path.dirname(__file__), "templates", ""), f"{os.path.dirname(__file__)}{}python_template.py", 'r') as ff:
+      #       file.write(ff.read())
+      # else: open(aux, 'x').close()

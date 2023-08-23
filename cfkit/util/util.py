@@ -18,9 +18,9 @@ def check_path_existence(path, fileOrDir):
     sys.exit(1)
 
 
-def check_contest_id(contestId: int):    
+def check_contest_id(contestId: int, err=False):    
     ok = isinstance(contestId, int)
-    if isinstance(contestId, str) and not ok  and contestId.isdigit():
+    if isinstance(contestId, str) and not ok and contestId.isdigit():
       contestId = int(contestId)
     if ok:
       response = get(f"https://codeforces.com/problemset/")
@@ -29,13 +29,13 @@ def check_contest_id(contestId: int):
       ub = ub[ub.find('<a href="/problemset/problem/') + 29:]
       ub = BeautifulSoup(ub[:ub.find('/')], "html.parser") # Or to the last <script> tag
       if not 1 <= contestId <= int(str(ub)):
-        # raise SyntaxError(f"invalid contestId '{contestId}'")
+        if err:
+          raise SyntaxError
         print(f"Invalid contestId '{contestId}'")
         sys.exit(1)
-    else: 
-      # raise ValueError("contestId must be an integer")
-        print(f"Contest ID must be an integer")
-        sys.exit(1)
+    else:
+      print(f"Contest ID must be an integer")
+      sys.exit(1)
 
 
 def english_ending(x):
@@ -49,6 +49,7 @@ def english_ending(x):
   if x % 10 == 3:
       return "rd"
   return "th"
+
 
 def file_name(name, code):
   name = re.sub("[A-z]'(s|S)", "s", name)
@@ -67,8 +68,12 @@ def yesOrNo(message):
   else:
     yesOrNo(message)
 
+
 def confirm(x, z):
   if not yesOrNo(f"Confirm the {z}"):
     return input(f"Please retype the {z}:\n")
   return x
+
+
 machine = sys.platform
+problem_code_pattern = r"\A[1-9]{1}\d{,3}[A-z]\d?"

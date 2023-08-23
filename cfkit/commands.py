@@ -4,21 +4,13 @@ from json import load, dump
 from subprocess import run
 from cfkit.util.util import machine, confirm
 
-
-execute_commands = {
- "win32": "{output}.exe < {input_file} > {output_file}", 
- "linux": "./{output}.out < {input_file} > {output_file}",
- "darwin": "./{output}.out < {input_file} > {output_file}",
-}
-
-
-def add_execute_command(dictionary):
-  for key, value in dictionary.items():
-    if isinstance(value, str):
-      dictionary[key] = f"{value} && {execute_commands[machine]}"
-    elif isinstance(value, dict):
-      add_execute_command(value)
-  return dictionary
+# def add_execute_command(dictionary):
+#   for key, value in dictionary.items():
+#     if isinstance(value, str):
+#       dictionary[key] = f"{value} && {execute_commands[machine]}"
+#     elif isinstance(value, dict):
+#       add_execute_command(value)
+#   return dictionary
 
 
 def read_file(x):
@@ -26,10 +18,10 @@ def read_file(x):
     return load(file)
 
 
-chdir(path.join(path.abspath(path.dirname(__file__)), "json"))
+chdir(path.join(path.dirname(__file__), "json"))
 extensions: dict = read_file("extensions.json")
 compilers_interpreters: dict = read_file("compilers_interpreters.json")
-compiling_commands: dict = add_execute_command(read_file("compiling_commands.json"))
+compiling_commands: dict = read_file("compiling_commands.json")
 one_line_compiled: dict = read_file("one_line_compiled.json")
 interpreting_commands: dict = read_file("interpreting_commands.json")
 
@@ -134,9 +126,9 @@ def detect_implementation(programming_language):
 
           elif not implementation_lists[key][0] and implementation_lists[key][1]:
             if machine == "win32":
-              return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -Wl,--stack=268435456 -O2 -o {output}.exe {file} -lstdc++" + f" && {execute_commands['win32']}", None
+              return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -Wl,--stack=268435456 -O2 -o {output}.exe {file} -lstdc++", None
 
-            return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o {output}.exe {file} -lstdc++" + f" && {execute_commands[machine]}", None
+            return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o {output}.exe {file} -lstdc++", None
 
           elif not (implementation_lists[key][0] and implementation_lists[key][1]):
             return None, "compiler"
@@ -246,11 +238,11 @@ def detect_implementation(programming_language):
       print("\n" + "\n".join(L[:-2]))
       x = input("Command: ") + " < {input_file} > {output_file}"
     return x
-  command = check_command(input("\nPlease enter below the command you'd like to use:\n") + " < {input_file} > {output_file}")
+  command = check_command(input("\nPlease enter below the command you'd like to use:\n"))
   return check_command(confirm(command, "command"))
 
 
-def execute_file(file: str, inputPath, outputPath):
+def execute_file(file: str, inputPath: str, outputPath: str, memory_limit: float, sample_id) -> None:
   extension = file[file.rfind('.')+1:]
   if extension == file:
     print("Please add the appropriate file extension to the file name. This ensures accurate language identification.")
@@ -266,11 +258,13 @@ def execute_file(file: str, inputPath, outputPath):
       sysExit(1)
 
     programming_language = extensions[extension]
-    command = detect_implementation(programming_language)
-    configuration[platform]["execute_command"] = command
+    execute_command = detect_implementation(programming_language)
+    configuration[platform]["execute_command"] = execute_command
     configuration[platform]["default_language"] = programming_language
     with open(config_file, 'w', encoding="UTF-8") as platforms_file:
       dump(configuration, platforms_file, indent=4)
-    return command.replace("{input_file}", inputPath).replace("{output_file}", outputPath)
+    run_command = path.join(path.dirname(__file__), "util", "memory_usage.exe " if machine == "win32" else "./memory_usage.exe ")
+    run_command += f" {'./' if machine != 'win32' else ''}{outputPath}.exe {memory_limit} {outputPath}_memory.out {inputPath} {outputPath}.out {sample_id}" + (execute_command.replace("{output}", outputPath))
+    run(run_command, shell=True, check=True)
  
-  return execute_command.replace("{input_file}", inputPath).replace("{output_file}", outputPath)
+  run(execute_command.replace("{input_file}", inputPath).replace("{output_file}", outputPath), shell=True, check=True)
