@@ -34,10 +34,18 @@
                 "darwin": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -o {output}.exe {file}"
             }
         },
-        "Microsoft Visual Studio C++ 2017": "cl /std:c++17 /W4 /analyze /w44263 /w44270 /STACK268435456 /EHsc /O2 /Fe:{output}.exe {file}"
+        "Microsoft Visual Studio C++ 2017": {
+            "win32": "cl /std:c++17 /W4 /analyze /w44263 /w44270 /STACK268435456 /EHsc /O2 /Fe:{output}.exe {file}",
+            "linux": null,
+            "darwin": null
+        }
     },
     "C#": {
-        ".NET": "csc.exe /o+ /out:{output}.exe {file}"
+        ".NET": {
+            "win32": "csc.exe /o+ /out:{output}.exe {file}",
+            "linux": null,
+            "darwin": null
+        }
     },
     "D": {
         "DMD": {
@@ -51,11 +59,31 @@
             "darwin": "gdc -Wall -Wextra -fno-strict-aliasing -pedantic -Wshadow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -o {output}.exe {file}"
         }
     },
-    "OCaml": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o {output}.exe -ocaml {file}",
-    "Delphi 7": "dcc{architecture} -Q -cc {file} && ren {file}.exe {new_name}.exe",
-    "Pascal": {
-        "Free Pascal": "fpc -n -O2 -viwn -Mdelphi {file} -o {output}.exe",
-        "PascalABC.NET": "pabcnetc {file} && ren {file}.exe {output}.exe && ren {file}.dpr {output}.dpr"
+    "OCaml": {
+        "win32": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o {output}.exe -ocaml {file}",
+        "linux": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o {output}.exe -ocaml {file}",
+        "darwin": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o {output}.exe -ocaml {file}"
     },
-    "Rust": "rustc -C opt-level=2 -o {output}.exe {file}"
+    "Delphi 7": {
+        "win32": "dcc{architecture} -Q -cc {file} && ren {file}.exe {new_name}.exe",
+        "linux": null,
+        "darwin": null
+    },
+    "Pascal": {
+        "Free Pascal": {
+            "win32": "fpc -n -O2 -viwn -Mdelphi {file} -o {output}.exe",
+            "linux": null,
+            "darwin": null
+        },
+        "PascalABC.NET": {
+            "win32": "pabcnetc {file} && ren {file}.exe {output}.exe && ren {file}.dpr {output}.dpr",
+            "linux": null,
+            "darwin": null
+        }
+    },
+    "Rust": {
+        "win32": "rustc -C opt-level=2 -o {output}.exe {file}",
+        "linux": "rustc -C opt-level=2 -o {output}.exe {file}",
+        "darwin": "rustc -C opt-level=2 -o {output}.exe {file}"
+    }
 }

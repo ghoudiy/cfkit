@@ -1,1 +1,1 @@
-# print("Hello from __init__")
+from cfkit.__main__ import Problem, Contest

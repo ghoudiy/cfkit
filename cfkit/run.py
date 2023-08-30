@@ -1,182 +1,211 @@
+import sys
+import os
+from io import StringIO
+from re import search
 from inspect import currentframe
 from shutil import rmtree
 from typing import TypeAlias
-from util.util import *
-from cfkit.__main__ import problem
-from commands import execute_file
+
+
+from cfkit.__main__ import Problem
+from cfkit.util.util import check_path_existence, english_ending
+from cfkit.commands import execute_file
+
 File: TypeAlias = str
 
 
-class test(problem):
+class Test(Problem):
 
-  def run_demo(self):
+
+  def run_demo(self, file_path: str = None):
     def read_file(x):
-      with open(x, 'r') as file:
+      with open(x, 'r', encoding="UTF-8") as file:
         y = file.read()
       return y
-    
+
     def __tmp(x):
       check_path_existence(x, 'f')
       while os.path.isdir(x):
         x = input("The file path you provided is a directory.\nPlease provide the path to a file instead: ")
+      check_path_existence(x, 'f')
       return x
 
-    from io import StringIO
     _argv = False
-    if path == None and self._path == None: # When the user enter 234A
+
+    if (file_path is None) and (self._path is None): # When the user enter 234A
       self._path = sys.argv[0]
       if not self._path:
         self._path = __tmp(input("Path of the problem file: "))
+
       else:
+        # Need to add some features here
+        # Search for the problem file cwd
         _argv = True
 
-    elif path != None and self._path == None: # When the user enter the path e.g. problems/1234A.py in run_demo function
-      self._path = __tmp(path)
-    
-    elif path == None and self._path != None: # When the user enter the path in test or __init__ functions or leave it empty and the working file is the problem file
-      _argv = True
+    elif (file_path is not None) and (self._path is None): # When the user enter a path e.g. 1234A.py
+      self._path = __tmp(file_path)
 
-    del path
+    elif (file_path is None) and (self._path is not None):
+      # Need to be fix it
+      if currentframe().f_back.f_code.co_filename != os.path.join(os.path.dirname(__file__), "cli.py"):
+        _argv = True
+
+    del file_path
+
     dir_name = os.path.dirname(self._path)
     if dir_name == "":
       dir_name = os.getcwd()
       self._path = os.path.join(dir_name, self._path)
 
-    if self._data_path == None: self.extract(dir_name, True, False)
+    if self._data_path is None:
+      self.parse(dir_name, True, False)
     os.chdir(os.path.join(dir_name, self._data_path))
 
     L = os.listdir()
-    if self._samples_list == None:
-      self._samples_list = sorted([file for file in L if re.search(rf"{self._code}_\d.in", file) != None])
-      self._expected_output_list = sorted([file for file in L if re.search(rf"{self._code}_\d.out", file) != None])
-    verdict = [(None, None)] * len(self._samples_list)
+    if self._input_samples is None:
+      self._input_samples = sorted([file for file in L if search(rf"{self._code}_\d.in", file) is not None])
+      self._expected_output_list = sorted([file for file in L if search(rf"{self._code}_\d.out", file) is not None])
+    verdict = [(None, None)] * len(self._input_samples)
     accepeted = True
 
-    for i in range(len(self._samples_list)):
-      test_case = f"{self._code}_test_case{i+1}"
+    for i, input_sample in enumerate(self._input_samples):
+      output_path = f"{self._code}_test_case{i+1}.out"
 
       if _argv: # If working with the solution file itself and it's a python file
         if currentframe().f_back.f_code.co_name == "test":
           line_number = currentframe().f_back.f_back.f_lineno
-      
+
         elif currentframe().f_back.f_code.co_name == "<module>":
           line_number = currentframe().f_back.f_lineno
 
-        with open(self._path) as file:
+        with open(self._path, 'r', encoding="UTF-8") as file:
           code = file.readlines()
+
         for j in range(len(code[:line_number-1])):
           pc = code[j].find("cfkit")
+
           if pc != -1:
             p = code[j].find("import")
             p1 = code[j].find(",")
+
             if (p != -1 and p1 == -1 or code[j].find("from") != -1):
               code[j] = f"# {code[j]}\n"
+
             elif p != -1 and p1 != -1: # import math, cfkit
               code[j] = code[j].split(",")
+
               if code[j][0].find("cfkit") != -1:
+
                 if len(code[j][1:]) > 1:
                   code[j] = f"import {', '.join(code[j][1:])}\n"
+
                 else:
                   code[j] = f"import {code[j][1]}\n"
+
               else:
                 code[j] = list(map(lambda x: x.replace("cfkit", "").strip(), code[j]))
                 code[j] = ", ".join(list(filter(lambda x: bool(x), code[j]))) + "\n"
-                  
-        with open("cfkit_module_user_code.py", 'w') as file:
+
+        with open("cfkit_module_user_code.py", 'w', encoding="UTF-8") as file:
           file.write("".join(code[:line_number-1] + code[line_number:]))
-        execute_file("cfkit_module_user_code.py", self._samples_list[i], test_case)
-        os.remove("cfkit_module_user_code.py")         
+        execute_file("cfkit_module_user_code.py", input_sample, output_path, self.memory_limit, f"test {i + 1}")
+        os.remove("cfkit_module_user_code.py")
 
-      else: execute_file(os.path.join(dir_name, self._path), self._path[self._path.rfind(".")+1:]) if self._path.find(system_slash) == -1 else command(self._path, os.path.basename(self._path))
-
-      if False: # Python might not be added to the PATH, or the user may be using an editor or IDE capable of running Python without needing a system-wide installation, such as Thonny.
-        input_file = read_file(self._samples_list[i]).strip()
-
-        # Store the original stdin and stdout
-        original_stdin = sys.stdin
-
-        saved_stdout = sys.stdout
-
-        # Create a file-like object from the input string
-        input_stream = StringIO(input_file)
-
-        # Replace stdin with the input stream
-        sys.stdin = input_stream
-        
-        # Create a new stream for capturing the output
-        output_stream = sys.stdout = StringIO()
-
-        exec(code)
-
-        # Restore stdin and stdout to their original values
-        sys.stdin = original_stdin
-
-        # Restore the original stdout
-        sys.stdout = saved_stdout
-
-        # Write the captured output to .out file
-        with open(test_case, 'w') as file:
-          file.write(output_stream.getvalue())
-
+      else:
+        execute_file(self._path, input_sample, output_path, self.memory_limit, f"test {i + 1}")
 
       expected = read_file(self._expected_output_list[i])
-      observed = read_file(test_case)
+      observed = read_file(input_sample)
       if expected == observed:
         verdict[i] = (f"test case {i+1}", "OK")
         accepeted = accepeted and True
 
       else:
         # In case of results are floating point numbers
-        K = expected.split("\n")[:-1]
-        tmp = len(K)
-        V = [[None, None, None]] * tmp # Float numbers
-        F = [[None, None, None]] * tmp # All data except float
-        for l in range(len(K)):
-          T = K[l].split(' ')
-          V[l] = [l]
-          F[l] = [l]
-          for j in range(len(T)):
-            p = T[j].find(".")
-            V[l].append((j, T[j])) if p != -1 and (T[j][:p] + T[j][p+1:]).isdigit() else F[l].append((j, T[j]))
+        expected = expected.split("\n")[:-1]
+        # Debugging
+        print(f"{expected = }")
+        print("#" * 50)
+        expected_val_length = len(expected)
+        expected_floating_pt_numbers_values = [[] for _ in range(expected_val_length)]
+        expected_string_integers_values = [[] for _ in range(expected_val_length)]
 
-        def tmp(X, Y, Z):
+        for l, expected_values in enumerate(expected):
+          values = expected_values[l].split(' ')
+
+          for j, value in enumerate(values):
+            p = value.find(".")
+            if p != -1 and (value[:p] + value[p+1:]).isdigit():
+              expected_floating_pt_numbers_values[l].append((j, value))
+
+            else:
+              expected_string_integers_values[l].append((j, value))
+
+        # Debugging
+        print(f"{expected_floating_pt_numbers_values = }")
+        print(f"{expected_string_integers_values = }")
+        print("=" * 50)
+
+        def check_presentation_error(observed_values, empty_list_for_observed_values, expected_values):
           try:
-            for m in range(len(Z)):
-              for v in Z[m][1:]:
-                Y[m] = float(X[Z[m][0]].split(" ")[v[0]])
-            return Y
-          except IndexError:
-            pass
-        def Compare_lists(Y, Z, aux, t=""):
-          p = 0 # lines
-          ok = True
-          while ok and p < l:
-            aux = lambda p, j, x: f"wrong answer in {english_ending(p)} line {english_ending(j)} {x} differ - expected: '{a}', found: '{b}'"
-            j = 1 # Columns
-            while ok and j < len(Z[p]):
-              a = Z[p][j][1]
-              b = Y[p]
-              if a.isdigit() and b.isdigit() or t == "f":
-                ok = aux(float(a), float(b))
-                if not ok and self._tfwrong == None:
-                  self._tfwrong = aux(p, j, "numbers")
-              else:
-                ok = aux(a, b)
-                if not ok and self._tfwrong == None:
-                  self._tfwrong = aux(p, j, "words")
-              j += 1
-            p += 1
-          return ok
-        K = observed.split("\n")[:-1]
-        print(F, "F", "\n", K, "K")
-        E = tmp(K, [None] * len(F), F)
-        ok = Compare_lists(E, F, lambda a, b: a == b)
-        l = len(V)
+            for m, expected_value in enumerate(expected_values):
+              for value in expected_value[1:]:
+                empty_list_for_observed_values[m] = observed_values[expected_value[0]].split(" ")[value[0]]
+            return empty_list_for_observed_values
 
-        if ok and l:
-          X = [None] * l
-          X = tmp(K, X, V)
-          ok = Compare_lists(X, V, lambda a, b: abs(a, b) <= max((1.5E-5 + 1E-15) * max(abs(a), abs(b)), 0), 'f')
+          except IndexError:
+            verdict[i] = (f"test case {i+1}", "Presentation error")
+
+        def compare_lists(observed_values, expected_values, func, t=""):
+          '''
+          Compare expected values and observed values
+          '''
+          def wrong_answer_verdict(line, column, x):
+            '''
+            verdict wrong answer message
+            '''
+            return f"wrong answer in {english_ending(line)} line {english_ending(column)} {x} differ - expected: '{a}', found: '{b}'"
+
+          line_number = 0
+          ok = True
+          while ok and line_number < l:
+
+            column_number = 1 # Columns
+            while ok and column_number < len(expected_values[line_number]):
+
+              a = expected_values[line_number][column_number][1]
+              b = observed_values[line_number]
+
+              if a.isdigit() and b.isdigit() or t == "f":
+                ok = func(float(a), float(b))
+                if not ok and self._tfwrong is None:
+                  self._tfwrong = wrong_answer_verdict(line_number, column_number, "numbers")
+
+              else:
+                ok = func(a, b)
+
+                if not ok and self._tfwrong is None:
+                  self._tfwrong = wrong_answer_verdict(line_number, column_number, "words")
+
+              column_number += 1
+            line_number += 1
+          return ok
+
+        observed = observed.split("\n")[:-1]
+        observed_strings_numbers_values = check_presentation_error(observed, [None] * len(expected_string_integers_values), expected_string_integers_values)
+        ok = compare_lists(observed_strings_numbers_values, expected_string_integers_values, lambda a, b: a == b)
+        floating_pt_numbers_values_list_length = len(expected_floating_pt_numbers_values)
+        # Debugging
+        print(f"{observed = }")
+        print(f"{observed_strings_numbers_values = }")
+        print(ok)
+        print("-" * 50)
+
+        if ok and floating_pt_numbers_values_list_length:
+          observed_floating_pt_numbers = check_presentation_error(observed, [None] * floating_pt_numbers_values_list_length, expected_floating_pt_numbers_values)
+          ok = compare_lists(observed_floating_pt_numbers, expected_floating_pt_numbers_values, lambda a, b: abs(a - b) <= max((1.5E-5 + 1E-15) * max(abs(a), abs(b)), 0), 'f')
+          print(f"{observed_floating_pt_numbers = }")
+          print(f"{ok = }")
 
         if ok:
           verdict[i] = (f"test case {i+1}", "OK")
@@ -184,21 +213,23 @@ class test(problem):
         else:
           accepeted = False
           verdict[i] = (f"test case {i+1}", "Wrong answer")
-          if self._fwrong == None: self._fwrong = i + 1
+          if self._fwrong is None:
+            self._fwrong = i + 1
+        print(verdict[i]) # Debugging
 
     # Remove samples if accepeted
-
     if accepeted:
       print("Demo Accepeted")
-      l = len(self._samples_list)
-      if len(os.listdir()) == len(self._samples_list) * 3:
+      l = len(self._input_samples)
+      print(os.listdir())
+      if len(os.listdir()) == len(self._input_samples) * 3:
         rmtree(os.getcwd())
       else:
         def remove_files(file_list):
           for file in file_list:
             os.remove(file)
-      
-        remove_files(self._samples_list)
+
+        remove_files(self._input_samples)
         remove_files(self._expected_output_list)
         remove_files([f"{self._code}_test_case{i}.out" for i in range(1, l+1)])
     else:
@@ -206,14 +237,14 @@ class test(problem):
       print(f"Checker log:\n{self._tfwrong}")
       for v in verdict:
         print(f"{v[0]} => {v[1]}")
-    
+
     if _argv and any(code[line_number:]):
 
-      def tmp():
+      def finish_program():
         sys.stdout = saved_stdout
         sys.stdin = saved_stdin
         c = input("Finish executing the program? [N/y] ").lower()
-        if c == "" or c == "n":
+        if c in ('', 'n'):
           sys.exit(1)
         elif c != "y":
           print("Abort.")
@@ -226,8 +257,6 @@ class test(problem):
         output_stream = sys.stdout = StringIO()
         exec("".join(code[line_number:]))
         if output_stream.getvalue():
-          tmp()          
+          finish_program()
       except EOFError:
-        tmp()
-
-print(test("4A"))
+        finish_program()

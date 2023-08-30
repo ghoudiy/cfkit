@@ -1,13 +1,3 @@
-# from typing import TypeAlias
-# File: TypeAlias = str
+from cfkit.run import Test
 
-
-# def test(path: File = sys.argv[0]):
-#   if path == "":
-#     path = input("Problem path: ")
-#     check_path_existence(path, 'f')
-#   if os.path.samefile(sys.argv[0], path):
-#     problem(path).run_demo()
-#   else:
-#     check_path_existence(path, 'f')
-#     problem(path).run_demo()
+Test("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py").run_demo()
