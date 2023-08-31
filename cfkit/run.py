@@ -8,7 +8,7 @@ from typing import TypeAlias
 
 
 from cfkit.__main__ import Problem
-from cfkit.util.util import check_path_existence, english_ending
+from cfkit.util.util import check_path_existence, english_ending, read_text_from_file
 from cfkit.commands import execute_file
 
 File: TypeAlias = str
@@ -18,10 +18,6 @@ class Test(Problem):
 
 
   def run_demo(self, file_path: str = None):
-    def read_file(x):
-      with open(x, 'r', encoding="UTF-8") as file:
-        y = file.read()
-      return y
 
     def __tmp(x):
       check_path_existence(x, 'f')
@@ -108,14 +104,15 @@ class Test(Problem):
 
         with open("cfkit_module_user_code.py", 'w', encoding="UTF-8") as file:
           file.write("".join(code[:line_number-1] + code[line_number:]))
-        execute_file("cfkit_module_user_code.py", input_sample, output_path, self.memory_limit, f"test {i + 1}")
+        execute_file("cfkit_module_user_code.py", input_sample, output_path, self.memory_limit_bytes, f"test {i + 1}")
         os.remove("cfkit_module_user_code.py")
 
       else:
-        execute_file(self._path, input_sample, output_path, self.memory_limit, f"test {i + 1}")
+        print(self._path, input_sample, output_path, self.memory_limit_bytes, f"test {i + 1}", sep="\n")
+        execute_file(self._path, input_sample, output_path, self.memory_limit_bytes, f"test {i + 1}")
 
-      expected = read_file(self._expected_output_list[i])
-      observed = read_file(input_sample)
+      expected = read_text_from_file(self._expected_output_list[i])
+      observed = read_text_from_file(output_path)
       if expected == observed:
         verdict[i] = (f"test case {i+1}", "OK")
         accepeted = accepeted and True
@@ -131,7 +128,7 @@ class Test(Problem):
         expected_string_integers_values = [[] for _ in range(expected_val_length)]
 
         for l, expected_values in enumerate(expected):
-          values = expected_values[l].split(' ')
+          values = expected_values.split(' ')
 
           for j, value in enumerate(values):
             p = value.find(".")
@@ -149,8 +146,11 @@ class Test(Problem):
         def check_presentation_error(observed_values, empty_list_for_observed_values, expected_values):
           try:
             for m, expected_value in enumerate(expected_values):
-              for value in expected_value[1:]:
-                empty_list_for_observed_values[m] = observed_values[expected_value[0]].split(" ")[value[0]]
+              print(f"{expected_value[m][1:] = }")
+              for value in expected_value[m][1:]:
+                print(observed_values[expected_value[m][0]].split(" "), 123456)
+                continue
+                empty_list_for_observed_values[m] = observed_values[expected_value[m][0]].split(" ")[expected_value[m][0]]
             return empty_list_for_observed_values
 
           except IndexError:
@@ -168,7 +168,7 @@ class Test(Problem):
 
           line_number = 0
           ok = True
-          while ok and line_number < l:
+          while ok and line_number < len(expected_values):
 
             column_number = 1 # Columns
             while ok and column_number < len(expected_values[line_number]):
@@ -216,7 +216,7 @@ class Test(Problem):
           if self._fwrong is None:
             self._fwrong = i + 1
         print(verdict[i]) # Debugging
-
+    exit()
     # Remove samples if accepeted
     if accepeted:
       print("Demo Accepeted")
@@ -260,3 +260,4 @@ class Test(Problem):
           finish_program()
       except EOFError:
         finish_program()
+Test("200B").run_demo("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py")

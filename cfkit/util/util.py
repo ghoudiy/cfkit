@@ -1,7 +1,8 @@
 import sys
-from os import path
 import re
+from os import path
 from requests import get, HTTPError
+from json import load
 
 def path_exist_error(file_path, fileorDir):
   if path.exists(file_path):
@@ -97,8 +98,20 @@ def enter_number(message1, message2, Range):
   c = input(message1)
   while not c.isdigit() or int(c) not in Range:
     c = input(message2)
+  return int(c)
+
+def read_json_file(x):
+  with open(x, 'r', encoding="UTF-8") as file:
+    return load(file)
+
+
+def read_text_from_file(x):
+  with open(x, 'r', encoding="UTF-8") as file:
+    y = file.read()
+  return y
 
 machine = sys.platform
 problem_code_pattern = r"\A[1-9]{1}\d{,3}[A-z]\d?"
 config_folder = path.join(path.expanduser("~"), "AppData\Roaming" if machine == "win32" else ".config", "cfkit")
 config_file = path.join(config_folder, "platforms.json")
+json_folder = path.join(path.dirname(path.dirname(__file__)), "json")

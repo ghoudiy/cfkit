@@ -1,22 +1,12 @@
 from sys import executable
-from os import chdir, path
+from os import path
 from sys import exit as sysExit, maxsize
-from json import load, dump
+from json import dump
 from subprocess import run
-from cfkit.util.util import confirm, check_command, enter_number, machine, config_file
+from cfkit.util.util import confirm, check_command, enter_number, read_json_file, machine, config_file, json_folder
+from cfkit.config import set_default_language, set_other_languages
 
-
-def read_file(x):
-  with open(x, 'r', encoding="UTF-8") as file:
-    return load(file)
-
-
-chdir(path.join(path.dirname(__file__), "json"))
-extensions: dict = read_file("extensions.json")
-compilers_interpreters: dict = read_file("compilers_interpreters.json")
-compiling_commands: dict = read_file("compiling_commands.json")
-one_line_compiled: dict = read_file("one_line_compiled.json")
-interpreting_commands: dict = read_file("interpreting_commands.json")
+configuration = read_json_file(config_file)
 
 NOTE = """
 \nNote:
@@ -29,6 +19,7 @@ If your compilation process requires additional steps for execution, \
 be sure to include them in the command as well.
 
 """
+
 ANOTERH_NOTE = """
 {num}. Do not include any input or output specifications in your command!
 
@@ -44,7 +35,7 @@ There are two types of compilation commands:\n
 Choose the appropriate command based on your needs.
   """
 
-def detect_implementation(programming_language):
+def detect_implementation(programming_language, compilers_interpreters, compiling_commands, one_line_compiled, interpreting_commands):
   def language(command: str) -> bool:
     '''
     Check if the specified programming language is installed on the system and added to the PATH.
@@ -271,53 +262,35 @@ def execute_file(file: str, inputPath: str, outputPath: str, memory_limit: float
     print("\nPlease add the appropriate file extension to the file name. This ensures accurate language identification.")
     sysExit(1)
 
-  configuration = read_file(config_file)
-  execute_command = configuration["execute_command"]
-  if execute_command is None:
-    if extension not in extensions:
-      print("Oops! The desired language is not supported on Codeforces.")
-      sysExit(1)
+  extensions: dict = read_json_file(f"{json_folder}/extensions.json")
+  programming_language = extensions[extension]
+  default_language = configuration["default_language"]
 
-    run_command = path.join(path.dirname(__file__), "util", "memory_usage.exe " if machine == "win32" else "./memory_usage.exe")
-    programming_language = extensions[extension]
-    execute_command, implementation = detect_implementation(programming_language)
-    if implementation == "compiler":
-      run_command += f" {'./' if machine != 'win32' else ''}%%{{output}}%%.exe %%{{memory_limit}}%% %%{{output_memory}}_memory.out%% %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\"" + execute_command
-    else:
-      run_command += f" {'./' if machine != 'win32' else ''}\"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}_memory.out%% %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\""
-    configuration["execute_command"] = execute_command
-    configuration["default_language"] = programming_language
-    with open(config_file, 'w', encoding="UTF-8") as platforms_file:
-      dump(configuration, platforms_file, indent=4)
-
+  def retrieve_run_command(func, language_dict):
+    execute_command = language_dict["execute_command"]
+    if execute_command == None:
+      func(programming_language, detect_implementation)
+    return language_dict["calculate_memory_usage_execution_time_command"]
+  
+  if programming_language == default_language:
+    run_command = retrieve_run_command(set_default_language, configuration)
   else:
-    run_command += f" {'./' if machine != 'win32' else ''}%%{{output}}%%.exe %%{{memory_limit}}%% %%{{output_memory}}_memory.out%% %%{inputPath}%% {outputPath} \"{sample_id}\"" + execute_command
-    output = inputPath[:inputPath.find("_")]
-  # run(run_command, shell=True, check=True)
+    run_command = retrieve_run_command(set_other_languages, configuration["other_languages"][programming_language])
+
+  output = path.basename(inputPath)
+  output = output[:output.find("_")]
+  run_command = run_command.replace("%%{memory_limit}%%", str(memory_limit))
+  run_command = run_command.replace("%%{output_memory}%%", outputPath[:-4])
+  run_command = run_command.replace("%%{input_file}%%", inputPath)
+  run_command = run_command.replace("%%{output_file}%%", outputPath)
+  run_command = run_command.replace("%%{sample_id}%%", sample_id)
+  run_command = run_command.replace("%%{file}%%", file)
+  run_command = run_command.replace("%%{output}%%", output)
+  run_command = run_command.replace("%%{dir_name}%%", path.dirname(inputPath))
   # print(run_command)
+  run(run_command, shell=True, check=True)
   return None
 
-pp = "/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems"
-my_dict = {
-    "c": "C",
-    "cpp": "C++",
-    "cs": "C#",
-    "d": "D",
-    "go": "Go",
-    "hs": "Haskell GHC",
-    "java": "Java",
-    "kt": "Kotlin",
-    "ml": "OCaml",
-    "dpr": "Delphi 7",
-    "pas": "Pascal",
-    "pl": "Perl",
-    "php": "PHP",
-    "py": "Python",
-    "rb": "Ruby",
-    "rs": "Rust",
-    "scala": "Scala",
-    "js": "JavaScript"
-}
-for ext in my_dict:
-  print("=" * 50)
-  execute_file(f"{pp}/200B_Drinks.{ext}", f"{pp}/tests/200B_1.in", f"{pp}/tests/200B_1_test_case.out", 256000000, "test 1")
+# pp = "/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/"
+# execute_file(f"{pp}200B_Drinks.py", f"{pp}tests/200B_1.in", f"{pp}tests/200B_test_case1.out", 265000000, "test 1")
+

@@ -1,14 +1,57 @@
 from os import get_terminal_size, path, mkdir
-from json import load, dump
-from mechanicalsoup import StatefulBrowser
 from getpass import getpass
-from cfkit.util.util import config_file, config_folder
+from json import dump
+from mechanicalsoup import StatefulBrowser
+
+from cfkit.util.util import read_json_file, config_file, config_folder, machine, json_folder
+
+def set_language_attributes(programming_language, configuration, language_dict, __func):
+  extensions: dict = read_json_file(f"{json_folder}/extensions.json")
+  execute_command = language_dict["execute_command"]
+  
+  compilers_interpreters: dict = read_json_file(f"{json_folder}/compilers_interpreters.json")
+  compiling_commands: dict = read_json_file(f"{json_folder}/compiling_commands.json")
+  one_line_compiled: dict = read_json_file(f"{json_folder}/one_line_compiled.json")
+  interpreting_commands: dict = read_json_file(f"{json_folder}/interpreting_commands.json")
+
+  execute_command, implementation = __func(programming_language, compilers_interpreters, compiling_commands, one_line_compiled, interpreting_commands)
+  
+  run_command = path.join(path.dirname(__file__), "util", "memory_usage.exe " if machine == "win32" else "./memory_usage.exe")
+  
+  if implementation == "compiler":
+    run_command += f" %%{{dir_name}}%%{'/./' if machine != 'win32' else ''}%%{{output}}%%.exe %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\" \"{execute_command}\""
+  
+  else:
+    run_command += f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\""
+  
+  # aux = []
+  # for key, value in extensions:
+  #   if value == programming_language:
+  #     aux.append(key)
+  # language_dict["extensions"] = aux
+  language_dict["execute_command"] = execute_command
+  language_dict["calculate_memory_usage_execution_time_command"] = run_command
+  with open(config_file, 'w', encoding="UTF-8") as platforms_file:
+    dump(configuration, platforms_file, indent=4)
+
+  # else:
+
+def set_default_language(language, __func):
+  configuration = read_json_file(config_file)
+  if configuration["default_language"] == None:
+    set_language_attributes(language, configuration, configuration, __func)
+
+
+def set_other_languages(language, __func):
+  configuration = read_json_file(config_file)
+  language_dict = configuration["other_languages"][language]
+  if language_dict["execute_command"] == None:
+    set_language_attributes(language, configuration, language_dict, __func)
 
 
 def default_compiler():
 
-  with open(config_file) as file:
-    configuration = load(file)
+  configuration = read_json_file(config_file)
   if configuration["default_compiler"] == None:
     LANGUAGES = {
       "1. GNU GCC C11 5.1.0": 43,
@@ -72,6 +115,7 @@ def default_compiler():
     configuration["default_compiler"] = data[int(c)-1][data[int(c)-1].find(" ")+1:]
     with open(config_file, 'w') as file:
       dump(configuration, file, indent=4)
+
 
 def login():
     browser = StatefulBrowser()

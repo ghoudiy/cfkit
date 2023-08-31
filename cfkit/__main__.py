@@ -84,8 +84,8 @@ class Problem:
     self._response = self._content()
 
     self.name = self._response[0]
-    self.time_limit = self._response[2]
-    self.memory_limit = self._response[4]
+    self.time_limit_s = self._response[2]
+    self.memory_limit_bytes = self.__convert_to_bytes(self._response[4])
 
     self._data_path = None
     self._expected_output_list = None
@@ -170,12 +170,31 @@ class Problem:
     except ValueError:
 
       try:
+        print(problem_statement)
         self._example_index = problem_statement.index("Examples")
 
       except ValueError:
         self._example_index = problem_statement.index("Example(s)")
 
     return problem_statement
+
+  @staticmethod
+  def __convert_to_bytes(memory):
+    if not memory.isdigit():
+      space = memory.rfind(" ")
+      unit = memory[space+1:].lower()
+      conversion_factors = {
+        "gigabytes": 1E+9,
+        "megabytes": 1E+6,
+        "kilobytes": 1000,
+        "bytes": 1
+      }
+      if unit in conversion_factors:
+        return float(memory[:space]) * conversion_factors[unit]
+      else:
+        print("Couldn't recognize the memory size")
+        sys.exit(1)
+    return float(memory)
 
 
   def create_problem_file(self, ext: str, addProblemNameToFileName: bool = False, path: Directory = os.getcwd()) -> None:
@@ -245,3 +264,5 @@ class Problem:
       in_out_files(aux, nr, "out", po, pi)
       R[po] = "output-done"
       nr -= 1
+
+Problem("200B").parse("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/")

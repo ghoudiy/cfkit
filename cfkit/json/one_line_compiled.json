@@ -1,10 +1,10 @@
 {
     "C#": {
-        "Mono": "mcs -o+ -out:{output}.exe {file} && mono {output}.exe"
+        "Mono": "mcs -o+ -out:{output}.exe %%{file}%% && mono {output}.exe"
     },
-    "Go": "go run {file}",
-    "Haskell GHC": "runghc {file}",   
-    "Java": "java -Duser.language=en -Duser.region=US -Duser.variant=US {file}",
-    "Kotlin": "kotlinc {file} -include-runtime -d {output}.jar && java -jar {output}.jar",
-    "Scala": "scala {file}"
+    "Go": "go run %%{file}%%",
+    "Haskell GHC": "runghc %%{file}%%",   
+    "Java": "java -Duser.language=en -Duser.region=US -Duser.variant=US %%{file}%%",
+    "Kotlin": "kotlinc %%{file}%% -include-runtime -d {output}.jar && java -jar {output}.jar",
+    "Scala": "scala %%{file}%%"
 }
