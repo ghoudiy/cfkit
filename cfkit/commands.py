@@ -279,12 +279,12 @@ def execute_file(file: str, inputPath: str, outputPath: str, memory_limit: float
 
   output = path.basename(inputPath)
   output = output[:output.find("_")]
+  run_command = run_command.replace("%%{file}%%", file)
   run_command = run_command.replace("%%{memory_limit}%%", str(memory_limit))
   run_command = run_command.replace("%%{output_memory}%%", outputPath[:-4])
   run_command = run_command.replace("%%{input_file}%%", inputPath)
   run_command = run_command.replace("%%{output_file}%%", outputPath)
   run_command = run_command.replace("%%{sample_id}%%", sample_id)
-  run_command = run_command.replace("%%{file}%%", file)
   run_command = run_command.replace("%%{output}%%", output)
   run_command = run_command.replace("%%{dir_name}%%", path.dirname(inputPath))
   # print(run_command)

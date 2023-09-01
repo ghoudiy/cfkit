@@ -110,6 +110,13 @@ def read_text_from_file(x):
     y = file.read()
   return y
 
+def is_number(s):
+  try:
+    float(s)
+    return True
+  except ValueError:
+    return False
+
 machine = sys.platform
 problem_code_pattern = r"\A[1-9]{1}\d{,3}[A-z]\d?"
 config_folder = path.join(path.expanduser("~"), "AppData\Roaming" if machine == "win32" else ".config", "cfkit")

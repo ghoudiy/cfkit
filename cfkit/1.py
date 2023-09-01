@@ -119,68 +119,99 @@ class Test(Problem):
       else:
         # In case of results are floating point numbers
         expected = expected.split("\n")[:-1]
-        observed = observed.split("\n")[:-1]
-        def check_length(x, y):
-          if len(x) != len(y):
-            raise InterruptedError
-          
-        try:
-          def wrong_answer_verdict(line, column, x, a, b):
+        expected_val_length = len(expected)
+        expected_floating_pt_numbers_values = [[] for _ in range(expected_val_length)]
+        expected_string_integers_values = [[] for _ in range(expected_val_length)]
+
+        for l, expected_values in enumerate(expected):
+          line = expected_values.split(' ')
+
+          for j, column in enumerate(line):
+            p = column.find(".")
+            if p != -1 and (column[:p] + column[p+1:]).isdigit():
+              expected_floating_pt_numbers_values[l].append((j, column))
+
+            else:
+              expected_string_integers_values[l].append((j, column))
+        print(f"{expected_floating_pt_numbers_values = }")
+        print(f"{expected_string_integers_values = }")
+        print('=' * 50)
+        def check_presentation_error(observed_values, empty_list_for_observed_values, expected_values):
+          try:
+            if any(expected_values) != any(observed_values):
+              raise IndexError
+            else:
+              for m, line in enumerate(expected_values):
+                R = observed_values[m].split(" ")
+                if len(R) == len(line):
+                  for column in line:
+                    empty_list_for_observed_values[m].append(R[column[0]])
+                else:
+                  raise IndexError
+              return empty_list_for_observed_values
+
+          except IndexError:
+            verdict[i] = (f"test case {i+1}", "Presentation error")
+
+        def compare_lists(observed_values, expected_values, func, t=""):
+          '''
+          Compare expected values and observed values
+          '''
+          def wrong_answer_verdict(line, column, x):
             '''
             verdict wrong answer message
             '''
             return f"Wrong answer: {line}{english_ending(line)} line {column}{english_ending(column)} {x} differ - expected: '{a}', found: '{b}'"
 
+          line_number = 0
           ok = True
-          data = [[], []] if True else None 
-          check_length(expected, observed)
-          def compare_values(a, b, line, column):  
-            if is_number(a) and is_number(b):
-              a = float(a)
-              b = float(b)
-              ok = ok and abs(a - b) <= max((1.5E-5 + 1E-15) * max(abs(a), abs(b)), 0)
-              t = 'numbers'
-            else:
-              ok = ok and a == b
-              t = 'words'
+          while ok and line_number < len(expected_values):
 
-            if not ok:
-              self._tfwrong = wrong_answer_verdict(line, column, t, a, b)
-              raise InterruptedError
+            column_number = 0 # Columns
+            while ok and column_number < len(expected_values[line_number]):
 
-          answer_output = enumerate(zip(expected, observed))
-          for l, values in answer_output:
-            expected_line = values[0].split(' ')
-            observed_line = values[1].split(' ')
-            check_length(expected_line, observed_line)
-            if True is False: # Option in the terminal that choose between checking presentation or not
-              for j, column in enumerate(zip(expected_line, observed_line)):
-                try:
-                  compare_values(column[0], column[1], l, j)
-                except InterruptedError:
-                  ok = False
-                  break
-                
-              if not ok:
-                break
-            else:
-              data[0].extend(expected_line) 
-              data[1].extend(observed_line)
-            
-            if True:
-              for column, output in enumerate(zip(data[0], data[1])):
-                if is_number(output[0]) and is_number(output[1]):
-                  try:
-                    compare_values(output[0], output[1], 0, column)
-                    self._tfwrong = self._tfwrong[14:23] # check
-                  except InterruptedError:
-                    break
+              a = expected_values[line_number][column_number][1]
+              b = observed_values[line_number][column_number]
 
+              if is_number(a) and is_number(b) or t == "f":
+                ok = func(float(a), float(b))
+                if not ok and self._tfwrong is None:
+                  self._tfwrong = wrong_answer_verdict(line_number+1, column_number+1, "numbers")
 
+              else:
+                ok = func(a, b)
+
+                if not ok and self._tfwrong is None:
+                  self._tfwrong = wrong_answer_verdict(line_number+1, column_number+1, "words")
+
+              column_number += 1
+            line_number += 1
+          return ok
+
+        def check_verdict():
+          if verdict[i][1] == "Presentation error":
+            raise InterruptedError
+       
+        observed = observed.split("\n")[:-1]
+        observed_strings_integers_values = check_presentation_error(observed, [[] for _ in range(len(expected_string_integers_values))], expected_string_integers_values)
+        try:
+          check_verdict()
         except InterruptedError:
-          verdict[i] = (f"test case {i+1}", "Presentation error")
+          print(verdict)
           continue
-      
+        ok = compare_lists(observed_strings_integers_values, expected_string_integers_values, lambda a, b: a == b)
+        floating_pt_numbers_values_list_length = len(expected_floating_pt_numbers_values)
+
+        if ok and floating_pt_numbers_values_list_length:
+          observed_floating_pt_numbers = check_presentation_error(observed, [[] for _ in range(floating_pt_numbers_values_list_length)], expected_floating_pt_numbers_values)
+          try:
+            check_verdict()
+          except InterruptedError:
+            continue
+          ok = compare_lists(observed_floating_pt_numbers, expected_floating_pt_numbers_values, lambda a, b: abs(a - b) <= max((1.5E-5 + 1E-15) * max(abs(a), abs(b)), 0), 'f')
+          print(f"{observed_floating_pt_numbers = }")
+          print(f"{ok = }")
+
         if ok:
           verdict[i] = (f"test case {i+1}", "OK")
           accepeted = accepeted and True
@@ -189,7 +220,6 @@ class Test(Problem):
           verdict[i] = (f"test case {i+1}", "Wrong answer")
           if self._fwrong is None:
             self._fwrong = i + 1
-
     exit()
     # Remove samples if accepeted
     if accepeted:
@@ -235,4 +265,4 @@ class Test(Problem):
       except EOFError:
         finish_program()
 # Test("200B").run_demo("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py")
-Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")
+# Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")
