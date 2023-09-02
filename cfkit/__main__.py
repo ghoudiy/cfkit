@@ -222,11 +222,9 @@ class Problem:
         L = os.listdir("tests")
         self._expected_output_list = sorted([file for file in L if search(rf"{self._code}_\d.out", file) is not None])
         self._input_samples = sorted([file for file in L if search(rf"{self._code}_\d.in", file) is not None])
-        print(self._expected_output_list)
-        print(L)
         if len(self._expected_output_list) * 2 != len(L):
 
-          c = input("Another folder with the same name already exists\n[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").lower()
+          c = input("Another folder with the same name 'tests' already exists\n[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").lower()
           while c not in ('w', 'r', 'c'):
             c = input("[W]rite/[R]eplace/[C]reate]").lower()
 
