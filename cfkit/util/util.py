@@ -1,6 +1,6 @@
 import sys
 import re
-from os import path
+from os import path, mkdir
 from requests import get, HTTPError
 from json import load
 
@@ -94,10 +94,10 @@ def confirm(x, z, __command = []):
     return x
 
 
-def enter_number(message1, message2, Range):
+def enter_number(message1, error_message, Range):
   c = input(message1)
   while not c.isdigit() or int(c) not in Range:
-    c = input(message2)
+    c = input(error_message)
   return int(c)
 
 def read_json_file(x):
@@ -116,6 +116,15 @@ def is_number(s):
     return True
   except ValueError:
     return False
+
+def create_file_folder(path_to_file, fileType='f'):
+  if not path.exists(path_to_file):
+    if fileType == 'd':
+      mkdir(path_to_file)
+    else:
+      with open(path_to_file, 'x'):
+        pass
+
 
 machine = sys.platform
 problem_code_pattern = r"\A[1-9]{1}\d{,3}[A-z]\d?"

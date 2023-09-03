@@ -3,10 +3,9 @@ from getpass import getpass
 from json import dump
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.util.util import read_json_file, config_file, config_folder, machine, json_folder
+from cfkit.util.util import read_json_file, create_file_folder, config_file, config_folder, machine, json_folder
 
 def set_language_attributes(programming_language, configuration, language_dict, __func):
-  extensions: dict = read_json_file(f"{json_folder}/extensions.json")
   execute_command = language_dict["execute_command"]
   
   compilers_interpreters: dict = read_json_file(f"{json_folder}/compilers_interpreters.json")
@@ -19,16 +18,11 @@ def set_language_attributes(programming_language, configuration, language_dict, 
   run_command = path.join(path.dirname(__file__), "util", "memory_usage.exe " if machine == "win32" else "./memory_usage.exe")
   
   if implementation == "compiler":
-    run_command += f" %%{{dir_name}}%%{'/./' if machine != 'win32' else ''}%%{{output}}%%.exe %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\" \"{execute_command}\""
+    run_command += f" %%{{dir_name}}%%{'/./' if machine != 'win32' else ''}%%{{output}}%%.exe %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%% \"{execute_command}\""
   
   else:
-    run_command += f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%% \"%%{{sample_id}}%%\""
-  
-  # aux = []
-  # for key, value in extensions:
-  #   if value == programming_language:
-  #     aux.append(key)
-  # language_dict["extensions"] = aux
+    run_command += f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%%"
+
   language_dict["execute_command"] = execute_command
   language_dict["calculate_memory_usage_execution_time_command"] = run_command
   with open(config_file, 'w', encoding="UTF-8") as platforms_file:
@@ -129,15 +123,7 @@ def login():
     # Check if login was successful
     pass
 
-def create_file_folder(path_to_file, fileType='f'):
-  if not path.exists(path_to_file):
-    if fileType == 'd':
-      mkdir(path_to_file)
-    else:
-      with open(path_to_file, 'x') as file:
-        pass
-  else:
-    pass
+
 
 # create_file_folder(config_folder, 'd')
 # create_file_folder(path.join(config_folder, 'valid_urls'), 'd')

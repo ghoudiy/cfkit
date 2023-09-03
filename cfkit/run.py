@@ -105,11 +105,11 @@ class Test(Problem):
 
         with open("cfkit_module_user_code.py", 'w', encoding="UTF-8") as file:
           file.write("".join(code[:line_number-1] + code[line_number:]))
-        execute_file("cfkit_module_user_code.py", input_sample, output_path, self.memory_limit_bytes, f"test {i + 1}")
+        execute_file("cfkit_module_user_code.py", input_sample, output_path, self.memory_limit_bytes)
         os.remove("cfkit_module_user_code.py")
 
       else:
-        execute_file(self._path, input_sample, output_path, self.memory_limit_bytes, f"test {i + 1}")
+        execute_file(self._path, input_sample, output_path, self.memory_limit_bytes)
 
       terminal_columns = os.get_terminal_size().columns
       observed = read_text_from_file(output_path)
@@ -197,8 +197,8 @@ class Test(Problem):
               for column, output in enumerate(zip(data[0], data[1])):
                 ok = compare_values(output[0], output[1], 0, column)
                 if not ok:
-                  print(self._tfwrong, 123)
                   self._tfwrong = self._tfwrong[:14] + self._tfwrong[23:] # check
+                  print(self._tfwrong, 123)
                   break
 
           except InterruptedError:
@@ -278,4 +278,4 @@ class Test(Problem):
         finish_program()
 
 # Test("200B").run_demo("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py")
-Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")
+# Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")

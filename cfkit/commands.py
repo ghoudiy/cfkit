@@ -1,9 +1,20 @@
-from sys import executable
+"""
+Documentation
+"""
+
+from sys import exit as sysExit, maxsize, executable
 from os import path
-from sys import exit as sysExit, maxsize
-from json import dump
 from subprocess import run
-from cfkit.util.util import confirm, check_command, enter_number, read_json_file, machine, config_file, json_folder
+
+from cfkit.util.util import (
+  confirm,
+  check_command,
+  enter_number,
+  read_json_file,
+  machine,
+  config_file,
+  json_folder)
+
 from cfkit.config import set_default_language, set_other_languages
 
 configuration = read_json_file(config_file)
@@ -35,12 +46,21 @@ There are two types of compilation commands:\n
 Choose the appropriate command based on your needs.
   """
 
-def detect_implementation(programming_language, compilers_interpreters, compiling_commands, one_line_compiled, interpreting_commands):
+def detect_implementation(
+    programming_language: str,
+    compilers_interpreters: dict,
+    compiling_commands: dict,
+    one_line_compiled: dict,
+    interpreting_commands: dict):
+  '''
+  Documentation
+  '''
+
   def language(command: str) -> bool:
     '''
     Check if the specified programming language is installed on the system and added to the PATH.
     '''
-    aux = run(command, capture_output=True, shell=True, text=True).returncode
+    aux = run(command, capture_output=True, shell=True, text=True, check=False).returncode
     return aux == 0 if command != "pabcnetc" else aux == 3762504530
 
   def change_rename_command(x):
@@ -62,18 +82,20 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
 
 
   def get_command(lang):
-    check_version_compiler_command = compilers_interpreters[lang]
+    check_implementation_version_command = compilers_interpreters[lang]
 
-    if isinstance(check_version_compiler_command, str): # If there is only one command of execution
+    # If there is only one command of execution
+    if isinstance(check_implementation_version_command, str):
       if lang == "Delphi 7":
         ok = maxsize > 4294967296
         command = None
-        if ok and language(check_version_compiler_command.replace("{architecture}", "64")):
+        if ok and language(check_implementation_version_command.replace("{architecture}", "64")):
           command = compiling_commands[lang].replace("{architecture}", "64")
 
         if not ok or not command:
           command = compiling_commands[lang].replace("{architecture}", "32") \
-            if language(check_version_compiler_command.replace("{architecture}", "32")) else None
+            if language(check_implementation_version_command.replace\
+            ("{architecture}", "32")) else None
 
         implementation_command = change_rename_command(command)
         if implementation_command is None:
@@ -93,32 +115,32 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
       else:
         implementation_command = one_line_compiled[lang], "compile and execute"
 
-      if not language(check_version_compiler_command):
-        print(f"Oops! {lang} {implementation_command[1]} ({check_version_compiler_command[:check_version_compiler_command.find(' ')]}) used in Codeforces isnt't available on your system.")
+      if not language(check_implementation_version_command):
+        print(f"Oops! {lang} {implementation_command[1]} ({check_implementation_version_command[:check_implementation_version_command.find(' ')]}) used in Codeforces isnt't available on your system.")
         implementation_command = None, implementation_command[1]
 
-    elif isinstance(check_version_compiler_command, list): # Python only for now
-      tmp = check_installed_implemenations(check_version_compiler_command)
+    # Python only for now
+    elif isinstance(check_implementation_version_command, list):
+      tmp = check_installed_implemenations(check_implementation_version_command)
       if any(tmp):
-        tmp = check_version_compiler_command[tmp.index(True)]
-        implementation_command = interpreting_commands[lang].replace \
+        tmp = check_implementation_version_command[tmp.index(True)]
+        implementation_command = interpreting_commands[lang].replace\
           ("{command}", tmp[:tmp.find(" ")]), "interpreter"
 
       else:
         print("Oops! You don't have python installed on the system or it may be not added to PATH.")
         sysExit(1)
 
-    elif isinstance(check_version_compiler_command, dict):
+    elif isinstance(check_implementation_version_command, dict):
       implementation_lists = {}
       implementation = "compilers"
       # Loop through language implementations (copmilers or interpreters)
       # key is the compiler name and value is the check version command of that compiler
-      for key, value in check_version_compiler_command.items():
+      for key, value in check_implementation_version_command.items():
 
-        # isinstance(value, list) -> This condition was written because C++ is notably exceptional in this situation
-        # as it remains compatible with both the g++ and gcc compilers
-        # within the GCC compiler group.
         if isinstance(value, list):
+        # This condition was written because C++ is notably exceptional in this situation
+        # as it remains compatible with both g++ and gcc compilers within the GCC compiler group.
           implementation_lists[key] = check_installed_implemenations(value)
 
           if implementation_lists[key][0]: # If g++ is installed
@@ -126,9 +148,11 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
 
           elif not implementation_lists[key][0] and implementation_lists[key][1]:
             if machine == "win32":
-              return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -Wl,--stack=268435456 -O2 -o {output}.exe {file} -lstdc++", "compiler"
+              return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s " +\
+                "-Wl,--stack=268435456 -O2 -o {output}.exe {file} -lstdc++", "compiler"
 
-            return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o {output}.exe {file} -lstdc++", "compiler"
+            return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o " +\
+              "{output}.exe {file} -lstdc++", "compiler"
 
           elif not (implementation_lists[key][0] and implementation_lists[key][1]):
             return None, "compiler"
@@ -137,13 +161,13 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
           implementation_lists[key] = language(value)
           if lang == "JavaScript":
             implementation = "interpreters"
-      for key in implementation_lists.keys():
+      for key in implementation_lists:
         implementation_lists[key] = True
 
       implementation_lists[".NET"] = False
       for key in [key for key, value in implementation_lists.items() if not value]:
         del implementation_lists[key]
- 
+
       implementation_lists = implementation_lists.keys()
       l = len(implementation_lists)
       if l:
@@ -152,7 +176,10 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
             if isinstance(x, dict):
               value = list(x.values())[0]
               if deep:
-                return isinstance(list(value.values())[0], dict) if isinstance(value, dict) else False
+                if isinstance(value, dict):
+                  return isinstance(list(value.values())[0], dict)
+                return False
+
               return isinstance(value, dict)
             return False
 
@@ -163,7 +190,8 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
             for implementation in implementation_lists:
               compile_command = K[implementation]
 
-              if has_versions(compile_command, False): # Compiler had multiple versions such as GNU G++, Clang++
+              # Compiler had multiple versions such as GNU G++, Clang++
+              if has_versions(compile_command, False):
                 for compi in compile_command.keys():
                   compilers.append((implementation, compi))
                   print(f"{len(compilers)}. {compi}")
@@ -172,7 +200,9 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
                 compilers.append((K[implementation], (implementation,)))
                 print(f"{len(compilers)}. {implementation}")
 
-            c = enter_number("Please choose carefully, as your selection will become the default option for future use\nCompiler index: ", "Compiler index: ", range(1, len(compilers) + 1)) - 1
+            c = enter_number("Please choose carefully, as your selection " +\
+              "will become the default option for future use\nCompiler index: ",
+              "Compiler index: ", range(1, len(compilers) + 1)) - 1
 
             com = isinstance(compilers[c][1], tuple)
             if com:
@@ -186,8 +216,6 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
                   selected_implementation = aux
             else:
               selected_implementation = K[compilers[c][0]][compilers[c][1]][machine]
-            return selected_implementation
-
 
           elif l:
             key = list(K.keys())[0]
@@ -208,7 +236,7 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
           else:
             K.update({x: interpreting_commands[lang][x]})
             implementation = "interpreter"
-        
+
         implementation_command = select_implementation(K)
         if len(K) == 1 and x == "Mono" or implementation_command == one_line_compiled["C#"]["Mono"]:
           implementation_command = implementation_command, "compile and execute"
@@ -216,7 +244,11 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
           implementation_command = implementation_command, implementation
       else:
         compilers_interpreters[lang] = list(compilers_interpreters[lang].keys())
-        statement = f"{(', '.join(compilers_interpreters[lang][:-2]))} {compilers_interpreters[lang][-2]} and {compilers_interpreters[lang][-1]} {implementation}".lstrip()
+
+        statement = f"{(', '.join(compilers_interpreters[lang][:-2]))} " +\
+        f"{compilers_interpreters[lang][-2]} and " +\
+        f"{compilers_interpreters[lang][-1]} {implementation}".lstrip()
+
         print(f"Oops! {statement} that are used in Codeforces aren't available on your system.",)
         implementation_command = None, implementation[:-1]
 
@@ -238,59 +270,64 @@ def detect_implementation(programming_language, compilers_interpreters, compilin
 
   if implementation in ("compiler", "compile and execute"):
     L.insert(2, "- {output}: This represents the compiled code. (Without .exe or .out)",)
-    L[-1] =  f"compile-command [options...] {{file}} -o {{output}}"
+    L[-1] =  "compile-command [options...] {file} -o {output}"
     print("\n\n" + "\n".join(L))
     print(NOTE)
     print(ANOTERH_NOTE.replace("{num}", "2").replace("{num1}", "3"))
     print(COMPILING_NOTE)
     c = enter_number("Compilation type index: ", "Compilation type index: ", range(1, 3))
-    if c == 1:
-      implementation = "compiler"
-    else:
-      implementation = "compile and execute"
+    implementation = "compiler" if c == 1 else "compile and execute"
+
   else:
     print("\n\n" + "\n".join(L))
-    print("\nPlease choose carefully, as your selection will become the default option for future use. Thank you!")
-  
+    print("\nPlease choose carefully, as your selection",
+          "will become the default option for future use. Thank you!")
+
   command = check_command(input("Enter below the command you'd like to use:\n"), L)
   return confirm(command, "command", L), implementation
 
 
-def execute_file(file: str, inputPath: str, outputPath: str, memory_limit: float, sample_id) -> None:
+def execute_file(file: str, input_path: str, output_path: str, memory_limit: float) -> None:
+  '''
+  Documentation
+  '''
   extension = file[file.rfind('.')+1:]
   if extension == file:
-    print("\nPlease add the appropriate file extension to the file name. This ensures accurate language identification.")
+    print("\nPlease add the appropriate file extension to the file name.",
+          "This ensures accurate language identification.")
     sysExit(1)
 
   extensions: dict = read_json_file(f"{json_folder}/extensions.json")
   programming_language = extensions[extension]
   default_language = configuration["default_language"]
 
-  def retrieve_run_command(func, language_dict):
-    execute_command = language_dict["execute_command"]
-    if execute_command == None:
-      func(programming_language, detect_implementation)
-    return language_dict["calculate_memory_usage_execution_time_command"]
-  
-  if programming_language == default_language:
-    run_command = retrieve_run_command(set_default_language, configuration)
-  else:
-    run_command = retrieve_run_command(set_other_languages, configuration["other_languages"][programming_language])
+  def retrieve_run_command(func, key=True):
+    if key:
+      execute_command = configuration["other_languages"][programming_language]["execute_command"]
+      if execute_command is None:
+        func(programming_language, detect_implementation)
+      my_dict = read_json_file(config_file)
+      return my_dict["other_languages"][programming_language]\
+        ["calculate_memory_usage_execution_time_command"]
 
-  output = path.basename(inputPath)
+    execute_command = configuration["execute_command"]
+    if execute_command is None:
+      func(programming_language, detect_implementation)
+    my_dict = read_json_file(config_file)
+    return my_dict["calculate_memory_usage_execution_time_command"]
+
+  if programming_language == default_language:
+    run_command = retrieve_run_command(set_default_language)
+  else:
+    run_command = retrieve_run_command(set_other_languages, True)
+
+  output = path.basename(input_path)
   output = output[:output.find("_")]
   run_command = run_command.replace("%%{file}%%", file)
   run_command = run_command.replace("%%{memory_limit}%%", str(memory_limit))
-  run_command = run_command.replace("%%{output_memory}%%", outputPath[:-4])
-  run_command = run_command.replace("%%{input_file}%%", inputPath)
-  run_command = run_command.replace("%%{output_file}%%", outputPath)
-  run_command = run_command.replace("%%{sample_id}%%", sample_id)
+  run_command = run_command.replace("%%{output_memory}%%", output_path[:-4])
+  run_command = run_command.replace("%%{input_file}%%", input_path)
+  run_command = run_command.replace("%%{output_file}%%", output_path)
   run_command = run_command.replace("%%{output}%%", output)
-  run_command = run_command.replace("%%{dir_name}%%", path.dirname(inputPath))
-  # print(run_command)
+  run_command = run_command.replace("%%{dir_name}%%", path.dirname(input_path))
   run(run_command, shell=True, check=True)
-  return None
-
-# pp = "/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/"
-# execute_file(f"{pp}200B_Drinks.py", f"{pp}tests/200B_1.in", f"{pp}tests/200B_test_case1.out", 265000000, "test 1")
-
