@@ -17,7 +17,6 @@ File: TypeAlias = str
 
 class Test(Problem):
 
-
   def run_demo(self, file_path: str = None):
 
     def __tmp(x):
@@ -164,7 +163,7 @@ class Test(Problem):
               if is_number(a) and is_number(b):
                 a = float(a)
                 b = float(b)
-                ok = isclose(a, b, rel_tol=(1.5E-5 + 1E-15))
+                ok = isclose(a, b, rel_tol=1.5E-5 + 1E-15)
                 t = 'numbers'
               else:
                 ok = a == b
@@ -180,7 +179,8 @@ class Test(Problem):
             for l, values in enumerate(zip(expected, observed)):
               expected_line = values[0].split(' ')
               observed_line = values[1].split(' ')
-              if True is False: # Option in the terminal that choose between checking presentation or not
+              # Option in the terminal that choose between checking presentation or not
+              if True is False:
                 check_length(expected_line, observed_line)
                 for j, column in enumerate(zip(expected_line, observed_line)):
                   ok = compare_values(column[0], column[1], l, j)
@@ -198,7 +198,7 @@ class Test(Problem):
                 ok = compare_values(output[0], output[1], 0, column)
                 if not ok:
                   self._tfwrong = self._tfwrong[:14] + self._tfwrong[23:] # check
-                  print(self._tfwrong, 123)
+                  print(self._tfwrong, 123) # Debugging
                   break
 
           except InterruptedError:
@@ -210,8 +210,7 @@ class Test(Problem):
           else:
             accepeted = False
             verdict[i] = (f"Test case {i+1}", "Wrong answer")
-            if self._fwrong is None:
-              self._fwrong = i + 1
+            self._fwrong = i + 1 if self._fwrong is None else None
 
     # Remove samples if accepeted
     def print_results(verdict, memory_usage_execution_time_or_error):
@@ -222,6 +221,7 @@ class Test(Problem):
         else:
           print(f"{v[0]}, time: 0s, memory: 0B, verdict: Compilation error")
       print('')
+    
     if accepeted:
       print("Demo Accepeted")
       print_results(verdict, memory_usage_execution_time_or_error)
@@ -229,10 +229,10 @@ class Test(Problem):
       rm = None
       if len(os.listdir()) == len(self._input_samples) * 4:
         c = yesOrNo(f"Do you want to remove this directory {os.getcwd()}")
-        if c == True:
+        if c:
           rmtree(os.getcwd())
         else:
-          rm = yesOrNo(f"Remove samples and output files")
+          rm = yesOrNo("Remove samples and output files")
       
       if rm:
         def remove_files(file_list):
@@ -250,7 +250,6 @@ class Test(Problem):
     else:
       print(f"Checker log:\n{self._tfwrong}\n")
       print_results(verdict, memory_usage_execution_time_or_error)
-
 
     # Ask the user if he wants to finish the program or not
     # If working in the solution file itself

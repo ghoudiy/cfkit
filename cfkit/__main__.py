@@ -2,10 +2,19 @@ import sys
 import os
 from re import search, findall
 from typing import TypeAlias
-from bs4 import BeautifulSoup
 from shutil import rmtree
+from bs4 import BeautifulSoup
 
-from cfkit.util.util import check_url, check_path_existence, path_exist_error, file_name, problem_code_pattern
+
+from cfkit.util.util import (
+  check_url,
+  check_path_existence,
+  path_exist_error,
+  file_name,
+  retrieve_configuration,
+  colored_text,
+  problem_code_pattern,
+  config_file)
 
 
 Directory: TypeAlias = str
@@ -17,7 +26,7 @@ File: TypeAlias = str
 class Contest:
   def __init__(self, contestId: int) -> None:
     self._id = contestId
-    self._content = self.__contest_content()
+    # self._content = self.__contest_content()
 
 
   def __contest_content(self):
@@ -34,23 +43,40 @@ class Contest:
     sys.exit(1)
 
 
-  def create_problems_files(self, ext: str, path: Directory = None, addProblemNameToFileName: bool = False) -> None:
-    if path is None: path = os.getcwd()
-    else: check_path_existence(path, 'd')
+  def create_problems_files(
+      self,
+      path: Directory = os.getcwd(),
+      addProblemNameToFileName: bool = False,
+      programming_language_extension: str = None
+    ) -> None:
+    
+    if programming_language_extension is None:
+      configuration = retrieve_configuration()
+      if configuration["default_language"] is None:
+        colored_text("<fore-red>Error</fore-red>: Your favorite programming language is not configured.")
+        colored_text("Please run <fore-blue>'cf config'</fore-blue> command to set your favorite programming language.")
+        exit()
+      else:
+        programming_language_extension = configuration["extensions"][0]
+
+    if path != os.getcwd():
+      check_path_existence(path, 'd')
     os.chdir(path)
     S = set()
-    N = []
+    problem_names = []
     ok = 0
+    ff = open("output.txt", 'w')
     for line in self._content:
       p = line.find('<a href="/contest/')
       p1 = line.find('!--')
       p2 = line.find("    -->")
       if p != -1 and p1 == -1 and line.find('<img src="') == -1:
         S.add(line[p+19:])
+        print(S)
       if ok % 2 == 1:
         name = f"<!-- {line[p2+4:]} -->"
         name = BeautifulSoup(name, "html.parser").stripped_strings
-        N.append(next(name))
+        problem_names.append(next(name))
         ok += 1
       if p1 != -1 and p2 == -1:
         ok += 1
@@ -59,13 +85,17 @@ class Contest:
       os.mkdir(f"{self._id}")
     os.chdir(f"{self._id}")
     S = sorted(S)
-    for i, code in enumerate(S):
-      letter = code[code.find('/problem/')+9:code.find('"')]
-      if addProblemNameToFileName:
-        aux = file_name(self, N[i], f"{letter}_") + f".{ext}"
-      else:
+    if addProblemNameToFileName:
+      for i, code in enumerate(S):
+        letter = code[code.find('/problem/')+9:code.find('"')]
+        aux = file_name(problem_names[i], f"{letter}_") + f".{programming_language_extension}"
+        print(aux)
+    else:
+      for i, code in enumerate(S):
+        letter = code[code.find('/problem/')+9:code.find('"')]
         aux = letter
-      # if ext == "py":
+        print(aux)
+      # if programming_language_extension == "py":
       #   with open(aux, 'a') as file:
       #     with open(os.path.join(os.path.dirname(__file__), "templates", ""), f"{os.path.dirname(__file__)}{}python_template.py", 'r') as ff:
       #       file.write(ff.read())
@@ -81,12 +111,11 @@ class Problem:
     self._example_index = None
     self._path = None
     self._code = self.__check_entry(problem_code)
-    # self._response = self._content()
+    self._response = self._content()
 
-    # self.name = self._response[0]
-    # self.time_limit_s = self._response[2]
-    # self.memory_limit_bytes = self.__convert_to_bytes(self._response[4])
-    self.memory_limit_bytes = 256000000
+    self.name = self._response[0]
+    self.time_limit_s = self._response[2]
+    self.memory_limit_bytes = self.__convert_to_bytes(self._response[4])
 
     self._data_path = None
     self._expected_output_list = None
@@ -118,7 +147,7 @@ class Problem:
         print("You should enter a problem code or a file not a directory")
         sys.exit(1)
 
-      # self._check_problem_code(problem_code)
+      self._check_problem_code(problem_code)
       return problem_code
 
     # Searching for the problem code in path
@@ -245,25 +274,26 @@ class Problem:
 
     else: self._data_path = path
     
-    # R = self._response[self._example_index+1:] if self._note_index is None else self._response[self._example_index+1:self._note_index]
-    # nr = R.count("Input")
-    # aux = nr
-    # while nr > 0:
+    R = self._response[self._example_index+1:] if self._note_index is None else self._response[self._example_index+1:self._note_index]
+    nr = R.count("Input")
+    aux = nr
+    while nr > 0:
 
-    #   def in_out_files(nr1, nr2, ext, start, end):
-    #     sample = os.path.join(self._data_path, f"{self._code}_{nr1 - nr2 + 1}.{ext}")
-    #     if not os.path.exists(sample):
-    #       with open(sample, 'w', encoding="UTF-8") as ff:
-    #         for data in R[start+1:end]:
-    #           ff.write(f"{data}\n")
+      def in_out_files(nr1, nr2, ext, start, end):
+        sample = os.path.join(self._data_path, f"{self._code}_{nr1 - nr2 + 1}.{ext}")
+        if not os.path.exists(sample):
+          with open(sample, 'w', encoding="UTF-8") as ff:
+            for data in R[start+1:end]:
+              ff.write(f"{data}\n")
 
-    #   pi = R.index("Input")
-    #   po = R.index("Output")
-    #   in_out_files(aux, nr, "in", pi, po)
-    #   R[pi] = "input-done"
-    #   pi = R.index("Input") if "Input" in R else len(R)
-    #   in_out_files(aux, nr, "out", po, pi)
-    #   R[po] = "output-done"
-    #   nr -= 1
+      pi = R.index("Input")
+      po = R.index("Output")
+      in_out_files(aux, nr, "in", pi, po)
+      R[pi] = "input-done"
+      pi = R.index("Input") if "Input" in R else len(R)
+      in_out_files(aux, nr, "out", po, pi)
+      R[po] = "output-done"
+      nr -= 1
 
 # Problem("1846D").parse("/home/ghoudiy/Downloads/")
+Contest(1846).create_problems_files()

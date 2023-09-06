@@ -1,3 +1,4 @@
+from colorama import init, Fore, Back, Style
 import sys
 import re
 from os import path, mkdir
@@ -26,7 +27,7 @@ def check_status(response):
     sys.exit(1)
 
 
-def check_url(url: str, err_message, data, raise_err=False):    
+def check_url(url: str, err_message, data, raise_err=False):
     # with open(path.join(config_folder, "valid_urls"), 'r') as file:
     #   pass
     response = get(url)
@@ -37,16 +38,16 @@ def check_url(url: str, err_message, data, raise_err=False):
     if not (contest_valid_bool and problem_valid_bool):
       if raise_err:
         raise SyntaxError
-      
+
       if contest_valid_bool and not problem_valid_bool:
         print(f"No such contests '{data}'")
-  
+
       else:
         print(f"No such {err_message} '{data}'")
       sys.exit(1)
-    
+
     return response
-  
+
 
 def english_ending(x):
   x %= 100
@@ -62,7 +63,7 @@ def english_ending(x):
 
 
 def file_name(name, code):
-  problem_name = re.sub("[A-z]'(s|S)", "s", problem_name)
+  problem_name = re.sub("[A-z]'(text|S)", "text", problem_name)
   problem_name = re.sub(r"\W", "_", problem_name)
   problem_name = re.sub(r"(___|__)", "_", problem_name)
   problem_name = f"{code}{problem_name[:-1]}" if problem_name[-1] == "_" else f"{code}{problem_name}"
@@ -110,9 +111,9 @@ def read_text_from_file(x):
     y = file.read()
   return y
 
-def is_number(s):
+def is_number(text):
   try:
-    float(s)
+    float(text)
     return True
   except ValueError:
     return False
@@ -124,6 +125,86 @@ def create_file_folder(path_to_file, fileType='f'):
     else:
       with open(path_to_file, 'x'):
         pass
+
+
+def retrieve_configuration() -> dict:
+  with open(config_file, 'r', encoding="UTF-8") as file:
+    return load(file)
+
+def colored_text(message, print_statement=True, fore=True, style=True, back=False):
+  init()
+
+  # Define a regular expression pattern to match color tags like <blue> and </blue>
+  fore_color_mapping = {None: None}
+  if fore:
+    fore_color_mapping = {
+      "fore-black":          Fore.BLACK,
+      "fore-red":            Fore.RED,
+      "fore-green":          Fore.GREEN,
+      "fore-yellow":         Fore.YELLOW,
+      "fore-blue":           Fore.BLUE,
+      "fore-magenta":        Fore.MAGENTA,
+      "fore-cyan":           Fore.CYAN,
+      "fore-white":          Fore.WHITE,
+      "fore-bright-black":   Fore.LIGHTBLACK_EX,
+      "fore-bright-red":     Fore.LIGHTRED_EX,
+      "fore-bright-green":   Fore.LIGHTGREEN_EX,
+      "fore-bright-yellow":  Fore.LIGHTYELLOW_EX,
+      "fore-bright-blue":    Fore.LIGHTBLUE_EX,
+      "fore-bright-magenta": Fore.LIGHTMAGENTA_EX,
+      "fore-bright-cyan":    Fore.LIGHTCYAN_EX,
+      "fore-bright-white":   Fore.LIGHTWHITE_EX
+    }
+  
+  style_brightness_mapping = {None: None}
+  if style:
+    style_brightness_mapping = {
+    "style-bright": Style.BRIGHT,
+    "style-dim":    Style.DIM
+    }
+  
+  back_color_mapping = {None: None}
+  if back:
+    back_color_mapping = {
+      "back-black":          Back.BLACK,
+      "back-red":            Back.RED,
+      "back-green":          Back.GREEN,
+      "back-yellow":         Back.YELLOW,
+      "back-blue":           Back.BLUE,
+      "back-magenta":        Back.MAGENTA,
+      "back-cyan":           Back.CYAN,
+      "back-white":          Back.WHITE,
+      "back-bright-black":   Back.LIGHTBLACK_EX,
+      "back-bright-red":     Back.LIGHTRED_EX,
+      "back-bright-green":   Back.LIGHTGREEN_EX,
+      "back-bright-yellow":  Back.LIGHTYELLOW_EX,
+      "back-bright-blue":    Back.LIGHTBLUE_EX,
+      "back-bright-magenta": Back.LIGHTMAGENTA_EX,
+      "back-bright-cyan":    Back.LIGHTCYAN_EX,
+      "back-bright-white":   Back.LIGHTWHITE_EX
+    }
+
+  pattern = r'<(.*?)>'
+  color_pattern = re.compile(pattern)
+  # Split the message using the color tags as delimiters
+  parts = color_pattern.split(message)
+  text = ""
+  for part in parts:
+    if part.startswith('/fore'):
+      color = Fore.RESET
+    elif part.startswith('/back'):
+      color = Back.RESET
+    elif part.startswith('/style'):
+      color = Style.NORMAL
+    else:
+      color = fore_color_mapping.get(part, '')
+      color += style_brightness_mapping.get(part, '')
+      color += back_color_mapping.get(part, '')
+    text += part if not color else color
+  
+  if not print_statement:
+    return text
+  print(text)
 
 
 machine = sys.platform

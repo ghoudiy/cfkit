@@ -1,4 +1,4 @@
-from os import get_terminal_size, path, mkdir
+from os import get_terminal_size, path
 from getpass import getpass
 from json import dump
 from mechanicalsoup import StatefulBrowser
@@ -8,10 +8,10 @@ from cfkit.util.util import read_json_file, create_file_folder, config_file, con
 def set_language_attributes(programming_language, configuration, language_dict, __func):
   execute_command = language_dict["execute_command"]
   
-  compilers_interpreters: dict = read_json_file(f"{json_folder}/compilers_interpreters.json")
-  compiling_commands: dict = read_json_file(f"{json_folder}/compiling_commands.json")
-  one_line_compiled: dict = read_json_file(f"{json_folder}/one_line_compiled.json")
-  interpreting_commands: dict = read_json_file(f"{json_folder}/interpreting_commands.json")
+  compilers_interpreters: dict = read_json_file(path.join(json_folder, compilers_interpreters.json))
+  compiling_commands: dict = read_json_file(path.join(json_folder, compiling_commands.json))
+  one_line_compiled: dict = read_json_file(path.join(json_folder, one_line_compiled.json))
+  interpreting_commands: dict = read_json_file(path.join(json_folder, interpreting_commands.json))
 
   execute_command, implementation = __func(programming_language, compilers_interpreters, compiling_commands, one_line_compiled, interpreting_commands)
   
@@ -23,30 +23,30 @@ def set_language_attributes(programming_language, configuration, language_dict, 
   else:
     run_command += f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%%"
 
+  # language_dict["extension"] = 
   language_dict["execute_command"] = execute_command
   language_dict["calculate_memory_usage_execution_time_command"] = run_command
   with open(config_file, 'w', encoding="UTF-8") as platforms_file:
     dump(configuration, platforms_file, indent=4)
 
-  # else:
 
 def set_default_language(language, __func):
   configuration = read_json_file(config_file)
-  if configuration["default_language"] == None:
+  if configuration["default_language"] is None:
     set_language_attributes(language, configuration, configuration, __func)
 
 
 def set_other_languages(language, __func):
   configuration = read_json_file(config_file)
   language_dict = configuration["other_languages"][language]
-  if language_dict["execute_command"] == None:
+  if language_dict["execute_command"] is None:
     set_language_attributes(language, configuration, language_dict, __func)
 
 
 def default_compiler():
 
   configuration = read_json_file(config_file)
-  if configuration["default_compiler"] == None:
+  if configuration["default_compiler"] is None:
     LANGUAGES = {
       "1. GNU GCC C11 5.1.0": 43,
       "2. Clang++20 Diagnostics": 80,
@@ -88,7 +88,8 @@ def default_compiler():
     data = list(LANGUAGES.keys())
     terminal_width = get_terminal_size().columns
     max_item_width = max(len(item) for item in data)
-    num_columns = max(1, terminal_width // (max_item_width + 2))  # Add some padding between columns
+    # Add some padding between columns
+    num_columns = max(1, terminal_width // (max_item_width + 2))
 
     # Distribute items into columns
     items_per_column = -(-len(data) // num_columns)  # Ceiling division
@@ -125,8 +126,8 @@ def login():
 
 
 
-# create_file_folder(config_folder, 'd')
+create_file_folder(config_folder, 'd')
+create_file_folder(config_file)
 # create_file_folder(path.join(config_folder, 'valid_urls'), 'd')
 # create_file_folder(path.join(config_folder, 'valid_urls', "contests.json"))
 # create_file_folder(path.join(config_folder, 'valid_urls', "A"))
-# create_file_folder(config_file)
