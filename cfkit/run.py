@@ -9,7 +9,7 @@ from typing import TypeAlias
 
 
 from cfkit.__main__ import Problem
-from cfkit.util.util import check_path_existence, english_ending, read_text_from_file, is_number, yesOrNo
+from cfkit.util.util import check_path_existence, english_ending, read_text_from_file, is_number, yesOrNo, colored_text
 from cfkit.commands import execute_file
 
 File: TypeAlias = str
@@ -116,7 +116,7 @@ class Test(Problem):
 
       def checker_log(error):
         if memory_usage_execution_time_or_error == error:
-          verdict[i] = (f"Test case {i+1}", error)
+          verdict[i] = (f"Test case {i+1}", colored_text(error, "f light blue"))
           if self._tfwrong is None:
             self._tfwrong = f"{error} on test {i + 1}"
           print('-' * terminal_columns)
@@ -138,7 +138,7 @@ class Test(Problem):
       else:
         expected = read_text_from_file(self._expected_output_list[i])
         if expected == observed:
-          verdict[i] = (f"Test case {i+1}", "OK")
+          verdict[i] = (f"Test case {i+1}", colored_text("OK"))
           accepeted = accepeted and True
 
         else:
@@ -223,7 +223,7 @@ class Test(Problem):
       print('')
     
     if accepeted:
-      print("Demo Accepeted")
+      colored_text("Demo Accepeted", ["f light green", 's bright'])
       print_results(verdict, memory_usage_execution_time_or_error)
       l = len(self._input_samples)
       rm = None
@@ -275,6 +275,6 @@ class Test(Problem):
           finish_program()
       except EOFError:
         finish_program()
-
+# print(Test.__dict__)
 # Test("200B").run_demo("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py")
 # Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")

@@ -4,18 +4,19 @@ import re
 from os import path, mkdir
 from requests import get, HTTPError
 from json import load
+from configparser import ConfigParser
 
 def path_exist_error(file_path, fileorDir):
   if path.exists(file_path):
     # raise FileExistsError(f"File exists '{path}'" if fileorDir == "f" else f"Directory exists '{path}'")
-    print(f"File exists '{file_path}'" if fileorDir == 'f' else f"Directory exists '{file_path}'")
+    colored_text(f"<f-red>File exists</f> '{file_path}'" if fileorDir == 'f' else f"<f-red>Directory exists</f> '{file_path}'")
     sys.exit(1)
 
 
 def check_path_existence(file_path, fileOrDir):
   if not path.exists(file_path):
     # raise FileNotFoundError(f"No such file: '{path}'" if fileOrDir == "f" else f"No such directory '{path}'")
-    print(f"No such file: '{file_path}'" if fileOrDir == 'f' else f"No such directory '{file_path}'")
+    colored_text(f"<f-red>No such file</f>: '{file_path}'" if fileOrDir == 'f' else f"<f-red>No such directory</f> '{file_path}'")
     sys.exit(1)
 
 
@@ -23,31 +24,37 @@ def check_status(response):
   try:
     response.raise_for_status()
   except HTTPError as e:
-    print(f"HTTP Error: {e}")
+    colored_text(f"<f-red>HTTP Error</f>: {e}")
     sys.exit(1)
 
 
-def check_url(url: str, err_message, data, raise_err=False):
+def check_url(url: str, code, contestId=0, raise_err=False):
     # with open(path.join(config_folder, "valid_urls"), 'r') as file:
     #   pass
     response = get(url)
     check_status(response)
     codeforces_message = response.text
-    contest_valid_bool = codeforces_message.find(f'Codeforces.showMessage("No such contests");') == -1
-    problem_valid_bool = codeforces_message.find(f'Codeforces.showMessage("No such problem");') == -1
-    if not (contest_valid_bool and problem_valid_bool):
-      if raise_err:
-        raise SyntaxError
-
-      if contest_valid_bool and not problem_valid_bool:
-        print(f"No such contests '{data}'")
-
-      else:
-        print(f"No such {err_message} '{data}'")
+    valid_contest = codeforces_message.find(f'Codeforces.showMessage("No such contests");') == -1
+    valid_contest = valid_contest and codeforces_message.find(f'Codeforces.showMessage("No such contest");') == -1
+    contest_started = codeforces_message.find(f'<div class="contest-state-phase">Before the contest</div>') == -1
+    if not valid_contest:
+      if contestId:
+        colored_text(f"<f-red>No such contest</f> '{contestId}'")
+        sys.exit(1)
+      colored_text(f"<f-red>No such contest</f> '{code}'")
+      sys.exit(1)
+    
+    elif not contest_started:
+      colored_text(f"Contest has not started yet", ["f light magenta"])
       sys.exit(1)
 
+    if not isinstance(code, int):
+      if not codeforces_message.find(f'Codeforces.showMessage("No such problem");') == -1:
+        if raise_err:
+          raise SyntaxError
+        colored_text(f"<f-red>No such problem</f> '{code}'")
+        sys.exit(1)
     return response
-
 
 def english_ending(x):
   x %= 100
@@ -63,7 +70,7 @@ def english_ending(x):
 
 
 def file_name(name, code):
-  problem_name = re.sub("[A-z]'(text|S)", "text", problem_name)
+  problem_name = re.sub("[A-z]'(text|S)", "text", name)
   problem_name = re.sub(r"\W", "_", problem_name)
   problem_name = re.sub(r"(___|__)", "_", problem_name)
   problem_name = f"{code}{problem_name[:-1]}" if problem_name[-1] == "_" else f"{code}{problem_name}"
@@ -118,6 +125,7 @@ def is_number(text):
   except ValueError:
     return False
 
+
 def create_file_folder(path_to_file, fileType='f'):
   if not path.exists(path_to_file):
     if fileType == 'd':
@@ -127,88 +135,106 @@ def create_file_folder(path_to_file, fileType='f'):
         pass
 
 
-def retrieve_configuration() -> dict:
-  with open(config_file, 'r', encoding="UTF-8") as file:
-    return load(file)
+def colored_text(message: str, one_statement_color="", output="text", print_statement=True, input_statement=False):
+  init(autoreset=True)
 
-def colored_text(message, print_statement=True, fore=True, style=True, back=False):
-  init()
+  def identify_color(s: str):
+    order = ["bg-", "bright", "light"]
+    # s = s.replace(" ", "").split(")")
+    print(s)
+    pattern = r'bg-\((.*?)\)'
+    color_pattern = re.compile(pattern)
+    parts = color_pattern.split(s)
+    print(parts)
+    exit()
+    # Split the message using the color tags as delimiters
+    print(s)
+    r = [None] * 3
+    for j, style in enumerate(s):
+      i = 0
+      ok = False
+      while not ok and i < 3:
+        ok = re.search(order[i], style)
+        i += 1
+      if not ok:
+        r.append(style)
+      else:
+        r[i-1] = style
+    print(r)
+    exit()
 
-  # Define a regular expression pattern to match color tags like <blue> and </blue>
-  fore_color_mapping = {None: None}
-  if fore:
-    fore_color_mapping = {
-      "fore-black":          Fore.BLACK,
-      "fore-red":            Fore.RED,
-      "fore-green":          Fore.GREEN,
-      "fore-yellow":         Fore.YELLOW,
-      "fore-blue":           Fore.BLUE,
-      "fore-magenta":        Fore.MAGENTA,
-      "fore-cyan":           Fore.CYAN,
-      "fore-white":          Fore.WHITE,
-      "fore-bright-black":   Fore.LIGHTBLACK_EX,
-      "fore-bright-red":     Fore.LIGHTRED_EX,
-      "fore-bright-green":   Fore.LIGHTGREEN_EX,
-      "fore-bright-yellow":  Fore.LIGHTYELLOW_EX,
-      "fore-bright-blue":    Fore.LIGHTBLUE_EX,
-      "fore-bright-magenta": Fore.LIGHTMAGENTA_EX,
-      "fore-bright-cyan":    Fore.LIGHTCYAN_EX,
-      "fore-bright-white":   Fore.LIGHTWHITE_EX
-    }
-  
-  style_brightness_mapping = {None: None}
-  if style:
-    style_brightness_mapping = {
-    "style-bright": Style.BRIGHT,
-    "style-dim":    Style.DIM
-    }
-  
-  back_color_mapping = {None: None}
-  if back:
-    back_color_mapping = {
-      "back-black":          Back.BLACK,
-      "back-red":            Back.RED,
-      "back-green":          Back.GREEN,
-      "back-yellow":         Back.YELLOW,
-      "back-blue":           Back.BLUE,
-      "back-magenta":        Back.MAGENTA,
-      "back-cyan":           Back.CYAN,
-      "back-white":          Back.WHITE,
-      "back-bright-black":   Back.LIGHTBLACK_EX,
-      "back-bright-red":     Back.LIGHTRED_EX,
-      "back-bright-green":   Back.LIGHTGREEN_EX,
-      "back-bright-yellow":  Back.LIGHTYELLOW_EX,
-      "back-bright-blue":    Back.LIGHTBLUE_EX,
-      "back-bright-magenta": Back.LIGHTMAGENTA_EX,
-      "back-bright-cyan":    Back.LIGHTCYAN_EX,
-      "back-bright-white":   Back.LIGHTWHITE_EX
-    }
+    if s.find("light") != -1:
+      s += "_EX"
 
-  pattern = r'<(.*?)>'
-  color_pattern = re.compile(pattern)
-  # Split the message using the color tags as delimiters
-  parts = color_pattern.split(message)
-  text = ""
-  for part in parts:
-    if part.startswith('/fore'):
-      color = Fore.RESET
-    elif part.startswith('/back'):
-      color = Back.RESET
-    elif part.startswith('/style'):
-      color = Style.NORMAL
+    if s[0] == 'f':
+      color = Fore.__dict__.get(s[1:].upper(), '')
+    elif s[0] == 's':
+      color = Style.__dict__.get(s[1:].upper(), '')
     else:
-      color = fore_color_mapping.get(part, '')
-      color += style_brightness_mapping.get(part, '')
-      color += back_color_mapping.get(part, '')
-    text += part if not color else color
+      color = Back.__dict__.get(s[1:].upper(), '')
+    return color
+
+  if one_statement_color:
+    text = identify_color(one_statement_color) + message
+  else:
+    pattern = r'<(.*?)>'
+    color_pattern = re.compile(pattern)
+    # Split the message using the color tags as delimiters
+    parts = color_pattern.split(message)
+    print(parts)
+    text = ""
+    for part in parts:
+      if part.startswith('/f'):
+        color = Fore.RESET
+      elif part.startswith('/b'):
+        color = Back.RESET
+      elif part.startswith('/s'):
+        color = Style.NORMAL
+      else:
+        color = color_conf.get(part)
+      text += part if not color else color
   
+  if input_statement:
+    return input(text)
+
   if not print_statement:
     return text
   print(text)
 
 
+def convert_to_bytes(memory: str):
+  if not memory.isdigit():
+    space = memory.rfind(" ")
+    unit = memory[space+1:].lower()
+    conversion_factors = {
+      "gigabytes": 1E+9,
+      "megabytes": 1E+6,
+      "kilobytes": 1000,
+      "bytes": 1
+    }
+    if unit in conversion_factors:
+      return float(memory[:space]) * conversion_factors[unit]
+    else:
+      print("Couldn't recognize the memory size")
+      sys.exit(1)
+  return float(memory)
+
+
+# def retrieve_configuration() -> dict:
+#   with open(language_conf_file, 'r', encoding="UTF-8") as file:
+#     return load(file)
+
+
 machine = sys.platform
 problem_code_pattern = r"\A[1-9]{1}\d{,3}[A-z]\d?"
-config_folder = path.join(path.expanduser("~"), "AppData\Roaming" if machine == "win32" else ".config", "cfkit")
-config_file = path.join(config_folder, "platforms.json")
 json_folder = path.join(path.dirname(path.dirname(__file__)), "json")
+config_folder = path.join(path.expanduser("~"), "AppData\Roaming" if machine == "win32" else ".config", "cfkit")
+language_conf_file = read_json_file(path.join(config_folder, "languages.json"))
+conf_file = ConfigParser()
+conf_file.read(path.join(config_folder, "cfkit.conf"))
+color_conf = ConfigParser()
+color_conf.read(path.join(config_folder, "colorschemes", conf_file["cfkit"]["color_scheme"]))
+
+# message = f"Please run <{color_conf['configuration_errors']}>'cf config'</f> command to set your favorite programming language."
+message = f"contestID must be an integer"
+colored_text(message, color_conf["theme"]["user_input_errors"])

@@ -13,12 +13,13 @@ from cfkit.util.util import (
   enter_number,
   read_json_file,
   machine,
-  config_file,
-  json_folder)
-from cfkit.config import set_default_language, set_other_languages
+  conf_file,
+  language_conf_file,
+  json_folder
+)
+from cfkit.config import set_language_attributes
 
-
-configuration = read_json_file(config_file)
+language_configuration = read_json_file(language_conf_file)
 
 NOTE = """
 \nNote:
@@ -320,32 +321,19 @@ def execute_file(file: str, input_path: str, output_path: str, memory_limit: flo
     sysExit(1)
 
   extensions: dict = read_json_file(path.join(json_folder, "extensions.json"))
-  try:
-    programming_language = extensions[extension]
-  except KeyError:
-    print("")
+  
+  programming_language = extensions.get(extension)
+  if programming_language is None:
+    print("Oops! It looks like that the provided language is not supported by Codeforces.")
     sysExit(1)
-  default_language = configuration["default_language"]
+ 
+  execute_command = language_configuration[programming_language]["execute_command"]
+  if execute_command is None:
+    set_language_attributes(programming_language, detect_implementation)
+  language_configuration = read_json_file(language_conf_file)
+  run_command = language_configuration[programming_language]\
+    ["calculate_memory_usage_and_execution_time_command"]
 
-  def retrieve_run_command(func, key=True):
-    if key:
-      execute_command = configuration["other_languages"][programming_language]["execute_command"]
-      if execute_command is None:
-        func(programming_language, detect_implementation)
-      my_dict = read_json_file(config_file)
-      return my_dict["other_languages"][programming_language]\
-        ["calculate_memory_usage_execution_time_command"]
-
-    execute_command = configuration["execute_command"]
-    if execute_command is None:
-      func(programming_language, detect_implementation)
-    my_dict = read_json_file(config_file)
-    return my_dict["calculate_memory_usage_execution_time_command"]
-
-  if programming_language == default_language:
-    run_command = retrieve_run_command(set_default_language)
-  else:
-    run_command = retrieve_run_command(set_other_languages, True)
 
   output = path.basename(input_path)
   output = output[:output.find("_")]

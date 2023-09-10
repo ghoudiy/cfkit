@@ -11,10 +11,11 @@ from cfkit.util.util import (
   check_path_existence,
   path_exist_error,
   file_name,
-  retrieve_configuration,
   colored_text,
-  problem_code_pattern,
-  config_file)
+  convert_to_bytes,
+  language_conf_file,
+  problem_code_pattern
+)
 
 
 Directory: TypeAlias = str
@@ -34,12 +35,12 @@ class Contest:
       self._id = int(self._id)
 
     if isinstance(self._id, int):
-      response = check_url(f"https://codeforces.com/contests/{self._id}", "contests", self._id)
+      response = check_url(f"https://codeforces.com/contests/{self._id}", self._id)
       s = response.text
       s = s[s.find('<td class="id">') + 16:]
       return s[:s.find('</table>')].split("\n")
 
-    print("Contest ID must be an integer")
+    colored_text("Contest ID must be an integer")
     sys.exit(1)
 
 
@@ -51,13 +52,12 @@ class Contest:
     ) -> None:
     
     if programming_language_extension is None:
-      configuration = retrieve_configuration()
-      if configuration["default_language"] is None:
-        colored_text("<fore-red>Error</fore-red>: Your favorite programming language is not configured.")
-        colored_text("Please run <fore-blue>'cf config'</fore-blue> command to set your favorite programming language.")
+      if language_conf_file["default_testing_language"] is None:
+        colored_text("<f-light-magenta>Error</f>: Your favorite programming language is not configured.")
+        colored_text("Please run <f-light-blue>'cf config'</f> command to set your favorite programming language.")
         exit()
       else:
-        programming_language_extension = configuration["extensions"][0]
+        programming_language_extension = language_conf_file["extensions"][0]
 
     if path != os.getcwd():
       check_path_existence(path, 'd')
@@ -65,7 +65,7 @@ class Contest:
     S = set()
     problem_names = []
     ok = 0
-    ff = open("output.txt", 'w')
+    # ff = open("output.txt", 'w')
     for line in self._content:
       p = line.find('<a href="/contest/')
       p1 = line.find('!--')
@@ -115,7 +115,7 @@ class Problem:
 
     self.name = self._response[0]
     self.time_limit_s = self._response[2]
-    self.memory_limit_bytes = self.__convert_to_bytes(self._response[4])
+    self.memory_limit_bytes = convert_to_bytes(self._response[4])
 
     self._data_path = None
     self._expected_output_list = None
@@ -127,7 +127,7 @@ class Problem:
   def _check_problem_code(self, code, err=False):
     if search(problem_code_pattern + r'$', code) is not None:
       p = len(code) - 1 if code[-1].isalpha() and len(findall(r"[A-z]", code)) == 1 else len(code) - 2
-      self._response = check_url(f"https://codeforces.com/contest/{code[:p]}/problem/{code[p:]}", "problem code", code, err)
+      self._response = check_url(f"https://codeforces.com/contest/{code[:p]}/problem/{code[p:]}", code, int(code[:p]), err)
       self._letter_index = p
 
 
@@ -138,13 +138,13 @@ class Problem:
 
     def enter_code():
       '''If the problem code couldn't be recognized from the given path'''
-      self._code = input("Please enter the problem code: ")
+      self._code = input("Please enter the problem code: ").strip()
       self._check_problem_code(self._code)
 
     is_file = os.path.isfile(problem_code)
     if not is_file:
       if os.path.isdir(problem_code):
-        print("You should enter a problem code or a file not a directory")
+        colored_text("You should enter a problem code or a file not a directory", )
         sys.exit(1)
 
       self._check_problem_code(problem_code)
@@ -174,7 +174,7 @@ class Problem:
         except SyntaxError:
           pass
 
-    print("Problem code couldn't be recognized from the given path")
+    colored_text("Problem code couldn't be recognized from the given path", ["f red"])
     code = enter_code()
 
     return code
@@ -208,35 +208,14 @@ class Problem:
 
     return problem_statement
 
-  @staticmethod
-  def __convert_to_bytes(memory):
-    if not memory.isdigit():
-      space = memory.rfind(" ")
-      unit = memory[space+1:].lower()
-      conversion_factors = {
-        "gigabytes": 1E+9,
-        "megabytes": 1E+6,
-        "kilobytes": 1000,
-        "bytes": 1
-      }
-      if unit in conversion_factors:
-        return float(memory[:space]) * conversion_factors[unit]
-      else:
-        print("Couldn't recognize the memory size")
-        sys.exit(1)
-    return float(memory)
-
 
   def create_problem_file(self, ext: str, addProblemNameToFileName: bool = False, path: Directory = os.getcwd()) -> None:
     file_name(self.name[2:], self._code)
 
 
-  def parse(self, path: Directory = None, CreateTestsDir: bool = True, __check_path: bool = True) -> None:
+  def parse(self, path: Directory = os.getcwd(), CreateTestsDir: bool = True, __check_path: bool = True) -> None:
 
-    if path is None:
-      path = os.getcwd()
-
-    elif path is not None and __check_path:
+    if path != os.getcwd() and __check_path:
       check_path_existence(path, 'd')
 
     os.chdir(path)
@@ -253,16 +232,16 @@ class Problem:
         self._input_samples = sorted([file for file in L if search(rf"{self._code}_\d.in", file) is not None])
         if len(self._expected_output_list) * 2 != len(L):
 
-          c = input("Another folder with the same name 'tests' already exists\n[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").lower()
+          c = input("Another folder with the same name 'tests' already exists\n[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").strip().lower()
           while c not in ('w', 'r', 'c'):
-            c = input("[W]rite/[R]eplace/[C]reate]").lower()
+            c = input("[W]rite/[R]eplace/[C]reate]").strip().lower()
 
           if c == 'r':
             rmtree(os.path.join(path, "tests"))
             self._data_path = create_new_dir("tests")
 
           elif c == 'c':
-            name = input("Folder name: ")
+            name = input("Folder name: ").strip()
             path_exist_error(name, "d")
             self._data_path = create_new_dir(name)
 
@@ -277,14 +256,15 @@ class Problem:
     R = self._response[self._example_index+1:] if self._note_index is None else self._response[self._example_index+1:self._note_index]
     nr = R.count("Input")
     aux = nr
-    while nr > 0:
 
-      def in_out_files(nr1, nr2, ext, start, end):
-        sample = os.path.join(self._data_path, f"{self._code}_{nr1 - nr2 + 1}.{ext}")
-        if not os.path.exists(sample):
-          with open(sample, 'w', encoding="UTF-8") as ff:
-            for data in R[start+1:end]:
-              ff.write(f"{data}\n")
+    def in_out_files(nr1, nr2, ext, start, end):
+      sample = os.path.join(self._data_path, f"{self._code}_{nr1 - nr2 + 1}.{ext}")
+      if not os.path.exists(sample):
+        with open(sample, 'w', encoding="UTF-8") as ff:
+          for data in R[start+1:end]:
+            ff.write(f"{data}\n")
+
+    while nr > 0:
 
       pi = R.index("Input")
       po = R.index("Output")
@@ -295,5 +275,5 @@ class Problem:
       R[po] = "output-done"
       nr -= 1
 
-# Problem("1846D").parse("/home/ghoudiy/Downloads/")
-Contest(1846).create_problems_files()
+# Problem("1860G")
+Contest(1860).create_problems_files()
