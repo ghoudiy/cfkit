@@ -1,4 +1,4 @@
-from os import get_terminal_size, path
+from os import path
 from getpass import getpass
 from json import dump, load
 from mechanicalsoup import StatefulBrowser
@@ -6,23 +6,21 @@ from mechanicalsoup import StatefulBrowser
 from cfkit.util.util import (
   read_json_file,
   create_file_folder,
+  display_horizontally,
   conf_file,
   config_folder,
-  language_conf_file,
+  language_conf,
   machine,
   json_folder
 )
 
+from cfkit.util.implementation import detect_implementation
 
-def set_language_attributes(programming_language, configuration, __func):
-  execute_command = language_conf_file["execute_command"]
-  
-  compilers_interpreters: dict = read_json_file(path.join(json_folder, compilers_interpreters.json))
-  compiling_commands: dict = read_json_file(path.join(json_folder, compiling_commands.json))
-  one_line_compiled: dict = read_json_file(path.join(json_folder, one_line_compiled.json))
-  interpreting_commands: dict = read_json_file(path.join(json_folder, interpreting_commands.json))
 
-  execute_command, implementation = __func(programming_language, compilers_interpreters, compiling_commands, one_line_compiled, interpreting_commands)
+def set_language_attributes(programming_language, configuration):
+  execute_command = language_conf["execute_command"]
+
+  execute_command, implementation = detect_implementation(programming_language)
   
   run_command = path.join(path.dirname(__file__), "util", "memory_usage.exe " if machine == "win32" else "./memory_usage.exe")
   
@@ -32,10 +30,10 @@ def set_language_attributes(programming_language, configuration, __func):
   else:
     run_command += f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out %%{{input_file}}%% %%{{output_file}}%%"
 
-  # language_conf_file["extension"] = 
-  language_conf_file["execute_command"] = execute_command
-  language_conf_file["calculate_memory_usage_and_execution_time_command"] = run_command
-  with open(language_conf_file, 'w', encoding="UTF-8") as platforms_file:
+  # language_conf["extension"] = 
+  language_conf["execute_command"] = execute_command
+  language_conf["calculate_memory_usage_and_execution_time_command"] = run_command
+  with open(language_conf, 'w', encoding="UTF-8") as platforms_file:
     dump(configuration, platforms_file, indent=4)
 
 
@@ -45,7 +43,7 @@ def default_language():
 
 def default_compiler():
 
-  configuration = read_json_file(language_conf_file)
+  configuration = read_json_file(language_conf)
   if configuration["default_compiler"] is None:
     LANGUAGES = {
       "1. GNU GCC C11 5.1.0": 43,
@@ -84,31 +82,15 @@ def default_compiler():
       "34. JavaScript V8 4.8.0": 34,
       "35. Node.js 12.16.3": 55
     }
-
-    data = list(LANGUAGES.keys())
-    terminal_width = get_terminal_size().columns
-    max_item_width = max(len(item) for item in data)
-    # Add some padding between columns
-    num_columns = max(1, terminal_width // (max_item_width + 2))
-
-    # Distribute items into columns
-    items_per_column = -(-len(data) // num_columns)  # Ceiling division
-    columns = [data[i:i + items_per_column] for i in range(0, len(data), items_per_column)]
-
-    # Calculate the number of rows needed to accommodate the columns
-    num_rows = max(len(col) for col in columns)
-
-    # Format and print the output using textwrap
-    for row in range(num_rows):
-      formatted_row = "  ".join(col[row].ljust(max_item_width) if row < len(col) else ' ' * max_item_width for col in columns)
-      print(formatted_row)
+    data = tuple(LANGUAGES.keys())
+    display_horizontally(data)
     
     c = input("Compiler index: ")
     while not c.isdigit() or not (1 <= int(c) <= 35):
       c = input("Compiler index: ")
     
     configuration["default_compiler"] = data[int(c)-1][data[int(c)-1].find(" ")+1:]
-    with open(language_conf_file, 'w') as file:
+    with open(language_conf, 'w') as file:
       dump(configuration, file, indent=4)
 
 
@@ -128,7 +110,7 @@ def login():
 
 
 # create_file_folder(config_folder, 'd')
-# create_file_folder(language_conf_file)
+# create_file_folder(language_conf)
 # create_file_folder(path.join(config_folder, 'valid_urls'), 'd')
 # create_file_folder(path.join(config_folder, 'valid_urls', "contests.json"))
 # create_file_folder(path.join(config_folder, 'valid_urls', "A"))

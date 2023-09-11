@@ -2,7 +2,6 @@ import sys
 import os
 from re import search, findall
 from typing import TypeAlias
-from shutil import rmtree
 from bs4 import BeautifulSoup
 
 
@@ -13,10 +12,13 @@ from cfkit.util.util import (
   file_name,
   colored_text,
   convert_to_bytes,
-  language_conf_file,
+  create_file_folder,
+  folder_exists,
+  conf_file,
+  template_folder,
+  language_conf,
   problem_code_pattern
 )
-
 
 Directory: TypeAlias = str
 FileOrDirectory: TypeAlias = str
@@ -27,7 +29,7 @@ File: TypeAlias = str
 class Contest:
   def __init__(self, contestId: int) -> None:
     self._id = contestId
-    # self._content = self.__contest_content()
+    self._content = self.__contest_content()
 
 
   def __contest_content(self):
@@ -35,71 +37,90 @@ class Contest:
       self._id = int(self._id)
 
     if isinstance(self._id, int):
-      response = check_url(f"https://codeforces.com/contests/{self._id}", self._id)
+      response = check_url(f"https://codeforces.com/contest/{self._id}", self._id)
       s = response.text
       s = s[s.find('<td class="id">') + 16:]
       return s[:s.find('</table>')].split("\n")
 
-    colored_text("Contest ID must be an integer")
+    colored_text("Contest ID must be an integer", "user_input_errors")
     sys.exit(1)
 
 
   def create_problems_files(
       self,
-      path: Directory = os.getcwd(),
+      programming_language_extension: str = None,
       addProblemNameToFileName: bool = False,
-      programming_language_extension: str = None
+      path: Directory = os.getcwd()
     ) -> None:
+    print("Function begin")
     
     if programming_language_extension is None:
-      if language_conf_file["default_testing_language"] is None:
-        colored_text("<f-light-magenta>Error</f>: Your favorite programming language is not configured.")
-        colored_text("Please run <f-light-blue>'cf config'</f> command to set your favorite programming language.")
-        exit()
+      default_language = conf_file["cfkit"]["default_language"]
+      print([default_language])
+      if not default_language:
+        colored_text("<error>Error</>: Your favorite programming language is not configured.")
+        colored_text("Please run <configuration_errors>'cf config'</> command to set your favorite programming language.")
+        sys.exit(1)
       else:
-        programming_language_extension = language_conf_file["extensions"][0]
+        programming_language_extension = default_language["extensions"][0]
 
     if path != os.getcwd():
       check_path_existence(path, 'd')
     os.chdir(path)
-    S = set()
-    problem_names = []
-    ok = 0
-    # ff = open("output.txt", 'w')
-    for line in self._content:
-      p = line.find('<a href="/contest/')
-      p1 = line.find('!--')
-      p2 = line.find("    -->")
-      if p != -1 and p1 == -1 and line.find('<img src="') == -1:
-        S.add(line[p+19:])
-        print(S)
-      if ok % 2 == 1:
-        name = f"<!-- {line[p2+4:]} -->"
-        name = BeautifulSoup(name, "html.parser").stripped_strings
-        problem_names.append(next(name))
-        ok += 1
-      if p1 != -1 and p2 == -1:
-        ok += 1
+
+    def finding_problem_codes():
+      S = set()
+      if addProblemNameToFileName:
+        problem_names = []
+        ok = 0
+      for line in self._content:
+        p = line.find('<a href="/contest/')
+        p1 = line.find('!--')
+        p2 = line.find("    -->")
+        if p != -1 and p1 == -1 and line.find('<img src="') == -1:
+          S.add(line[p+19:])
+        if addProblemNameToFileName:
+          if ok % 2 == 1:
+            name = f"<!-- {line[p2+4:]} -->"
+            name = BeautifulSoup(name, "html.parser").stripped_strings
+            problem_names.append(next(name))
+            ok += 1
+          if p1 != -1 and p2 == -1:
+            ok += 1
+      return (S, problem_names) if addProblemNameToFileName else S
+
+    problem_codes = finding_problem_codes()
 
     if os.path.basename(path) != self._id:
-      os.mkdir(f"{self._id}")
-    os.chdir(f"{self._id}")
-    S = sorted(S)
-    if addProblemNameToFileName:
-      for i, code in enumerate(S):
+      try:
+        os.mkdir(str(self._id))
+      except FileExistsError:
+        folder_name = folder_exists(self._id)
+    os.chdir(folder_name)
+    problem_codes = sorted(problem_codes)
+    
+    # def create_solution_file(file_name):
+      # language_template_folder = os.path.join(template_folder, programming_language_extension)
+      # default_template = language_conf[programming_language]["default_template"]
+      # if not default_template:
+        # display_horizontally(os.listdir())
+      # else:
+        # with open(file_name, 'x') as file:
+          # pass
+    
+    if isinstance(problem_codes, tuple):
+      for i, code in enumerate(problem_codes[0]):
         letter = code[code.find('/problem/')+9:code.find('"')]
-        aux = file_name(problem_names[i], f"{letter}_") + f".{programming_language_extension}"
-        print(aux)
+        aux = file_name(problem_codes[1][i], f"{letter}_") + f".{programming_language_extension}"
+        # create_solution_file(f"{aux}.{programming_language_extensions}")
+    
     else:
-      for i, code in enumerate(S):
+      print(problem_codes)
+      for i, code in enumerate(problem_codes):
         letter = code[code.find('/problem/')+9:code.find('"')]
         aux = letter
-        print(aux)
-      # if programming_language_extension == "py":
-      #   with open(aux, 'a') as file:
-      #     with open(os.path.join(os.path.dirname(__file__), "templates", ""), f"{os.path.dirname(__file__)}{}python_template.py", 'r') as ff:
-      #       file.write(ff.read())
-      # else: open(aux, 'x').close()
+        # create_solution_file(aux)
+        print(aux, 1)
 
 
 
@@ -129,6 +150,8 @@ class Problem:
       p = len(code) - 1 if code[-1].isalpha() and len(findall(r"[A-z]", code)) == 1 else len(code) - 2
       self._response = check_url(f"https://codeforces.com/contest/{code[:p]}/problem/{code[p:]}", code, int(code[:p]), err)
       self._letter_index = p
+    else:
+       colored_text("No such problem")
 
 
   def __check_entry(self, problem_code):
@@ -144,7 +167,7 @@ class Problem:
     is_file = os.path.isfile(problem_code)
     if not is_file:
       if os.path.isdir(problem_code):
-        colored_text("You should enter a problem code or a file not a directory", )
+        colored_text("You should enter a problem code or a file not a directory", "user_input_errors")
         sys.exit(1)
 
       self._check_problem_code(problem_code)
@@ -174,7 +197,7 @@ class Problem:
         except SyntaxError:
           pass
 
-    colored_text("Problem code couldn't be recognized from the given path", ["f red"])
+    colored_text("Problem code couldn't be recognized from the given path", "user_input_errors")
     code = enter_code()
 
     return code
@@ -222,34 +245,17 @@ class Problem:
 
     if CreateTestsDir:
 
-      def create_new_dir(x):
-        os.mkdir(x)
-        return f"{x}"
-
       if os.path.exists("tests"):
         L = os.listdir("tests")
         self._expected_output_list = sorted([file for file in L if search(rf"{self._code}_\d.out", file) is not None])
         self._input_samples = sorted([file for file in L if search(rf"{self._code}_\d.in", file) is not None])
         if len(self._expected_output_list) * 2 != len(L):
 
-          c = input("Another folder with the same name 'tests' already exists\n[W]rite in the same folder or [R]eplace the folder or [C]reate a new one with another name? ").strip().lower()
-          while c not in ('w', 'r', 'c'):
-            c = input("[W]rite/[R]eplace/[C]reate]").strip().lower()
-
-          if c == 'r':
-            rmtree(os.path.join(path, "tests"))
-            self._data_path = create_new_dir("tests")
-
-          elif c == 'c':
-            name = input("Folder name: ").strip()
-            path_exist_error(name, "d")
-            self._data_path = create_new_dir(name)
-
-          else: self._data_path = "tests"
+          self._data_path = folder_exists("tests")
 
         else: self._data_path = "tests"
 
-      else: self._data_path = create_new_dir("tests")
+      else: self._data_path = create_file_folder("tests", 'd')
 
     else: self._data_path = path
     
@@ -275,5 +281,5 @@ class Problem:
       R[po] = "output-done"
       nr -= 1
 
-# Problem("1860G")
-Contest(1860).create_problems_files()
+Problem("1846D").parse()
+# Contest("1860").create_problems_files("py")

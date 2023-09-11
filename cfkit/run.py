@@ -22,7 +22,10 @@ class Test(Problem):
     def __tmp(x):
       check_path_existence(x, 'f')
       while not os.path.isfile(x):
-        x = input("The path you provided is not a file path.\nPlease provide an existing file path instead: ")
+        x = colored_text(
+          "The path you provided is not a file path" +
+          "\nPlease provide <user_input_errors>an existing file path</f> instead: "
+          )
         check_path_existence(x, 'f')
       return x
 
@@ -68,7 +71,7 @@ class Test(Problem):
       output_path = f"{self._code}_test_case{i+1}.out"
 
       if _argv: # If working with the solution file itself and it's a python file
-        if currentframe().f_back.f_code.co_name == "test":
+        if currentframe().f_back.f_code.co_name == "test": # Need to be fix it
           line_number = currentframe().f_back.f_back.f_lineno
 
         elif currentframe().f_back.f_code.co_name == "<module>":
@@ -100,7 +103,7 @@ class Test(Problem):
 
               else:
                 code[j] = list(map(lambda x: x.replace("cfkit", "").strip(), code[j]))
-                code[j] = ", ".join(list(filter(lambda x: bool(x), code[j]))) + "\n"
+                code[j] = ", ".join(list(filter(bool, code[j]))) + "\n"
 
         with open("cfkit_module_user_code.py", 'w', encoding="UTF-8") as file:
           file.write("".join(code[:line_number-1] + code[line_number:]))
@@ -116,7 +119,7 @@ class Test(Problem):
 
       def checker_log(error):
         if memory_usage_execution_time_or_error == error:
-          verdict[i] = (f"Test case {i+1}", colored_text(error, "f light blue"))
+          verdict[i] = (f"Test case {i+1}", colored_text(error, error.replace(" ", "_").lower()))
           if self._tfwrong is None:
             self._tfwrong = f"{error} on test {i + 1}"
           print('-' * terminal_columns)
@@ -223,7 +226,7 @@ class Test(Problem):
       print('')
     
     if accepeted:
-      colored_text("Demo Accepeted", ["f light green", 's bright'])
+      colored_text("Demo Accepeted", "accepted")
       print_results(verdict, memory_usage_execution_time_or_error)
       l = len(self._input_samples)
       rm = None
@@ -277,4 +280,6 @@ class Test(Problem):
         finish_program()
 # print(Test.__dict__)
 # Test("200B").run_demo("/home/ghoudiy/Documents/Programming/Python/CP/Codeforces/B_Problems/200B_Drinks.py")
-# Test("1846D").run_demo("/home/ghoudiy/Downloads/code.py")
+pp = "/home/ghoudiy/Downloads/"
+os.chdir(pp)
+Test("code.py").run_demo()
