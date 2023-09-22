@@ -52,7 +52,7 @@
         }
     },
     "OCaml": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o {output}.exe -ocaml %%{file}%%",
-    "Delphi 7": "dcc{architecture} -Q -cc %%{file}%% && ren %%{file}%%.exe {output}.exe",
+    "Delphi": "dcc{architecture} -Q -cc %%{file}%% && ren %%{file}%%.exe {output}.exe",
     "Pascal": {
         "Free Pascal": "fpc -n -O2 -viwn -Mdelphi %%{file}%% -o {output}.exe",
         "PascalABC.NET": "pabcnetc %%{file}%% && ren %%{file}%%.exe {output}.exe && ren %%{file}%%.dpr {output}.dpr"

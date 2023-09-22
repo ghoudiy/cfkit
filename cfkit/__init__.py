@@ -1,1 +1,2 @@
-from cfkit.__main__ import Problem, Contest
+from cfkit.problem import Problem
+from cfkit.contest import Contest

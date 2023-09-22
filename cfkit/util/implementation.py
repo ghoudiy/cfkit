@@ -3,18 +3,20 @@ Detect the implementation type (compiler or interpreter) from the provided file
 and execute it with sample input and output while managing memory usage.
 """
 
-from sys import exit as sysExit, maxsize, executable
-from os import path
+from sys import exit as sysExit, maxsize
+from os import chdir
 from subprocess import run
+from webbrowser import open as webOpen
 
 from cfkit.util.util import (
   confirm,
   check_command,
   enter_number,
   read_json_file,
-  machine,
+  colored_text,
+  MACHINE,
   json_folder
-  )
+)
 
 NOTE = """
 2. Do not include any input or output specifications in your command! (i.e. '< in > out')
@@ -45,10 +47,11 @@ def detect_implementation(programming_language: str):
   Identify programming language implementations available on the system and supported by Codeforces.
   '''
 
-  compilers_interpreters: dict = read_json_file(path.join(json_folder, "compilers_interpreters.json"))
-  compiling_commands: dict = read_json_file(path.join(json_folder, "compiling_commands.json"))
-  one_line_compiled: dict = read_json_file(path.join(json_folder, "one_line_compiled.json"))
-  interpreting_commands: dict = read_json_file(path.join(json_folder, "interpreting_commands.json"))
+  chdir(json_folder)
+  compilers_interpreters: dict = read_json_file("compilers_interpreters.json")
+  compiling_commands: dict = read_json_file("compiling_commands.json")
+  one_line_compiled: dict = read_json_file("one_line_compiled.json")
+  interpreting_commands: dict = read_json_file("interpreting_commands.json")
 
   def language(command: str) -> bool:
     '''
@@ -62,9 +65,13 @@ def detect_implementation(programming_language: str):
     If the user utilizes a compatibility layer on Linux or macOS to execute Windows applications.
     '''
     return command.replace("&& ren", "&& mv")\
-    if command and (machine in ("linux", "darwin")) else command
+    if command and (MACHINE in ("linux", "darwin")) else command
 
   def check_installed_implementation(check_implementations_availability_list):
+    '''
+    Loop through implementation check version command 
+    (i.e. "g++ --version", "gcc --version", "python -V"...)
+    '''
     i = -1
     test = False
     installed_implementations_list_bool = [False] * len(check_implementations_availability_list)
@@ -78,7 +85,7 @@ def detect_implementation(programming_language: str):
 
     # If there is only one command of execution
     if isinstance(check_implementation_version_command, str):
-      if lang == "Delphi 7":
+      if lang == "Delphi":
         test = maxsize > 4294967296
         command = None
         if test and language(check_implementation_version_command.replace("{architecture}", "64")):
@@ -89,33 +96,40 @@ def detect_implementation(programming_language: str):
             if language(check_implementation_version_command.replace\
             ("{architecture}", "32")) else None
 
-        implementation_command = change_rename_command(command)
-        if implementation_command is None:
-          print("Oops! Delphi 7 (dcc) compiler used in Codeforces isn't available on your system.")
-          return None, "compiler"
-        return implementation_command, "compiler"
-
-      if lang in interpreting_commands:
-        implementation_command = interpreting_commands[lang], "interpreter"
-
-      elif lang in compiling_commands:
-        if lang == "C":
-          implementation_command = compiling_commands[lang][machine], "compiler"
-        
-        else:
-          implementation_command = compiling_commands[lang], "compiler"
+        implementation_command = change_rename_command(command), "compiler"
+        if implementation_command[0] is None:
+          print(
+            f"Oops! Delphi compiler (dcc{'64' if test else '32'})",
+            "used in Codeforces isn't available on your system."
+          )
 
       else:
-        implementation_command = one_line_compiled[lang], "compile and execute"
+        # Check if the language is interpreted or compiled language
+        if lang in interpreting_commands:
+          implementation_command = interpreting_commands[lang], "interpreter"
 
-      if not language(check_implementation_version_command):
-        print(
-          f"Oops! {lang} {implementation_command[1] if implementation_command[1] != 'compile and execute' else 'compiler'} (",
-          check_implementation_version_command[:check_implementation_version_command.find(' ')],
-          ") used in Codeforces isnt't available on your system.", sep='')
-        implementation_command = None, implementation_command[1]
+        elif lang in compiling_commands:
+          if lang == "C":
+            implementation_command = compiling_commands[lang][MACHINE], "compiler"
 
-    # Python only for now
+          else:
+            implementation_command = compiling_commands[lang], "compiler"
+
+        else: # Also compiled language but it can be compiled and executed in the same time
+          implementation_command = one_line_compiled[lang], "compile and execute"
+
+        if not language(check_implementation_version_command):
+          implementation_command = None, implementation_command[1]
+          if implementation_command[1] == "compile and execute":
+            implementation_command = None, "compiler"
+          print(
+            f"Oops! {lang} {implementation_command[1]} (",
+            check_implementation_version_command[:check_implementation_version_command.find(' ')],
+            ") used in Codeforces isn't available on your system.", sep='')
+
+    # This condition was written because Python has multiple executing commands
+    # In Windows for example you execute a python (python2 or python3) file using "python"
+    # But in Linux you have to specify the version i.e. python3 or python2
     elif isinstance(check_implementation_version_command, list):
       tmp = check_installed_implementation(check_implementation_version_command)
       if any(tmp):
@@ -125,35 +139,39 @@ def detect_implementation(programming_language: str):
 
       else:
         print("Oops! You don't have python installed on the system or it may be not added to PATH.")
-        sysExit(1)
+        return None, "interpreter"
 
-    elif isinstance(check_implementation_version_command, dict):
+    else: # A dictionary
       implementation_lists = {}
       implementation = "compilers"
       # Loop through language implementations
-      # key is the compiler name and value is the check version command of that compiler
+      # 'key' is the compiler name and 'value' is the check version command of that implementation
       for key, value in check_implementation_version_command.items():
 
-        if isinstance(value, list):
         # This condition was written because C++ is notably exceptional in this situation
         # as it remains compatible with both g++ and gcc compilers within the GCC compiler group.
+        if isinstance(value, list):
           implementation_lists[key] = check_installed_implementation(value)
 
           if implementation_lists[key][0]: # If g++ is installed
             implementation_lists[key] = True
 
           elif not implementation_lists[key][0] and implementation_lists[key][1]:
-            if machine == "win32":
-              return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s " +\
+            if MACHINE == "win32":
+              return (
+                "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s "
                 "-Wl,--stack=268435456 -O2 -o {output}.exe {file} -lstdc++", "compiler"
+              )
 
-            return "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o " +\
+            return (
+              "gcc -Wall -Wextra -Wconversion -fno-strict-aliasing -lm -s -O2 -o "
               "{output}.exe {file} -lstdc++", "compiler"
+            )
 
           elif not (implementation_lists[key][0] and implementation_lists[key][1]):
             return None, "compiler"
 
-        elif isinstance(value, str):
+        else:
           implementation_lists[key] = language(value)
           if lang == "JavaScript":
             implementation = "interpreters"
@@ -211,19 +229,19 @@ def detect_implementation(programming_language: str):
               if compilers[compiler_index][1][0] == "PascalABC.NET":
                 selected_implementation = change_rename_command(aux)
               else:
-                if machine in aux:
-                  selected_implementation = aux[machine]
+                if MACHINE in aux:
+                  selected_implementation = aux[MACHINE]
                 else:
                   selected_implementation = aux
             else:
               selected_implementation = list_of_implementations[
                 compilers[compiler_index][0]][
-                compilers[compiler_index][1]][machine]
+                compilers[compiler_index][1]][MACHINE]
 
           elif implementation_lists_length:
             key = list(list_of_implementations.keys())[0]
-            if machine in list_of_implementations[key]:
-              selected_implementation = list_of_implementations[key][machine]
+            if MACHINE in list_of_implementations[key]:
+              selected_implementation = list_of_implementations[key][MACHINE]
             else:
               selected_implementation = list_of_implementations[key]
 
@@ -234,8 +252,10 @@ def detect_implementation(programming_language: str):
         for imp in implementation_lists:
           if lang in compiling_commands and imp in compiling_commands[lang]:
             list_of_implementations.update({imp: compiling_commands[lang][imp]})
+
           elif lang in one_line_compiled and imp in one_line_compiled[lang]:
             list_of_implementations.update({imp: one_line_compiled[lang][imp]})
+
           else:
             list_of_implementations.update({imp: interpreting_commands[lang][imp]})
             implementation = "interpreter"
@@ -253,22 +273,78 @@ def detect_implementation(programming_language: str):
       else:
         compilers_interpreters[lang] = list(compilers_interpreters[lang].keys())
 
-        statement = f"{(', '.join(compilers_interpreters[lang][:-2]))} " +\
-        f"{compilers_interpreters[lang][-2]} and " +\
-        f"{compilers_interpreters[lang][-1]} {implementation}".lstrip()
-
+        statement = (
+          f"{(', '.join(compilers_interpreters[lang][:-2]))} "
+          f"{compilers_interpreters[lang][-2]} and "
+          f"{compilers_interpreters[lang][-1]} {implementation}".lstrip()
+        )
         print(f"Oops! {statement} that are used in Codeforces aren't available on your system.",)
         implementation_command = None, implementation[:-1]
 
     return implementation_command
 
+
   command, implementation = get_command(programming_language)
   if command:
-     # Add executing command to compiling command and save command to config file
     return command, implementation
 
-  if programming_language == "Python":
-    return executable, "interpreter"
+  implementation_1 = implementation if implementation != 'compile and execute' else 'compiler'
+  print(
+    f"\n1. Open official download page of the {implementation_1}",
+    f"2. Enter a custom command for an already installed {implementation_1}\n",
+    sep="\n"
+  )
+  action_index = enter_number("Enter action index: ", "Action index: ", range(1, 3))
+
+  if action_index == 1:
+    sites = {
+      "C": "https://gcc.gnu.org/",
+      "C++": {
+        "GNU G++": "https://gcc.gnu.org/",
+        "Clang++": "https://github.com/llvm/llvm-project/releases/latest",
+        "Microsoft Visual Studio C++": "https://visualstudio.microsoft.com/downloads/"
+      },
+      "C#": {
+        "Mono": "https://www.mono-project.com/download/stable/",
+        ".NET": "https://dotnet.microsoft.com/en-us/download"
+      },
+      "D": "https://dlang.org/download.html",
+      "Go": "https://go.dev/doc/install",
+      "Haskell": "https://www.haskell.org/downloads/",
+      "Java": "https://www.java.com/en/download/",
+      "Kotlin": "https://kotlinlang.org/docs/getting-started.html#install-kotlin",
+      "OCaml": "https://ocaml.org/install",
+      "Delphi": "https://www.embarcadero.com/products/delphi/starter/free-download",
+      "Pascal": {
+        "Free Pascal": "https://www.freepascal.org/download.html",
+        "PascalABC.NET": "https://pascalabc.net/en/download",
+      },
+      "Perl": "https://www.perl.org/get.html",
+      "PHP": "https://www.php.net/downloads.php",
+      "Python": "https://www.python.org/downloads/",
+      "Ruby": "https://www.ruby-lang.org/en/downloads/",
+      "Rust": "https://www.rust-lang.org/tools/install",
+      "Scala": "https://www.scala-lang.org/download/",
+      "JavaScript": {
+        "JavaScipt d8": "https://v8.dev/docs/build-gn",
+        "Node.js": "https://nodejs.org/en/download"
+      }
+    }
+    site = sites[programming_language]
+    if isinstance(site, dict):
+      implementations = list(enumerate(site.keys()))
+      for i, imp in implementations:
+        print(f"{i}. {imp}")
+      implementation_index = enter_number(
+        f"{implementation_1} index: ",
+        f"{implementation_1} index: ",
+        range(1, len(implementations)+1)
+      )
+      webOpen(sites[programming_language][implementations[implementation_index][1]])
+    else:
+      webOpen(site)
+
+    sysExit(1)
 
   placeholders = [
     "Notes:",
@@ -290,11 +366,11 @@ def detect_implementation(programming_language: str):
       range(1, 3))
     if compilation_type == 1:
       implementation = "compiler"
-      message = f"{placeholders[1][3:]}\n{placeholders[2:4]}", "compiler"
+      message = f"{placeholders[1][3:]}\n{placeholders[2]}\n{placeholders[3]}", None
       command = confirm(
         check_command(
-          input("\nEnter below the command you'd like to use:\n"),
-          (message,)
+          input("\nEnter below the command you'd like to use:\n").strip(),
+          message
         ),
         "command",
         message
@@ -304,7 +380,7 @@ def detect_implementation(programming_language: str):
       message = f"{placeholders[1][3:]}\n{placeholders[2]}"
       command = confirm(
         check_command(
-          input("\nEnter below the command you'd like to use:\n"),
+          input("\nEnter below the command you'd like to use:\n").strip(),
           message
         ),
         "command",
@@ -318,7 +394,7 @@ def detect_implementation(programming_language: str):
     message = f"{placeholders[1][3:]}\n{placeholders[2]}"
     command = confirm(
       check_command(
-        input("\nEnter below the command you'd like to use:\n"),
+        input("\nEnter below the command you'd like to use:\n").strip(),
         message
       ),
       "command",
@@ -326,13 +402,3 @@ def detect_implementation(programming_language: str):
     )
 
   return command, implementation
-
-L = ['C', 'C++', 'C#', 'D', 'Go', 'Haskell GHC', 'Java', 'Kotlin', 'OCaml', 'Delphi 7', 'Pascal', 'Perl', 'PHP', 'Python', 'Ruby', 
-'Rust', 'Scala', 'JavaScript d8', 'Node.js']
-
-for prog in L:
-  a = detect_implementation(prog)
-  print(f"Programming Language = '{prog}'")
-  print(type(a))
-  print(a)
-  print('-' * 50)
