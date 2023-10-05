@@ -1,0 +1,286 @@
+A. Increasing Sequence
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given a sequence $$$a_{1}, a_{2}, \ldots, a_{n}$$$. A sequence $$$b_{1}, b_{2}, \ldots, b_{n}$$$ is called
+good
+, if it satisfies all of the following conditions:
+$$$b_{i}$$$ is a positive integer for $$$i = 1, 2, \ldots, n$$$;
+$$$b_{i} \neq a_{i}$$$ for $$$i = 1, 2, \ldots, n$$$;
+$$$b_{1} < b_{2} < \ldots < b_{n}$$$.
+Find the minimum value of $$$b_{n}$$$ among all good sequences $$$b_{1}, b_{2}, \ldots, b_{n}$$$.
+Input
+Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 100$$$). The description of the test cases follows.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 100$$$).
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \le a_i \le 10^{9}$$$).
+Output
+For each test case, print a single integer â€” the minimum value of $$$b_{n}$$$ among all good sequences $$$b$$$.
+Example
+Input
+3
+5
+1 3 2 6 7
+4
+2 3 4 5
+1
+1
+Output
+8
+4
+2
+----------------------------------------------------------------------------------------------------
+B. Sets and Union
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You have $$$n$$$ sets of integers $$$S_{1}, S_{2}, \ldots, S_{n}$$$. We call a set $$$S$$$
+attainable
+, if it is possible to choose some (possibly, none) of the sets $$$S_{1}, S_{2}, \ldots, S_{n}$$$ so that $$$S$$$ is equal to their union$$$^{\dagger}$$$. If you choose none of $$$S_{1}, S_{2}, \ldots, S_{n}$$$, their union is an empty set.
+Find the maximum number of elements in an attainable $$$S$$$ such that $$$S \neq S_{1} \cup S_{2} \cup \ldots \cup S_{n}$$$.
+$$$^{\dagger}$$$ The union of sets $$$A_1, A_2, \ldots, A_k$$$ is defined as the set of elements present in at least one of these sets. It is denoted by $$$A_1 \cup A_2 \cup \ldots \cup A_k$$$. For example, $$$\{2, 4, 6\} \cup \{2, 3\} \cup \{3, 6, 7\} = \{2, 3, 4, 6, 7\}$$$.
+Input
+Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 100$$$). The description of the test cases follows.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 50$$$).
+The following $$$n$$$ lines describe the sets $$$S_1, S_2, \ldots, S_n$$$. The $$$i$$$-th of these lines contains an integer $$$k_{i}$$$ ($$$1 \le k_{i} \le 50$$$) â€” the number of elements in $$$S_{i}$$$, followed by $$$k_{i}$$$ integers $$$s_{i, 1}, s_{i, 2}, \ldots, s_{i, k_{i}}$$$ ($$$1 \le s_{i, 1} < s_{i, 2} < \ldots < s_{i, k_{i}} \le 50$$$) â€” the elements of $$$S_{i}$$$.
+Output
+For each test case, print a single integer â€” the maximum number of elements in an attainable $$$S$$$ such that $$$S \neq S_{1} \cup S_{2} \cup \ldots \cup S_{n}$$$.
+Example
+Input
+4
+3
+3 1 2 3
+2 4 5
+2 3 4
+4
+4 1 2 3 4
+3 2 5 6
+3 3 5 6
+3 4 5 6
+5
+1 1
+3 3 6 10
+1 9
+2 1 3
+3 5 8 9
+1
+2 4 28
+Output
+4
+5
+6
+0
+----------------------------------------------------------------------------------------------------
+C. Card Game
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+There are $$$n$$$ cards stacked in a deck. Initially, $$$a_{i}$$$ is written on the $$$i$$$-th card from the top. The value written on a card does not change.
+You will play a game. Initially your score is $$$0$$$. In each turn, you can do
+one
+of the following operations:
+Choose an odd$$$^{\dagger}$$$ positive integer $$$i$$$, which is not greater than the number of cards left in the deck. Remove the $$$i$$$-th card from the top of the deck
+and add the number written on the card to your score
+. The remaining cards will be reindexed starting from the top.
+Choose an even$$$^{\ddagger}$$$ positive integer $$$i$$$, which is not greater than the number of cards left in the deck. Remove the $$$i$$$-th card from the top of the deck. The remaining cards will be reindexed starting from the top.
+End the game. You can end the game whenever you want, you
+do not
+have to remove all cards from the initial deck.
+What is the maximum score you can get when the game ends?
+$$$^{\dagger}$$$ An integer $$$i$$$ is odd, if there exists an integer $$$k$$$ such that $$$i = 2k + 1$$$.
+$$$^{\ddagger}$$$ An integer $$$i$$$ is even, if there exists an integer $$$k$$$ such that $$$i = 2k$$$.
+Input
+Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 10^{4}$$$). The description of the test cases follows.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 2 \cdot 10^{5}$$$).
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$-10^{9} \le a_i \le 10^{9}$$$).
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^{5}$$$.
+Output
+For each test case, print a single integer â€” the maximum score you can get when the game ends.
+Example
+Input
+4
+4
+-4 1 -3 5
+4
+1 -2 3 -4
+3
+-1 3 -5
+1
+-1
+Output
+5
+4
+2
+0
+----------------------------------------------------------------------------------------------------
+D. Tree XOR
+time limit per test
+3 seconds
+memory limit per test
+512 megabytes
+input
+standard input
+output
+standard output
+You are given a tree with $$$n$$$ vertices labeled from $$$1$$$ to $$$n$$$. An integer $$$a_{i}$$$ is written on vertex $$$i$$$ for $$$i = 1, 2, \ldots, n$$$. You want to make all $$$a_{i}$$$ equal by performing some (possibly, zero) spells.
+Suppose you root the tree at some vertex. On each spell, you can select any vertex $$$v$$$ and any non-negative integer $$$c$$$. Then for all vertices $$$i$$$ in the subtree$$$^{\dagger}$$$ of $$$v$$$, replace $$$a_{i}$$$ with $$$a_{i} \oplus c$$$. The cost of this spell is $$$s \cdot c$$$, where $$$s$$$ is the number of vertices in the subtree. Here $$$\oplus$$$ denotes the
+bitwise XOR operation
+.
+Let $$$m_r$$$ be the minimum possible total cost required to make all $$$a_i$$$ equal, if vertex $$$r$$$ is chosen as the root of the tree. Find $$$m_{1}, m_{2}, \ldots, m_{n}$$$.
+$$$^{\dagger}$$$ Suppose vertex $$$r$$$ is chosen as the root of the tree. Then vertex $$$i$$$ belongs to the subtree of $$$v$$$ if the simple path from $$$i$$$ to $$$r$$$ contains $$$v$$$.
+Input
+Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 10^{4}$$$). The description of the test cases follows.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 2 \cdot 10^{5}$$$).
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \le a_i < 2^{20}$$$).
+Each of the next $$$n-1$$$ lines contains two integers $$$u$$$ and $$$v$$$ ($$$1 \le u, v \le n$$$), denoting that there is an edge connecting two vertices $$$u$$$ and $$$v$$$.
+It is guaranteed that the given edges form a tree.
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^{5}$$$.
+Output
+For each test case, print $$$m_1, m_2, \ldots, m_n$$$ on a new line.
+Example
+Input
+2
+4
+3 2 1 0
+1 2
+2 3
+2 4
+1
+100
+Output
+8 6 12 10 
+0
+----------------------------------------------------------------------------------------------------
+E1. Two Permutations (Easy Version)
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+This is the easy version of the problem. The difference between the two versions is that you do not have to minimize the number of operations in this version. You can make hacks only if both versions of the problem are solved.
+You have two permutations$$$^{\dagger}$$$ $$$p_{1}, p_{2}, \ldots, p_{n}$$$ (of integers $$$1$$$ to $$$n$$$) and $$$q_{1}, q_{2}, \ldots, q_{m}$$$ (of integers $$$1$$$ to $$$m$$$). Initially $$$p_{i}=a_{i}$$$ for $$$i=1, 2, \ldots, n$$$, and $$$q_{j} = b_{j}$$$ for $$$j = 1, 2, \ldots, m$$$. You can apply the following operation on the permutations several (possibly, zero) times.
+In one operation, $$$p$$$ and $$$q$$$ will change according to the following three steps:
+You choose integers $$$i$$$, $$$j$$$ which satisfy $$$1 \le i \le n$$$ and $$$1 \le j \le m$$$.
+Permutation $$$p$$$ is partitioned into three parts using $$$p_i$$$ as a pivot: the left part is formed by elements $$$p_1, p_2, \ldots, p_{i-1}$$$ (this part may be empty), the middle part is the single element $$$p_i$$$, and the right part is $$$p_{i+1}, p_{i+2}, \ldots, p_n$$$ (this part may be empty). To proceed, swap the left and the right parts of this partition. Formally, after this step, $$$p$$$ will become $$$p_{i+1}, p_{i+2}, \ldots, p_{n}, p_{i}, p_{1}, p_{2}, \ldots, p_{i-1}$$$. The elements of the newly formed $$$p$$$ will be reindexed starting from $$$1$$$.
+Perform the same transformation on $$$q$$$ with index $$$j$$$. Formally, after this step, $$$q$$$ will become $$$q_{j+1}, q_{j+2}, \ldots, q_{m}, q_{j}, q_{1}, q_{2}, \ldots, q_{j-1}$$$. The elements of the newly formed $$$q$$$ will be reindexed starting from $$$1$$$.
+Your goal is to simultaneously make $$$p_{i}=i$$$ for $$$i=1, 2, \ldots, n$$$, and $$$q_{j} = j$$$ for $$$j = 1, 2, \ldots, m$$$.
+Find any valid way to achieve the goal using at most $$$10\,000$$$ operations, or say that none exists. Please note that you
+do not have to
+minimize the number of operations.
+It can be proved that if it is possible to achieve the goal, then there exists a way to do so using at most $$$10\,000$$$ operations.
+$$$^{\dagger}$$$ A permutation of length $$$k$$$ is an array consisting of $$$k$$$ distinct integers from $$$1$$$ to $$$k$$$ in arbitrary order. For example, $$$[2,3,1,5,4]$$$ is a permutation, but $$$[1,2,2]$$$ is not a permutation ($$$2$$$ appears twice in the array), and $$$[1,3,4]$$$ is also not a permutation ($$$k=3$$$ but there is $$$4$$$ in the array).
+Input
+The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n, m \le 2500$$$).
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \le a_i \le n$$$).
+The third line contains $$$m$$$ integers $$$b_1, b_2, \ldots, b_m$$$ ($$$1 \le b_i \le m$$$).
+It is guaranteed that $$$a$$$ and $$$b$$$ are permutations.
+Output
+If there is no solution, print a single integer $$$-1$$$.
+Otherwise, print an integer $$$k$$$ ($$$0 \le k \le 10\,000$$$) â€” the number of operations to perform, followed by $$$k$$$ lines, each containing two integers $$$i$$$ and $$$j$$$ ($$$1 \le i \le n$$$, $$$1 \le j \le m$$$) â€” the integers chosen for the operation.
+If there are multiple solutions, print any of them.
+Please note that you
+do not have to
+minimize the number of operations.
+Examples
+Input
+3 5
+2 1 3
+5 2 1 4 3
+Output
+2
+3 4
+2 4
+Input
+4 4
+3 4 2 1
+2 4 1 3
+Output
+5
+4 2
+3 3
+1 4
+3 2
+4 1
+Input
+2 2
+1 2
+2 1
+Output
+-1
+----------------------------------------------------------------------------------------------------
+E2. Two Permutations (Hard Version)
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+This is the hard version of the problem. The difference between the two versions is that you have to minimize the number of operations in this version. You can make hacks only if both versions of the problem are solved.
+You have two permutations$$$^{\dagger}$$$ $$$p_{1}, p_{2}, \ldots, p_{n}$$$ (of integers $$$1$$$ to $$$n$$$) and $$$q_{1}, q_{2}, \ldots, q_{m}$$$ (of integers $$$1$$$ to $$$m$$$). Initially $$$p_{i}=a_{i}$$$ for $$$i=1, 2, \ldots, n$$$, and $$$q_{j} = b_{j}$$$ for $$$j = 1, 2, \ldots, m$$$. You can apply the following operation on the permutations several (possibly, zero) times.
+In one operation, $$$p$$$ and $$$q$$$ will change according to the following three steps:
+You choose integers $$$i$$$, $$$j$$$ which satisfy $$$1 \le i \le n$$$ and $$$1 \le j \le m$$$.
+Permutation $$$p$$$ is partitioned into three parts using $$$p_i$$$ as a pivot: the left part is formed by elements $$$p_1, p_2, \ldots, p_{i-1}$$$ (this part may be empty), the middle part is the single element $$$p_i$$$, and the right part is $$$p_{i+1}, p_{i+2}, \ldots, p_n$$$ (this part may be empty). To proceed, swap the left and the right parts of this partition. Formally, after this step, $$$p$$$ will become $$$p_{i+1}, p_{i+2}, \ldots, p_{n}, p_{i}, p_{1}, p_{2}, \ldots, p_{i-1}$$$. The elements of the newly formed $$$p$$$ will be reindexed starting from $$$1$$$.
+Perform the same transformation on $$$q$$$ with index $$$j$$$. Formally, after this step, $$$q$$$ will become $$$q_{j+1}, q_{j+2}, \ldots, q_{m}, q_{j}, q_{1}, q_{2}, \ldots, q_{j-1}$$$. The elements of the newly formed $$$q$$$ will be reindexed starting from $$$1$$$.
+Your goal is to simultaneously make $$$p_{i}=i$$$ for $$$i=1, 2, \ldots, n$$$, and $$$q_{j} = j$$$ for $$$j = 1, 2, \ldots, m$$$.
+Find any way to achieve the goal
+using the minimum number of operations possible
+, or say that none exists. Please note that you
+have to
+minimize the number of operations.
+$$$^{\dagger}$$$ A permutation of length $$$k$$$ is an array consisting of $$$k$$$ distinct integers from $$$1$$$ to $$$k$$$ in arbitrary order. For example, $$$[2,3,1,5,4]$$$ is a permutation, but $$$[1,2,2]$$$ is not a permutation ($$$2$$$ appears twice in the array), and $$$[1,3,4]$$$ is also not a permutation ($$$k=3$$$ but there is $$$4$$$ in the array).
+Input
+The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n, m \le 2500$$$).
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \le a_i \le n$$$).
+The third line contains $$$m$$$ integers $$$b_1, b_2, \ldots, b_m$$$ ($$$1 \le b_i \le m$$$).
+It is guaranteed that $$$a$$$ and $$$b$$$ are permutations.
+Output
+If there is no solution, print a single integer $$$-1$$$.
+Otherwise, print an integer $$$k$$$ â€” the number of operations to perform, followed by $$$k$$$ lines, each containing two integers $$$i$$$ and $$$j$$$ ($$$1 \le i \le n$$$, $$$1 \le j \le m$$$) â€” the integers chosen for the operation.
+If there are multiple solutions, print any of them.
+Please note that you
+have to
+minimize the number of operations.
+Examples
+Input
+3 5
+2 1 3
+5 2 1 4 3
+Output
+2
+3 4
+2 4
+Input
+4 4
+3 4 2 1
+2 4 1 3
+Output
+3
+3 3
+1 4
+4 2
+Input
+2 2
+1 2
+2 1
+Output
+-1
+----------------------------------------------------------------------------------------------------

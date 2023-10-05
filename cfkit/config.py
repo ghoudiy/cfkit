@@ -6,11 +6,12 @@ from getpass import getpass
 from json import dump#, load
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.util.util import (
+from util.common import (
   read_json_file,
   # create_file_folder,
   display_horizontally,
   enter_number,
+  write_json_file,
   conf_file,
   # config_folder,
   language_conf,
@@ -51,8 +52,8 @@ def set_language_attributes(programming_language):
   language_conf[programming_language]["execute_command"] = execute_command
   language_conf[programming_language][
     "calculate_memory_usage_and_execution_time_command"] = run_command
-  with open(language_conf, 'w', encoding="UTF-8") as platforms_file:
-    dump(language_conf, platforms_file, indent=4)
+  
+  write_json_file(language_conf, language_conf, 4)
 
 
 def set_default_language():
@@ -111,9 +112,7 @@ def set_default_compiler():
     user_choice = enter_number("Compiler index: ", "compiler index: ", range(1, 36))
 
     configuration["default_compiler"] = data[user_choice-1][data[user_choice-1].find(" ") + 1:]
-    with open(language_conf, 'w', encoding="UTF-8") as file:
-      dump(configuration, file, indent=4)
-
+    write_json_file(configuration, language_conf)
 
 def login():
   """

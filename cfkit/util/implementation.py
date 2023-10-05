@@ -8,7 +8,7 @@ from os import chdir
 from subprocess import run
 from webbrowser import open as webOpen
 
-from cfkit.util.util import (
+from util.common import (
   confirm,
   check_command,
   enter_number,

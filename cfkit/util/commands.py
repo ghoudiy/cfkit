@@ -7,7 +7,7 @@ from sys import exit as sysExit
 from os import path
 from subprocess import run
 
-from cfkit.util.util import read_json_file, extensions, language_conf, language_conf_path
+from util.common import read_json_file, extensions, language_conf, language_conf_path
 from cfkit.config import set_language_attributes
 
 
