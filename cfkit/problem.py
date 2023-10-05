@@ -24,12 +24,14 @@ from util.common import (
   # display_horizontally,
   # enter_number,
   write_json_file,
+  samples_dir,
   read_text_from_file,
   read_json_file,
   wrong_answer_verdict,
   is_number,
   yes_or_no,
   problems_content,
+  fetch_samples,
   download_contests_json_file,
   conf_file,
   # template_folder,
@@ -55,7 +57,7 @@ class Problem:
     self._contestid = None
     self._problem_index_letter = None
 
-    self.problem_index = self.__content(problem_code)
+    self._response, self.problem_index = self.__content(problem_code)
 
     self.name = self._response[0]
     self.time_limit_seconds = self._response[2]
@@ -69,7 +71,7 @@ class Problem:
     self._tfwrong = None
 
 
-  def __retrieve_html_page(self, code, err=False):
+  def __retrieve_html_source_code(self, code, err=False):
     if search(PROBLEM_CODE_PATTERN + r'$', code):
       letter_index = len(code) - 1 if code[-1].isalpha() and len(findall(
         r"[A-z]", code)) == 1 else len(code) - 2
@@ -81,7 +83,7 @@ class Problem:
         f"{self._contestid}.txt"
       )
       if not os.path.exists(contest_problems_file_path):
-        self._response = problems_content(
+        return problems_content(
           check_url(
             f"https://codeforces.com/contest/{self._contestid}/problems",
             code,
@@ -89,10 +91,9 @@ class Problem:
             err
           ),
           self._contestid,
-          code
+          self._problem_index_letter
         )
-      else:
-        self._response = problems_content(contest_problems_file_path, self._contestid, code)
+      return problems_content(contest_problems_file_path, self._contestid, self._problem_index_letter)
 
     else:
       if err:
@@ -108,8 +109,8 @@ class Problem:
     def enter_code():
       '''If the problem code couldn't be recognized from the given path'''
       code = input("Please enter the problem code: ").strip()
-      self.__retrieve_html_page(code)
-      return code
+      content = self.__retrieve_html_source_code(code)
+      return content, code
 
     is_file = os.path.isfile(problem_code)
     if not is_file: # If the user gives the problem code
@@ -120,7 +121,7 @@ class Problem:
         )
         sys.exit(1)
 
-      self.__retrieve_html_page(problem_code)
+      content = self.__retrieve_html_source_code(problem_code)
     else: # If the user gives the solution file instead of problem code
       # Searching for the problem code in path
       base_name = os.path.basename(problem_code)
@@ -128,7 +129,7 @@ class Problem:
       if match_problem_code_from_file_name: # contestIdProblemIndex.py -> 1234a.py
         try:
           match_problem_code_from_file_name = match_problem_code_from_file_name.group()
-          self.__retrieve_html_page(match_problem_code_from_file_name, err=True)
+          content = self.__retrieve_html_source_code(match_problem_code_from_file_name, err=True)
           self._path = problem_code
           problem_code = match_problem_code_from_file_name
 
@@ -139,16 +140,16 @@ class Problem:
         dir_name = os.path.dirname(problem_code)
         if dir_name.isdigit():
           try:
-            self.__retrieve_html_page(dir_name + base_name[0], err=True)
+            content = self.__retrieve_html_source_code(dir_name + base_name[0], err=True)
             self._path = problem_code
             problem_code = dir_name + base_name[0]
           except SyntaxError:
             pass
 
       colored_text("Problem code couldn't be recognized from the given path", "error 5")
-      problem_code = enter_code()
+      content, problem_code = enter_code()
 
-    return problem_code
+    return content, problem_code
 
 
   def create_problem_file(
@@ -187,72 +188,14 @@ class Problem:
     """
     Documentation
     """
-    # Save problem attributes to last fetched file
-    last_fetched_problem_file_path = os.path.join(resources_folder, "last_fetched_data.json")
-    last_fetched_problem = read_json_file()
-    last_fetched_problem["last_fetched_problem"]["problem_id"] = self.problem_index
-    last_fetched_problem["last_fetched_problem"]["problem_name"] = self.name
-    last_fetched_problem["last_fetched_problem"]["timestamp"] = datetime.now(
-      ).strftime("%Y-%m-%d %H:%M:%S")
+    self._data_path = samples_dir(create_tests_dir, path)
 
-    write_json_file(last_fetched_problem, last_fetched_problem_file_path)
-
-    if path != os.getcwd() and __check_path:
-      check_path_existence(path, 'd')
-
-    os.chdir(path)
-
-    if create_tests_dir:
-
-      if os.path.exists("tests"):
-        folder_content = os.listdir("tests")
-        self._expected_output_list = sorted([file for file in folder_content if search(
-          rf"{self.problem_index}_\d.out", file) is not None])
-        self._input_samples = sorted([file for file in folder_content if search(
-          rf"{self.problem_index}_\d.in", file) is not None])
-        if len(self._expected_output_list) * 2 != len(folder_content):
-
-          self._data_path = folder_file_exists("tests", 'directory')
-
-        else: self._data_path = "tests"
-
-      else: self._data_path = create_file_folder("tests", 'd')
-
-    else: self._data_path = path
-
-    # Search for Example section to fetch samples
-    try:
-      example_index = self._response.index("Example")
-    except ValueError:
-      try:
-        example_index = self._response.index("Examples")
-      except ValueError:
-        example_index = self._response.index("Example(s)")
-    
-    sample_tests_section = self._response[example_index+1:]
-    
-    test_cases_num = sample_tests_section.count("Input")
-    aux = test_cases_num
-
-    def in_out_files(nr1, nr2, ext, start, end):
-      sample = os.path.join(self._data_path, f"{self.problem_index}_{nr1 - nr2 + 1}.{ext}")
-      if not os.path.exists(sample):
-        with open(sample, 'w', encoding="UTF-8") as sample_file:
-          for data in sample_tests_section[start+1:end]:
-            sample_file.write(f"{data}\n")
-
-    while test_cases_num > 0:
-
-      input_index = sample_tests_section.index("Input")
-      output_index = sample_tests_section.index("Output")
-      in_out_files(aux, test_cases_num, "in", input_index, output_index)
-      sample_tests_section[input_index] = "input-done"
-      input_index = sample_tests_section.index("Input") if "Input" in sample_tests_section else len(
-        sample_tests_section)
-      in_out_files(aux, test_cases_num, "out", output_index, input_index)
-      sample_tests_section[output_index] = "output-done"
-      test_cases_num -= 1
-
+    fetch_samples(
+      self._response,
+      self._data_path,
+      (self.problem_index, self.name),
+      __check_path
+    )
 
   def run_demo(self, file_path: str = None):
     """
@@ -301,6 +244,7 @@ class Problem:
     del dir_name
 
     if self._data_path is None:
+      # Here where I add __check_path parameter in parse function
       self.parse(dir_name, True, False)
     os.chdir(os.path.join(dir_name, self._data_path))
 
@@ -600,6 +544,9 @@ class Problem:
         finish_program()
 
 if __name__ == "__main__":
-  Problem("1882A")
-  
-  pass
+  problem_one = Problem("1882C")
+  print(problem_one.name)
+  print(problem_one.io)
+  print(problem_one.time_limit_seconds)
+  print(problem_one.memory_limit_bytes)
+  problem_one.parse()

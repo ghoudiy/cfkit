@@ -7,11 +7,14 @@ import re
 from os import path, mkdir, get_terminal_size, listdir, getcwd
 from shutil import rmtree
 from json import load, dump, dumps
+from datetime import datetime
 from configparser import ConfigParser, NoOptionError
+from typing import TypeAlias
 from requests import get, HTTPError, exceptions as requestsExceptions
 from bs4 import BeautifulSoup
 from colorama import init, Fore, Back, Style
 
+Directory: TypeAlias = str
 
 MACHINE = sys.platform
 PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
@@ -519,7 +522,7 @@ download_contests_json_file()
 def problems_content(
     content: str,
     contest_id: int,
-    problem: str = None,
+    problem_index: str = None,
     html_page = False
   ) -> (list | str):
   """
@@ -556,17 +559,98 @@ def problems_content(
     create_problems_txt()
   else:
     with open(content, 'r', encoding="UTF-8") as file:
-      problems = file.readlines()
-    for _ in range(problems.count("-" * 100)):
-      problems.remove("-" * 100)
+      problems_html_source_code = list(map(lambda x: x[:-1], file.readlines()))
 
-  if problem:
+    seperator = '-' * 100
+    problems = [None] * problems_html_source_code.count(seperator)
+    pos_seperator = problems_html_source_code.index(seperator)
+    for i in range(len(problems)):
+      problems[i] = problems_html_source_code[:pos_seperator]
+      problems_html_source_code = problems_html_source_code[pos_seperator+1:]
+      if i != len(problems) - 1:
+        pos_seperator = problems_html_source_code.index(seperator)
+
+  if problem_index:
     i = 0
     ok = False
     while not ok and i < len(problems):
-      ok = problems[i][0][0].startswith(problem)
+      ok = problems[i][0][0].startswith(problem_index)
       i += 1
+      if i == len(problems) and not ok:
+        colored_text(f"<error_10>No such problem</> '{problem_index}'")
+        sys.exit(1)
     return problems[i-1]
   return problems
+
+def samples_dir(create_tests_dir, samples_path):
+  if create_tests_dir:
+    if path.exists("tests"):
+      samples_dir = path.join(samples_path, folder_file_exists("tests", 'directory'))
+    else: 
+      samples_dir = create_file_folder(path.join(samples_path, "tests"), 'd')
+  else:
+    samples_dir = samples_path
+  return samples_dir
+
+def fetch_samples(
+  problem_statement: str,
+  path_to_save_samples: Directory = getcwd(),
+  problem_attributes: tuple | int = None,
+  __check_path: bool = True,
+) -> None:
+  """
+  Documentation
+  """
+
+  if path_to_save_samples != getcwd() and __check_path:
+    check_path_existence(path_to_save_samples, 'd')
+
+  def fetch(problem_statement: list, problem_index: str):
+    # Search for Example section to fetch samples
+    try:
+      example_index = problem_statement.index("Example")
+    except ValueError:
+      try:
+        example_index = problem_statement.index("Examples")
+      except ValueError:
+        example_index = problem_statement.index("Example(s)")
+    
+    problem_statement = problem_statement[example_index+1:]
+    
+    test_cases_num = problem_statement.count("Input")
+    aux = test_cases_num
+
+    def in_out_files(nr1, nr2, ext, start, end):
+      sample = path.join(path_to_save_samples, f"{problem_index}_{nr1 - nr2 + 1}.{ext}")
+      if not path.exists(sample):
+        with open(sample, 'w', encoding="UTF-8") as sample_file:
+          for data in problem_statement[start+1:end]:
+            sample_file.write(f"{data}\n")
+
+    while test_cases_num > 0:
+
+      input_index = problem_statement.index("Input")
+      output_index = problem_statement.index("Output")
+      in_out_files(aux, test_cases_num, "in", input_index, output_index)
+      problem_statement[input_index] = "input-done"
+      input_index = problem_statement.index("Input") if "Input" in problem_statement else len(
+        problem_statement)
+      in_out_files(aux, test_cases_num, "out", output_index, input_index)
+      problem_statement[output_index] = "output-done"
+      test_cases_num -= 1
+
+  if isinstance(problem_attributes, int):
+    for problem in problem_statement:
+      fetch(problem, str(problem_attributes) + problem[0][:problem[0].find(".")])
+  else:
+    fetch(problem_statement, problem_attributes[0])
+    # Save problem attributes to last fetched file
+    last_fetched_problem_file_path = path.join(resources_folder, "last_fetched_data.json")
+    last_fetched_problem = read_json_file(last_fetched_problem_file_path)
+    last_fetched_problem["last_fetched_problem"]["problem_id"] = problem_attributes[0]
+    last_fetched_problem["last_fetched_problem"]["problem_name"] = problem_attributes[1]
+    last_fetched_problem["last_fetched_problem"]["timestamp"] = datetime.now(
+      ).strftime("%Y-%m-%d %H:%M:%S")
+    write_json_file(last_fetched_problem, last_fetched_problem_file_path)
 
 language_conf = read_json_file(language_conf_path)

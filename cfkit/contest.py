@@ -18,7 +18,9 @@ from util.common import (
   problems_content,
   # display_horizontally,
   # enter_number,
+  samples_dir,
   read_text_from_file,
+  fetch_samples,
   wrong_answer_verdict,
   write_text_to_file,
   is_number,
@@ -197,16 +199,21 @@ class Contest:
     print("Problems Files Created!")
 
 
-  def parse_problems(self):
+  def parse(
+      self,
+      path: Directory = os.getcwd(),
+      create_tests_dir: bool = True,
+    ) -> None:
     """
     Documentation
     """
-    pass
-
+    fetch_samples(self._content, samples_dir(create_tests_dir, path), self._id)
 
 if __name__ == "__main__":
   # Problem("1846D").parse()
-  one = Contest("1882")
+  contest_one = Contest("1882")
+  print(contest_one.problems)
+  contest_one.parse()
   # print(one)
   # for i in one._content:
   #   print(i)
