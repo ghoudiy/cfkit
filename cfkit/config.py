@@ -2,19 +2,25 @@
 Documentation
 """
 from os import path
+from inspect import currentframe
 from getpass import getpass
 from json import dump#, load
+from requests.utils import dict_from_cookiejar
+from requests.cookies import RequestsCookieJar
+from datetime import datetime, timedelta
 from mechanicalsoup import StatefulBrowser
 
-from util.common import (
+from cfkit.util.common import (
   read_json_file,
   # create_file_folder,
   display_horizontally,
   enter_number,
   write_json_file,
+  resources_folder,
   conf_file,
   # config_folder,
   language_conf,
+  language_conf_path,
   MACHINE,
   # json_folder
 )
@@ -22,53 +28,52 @@ from util.common import (
 from cfkit.util.implementation import detect_implementation
 
 
-def set_language_attributes(programming_language):
+def set_language_attributes(programming_language: str) -> str:
   """
   Documentation
   """
-  execute_command = language_conf[programming_language]["execute_command"]
-
-  execute_command, implementation = detect_implementation(programming_language)
-
+  command, save_command = detect_implementation(programming_language)
+  execute_command, implementation = command[0], command[1]
+  del command
   run_command = path.join(
     path.dirname(__file__),
     "util",
     "memory_usage.exe " if MACHINE == "win32" else "./memory_usage.exe"
   )
-
   if implementation == "compiler":
     run_command += (
       f" %%{{dir_name}}%%{'/./' if MACHINE != 'win32' else ''}%%{{output}}%%.exe "
       f"%%{{memory_limit}}%% %%{{output_memory}}%%_memory.out "
       f"%%{{input_file}}%% %%{{output_file}}%% \"{execute_command}\""
     )
-
   else:
     run_command += (
       f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out "
       f"%%{{input_file}}%% %%{{output_file}}%%"
     )
+  if save_command:
+    language_conf[programming_language]["execute_command"] = execute_command
+    language_conf[programming_language][
+      "calculate_memory_usage_and_execution_time_command"] = run_command
+    write_json_file(language_conf, language_conf_path, 4)
 
-  language_conf[programming_language]["execute_command"] = execute_command
-  language_conf[programming_language][
-    "calculate_memory_usage_and_execution_time_command"] = run_command
-  
-  write_json_file(language_conf, language_conf, 4)
-
+  return run_command
 
 def set_default_language():
   """
   Documentation
   """
   default_language = conf_file["cfkit"]["default_language"]
+  if not default_language:
+    pass
 
 
-def set_default_compiler():
+def set_default_compiler(set_as_default: bool, programming_language: str) -> int:
   """
   Documentation
   """
-  configuration = read_json_file(language_conf)
-  if configuration["default_compiler"] is None:
+  configuration = read_json_file(language_conf_path)
+  if configuration[programming_language]["default_submission_language"] is None:
     languages = {
       "GNU GCC C11 5.1.0": 43,
       "Clang++20 Diagnostics": 80,
@@ -109,25 +114,68 @@ def set_default_compiler():
     data = tuple(languages.keys())
     display_horizontally(data)
 
-    user_choice = enter_number("Compiler index: ", "compiler index: ", range(1, 36))
+    user_choice = enter_number("Compiler index: ", "Compiler index: ", range(1, 36))
 
-    configuration["default_compiler"] = data[user_choice-1][data[user_choice-1].find(" ") + 1:]
-    write_json_file(configuration, language_conf)
+    print(data[user_choice-1])
+    configuration[programming_language]["default_submission_language"] = data[user_choice-1]
+    if set_as_default:
+      write_json_file(configuration, language_conf_path)
+    
+    return languages[data[user_choice-1]]
+  return configuration[programming_language]["default_submission_language"]
+  
 
-def login():
+def login() -> (str, RequestsCookieJar):
   """
   Documentation
   """
+  def valid_username(string):
+    string_length = len(string)
+    is_alnum = string.isalnum()
+    bounds = 3 <= string_length <= 24
+    if is_alnum and bounds:
+      return True
+    elif bounds and not is_alnum:
+      i = 0
+      test = True
+      while test and i < string_length:
+        test = string[i].isalnum() or string[i] in ("_", "-")
+        i += 1
+      return test
+    else:
+      return False
+
   browser = StatefulBrowser()
-  login_url = 'https://codeforces.com/enter'
-  browser.open(login_url)
-  browser.select_form('form[id="enterForm"]')
-  browser["handleOrEmail"] = input("Handle/Email: ").strip()
-  browser["password"] = getpass()
+  session_path = resources_folder.joinpath("session.json")
+
+  browser.open('https://codeforces.com/enter')
+  form = browser.select_form('form[id="enterForm"]')
+  
+  username = input("Username: ")
+  while not valid_username(username):
+    username = input("Please type your username correctly.\nUsername: ")
+  
+  password = getpass()
+  while len(password) < 5:
+    password = getpass("Please type your password correctly.\nPassword: ")
+    
+  form.set("handleOrEmail", username)
+  form.set("password", password)
+  form.set('remember', True)
+
   browser.submit_selected()
 
-  # Check if login was successful
-
+  # Convert cookies to a dictionary
+  cookie_dict = dict_from_cookiejar(browser.session.cookies)
+  # Save the cookies to a JSON file
+  session = {
+    "cookies": cookie_dict,
+    "cookies_expiration_date": (datetime.now() + timedelta(days=30)).strftime("%Y-%m-%d"),
+    "username": username,
+  }
+  write_json_file(session, session_path)
+  return username, cookie_dict
+  
 
 # create_file_folder(config_folder, 'd')
 # create_file_folder(language_conf)

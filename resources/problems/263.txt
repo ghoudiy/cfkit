@@ -1,0 +1,636 @@
+Codeforces Round 161 (Div. 2)
+
+
+A. Beautiful Matrix
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You've got a
+5 × 5
+matrix, consisting of
+24
+zeroes and a single number one. Let's index the matrix rows by numbers from
+1
+to
+5
+from top to bottom, let's index the matrix columns by numbers from
+1
+to
+5
+from left to right. In one move, you are allowed to apply one of the two following transformations to the matrix:
+Swap two neighboring matrix rows, that is, rows with indexes
+i
+and
+i
++ 1
+for some integer
+i
+(1 ≤
+i
+< 5)
+.
+Swap two neighboring matrix columns, that is, columns with indexes
+j
+and
+j
++ 1
+for some integer
+j
+(1 ≤
+j
+< 5)
+.
+You think that a matrix looks
+beautiful
+, if the single number one of the matrix is located in its middle (in the cell that is on the intersection of the third row and the third column). Count the minimum number of moves needed to make the matrix beautiful.
+Input
+The input consists of five lines, each line contains five integers: the
+j
+-th integer in the
+i
+-th line of the input represents the element of the matrix that is located on the intersection of the
+i
+-th row and the
+j
+-th column. It is guaranteed that the matrix consists of
+24
+zeroes and a single number one.
+Output
+Print a single integer — the minimum number of moves needed to make the matrix beautiful.
+Examples
+Input
+0 0 0 0 0
+0 0 0 0 1
+0 0 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+Output
+3
+Input
+0 0 0 0 0
+0 0 0 0 0
+0 1 0 0 0
+0 0 0 0 0
+0 0 0 0 0
+Output
+1
+----------------------------------------------------------------------------------------------------
+B. Squares
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Vasya has found a piece of paper with a coordinate system written on it. There are
+n
+distinct squares drawn in this coordinate system. Let's number the squares with integers from 1 to
+n
+. It turned out that points with coordinates
+(0, 0)
+and
+(
+a
+i
+,
+a
+i
+)
+are the opposite corners of the
+i
+-th square.
+Vasya wants to find such integer point (with integer coordinates) of the plane, that belongs to exactly
+k
+drawn squares. We'll say that a point belongs to a square, if the point is located either inside the square, or on its boundary.
+Help Vasya find a point that would meet the described limits.
+Input
+The first line contains two space-separated integers
+n
+,
+k
+(1 ≤
+n
+,
+k
+≤ 50)
+. The second line contains space-separated integers
+a
+1
+,
+a
+2
+, ...,
+a
+n
+(1 ≤
+a
+i
+≤ 10
+9
+)
+.
+It is guaranteed that all given squares are distinct.
+Output
+In a single line print two space-separated integers
+x
+and
+y
+(0 ≤
+x
+,
+y
+≤ 10
+9
+)
+— the coordinates of the point that belongs to exactly
+k
+squares. If there are multiple answers, you are allowed to print any of them.
+If there is no answer, print "
+-1
+" (without the quotes).
+Examples
+Input
+4 3
+5 1 3 4
+Output
+2 1
+Input
+3 1
+2 4 1
+Output
+4 0
+Input
+4 50
+5 1 10 2
+Output
+-1
+----------------------------------------------------------------------------------------------------
+C. Circle of Numbers
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+One day Vasya came up to the blackboard and wrote out
+n
+distinct integers from
+1
+to
+n
+in some order in a circle. Then he drew arcs to join the pairs of integers
+(
+a
+,
+b
+)
+(
+a
+≠
+b
+)
+, that are either each other's immediate neighbors in the circle, or there is number
+c
+, such that
+a
+and
+с
+are immediate neighbors, and
+b
+and
+c
+are immediate neighbors. As you can easily deduce, in the end Vasya drew
+2·
+n
+arcs.
+For example, if the numbers are written in the circle in the order
+1, 2, 3, 4, 5
+(in the clockwise direction), then the arcs will join pairs of integers
+(1, 2)
+,
+(2, 3)
+,
+(3, 4)
+,
+(4, 5)
+,
+(5, 1)
+,
+(1, 3)
+,
+(2, 4)
+,
+(3, 5)
+,
+(4, 1)
+and
+(5, 2)
+.
+Much time has passed ever since, the numbers we wiped off the blackboard long ago, but recently Vasya has found a piece of paper with
+2·
+n
+written pairs of integers that were joined with the arcs on the board. Vasya asks you to find the order of numbers in the circle by these pairs.
+Input
+The first line of the input contains a single integer
+n
+(
+5 ≤
+n
+≤ 10
+5
+) that shows, how many numbers were written on the board. Next
+2·
+n
+lines contain pairs of integers
+a
+i
+,
+b
+i
+(
+1 ≤
+a
+i
+,
+b
+i
+≤
+n
+,
+a
+i
+≠
+b
+i
+) — the numbers that were connected by the arcs.
+It is guaranteed that no pair of integers, connected by a arc, occurs in the input more than once. The pairs of numbers and the numbers in the pairs are given in the arbitrary order.
+Output
+If Vasya made a mistake somewhere and there isn't any way to place numbers from
+1
+to
+n
+on the circle according to the statement, then print a single number "-1" (without the quotes). Otherwise, print any suitable sequence of
+n
+distinct integers from
+1
+to
+n
+.
+If there are multiple solutions, you are allowed to print any of them. Specifically, it doesn't matter which number you write first to describe the sequence of the order. It also doesn't matter whether you write out the numbers in the clockwise or counter-clockwise direction.
+Examples
+Input
+5
+1 2
+2 3
+3 4
+4 5
+5 1
+1 3
+2 4
+3 5
+4 1
+5 2
+Output
+1 2 3 4 5
+Input
+6
+5 6
+4 3
+5 3
+2 4
+6 1
+3 1
+6 2
+2 5
+1 4
+3 6
+1 2
+4 5
+Output
+1 2 4 5 3 6
+----------------------------------------------------------------------------------------------------
+D. Cycle in Graph
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You've got a undirected graph
+G
+, consisting of
+n
+nodes. We will consider the nodes of the graph indexed by integers from 1 to
+n
+. We know that each node of graph
+G
+is connected by edges with at least
+k
+other nodes of this graph. Your task is to find in the given graph a simple cycle of length of at least
+k
++ 1
+.
+A
+simple cycle
+of length
+d
+(
+d
+> 1)
+in graph
+G
+is a sequence of distinct graph nodes
+v
+1
+,
+v
+2
+, ...,
+v
+d
+such, that nodes
+v
+1
+and
+v
+d
+are connected by an edge of the graph, also for any integer
+i
+(1 ≤
+i
+<
+d
+)
+nodes
+v
+i
+and
+v
+i
++ 1
+are connected by an edge of the graph.
+Input
+The first line contains three integers
+n
+,
+m
+,
+k
+(3 ≤
+n
+,
+m
+≤ 10
+5
+; 2 ≤
+k
+≤
+n
+- 1)
+— the number of the nodes of the graph, the number of the graph's edges and the lower limit on the degree of the graph node. Next
+m
+lines contain pairs of integers. The
+i
+-th line contains integers
+a
+i
+,
+b
+i
+(1 ≤
+a
+i
+,
+b
+i
+≤
+n
+;
+a
+i
+≠
+b
+i
+)
+— the indexes of the graph nodes that are connected by the
+i
+-th edge.
+It is guaranteed that the given graph doesn't contain any multiple edges or self-loops. It is guaranteed that each node of the graph is connected by the edges with at least
+k
+other nodes of the graph.
+Output
+In the first line print integer
+r
+(
+r
+≥
+k
++ 1)
+— the length of the found cycle. In the next line print
+r
+distinct integers
+v
+1
+,
+v
+2
+, ...,
+v
+r
+(1 ≤
+v
+i
+≤
+n
+)
+— the found simple cycle.
+It is guaranteed that the answer exists. If there are multiple correct answers, you are allowed to print any of them.
+Examples
+Input
+3 3 2
+1 2
+2 3
+3 1
+Output
+3
+1 2 3
+Input
+4 6 3
+4 3
+1 2
+1 3
+1 4
+2 3
+2 4
+Output
+4
+3 4 1 2
+----------------------------------------------------------------------------------------------------
+E. Rhombus
+time limit per test
+3 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You've got a table of size
+n
+×
+m
+. On the intersection of the
+i
+-th row (
+1 ≤
+i
+≤
+n
+) and the
+j
+-th column (
+1 ≤
+j
+≤
+m
+) there is a non-negative integer
+a
+i
+,
+j
+. Besides, you've got a non-negative integer
+k
+.
+Your task is to find such pair of integers
+(
+a
+,
+b
+)
+that meets these conditions:
+k
+≤
+a
+≤
+n
+-
+k
++ 1
+;
+k
+≤
+b
+≤
+m
+-
+k
++ 1
+;
+let's denote the maximum of the function
+among all integers
+x
+and
+y
+, that satisfy the inequalities
+k
+≤
+x
+≤
+n
+-
+k
++ 1
+and
+k
+≤
+y
+≤
+m
+-
+k
++ 1
+, as
+mval
+; for the required pair of numbers the following equation must hold
+f
+(
+a
+,
+b
+) =
+mval
+.
+Input
+The first line contains three space-separated integers
+n
+,
+m
+and
+k
+(
+1 ≤
+n
+,
+m
+≤ 1000
+,
+). Next
+n
+lines each contains
+m
+integers: the
+j
+-th number on the
+i
+-th line equals
+a
+i
+,
+j
+(
+0 ≤
+a
+i
+,
+j
+≤ 10
+6
+).
+The numbers in the lines are separated by spaces.
+Output
+Print the required pair of integers
+a
+and
+b
+. Separate the numbers by a space.
+If there are multiple correct answers, you are allowed to print any of them.
+Examples
+Input
+4 4 2
+1 2 3 4
+1 1 1 1
+2 2 2 2
+4 3 2 1
+Output
+3 2
+Input
+5 7 3
+8 2 3 4 2 3 3
+3 4 6 2 3 4 6
+8 7 6 8 4 5 7
+1 2 3 2 1 3 2
+4 5 3 2 1 2 1
+Output
+3 3
+----------------------------------------------------------------------------------------------------

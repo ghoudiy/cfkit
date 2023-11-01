@@ -8,9 +8,10 @@ from os import chdir
 from subprocess import run
 from webbrowser import open as webOpen
 
-from util.common import (
+from cfkit.util.common import (
   confirm,
   check_command,
+  yes_or_no,
   enter_number,
   read_json_file,
   colored_text,
@@ -19,13 +20,11 @@ from util.common import (
 )
 
 NOTE = """
-2. Do not include any input or output specifications in your command! (i.e. '< in > out')
-
-3. Please choose carefully, as your selection will become the default option for future use.
+II. Do not include any input or output specifications in your command! (i.e. '< in > out')
 """
 
 COMPILING_NOTE = """\
-4. When providing the compilation command, \
+III. When providing the compilation command, \
 make sure to include the execution part as well if necessary.
 For instance, if you're using Kotlin, your command should look something like this:
 {colored_text("kotlinc {file} -d {output}.jar && java -jar {output}.jar", "command", False, False)}
@@ -69,7 +68,7 @@ def detect_implementation(programming_language: str):
 
   def check_installed_implementation(check_implementations_availability_list):
     '''
-    Loop through implementation check version command 
+    Loop through implementation check version command
     (i.e. "g++ --version", "gcc --version", "python -V"...)
     '''
     i = -1
@@ -82,6 +81,7 @@ def detect_implementation(programming_language: str):
 
   def get_command(lang):
     check_implementation_version_command = compilers_interpreters[lang]
+    save_command = True
 
     # If there is only one command of execution
     if isinstance(check_implementation_version_command, str):
@@ -109,6 +109,8 @@ def detect_implementation(programming_language: str):
           implementation_command = interpreting_commands[lang], "interpreter"
 
         elif lang in compiling_commands:
+          # Because C is the only language between (Rust, Delphi, OCaml)
+          # that have multiple compilitation command across platform 
           if lang == "C":
             implementation_command = compiling_commands[lang][MACHINE], "compiler"
 
@@ -141,7 +143,7 @@ def detect_implementation(programming_language: str):
         print("Oops! You don't have python installed on the system or it may be not added to PATH.")
         return None, "interpreter"
 
-    else: # A dictionary
+    else: # A dictionary of multiple compilers
       implementation_lists = {}
       implementation = "compilers"
       # Loop through language implementations
@@ -187,7 +189,7 @@ def detect_implementation(programming_language: str):
       implementation_lists = implementation_lists.keys()
       implementation_lists_length = len(implementation_lists)
       if implementation_lists_length:
-        def select_implementation(list_of_implementations: dict):
+        def select_implementation(list_of_implementations: dict, save_command):
           def has_versions(compiler, deep=True) -> bool:
             if isinstance(compiler, dict):
               value = list(compiler.values())[0]
@@ -219,9 +221,9 @@ def detect_implementation(programming_language: str):
                 print(f"{len(compilers)}. {implementation}")
 
             compiler_index = enter_number(
-              "\nPlease choose carefully, as your selection " +
-              "will become the default option for future use.\nCompiler index: ",
-              "Compiler index: ", range(1, len(compilers) + 1)) - 1
+              "Compiler index: ",
+              "Compiler index: ", range(1, len(compilers) + 1)
+            ) - 1
 
             com = isinstance(compilers[compiler_index][1], tuple)
             if com:
@@ -238,6 +240,10 @@ def detect_implementation(programming_language: str):
                 compilers[compiler_index][0]][
                 compilers[compiler_index][1]][MACHINE]
 
+            save_command = yes_or_no(
+              "\nWould you like to save your implementation choice for future use",
+            )
+
           elif implementation_lists_length:
             key = list(list_of_implementations.keys())[0]
             if MACHINE in list_of_implementations[key]:
@@ -245,7 +251,7 @@ def detect_implementation(programming_language: str):
             else:
               selected_implementation = list_of_implementations[key]
 
-          return selected_implementation
+          return selected_implementation, save_command
 
         list_of_implementations = {}
         implementation = "compiler"
@@ -260,7 +266,10 @@ def detect_implementation(programming_language: str):
             list_of_implementations.update({imp: interpreting_commands[lang][imp]})
             implementation = "interpreter"
 
-        implementation_command = select_implementation(list_of_implementations)
+        implementation_command, save_command = select_implementation(
+          list_of_implementations,
+          save_command
+        )
 
         if len(list_of_implementations) == 1 and imp == "Mono" or (
           implementation_command == one_line_compiled["C#"]["Mono"]):
@@ -281,17 +290,18 @@ def detect_implementation(programming_language: str):
         print(f"Oops! {statement} that are used in Codeforces aren't available on your system.",)
         implementation_command = None, implementation[:-1]
 
-    return implementation_command
+    return implementation_command, save_command
 
 
-  command, implementation = get_command(programming_language)
+  command, save_command = get_command(programming_language)
+  command, implementation = command[0], command[1]
   if command:
-    return command, implementation
+    return (command, implementation), save_command
 
-  implementation_1 = implementation if implementation != 'compile and execute' else 'compiler'
+  implementation_type = implementation if implementation != 'compile and execute' else 'compiler'
   print(
-    f"\n1. Open official download page of the {implementation_1}",
-    f"2. Enter a custom command for an already installed {implementation_1}\n",
+    f"\n1. Open official download page of the {implementation_type}",
+    f"2. Enter a custom command for an already installed {implementation_type}\n",
     sep="\n"
   )
   action_index = enter_number("Enter action index: ", "Action index: ", range(1, 3))
@@ -336,19 +346,21 @@ def detect_implementation(programming_language: str):
       for i, imp in implementations:
         print(f"{i}. {imp}")
       implementation_index = enter_number(
-        f"{implementation_1} index: ",
-        f"{implementation_1} index: ",
+        f"{implementation_type.capitalize()} index: ",
+        f"{implementation_type.capitalize()} index: ",
         range(1, len(implementations)+1)
       )
       webOpen(sites[programming_language][implementations[implementation_index][1]])
     else:
       webOpen(site)
+    
+    
 
     sysExit(1)
 
   placeholders = [
     "Notes:",
-    "1. Please include the following placeholders in your command:",
+    "I. Please include the following placeholders in your command:",
     "- {file}: This represents the path to the script file.",
     "Your command might look like this:",
     "interpreting-command [options...] {file}"
@@ -401,4 +413,7 @@ def detect_implementation(programming_language: str):
       message
     )
 
-  return command, implementation
+  save_command = yes_or_no(
+    "\nWould you like to save your implementation command for future use",
+  )
+  return (command, implementation), save_command

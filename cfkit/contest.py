@@ -6,9 +6,8 @@ import os
 from typing import TypeAlias
 from requests import get
 
-from util.common import (
-  check_url,
-  check_status,
+from cfkit.util.common import (
+  get_response,
   check_path_existence,
   file_name,
   colored_text,
@@ -41,6 +40,7 @@ class Contest:
   Documentation
   """
   def __init__(self, contest_id: int) -> None:
+    self.name = None
     self._id = contest_id
     self._content = self.__content()
     self.problems = list(map(lambda x: x[0], self._content))
@@ -51,19 +51,21 @@ class Contest:
 
     # Debugging
     if isinstance(self._id, int):
-      contest_problems_file_path = os.path.join(resources_folder, "problems", f"{self._id}.txt")
-      if not os.path.exists(contest_problems_file_path):
-        return problems_content(
-          read_text_from_file("/home/ghoudiy/Documents/Programming/Python/Programs/modules/cfkit/1882_problems_save.html"),
-          # check_url(
-          #   f"https://codeforces.com/contest/{self._id}/problems", self._id, self._id),
+      contest_problems_statement_file_path = resources_folder.joinpath("problems",f"{self._id}.txt")
+      if not contest_problems_statement_file_path.exists():
+        response, self.name = problems_content(
+          get_response(
+            f"https://codeforces.com/contest/{self._id}/problems",
+            self._id,
+            self._id
+          ).text,
           self._id,
           None,
           True
         )
       else:
-        return problems_content(contest_problems_file_path, self._id)
-
+        response, self.name = problems_content(contest_problems_statement_file_path, self._id)
+      return response
     else:
       colored_text("Contest ID must be an integer", "error 5")
       sys.exit(1)
@@ -77,7 +79,6 @@ class Contest:
     """
     Documentation
     """
-
     if path != os.getcwd():
       check_path_existence(path, 'd')
     os.chdir(path)
@@ -88,7 +89,7 @@ class Contest:
 
     problems_num = len(self.problems)
 
-    def undefined_extensions(programming_language_extension: list):
+    def check_for_undefined_extensions(programming_language_extension: list):
       i = 0
       problems_extensions_length = len(programming_language_extension)
       undefined_extension = False
@@ -97,7 +98,7 @@ class Contest:
           undefined_extension = True
         else:
           i += 1
-      
+
       if undefined_extension:
         print(programming_language_extension[i], "extension is not recognized")
         return enter_extensions()
@@ -105,17 +106,22 @@ class Contest:
       if problems_extensions_length > problems_num:
         print(f"expected at most {problems_num} extensions, got {problems_extensions_length}.")
         return enter_extensions()
-      return programming_language_extension, problems_extensions_length  
+      return programming_language_extension, problems_extensions_length
 
     def enter_extensions() -> (list, int):
       # Show availables extensions
       for lang in language_conf:
         print(lang + ":", ", ".join(language_conf[lang]["extensions"]))
-      
+
       # Get a list of file extensions separated by spaces from the user
-      print("To solve problems with multiple programming languages, enter the extensions separated by spaces.")
-      print("For example, if you enter two extensions, the program will consider the first extension for most problems and the last extension for the last problem.")
-      programming_language_extension, problems_extensions_length = undefined_extensions(
+      print(
+        "To solve problems with multiple programming languages, "
+        "enter the extensions separated by spaces.\n"
+        "For example, if you enter two extensions, "
+        "the program will consider the first extension for most problems and "
+        "the last extension for the last problem.")
+
+      programming_language_extension, problems_extensions_length = check_for_undefined_extensions(
         input("Extension(s): ").strip().split()
       )
 
@@ -123,15 +129,19 @@ class Contest:
       if len(programming_language_extension) == 1:
         colored_text(
           "To avoid entering extension every time\n"
-          "run <command>'cf config'</> command to configure your default programming language"
+          "run <command>'cf config default_language ...'</> command to configure your default programming language"
         )
+        # colored_text(
+        #   "To avoid entering extension every time\n"
+        #   "run <command>'cf set'</> command to configure your default programming language"
+        # )
       return programming_language_extension, problems_extensions_length
 
     if isinstance(programming_language_extension, list):
-      programming_language_extension, problems_extensions_length = undefined_extensions(
+      programming_language_extension, problems_extensions_length = check_for_undefined_extensions(
         programming_language_extension
       )
-    
+
     elif isinstance(programming_language_extension, str):
       if extensions.get(programming_language_extension) is None:
         print("Extension is not recognized")
@@ -196,7 +206,7 @@ class Contest:
     else:
       create_solution_file()
 
-    print("Problems Files Created!")
+    colored_text("Problems Files Created!", "correct")
 
 
   def parse(
@@ -207,13 +217,23 @@ class Contest:
     """
     Documentation
     """
-    fetch_samples(self._content, samples_dir(create_tests_dir, path), self._id)
+    print(f"Parsing {self._id} contest")
+    fetch_samples(
+      problem_statement=self._content,
+      path_to_save_samples=samples_dir(create_tests_dir,
+        path,
+        list(map(lambda x: f"{self._id}{x[:x.find('.')]}", self.problems)),
+        os.listdir(path)
+      ),
+      attributes=("contest", self._id, self.name)
+    )
+    colored_text("All test cases parsed successfully.", "correct")
 
 if __name__ == "__main__":
-  # Problem("1846D").parse()
-  contest_one = Contest("1882")
-  print(contest_one.problems)
-  contest_one.parse()
+  Contest("1882")
+  # print(contest_one.name)
+  # print(contest_one.problems)
+  # contest_one.parse()
   # print(one)
   # for i in one._content:
   #   print(i)
