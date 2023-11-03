@@ -16,16 +16,14 @@ from cfkit.util.common import (
   display_horizontally,
   enter_number,
   write_json_file,
-  resources_folder,
-  conf_file,
   # config_folder,
-  language_conf,
-  language_conf_path,
-  MACHINE,
   # json_folder
 )
-
 from cfkit.util.implementation import detect_implementation
+from cfkit.util.variables import resources_folder
+from cfkit.util.variables import conf_file
+from cfkit.util.variables import language_conf_path
+from cfkit.util.constants import MACHINE
 
 
 def set_language_attributes(programming_language: str) -> str:
@@ -52,6 +50,7 @@ def set_language_attributes(programming_language: str) -> str:
       f"%%{{input_file}}%% %%{{output_file}}%%"
     )
   if save_command:
+    language_conf = read_json_file(language_conf_path)
     language_conf[programming_language]["execute_command"] = execute_command
     language_conf[programming_language][
       "calculate_memory_usage_and_execution_time_command"] = run_command
@@ -64,7 +63,7 @@ def set_default_language():
   Documentation
   """
   default_language = conf_file["cfkit"]["default_language"]
-  if not default_language:
+  if default_language is None:
     pass
 
 

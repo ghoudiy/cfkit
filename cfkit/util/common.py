@@ -2,71 +2,81 @@
 Documentation
 """
 
+# Standard Library Imports
 import sys
 import re
 from pathlib import Path
-from select import select
-from os import get_terminal_size, path as osPath
+from os import get_terminal_size, path as osPath, listdir
 from shutil import rmtree
 from json import load, dump
 from datetime import datetime
-from configparser import ConfigParser, NoOptionError
-from typing import TypeAlias
+from configparser import NoOptionError
+from typing import Any
+from inspect import currentframe
+
+# Third-Party Imports
+from questionary import Choice, Separator, select, confirm
 from requests import get, HTTPError, exceptions as requestsExceptions
 from bs4 import BeautifulSoup
 from colorama import init, Fore, Back, Style
+from threading import Thread
+from pynput.keyboard import Controller
 
-Directory: TypeAlias = Path
-
-MACHINE = sys.platform
-PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
-json_folder = Path(__file__).parent.parent.joinpath("json")
-config_folder = Path("~").expanduser().joinpath((
-  "AppData", "Roaming") if MACHINE == "win32" else ".config", "cfkit")
-print(config_folder)
-template_folder = config_folder.joinpath("templates")
-language_conf_path = config_folder.joinpath("languages.json")
-conf_file = ConfigParser()
-conf_file.read(config_folder.joinpath("cfkit.conf"))
-color_conf = ConfigParser()
-color_conf.read(config_folder.joinpath("colorschemes", conf_file["cfkit"]["color_scheme"]))
-resources_folder = config_folder.joinpath("resources")
-extensions = {
-  "c": "C",
-  "cpp": "C++",
-  "cxx": "C++",
-  "C": "C++",
-  "cc": "C++",
-  "c++": "C++",
-  "cs": "C#",
-  "d": "D",
-  "go": "Go",
-  "hs": "Haskell",
-  "java": "Java",
-  "kt": "Kotlin",
-  "ml": "OCaml",
-  "dpr": "Delphi",
-  "pas": "Pascal",
-  "pl": "Perl",
-  "php": "PHP",
-  "py": "Python",
-  "rb": "Ruby",
-  "rs": "Rust",
-  "scala": "Scala",
-  "js": "JavaScript"
-}
-
-def input_with_timer(prompt, default=None, timer_seconds=3):
-  print(prompt)
-  input_response, _, _ = select([sys.stdin], [], [], timer_seconds) 
-
-  if input_response: 
-    return sys.stdin.readline().strip()
-
-  return default
+# Cfkit Imports
+from cfkit.util.variables import color_conf
+from cfkit.util.variables import template_folder
+from cfkit.util.variables import config_folder
+from cfkit.util.variables import resources_folder
+from cfkit.util.variables import language_conf_path
+from cfkit.util.constants import EXTENSIONS
+from cfkit.util.constants import Directory
 
 
-def get_url_with_timeout(url, seconds=15):
+def input_with_time_limit(
+    func,
+    timeout_seconds: float,
+    default: Any = None,
+    default_key: str = 'y',
+    **kwargs
+  ) -> Any:
+  """
+  Documentation
+  """
+  # Create a thread for the question
+  confirmation_thread = Thread(
+    target = lambda: setattr(confirmation_thread, 'result', func(**kwargs))
+  )
+  # Start the thread
+  confirmation_thread.start()
+  # Wait for the thread to complete or for the timeout to occur
+  confirmation_thread.join(timeout=timeout_seconds)
+
+  if confirmation_thread.is_alive():
+    # If the thread is still running, it means the timeout occurred
+    keyboard = Controller()
+    keyboard.press(default_key)
+    keyboard.release(default_key)
+    if default is None:
+      return True
+
+  return confirmation_thread.result
+
+def select_option(message: str, data: list, index: bool = False, **kwargs) -> int | Any:
+    print(currentframe().f_back)
+    question = select(
+        message=message,
+        choices=data,
+        # qmark="😃",
+        # style=custom_style_dope,
+        # use_shortcuts=True,
+        pointer=">",
+        **kwargs,
+    )
+    if index:
+      return data.index(question.ask())
+    return question.ask()
+
+def get_url_with_timeout(url: str, seconds: float = 15):
   """
   Send HTTP request to url with timeout $$$
   """
@@ -76,24 +86,24 @@ def get_url_with_timeout(url, seconds=15):
     print(
       "Unable to fetch data from Codeforces server. "
       "This may be due to one of the following reasons:\n"
-      "   1. The server is currently experiencing a high volume of requests.\n"
-      "   2. The server is temporarily down or unreachable.\n"
+      "   • The server is currently experiencing a high volume of requests.\n"
+      "   • The server is temporarily down or unreachable.\n"
       "Please try again later or check the status of the Codeforces server.\n"
     )
     return None
 
 def colored_text(
-    message: str,
-    one_statement_color='',
-    print_statement=True,
-    input_statement=False,
-  ):
+    *message: object,
+    one_color='',
+    print_statement: bool = True,
+    input_statement: bool = False,
+  ) -> str | Any:
   """
   Documentation
   """
   init(autoreset=True)
 
-  def generate_color_code_from_components(part: str):
+  def generate_color_code_from_components(part: str) -> str:
     order = ["\x1b[", "s-bright", "s-dim", "light"]
     background = part.find("bg")
     if background != -1:
@@ -146,10 +156,12 @@ def colored_text(
       colors += color
     return colors
 
-  if one_statement_color:
+  message = " ".join(map(str, message))
+
+  if one_color:
     try:
-      one_statement_color = color_conf.get("theme", one_statement_color.replace(" ", "_"))
-      message = generate_color_code_from_components(one_statement_color) + message + Style.RESET_ALL
+      one_color = color_conf.get("theme", one_color.replace(" ", "_"))
+      message = generate_color_code_from_components(one_color) + message + Style.RESET_ALL
     except NoOptionError:
       pass
   else:
@@ -170,7 +182,8 @@ def colored_text(
     return message
   print(message)
 
-def path_exist_error(file_path, file_or_dir):
+
+def path_exist_error(file_path: str, file_or_dir: str):
   """
   Documentation
   """
@@ -182,7 +195,7 @@ def path_exist_error(file_path, file_or_dir):
     )
     sys.exit(1)
 
-def check_path_existence(file_path, file_or_dir):
+def check_path_existence(file_path: str, file_or_dir: str):
   """
   Documentation
   """
@@ -204,7 +217,7 @@ def check_status(response):
     colored_text(f"<error_6>HTTP Error</>: {err}")
     sys.exit(1)
 
-def get_response(url: str, code, contest_id=0, raise_err=False):
+def get_response(url: str, code, contest_id: int = 0, raise_err: bool = False) -> str:
   """
   Documentation
   """
@@ -233,12 +246,12 @@ def get_response(url: str, code, contest_id=0, raise_err=False):
     sys.exit(1)
 
   elif not contest_started:
-    colored_text("Contest has not started yet", "error 11")
+    colored_text("Contest has not started yet", one_color="error 11")
     sys.exit(1)
 
   return response
 
-def english_ending(num):
+def english_ending(num: int) -> str:
   """
   Documentation
   """
@@ -253,7 +266,13 @@ def english_ending(num):
     return "rd"
   return "th"
 
-def wrong_answer_verdict(line, column, word_or_number, expected_value, observed_value):
+def wrong_answer_verdict(
+    line: int,
+    column: int,
+    word_or_number: str,
+    expected_value: Any,
+    observed_value: Any
+  ) -> str:
   '''
   verdict wrong answer message
   '''
@@ -264,7 +283,7 @@ def wrong_answer_verdict(line, column, word_or_number, expected_value, observed_
   ) + (f" error = '{(abs(expected_value - observed_value) / observed_value):5f}'" if (
     word_or_number == 'numbers' and int(expected_value) != expected_value) else '')
 
-def file_name(name, code, extension):
+def file_name(name: str, code: str, extension: str) -> str:
   """
   Documentation
   """
@@ -274,7 +293,7 @@ def file_name(name, code, extension):
   problem_name = problem_name[:-1] if problem_name[-1] == "_" else problem_name
   return f"{code}_{problem_name}.{extension}"
 
-def yes_or_no(message, aux="[Y/n]"):
+def yes_or_no(message: str, aux="[Y/n]") -> bool:
   """
   Documentation
   """
@@ -293,7 +312,7 @@ def yes_or_no(message, aux="[Y/n]"):
     aux = yes_or_no(message)
   return aux
 
-def check_command(command, message):
+def check_command(command: str, message: str) -> str:
   """
   Documentation
   """
@@ -307,21 +326,21 @@ def check_command(command, message):
       command = input("Please enter your command correctly:\n")
   return command
 
-def confirm(data, input_type, _command):
+def retype(data: str, input_type: str, _command: str) -> str:
   """
   Documentation
   """
-  if not yes_or_no(f"Confirm the {input_type}"):
-    if _command:
-      return confirm(
+  if not confirm(f"Confirm the {input_type}"):
+    if _command is not None:
+      return retype(
         check_command(input(f"Please retype the {input_type}:\n"), _command),
         input_type,
         _command
       )
-    return confirm(input(f"Please retype the {input_type}:\n"), input_type)
+    return retype(input(f"Please retype the {input_type}:\n"), input_type)
   return data
 
-def enter_number(message, error_message, num_range):
+def enter_number(message: str, error_message: str, num_range: range) -> int:
   """
   Documentation
   """
@@ -330,7 +349,7 @@ def enter_number(message, error_message, num_range):
     num = input(error_message).strip()
   return int(num)
 
-def read_json_file(json_file_path):
+def read_json_file(json_file_path: str) -> dict:
   """
   Documentation
   """
@@ -338,7 +357,7 @@ def read_json_file(json_file_path):
     content = load(file)
   return content
 
-def read_text_from_file(file_path):
+def read_text_from_file(file_path: str) -> str:
   """
   Documentation
   """
@@ -346,7 +365,7 @@ def read_text_from_file(file_path):
     content = file.read()
   return content
 
-def is_number(text):
+def is_number(text: str) -> bool:
   """
   Documentation
   """
@@ -356,7 +375,11 @@ def is_number(text):
   except ValueError:
     return False
 
-def create_file_folder(path_to_file, file_or_dir='f', skip_existence: bool = False):
+def create_file_folder(
+    path_to_file: str,
+    file_or_dir: str = 'f',
+    skip_existence: bool = False
+  ) -> Path:
   """
   Documentation
   """
@@ -365,16 +388,18 @@ def create_file_folder(path_to_file, file_or_dir='f', skip_existence: bool = Fal
     # Empty the file
     with path_to_file.open('w', encoding="UTF-8"):
       pass
-    return path_to_file.name
+    # return path_to_file.name
 
-  if not path_to_file.exists():
+  elif not path_to_file.exists():
     if file_or_dir == 'd':
       path_to_file.mkdir()
     else:
       path_to_file.touch()
+
   else:
     path_to_file = folder_file_exists(path_to_file, "directory" if file_or_dir == "d" else "file")
-  return path_to_file.name
+
+  return path_to_file
 
 def convert_to_bytes(memory: str) -> float:
   """
@@ -395,19 +420,22 @@ def convert_to_bytes(memory: str) -> float:
     sys.exit(1)
   return float(memory)
 
-def folder_file_exists(name, file_or_dir):
+def folder_file_exists(name: str, file_or_dir: str) -> str:
   """
   Documentation
   """
-  print(
-    f"\nAnother {file_or_dir} with the name '{name}' already exists.",
-    "1. Write in the same directory" if file_or_dir == "directory" else "1. Override the file",
-    f"2. Replace the old {file_or_dir} with the new one",
-    f"3. Create a new {file_or_dir} with another name",
-    "4. Abort",
-    sep="\n"
+  print(f"\nAnother {file_or_dir} with the name '{name}' already exists.")
+  user_choice = select_option(
+    message="What do you want to do?",
+    data=[
+      "Write in the same directory" if file_or_dir == "directory" else "1. Override the file",
+      f"Replace the old {file_or_dir} with the new one",
+      f"Create a new {file_or_dir} with another name",
+      "Abort"
+    ],
+    index=True,
+    user_shortcuts=True
   )
-  user_choice = enter_number("Action index: ", "Action index: ", range(1, 5))
 
   if user_choice == 3:
     name = input(f"{file_or_dir.capitalize()} name: ").strip()
@@ -425,8 +453,10 @@ def folder_file_exists(name, file_or_dir):
     sys.exit(1)
 
   return folder_path
+file_or_dir = "directory"
 
-def display_horizontally(data: tuple):
+
+def display_horizontally(data: tuple) -> None:
   """
   Documentation
   """
@@ -450,14 +480,15 @@ def display_horizontally(data: tuple):
 
     print(formatted_row)
 
-def retrieve_template(file_path: str):
+def retrieve_template(file_path: str) -> str:
   """
   Documentation
   """
-  programming_language = extensions[file_path[file_path.find(".")+1:]]
-  default_template = language_conf[programming_language]["default_template"]
+  language_conf = read_json_file(language_conf_path)
+  programming_language = EXTENSIONS[file_path[file_path.find(".")+1:]]
+  default_template_path = language_conf[programming_language]["default_template"]
   # $$$ Add an option in the terminal to make the user choose between templates
-  if not default_template:
+  if not default_template_path:
     aux = language_conf[programming_language]["extensions"]
     language_template_folder = template_folder.joinpath(aux[0])
     other_templates_paths = language_conf[programming_language]["templates_path"]
@@ -486,26 +517,26 @@ def retrieve_template(file_path: str):
       )
       return templates[template_index-1]
     return templates[0]
-  if not osPath.isfile(default_template):
-    colored_text("The path of the default template is not a file", "error 2")
+  if not osPath.isfile(default_template_path):
+    colored_text("The path of the default template is not a file", one_color="error 2")
     sys.exit(1)
-  return default_template
+  return default_template_path
 
-def write_json_file(data, file_path, spaces = 4):
+def write_json_file(data: object, file_path: str, spaces: int = 4) -> None:
   """
   Write data to a json file
   """
   with open(file_path, 'w', encoding="UTF-8") as file:
     dump(data, file, indent=spaces)
 
-def write_text_to_file(data, file_path):
+def write_text_to_file(data: str, file_path: str):
   """
   Write text to a file
   """
   with open(file_path, 'w', encoding="UTF-8") as file:
     file.write(data)
 
-def download_contests_json_file():
+def download_contests_json_file() -> None:
   """
   Documentation
   """
@@ -547,7 +578,7 @@ def problems_content(
     contest_id: int,
     problem_index: str = None,
     html_page = False
-  ) -> (list | str):
+  ) -> (list[list[str]] | str):
   """
   Documentation
   """
@@ -567,7 +598,12 @@ def problems_content(
       problems.append(problem_statement)
       problem_statemen_pos = content.find('<div class="problem-statement">')
 
-    def create_problems_txt(resources_folder: Path, contest_id, problems, contest_name):
+    def create_problems_txt(
+        resources_folder: Path,
+        contest_id: int,
+        problems: list,
+        contest_name: str
+      ) -> None:
       '''
       Documentation
       '''
@@ -608,29 +644,25 @@ def problems_content(
     return problems[i-1], contest_name
   return problems, contest_name
 
-def samples_dir(create_tests_dir, samples_path, problem_index, list_of_files):
+def samples_dir(create_tests_dir: bool, samples_path: str, problem_index: str) -> Path:
   """
   Documentation
   """
-  samples_path = Path(samples_path)
+  samples_path: Path = Path(samples_path)
   if create_tests_dir:
-    if samples_path.joinpath("tests").exists():
-        i = 0
-        test = True
-        while test and i < len(problem_index):
-          input_samples = sorted(
-            [file for file in list_of_files if re.search(rf"{problem_index[i]}_\d.in", file)])
-          expected_output_list = sorted(
-            [file for file in list_of_files if re.search(rf"{problem_index[i]}_\d.out", file)])
-          test = len(input_samples) == len(expected_output_list)
-          i += 1
-
-        if test:
-          samples_directory = samples_path.joinpath("tests")
-        else:
-          samples_directory = samples_path.joinpath(folder_file_exists("tests", 'directory'))
+    samples_directory = samples_path.joinpath("tests")
+    if samples_directory.exists():
+      list_of_files = listdir(samples_directory)
+      input_samples = sorted(
+        [file for file in list_of_files if re.search(rf"{problem_index}_\d\.in", file)])
+      expected_output_list = sorted(
+        [file for file in list_of_files if re.search(rf"{problem_index}_\d\.out", file)])
+      if len(input_samples) == len(expected_output_list):
+        samples_directory = samples_directory
+      else:
+        samples_directory = samples_path.joinpath(folder_file_exists("tests", 'directory'))
     else:
-      samples_directory = create_file_folder(samples_path.joinpath("tests"), 'd')
+      samples_directory = create_file_folder(samples_directory, 'd')
   else:
     samples_directory = samples_path
   return samples_directory
@@ -648,7 +680,7 @@ def fetch_samples(
   if path_to_save_samples != Path.cwd() and check_path:
     check_path_existence(path_to_save_samples, 'd')
 
-  def fetch(problem_statement: list, problem_index: str):
+  def fetch(problem_statement: list, problem_index: str) -> int:
     # Search for Example section to fetch samples
     try:
       example_index = problem_statement.index("Example")
@@ -663,7 +695,7 @@ def fetch_samples(
     samples_num = problem_statement.count("Input")
     aux = samples_num
 
-    def in_out_files(nr1, nr2, ext, start, end):
+    def create_in_out_files(nr1, nr2, ext, start, end) -> None:
       sample = path_to_save_samples.joinpath(f"{problem_index}_{nr1 - nr2 + 1}.{ext}")
       if not sample.exists():
         with open(sample, 'w', encoding="UTF-8") as sample_file:
@@ -673,11 +705,11 @@ def fetch_samples(
     for i in range(samples_num, 0, -1):
       input_index = problem_statement.index("Input")
       output_index = problem_statement.index("Output")
-      in_out_files(aux, i, "in", input_index, output_index)
+      create_in_out_files(aux, i, "in", input_index, output_index)
       problem_statement[input_index] = "input-done"
       input_index = problem_statement.index("Input") if "Input" in problem_statement else len(
         problem_statement)
-      in_out_files(aux, i, "out", output_index, input_index)
+      create_in_out_files(aux, i, "out", output_index, input_index)
       problem_statement[output_index] = "output-done"
     return samples_num
 
@@ -689,7 +721,7 @@ def fetch_samples(
       print(
         f"Parsed {samples_num} sample{'s' if samples_num > 1 else ''} for problem {problem_letter}"
       ) # Grammar checked
-    
+
     # Save problem attributes to last fetched file
     last_fetched_contest = read_json_file(last_fetched_file_path)
     last_fetched_contest["last_fetched_contest"]["contest_id"] = attributes[1]
@@ -708,5 +740,3 @@ def fetch_samples(
     last_fetched_problem["last_fetched_problem"]["timestamp"] = datetime.now(
       ).strftime("%Y-%m-%d %H:%M:%S")
     write_json_file(last_fetched_problem, last_fetched_file_path)
-
-language_conf = read_json_file(language_conf_path)

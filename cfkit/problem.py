@@ -4,13 +4,12 @@ Documentation
 import sys
 import os
 from math import isclose
-from pathlib import Path
-from subprocess import run, PIPE, CalledProcessError
-from re import search, findall
-from datetime import datetime
-from inspect import currentframe
 from shutil import rmtree
-from typing import TypeAlias, NoReturn
+from datetime import datetime
+from re import search, findall
+from inspect import currentframe
+from typing import Any
+from subprocess import run, PIPE, CalledProcessError
 
 from cfkit.util.common import (
   get_response,
@@ -33,21 +32,15 @@ from cfkit.util.common import (
   yes_or_no,
   problems_content,
   fetch_samples,
-  input_with_timer,
-  # download_contests_json_file,
-  # conf_file,
-  # template_folder,
-  # language_conf,
-  PROBLEM_CODE_PATTERN,
-  extensions,
-  resources_folder
+  input_with_time_limit,
 )
 from cfkit.util.commands import execute_file
+from cfkit.util.variables import resources_folder
+from cfkit.util.constants import Directory
+from cfkit.util.constants import EXTENSIONS
+from cfkit.util.constants import PROBLEM_CODE_PATTERN
+from cfkit.util.constants import ProblemCodeOrFileOrBoth
 
-File: TypeAlias = str
-Directory: TypeAlias = str
-FileOrDirectory: TypeAlias = str
-ProblemCodeOrFileOrBoth: TypeAlias = str | tuple
 
 class Problem:
   """
@@ -74,7 +67,7 @@ class Problem:
     self._tfwrong = None
 
 
-  def __retrieve_html_source_code(self, code, err=False):
+  def __retrieve_html_source_code(self, code: str, err: bool = False) -> str:
     if search(PROBLEM_CODE_PATTERN + '$', code):
       letter_index = len(code) - 1 if code[-1].isalpha() and len(findall(
         r"[A-z]", code)) == 1 else len(code) - 2
@@ -83,7 +76,7 @@ class Problem:
 
       contest_problems_file_path = resources_folder.joinpath("problems", f"{self._contestid}.txt")
       if not contest_problems_file_path.exists():
-        response, self.contest_name =  problems_content(
+        response, self.contest_name = problems_content(
           get_response(
             f"https://codeforces.com/contest/{self._contestid}/problems",
             code,
@@ -95,14 +88,16 @@ class Problem:
           True
         )
         return response
-      response, self.contest_name =  problems_content(contest_problems_file_path,
-          self._contestid,
-          self._problem_index_letter
-        )
+      response, self.contest_name = problems_content(
+        contest_problems_file_path,
+        self._contestid,
+        self._problem_index_letter
+      )
       return response
+
     if err:
       raise SyntaxError
-    colored_text("No such problem", "error 10")
+    colored_text("No such problem", one_color="error 10")
     sys.exit(1)
 
   def __validate_parameters(self, problem_code: (tuple | str)):
@@ -110,9 +105,9 @@ class Problem:
     Check if the problem code is available
     '''
 
-    def enter_code():
+    def enter_code() -> tuple[str, str]:
       '''If the problem code couldn't be recognized from the given path'''
-      colored_text("\nProblem code couldn't be recognized from the given path", "error 5")
+      colored_text("\nProblem code couldn't be recognized from the given path", one_color="error 5")
       code = input("Please enter the problem code: ").strip()
       content = self.__retrieve_html_source_code(code)
       return content, code
@@ -123,22 +118,22 @@ class Problem:
         if os.path.isdir(problem_code):
           colored_text(
             "\nYou should enter a problem code or a file not a directory\n",
-            "error 5"
+            one_color="error 5"
           )
           sys.exit(1)
         file_extension = problem_code.rfind(".")
-        if file_extension != -1 and problem_code[file_extension+1:] in extensions:
+        if file_extension != -1 and problem_code[file_extension+1:] in EXTENSIONS:
           colored_text(f"\n<error_9>No such file</> '{problem_code}'\n")
           sys.exit(1)
         content = self.__retrieve_html_source_code(problem_code)
 
       else: # If the user gives the solution file instead of problem code
         # Searching for the problem code in path
-        def desired_problem(problem_index):
-          aux = input_with_timer(f"'{problem_index}' Is this the desired problem? [Y/n] ", 'y', 3)
+        def desired_problem(problem_index: str) -> bool:
+          aux = input_with_time_limit(f"'{problem_index}' Is this the desired problem? [Y/n] ", 'y', 3)
           if aux in ("yes", 'y', ''):
             return True
-          elif aux in ("no", 'n', ''):
+          if aux in ("no", 'n', ''):
             return False
           return desired_problem(problem_index)
 
@@ -205,7 +200,7 @@ class Problem:
       check_path_existence(path, 'f')
     os.chdir(path)
 
-    def add_problem_name(add_problem_name_to_file_name, code):
+    def add_problem_name(add_problem_name_to_file_name: bool, code: str) -> None:
       if add_problem_name_to_file_name:
         solution_file = file_name(self.name[3:], code, file_extension)
       else:
@@ -215,13 +210,15 @@ class Problem:
     if create_contest_folder:
       folder_name = create_file_folder(str(self._contestid), 'd')
       os.chdir(folder_name)
-      solution_file = add_problem_name(add_problem_name_to_file_name, self._problem_index_letter.lower())
-    else:
-      solution_file = add_problem_name(add_problem_name_to_file_name, self._problem_index_letter.lower())
+
+    solution_file = add_problem_name(
+      add_problem_name_to_file_name,
+      self._problem_index_letter.lower()
+    )
 
     write_text_to_file(read_text_from_file(retrieve_template(solution_file)), solution_file)
 
-    colored_text("The solution file has been successfully created", "correct") # Grammar checked
+    colored_text("The solution file has been successfully created", one_color="correct") # Grammar checked
 
   def parse(
       self,
@@ -234,7 +231,7 @@ class Problem:
     Documentation
     """
     def fetch(path, create_tests_dir, __check_path):
-      self._data_path = samples_dir(create_tests_dir, path, [self.problem_index], os.listdir(path))
+      self._data_path = samples_dir(create_tests_dir, path, [self.problem_index])
 
       fetch_samples(
         problem_statement=self._response,
@@ -246,8 +243,9 @@ class Problem:
     if print_message:
       print(f"Parsing {self.problem_index} problem")
       fetch(path, create_tests_dir, __check_path)
-      colored_text(f"<error_1>Samples are saved in</> <error_5>{os.path.join(path, self._data_path)}</>")
-      colored_text("Test cases parsed successfully.", "correct")
+      colored_text(f"<error_1>Samples are saved in</> <error_5>"
+                    f"{os.path.join(path, self._data_path)}</>")
+      colored_text("Test cases parsed successfully.", one_color="correct")
     else:
       fetch(path, create_tests_dir, __check_path)
 
@@ -256,17 +254,16 @@ class Problem:
       check_formatting: bool = False,
       __stop_program: bool = True,
       file_path: str = None
-    ):
+    ) -> None:
     """
     Test a participant's solution against Codeforces problem samples
     and download them if they are missed.
     """
-    def check_path(file_path):
+    def check_path(file_path) -> tuple[bool, list[str] | None, int | Any | None]:
 
-      def check_file(file_path):
+      def check_file(file_path) -> str:
         check_path_existence(file_path, 'f')
         while not os.path.isfile(file_path):
-          # Enter a new path
           file_path = colored_text(
             "The path you provided is not a file path" +
             "\nPlease provide <error>an existing file path</> instead: ",
@@ -283,7 +280,7 @@ class Problem:
         self._solution_file = sys.argv[0]
         if self._solution_file[-3:] == ".py" != -1:
           working_in_script = True
-          line_number = currentframe().f_back.f_back.f_lineno          
+          line_number = currentframe().f_back.f_back.f_lineno
         else:
           self._solution_file = check_file(input("Path of the solution file: ").strip())
 
@@ -300,34 +297,33 @@ class Problem:
       del file_path
       cwd = os.getcwd()
       self._solution_file = os.path.join(cwd, self._solution_file)
-      print(f"{cwd = }")
-      print(f"{self._solution_file = }")
       if self._data_path is None:
-        self._data_path = os.path.join(cwd, 'tests')
-        test = True
-
-        def input_output_list(data_path):
+        def input_output_list(data_path) -> int:
           list_of_files = os.listdir(data_path)
           self._input_samples = sorted(
-            [file for file in list_of_files if search(rf"{self.problem_index}_\d.in", file)])
+            [file for file in list_of_files if search(rf"{self.problem_index}_\d\.in", file)])
           self._expected_output_list = sorted(
-            [file for file in list_of_files if search(rf"{self.problem_index}_\d.out", file)])
+            [file for file in list_of_files if search(rf"{self.problem_index}_\d\.out", file)])
           length_input_samples = len(self._input_samples)
           return length_input_samples
-        
+       
+        self._data_path = os.path.join(cwd, 'tests')
+        test = True
         if os.path.exists(self._data_path):
-          length_input_samples = input_output_list()
-          if length_input_samples > 0 or length_input_samples == len(self._expected_output_list):
+          length_input_samples = input_output_list(self._data_path)
+          if length_input_samples > 0 and length_input_samples == len(self._expected_output_list):
             test = False
             del length_input_samples
-        
+
         if test:
           # Here where I got the idea of adding __check_path parameter in parse function
           # To prevent checking the path again
           self.parse(cwd, True, False, False)
-        
+
         del cwd
+      
       os.chdir(self._data_path)
+      length_input_samples = input_output_list(self._data_path)
 
       code = None
       # If working with the solution file itself and it's a python file
@@ -411,9 +407,16 @@ class Problem:
 
       # Checking go program output
       # ================================================================
-      def checker_log(error, err_num, solution_resources, terminal_columns, observed, i):
+      def checker_log(error, err_num, solution_resources, terminal_columns, observed, i) -> None:
         if solution_resources == error:
-          verdict[i] = (f"Test case {i+1}", colored_text(error, err_num, False, False))
+          verdict[i] = (
+            f"Test case {i+1}", colored_text(
+              error, 
+              one_color=err_num, 
+              print_statement=False, 
+              input_statement=False
+            ) 
+          )
           errors[error] += 1
           if self._tfwrong is None:
             self._tfwrong = f"{error} on test {i+1}"
@@ -459,7 +462,7 @@ class Problem:
       else:
         expected = read_text_from_file(self._expected_output_list[i])
         if expected == observed:
-          verdict[i] = (f"Test case {i+1}", colored_text("OK", "correct", False, False))
+          verdict[i] = (f"Test case {i+1}", colored_text("OK", one_color="correct", print_statement=False, input_statement=False))
           accepeted = accepeted and True
       # ================================================================
 
@@ -476,7 +479,7 @@ class Problem:
             check_length(expected, observed)
 
           try:
-            def compare_values(expected_value, observed_value, line, column):
+            def compare_values(expected_value, observed_value, line, column) -> bool:
               if is_number(expected_value) and is_number(observed_value):
                 expected_value = float(expected_value)
                 observed_value = float(observed_value)
@@ -532,28 +535,34 @@ class Problem:
                   # Remove word 'line' from the error message
                   self._tfwrong = self._tfwrong[:14] + self._tfwrong[
                     self._tfwrong.find(" line ") + 6:]
+                  print(self._tfwrong)
                   break
 
           except InterruptedError:
             verdict[i] = (
               f"Test case {i+1}",
-              colored_text("Formatting error", "error 4", False, False)
+              colored_text(
+                "Formatting error", 
+                one_color="error 4", 
+                print_statement=False, 
+                input_statement=False
+              )
             )
             errors["Formatting error"] += 1
 
           if equal:
-            verdict[i] = (f"Test case {i+1}", colored_text("OK", "correct", False, False))
+            verdict[i] = (f"Test case {i+1}", colored_text("OK", one_color="correct", print_statement=False, input_statement=False))
             accepeted = accepeted and True
 
           else:
             accepeted = False
-            verdict[i] = (f"Test case {i+1}", colored_text("Wrong answer", "wrong", False, False))
+            verdict[i] = (f"Test case {i+1}", colored_text("Wrong answer", one_color="wrong", print_statement=False, input_statement=False))
             errors["Wrong answer"] += 1
             self._fwrong = i + 1 if self._fwrong is None else None
     # =============================================================================================
 
     # Results
-    def print_results(verdict, solution_resources: list[str]):
+    def print_results(verdict, solution_resources: list[str]) -> None:
       def extract_list(solution_resources) -> (list[float], list[float]):
         memory = [None] * len(solution_resources)
         time = [None] * len(solution_resources)
@@ -561,20 +570,22 @@ class Problem:
           resources = resources.split("\n")
           time[i] = round(float(resources[0][:resources[0].find(' ')]), 3)
           pos_space = resources[1].find(' ')
-          memory[i] = round(float(resources[1][:pos_space]), 3), resources[1][pos_space+1:] 
+          memory[i] = round(float(resources[1][:pos_space]), 3), resources[1][pos_space+1:]
         return memory, time
       memory, time = extract_list(solution_resources)
       max_length_time = len(str(max(time, key=lambda x: len(str(x)))))
-      max_length_memory = len(str(max(memory, key=lambda x: len(str(x[0])))))
-      print(f"{max_length_time = }")
-      print(f"{max_length_memory = }")
+      max_length_memory = len(str(max(memory, key=lambda x: len(str(x[0])))[0]))
+      # Add extra space to equal between MB, KB and B units
+      test = any(filter(lambda x: x[1] != "B", memory))
+      
       for i, verdict_response in enumerate(verdict):
         if memory[0] != "Compilation error":
-          print(
+          colored_text(
             f"{verdict_response[0]},",
-            f"time: {time[i]}{' ' * (max_length_time - len(str(time[i])))} ms,",
-            f"memory: {memory[i][0]}{' ' * (max_length_memory - len(str(memory[i][0])))} {memory[i][1]},",
-            # The problem here is that there are extra spaces between (MB|KB|B) unit and the value
+            f"time: <values>{time[i]}{' ' * (max_length_time - len(str(time[i])))} ms</>,",
+            f"memory: <values_1>{memory[i][0]}</>"
+            f"{' ' * (max_length_memory - len(str(memory[i][0])))}",
+            f"{' ' if test and memory[i][1] == 'B' else ''}<values_1>{memory[i][1]}</>,",
             f"verdict: {verdict_response[1]}"
           )
         else:
@@ -584,9 +595,8 @@ class Problem:
     test_results_file_path = os.path.join(resources_folder, "test_samples_results.json")
     test_results: dict = read_json_file(test_results_file_path)
     # If solution get accepted
-    # ================================================================
     if accepeted:
-      colored_text("Demo Accepeted", "accepted")
+      colored_text("Demo accepeted", one_color="accepted")
       print_results(verdict, solution_resources)
       if test_results["unsolved_problems"].get(self.problem_index) is not None:
         test_results["demo_accepted"][
@@ -623,7 +633,7 @@ class Problem:
         remove = yes_or_no("Remove samples and output files")
 
       if remove:
-        def remove_files(file_list):
+        def remove_files(file_list) -> None:
           for file in file_list:
             if isinstance(file, tuple):
               os.remove(file[0])
@@ -640,7 +650,7 @@ class Problem:
             ) for i in range(1, number_of_tests+1)
           ]
         )
-    # ================================================================
+
     # If solution is not correct whether the verdict output wrong answer or an error
     else:
       print(f"\nChecker log:\n{self._tfwrong}\n")
@@ -678,6 +688,7 @@ class Problem:
         try:
           process = run(
             f"{python_command} cfkit_finish_program.py < cfkit_empty_input_test.in",
+            check=True,
             shell=True,
             stdout=PIPE,
             stderr=PIPE,

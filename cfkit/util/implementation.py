@@ -9,37 +9,19 @@ from subprocess import run
 from webbrowser import open as webOpen
 
 from cfkit.util.common import (
-  confirm,
+  retype,
   check_command,
   yes_or_no,
   enter_number,
   read_json_file,
-  colored_text,
-  MACHINE,
-  json_folder
+  colored_text
 )
 
-NOTE = """
-II. Do not include any input or output specifications in your command! (i.e. '< in > out')
-"""
+from cfkit.util.variables import json_folder
+from cfkit.util.constants import MACHINE
+from cfkit.util.constants import NOTE
+from cfkit.util.constants import COMPILING_NOTE
 
-COMPILING_NOTE = """\
-III. When providing the compilation command, \
-make sure to include the execution part as well if necessary.
-For instance, if you're using Kotlin, your command should look something like this:
-{colored_text("kotlinc {file} -d {output}.jar && java -jar {output}.jar", "command", False, False)}
-The '&& java -jar {{output}}.jar' part is important for executing the compiled code.
-If your compilation process requires additional steps for execution, \
-be sure to include them in the command as well
-
-
-There are two types of compilation commands:\n
-1. Compile only: Compiles the code without executing.
-    Example: g++ -Wall -o {output} {file}
-2. Compile and Execute: Compiles and immediately executes the code.
-    Example: go run {file}
-
-Choose the appropriate command based on your needs."""
 
 def detect_implementation(programming_language: str):
   '''
@@ -379,7 +361,7 @@ def detect_implementation(programming_language: str):
     if compilation_type == 1:
       implementation = "compiler"
       message = f"{placeholders[1][3:]}\n{placeholders[2]}\n{placeholders[3]}", None
-      command = confirm(
+      command = retype(
         check_command(
           input("\nEnter below the command you'd like to use:\n").strip(),
           message
@@ -390,7 +372,7 @@ def detect_implementation(programming_language: str):
     else:
       implementation = "compile and execute"
       message = f"{placeholders[1][3:]}\n{placeholders[2]}"
-      command = confirm(
+      command = retype(
         check_command(
           input("\nEnter below the command you'd like to use:\n").strip(),
           message
@@ -404,7 +386,7 @@ def detect_implementation(programming_language: str):
     print(NOTE)
     implementation = "interpreter"
     message = f"{placeholders[1][3:]}\n{placeholders[2]}"
-    command = confirm(
+    command = retype(
       check_command(
         input("\nEnter below the command you'd like to use:\n").strip(),
         message

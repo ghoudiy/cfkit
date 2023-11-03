@@ -3,8 +3,9 @@ from datetime import datetime
 from requests.utils import cookiejar_from_dict
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.util.common import resources_folder, read_json_file
-from cfkit.config import login, choose_compiler
+from cfkit.util.common import read_json_file
+from cfkit.config import login, set_default_compiler
+from cfkit.util.variables import resources_folder
 
 def submit(contest_id, problem_code, file_path):
   browser = StatefulBrowser()
@@ -42,7 +43,7 @@ def submit(contest_id, problem_code, file_path):
 
     # Fill out the form fields
     form.set("submittedProblemIndex", problem_code)
-    form.set("programTypeId", choose_compiler())
+    form.set("programTypeId", set_default_compiler())
     # Add the source file for submission
     with open(file_path, "rb") as file:
       form.set("sourceFile", file.read())

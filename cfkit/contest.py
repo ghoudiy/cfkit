@@ -3,8 +3,6 @@ Documentation
 """
 import sys
 import os
-from typing import TypeAlias
-from requests import get
 
 from cfkit.util.common import (
   get_response,
@@ -19,21 +17,22 @@ from cfkit.util.common import (
   # enter_number,
   samples_dir,
   read_text_from_file,
+  read_json_file,
   fetch_samples,
   wrong_answer_verdict,
   write_text_to_file,
   is_number,
   yes_or_no,
+)
+from cfkit.util.variables import (
   conf_file,
-  config_folder,
   resources_folder,
-  # template_folder,
-  language_conf,
-  extensions
+  template_folder,
+  language_conf_path,  
 )
 
-Directory: TypeAlias = str
-
+from cfkit.util.constants import Directory
+from cfkit.util.constants import EXTENSIONS
 
 class Contest:
   """
@@ -67,7 +66,7 @@ class Contest:
         response, self.name = problems_content(contest_problems_statement_file_path, self._id)
       return response
     else:
-      colored_text("Contest ID must be an integer", "error 5")
+      colored_text("Contest ID must be an integer", one_color="error 5")
       sys.exit(1)
 
   def create_problems_files(
@@ -94,7 +93,7 @@ class Contest:
       problems_extensions_length = len(programming_language_extension)
       undefined_extension = False
       while not undefined_extension and i < problems_extensions_length:
-        if extensions.get(programming_language_extension[i]) is None:
+        if EXTENSIONS.get(programming_language_extension[i]) is None:
           undefined_extension = True
         else:
           i += 1
@@ -108,7 +107,7 @@ class Contest:
         return enter_extensions()
       return programming_language_extension, problems_extensions_length
 
-    def enter_extensions() -> (list, int):
+    def enter_extensions(language_conf: dict) -> (list, int):
       # Show availables extensions
       for lang in language_conf:
         print(lang + ":", ", ".join(language_conf[lang]["extensions"]))
@@ -143,17 +142,20 @@ class Contest:
       )
 
     elif isinstance(programming_language_extension, str):
-      if extensions.get(programming_language_extension) is None:
+      if EXTENSIONS.get(programming_language_extension) is None:
         print("Extension is not recognized")
-        programming_language_extension, problems_extensions_length = enter_extensions()
+        programming_language_extension, problems_extensions_length = enter_extensions(
+          read_json_file(language_conf_path)
+        )
       else:
         programming_language_extension = [programming_language_extension]
         problems_extensions_length = 1
 
     else:
+      language_conf = read_json_file(language_conf_path)
       default_language = conf_file["cfkit"]["default_language"]
       if not default_language:
-        programming_language_extension, problems_extensions_length = enter_extensions()
+        programming_language_extension, problems_extensions_length = enter_extensions(language_conf)
       else:
         programming_language_extension = [language_conf[default_language]["extensions"][0]]
         problems_extensions_length = 1
@@ -161,18 +163,18 @@ class Contest:
     # Comment
     problems_files = []
     if add_problem_name_to_file_name:
-      for i, problem in enumerate(self.problems):
-        pt_pos = problem.find(".")
+      for i, problem_name in enumerate(self.problems):
+        pt_pos = problem_name.find(".")
         problems_files.append(file_name(
-          problem[pt_pos+2:],
-          f"{self._id}{problem[:pt_pos]}",
+          problem_name[pt_pos+2:],
+          f"{self._id}{problem_name[:pt_pos]}",
           programming_language_extension[
             ((i-problems_num+problems_extensions_length
               ) + abs(i-problems_num+problems_extensions_length)) // 2]))
     else:
-      for i, problem in enumerate(self.problems):
+      for i, problem_name in enumerate(self.problems):
         problems_files.append(
-          f"{problem[:problem.find('.')].lower()}." +\
+          f"{problem_name[:problem_name.find('.')].lower()}." +\
           programming_language_extension[
             ((i-problems_num+problems_extensions_length
               ) + abs(i-problems_num+problems_extensions_length)) // 2]
@@ -206,7 +208,7 @@ class Contest:
     else:
       create_solution_file()
 
-    colored_text("Problems Files Created!", "correct")
+    colored_text("Problems Files Created!", one_color="correct")
 
 
   def parse(
@@ -227,7 +229,7 @@ class Contest:
       ),
       attributes=("contest", self._id, self.name)
     )
-    colored_text("All test cases parsed successfully.", "correct")
+    colored_text("All test cases parsed successfully.", one_color="correct")
 
 if __name__ == "__main__":
   Contest("1882")

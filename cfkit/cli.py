@@ -1,30 +1,19 @@
 """A simple command line application to interact with Codeforces."""
+
 import argparse
 import sys
-# from json import load
 from re import search
 
 from cfkit.util.common import (
-  resources_folder,
   read_json_file,
   problems_content,
   get_response
 )
 from cfkit.contest import Contest
 from cfkit.problem import Problem
-
-ALL_ACTIONS = ("list", "parse", "gen", "run")
-HELP_MESSAGE = """
-Available commands:
-
-    list    list all problems of the contest
-    parse   parse input and output samples from problem statement
-    gen     generate solution file with the default template if found
-    run     test solution file against samples and print the verdict response
-
-Type cf <command> --help for usage help on a specific command.
-For example, cf run --help will list all testing options.
-"""
+from cfkit.util.variables import resources_folder
+from cfkit.util.constants import HELP_MESSAGE
+from cfkit.util.constants import ALL_ACTIONS
 
 
 def get_action():
