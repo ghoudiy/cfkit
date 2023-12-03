@@ -4,23 +4,23 @@ and execute it with sample input and output while managing memory usage.
 """
 
 from sys import exit as sysExit, maxsize
-from os import chdir
 from subprocess import run
 from webbrowser import open as webOpen
 
 from cfkit.util.common import (
   retype,
   check_command,
-  yes_or_no,
+  confirm,
   enter_number,
   read_json_file,
-  colored_text
+  colored_text,
+  select_option
 )
 
 from cfkit.util.variables import json_folder
 from cfkit.util.constants import MACHINE
-from cfkit.util.constants import NOTE
 from cfkit.util.constants import COMPILING_NOTE
+from cfkit.util.constants import NOTE
 
 
 def detect_implementation(programming_language: str):
@@ -28,11 +28,10 @@ def detect_implementation(programming_language: str):
   Identify programming language implementations available on the system and supported by Codeforces.
   '''
 
-  chdir(json_folder)
-  compilers_interpreters: dict = read_json_file("compilers_interpreters.json")
-  compiling_commands: dict = read_json_file("compiling_commands.json")
-  one_line_compiled: dict = read_json_file("one_line_compiled.json")
-  interpreting_commands: dict = read_json_file("interpreting_commands.json")
+  compilers_interpreters: dict = read_json_file(json_folder.joinpath("compilers_interpreters.json"))
+  compiling_commands: dict = read_json_file(json_folder.joinpath("compiling_commands.json"))
+  one_line_compiled: dict = read_json_file(json_folder.joinpath("one_line_compiled.json"))
+  interpreting_commands: dict = read_json_file(json_folder.joinpath("interpreting_commands.json"))
 
   def language(command: str) -> bool:
     '''
@@ -62,6 +61,7 @@ def detect_implementation(programming_language: str):
     return installed_implementations_list_bool
 
   def get_command(lang):
+
     check_implementation_version_command = compilers_interpreters[lang]
     save_command = True
 
@@ -92,7 +92,7 @@ def detect_implementation(programming_language: str):
 
         elif lang in compiling_commands:
           # Because C is the only language between (Rust, Delphi, OCaml)
-          # that have multiple compilitation command across platform 
+          # that have multiple compilitation command across platform
           if lang == "C":
             implementation_command = compiling_commands[lang][MACHINE], "compiler"
 
@@ -189,6 +189,7 @@ def detect_implementation(programming_language: str):
             print("Multiple compilers are available for the given file:")
 
             compilers = []
+            choices = []
             for implementation in implementation_lists:
               compile_command = list_of_implementations[implementation]
 
@@ -196,16 +197,24 @@ def detect_implementation(programming_language: str):
               if has_versions(compile_command, False):
                 for compi in compile_command.keys():
                   compilers.append((implementation, compi))
-                  print(f"{len(compilers)}. {compi}")
+                  choices.append(compi)
+                  # print(f"{len(compilers)}. {compi}") # Demo
 
               else: # list_of_implementations[implementation] == command
                 compilers.append((list_of_implementations[implementation], (implementation,)))
-                print(f"{len(compilers)}. {implementation}")
+                choices.append(implementation)
+                # print(f"{len(compilers)}. {implementation}") # Demo
 
-            compiler_index = enter_number(
-              "Compiler index: ",
-              "Compiler index: ", range(1, len(compilers) + 1)
-            ) - 1
+            # compiler_index = enter_number(
+            #   "Compiler index: ",
+            #   "Compiler index: ", range(1, len(compilers) + 1)
+            # ) - 1 # Demo
+            compiler_index = select_option(
+              "Choose one compiler:",
+              data=choices,
+              index=True,
+              use_shortcuts=True
+            )
 
             com = isinstance(compilers[compiler_index][1], tuple)
             if com:
@@ -222,8 +231,8 @@ def detect_implementation(programming_language: str):
                 compilers[compiler_index][0]][
                 compilers[compiler_index][1]][MACHINE]
 
-            save_command = yes_or_no(
-              "\nWould you like to save your implementation choice for future use",
+            save_command = confirm(
+              "Would you like to save your implementation choice for future use?",
             )
 
           elif implementation_lists_length:
@@ -281,12 +290,15 @@ def detect_implementation(programming_language: str):
     return (command, implementation), save_command
 
   implementation_type = implementation if implementation != 'compile and execute' else 'compiler'
-  print(
-    f"\n1. Open official download page of the {implementation_type}",
-    f"2. Enter a custom command for an already installed {implementation_type}\n",
-    sep="\n"
-  )
-  action_index = enter_number("Enter action index: ", "Action index: ", range(1, 3))
+
+  action_index = select_option(
+    "What do you want to do?",
+    data=[
+      f"Open official download page of the {implementation_type}",
+      f"Enter a custom command for an already installed {implementation_type}"
+    ],
+    index=True
+  ) + 1
 
   if action_index == 1:
     sites = {
@@ -335,14 +347,17 @@ def detect_implementation(programming_language: str):
       webOpen(sites[programming_language][implementations[implementation_index][1]])
     else:
       webOpen(site)
-    
-    
+
+
 
     sysExit(1)
 
   placeholders = [
     "Notes:",
-    "I. Please include the following placeholders in your command:",
+    colored_text(
+      "<color-red>I</>. Please include the following placeholders in your command:",
+      return_statement=True
+    ),
     "- {file}: This represents the path to the script file.",
     "Your command might look like this:",
     "interpreting-command [options...] {file}"
@@ -352,8 +367,8 @@ def detect_implementation(programming_language: str):
     placeholders.insert(3, "- {output}: This represents the compiled code. (Without .exe or .out)")
     placeholders[-1] =  "compile-command [options...] {file} -o {output}"
     print("\n\n" + "\n".join(placeholders))
-    print(NOTE)
-    print(COMPILING_NOTE)
+    print(colored_text(NOTE))
+    print(colored_text(COMPILING_NOTE))
     compilation_type = enter_number(
       "Compilation type index: ",
       "Compilation type index: ",
@@ -383,7 +398,7 @@ def detect_implementation(programming_language: str):
 
   else:
     print("\n\n" + "\n".join(placeholders))
-    print(NOTE)
+    print(colored_text(NOTE))
     implementation = "interpreter"
     message = f"{placeholders[1][3:]}\n{placeholders[2]}"
     command = retype(
@@ -395,7 +410,10 @@ def detect_implementation(programming_language: str):
       message
     )
 
-  save_command = yes_or_no(
-    "\nWould you like to save your implementation command for future use",
+  save_command = confirm(
+    "Would you like to save your implementation command for future use?",
   )
   return (command, implementation), save_command
+
+if __name__ == "__main__":
+  print(detect_implementation("Go"))

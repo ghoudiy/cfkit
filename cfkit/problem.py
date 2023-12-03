@@ -1,39 +1,35 @@
 """
 Documentation
 """
-import sys
 import os
+import sys
+from re import search
+from re import findall
+from typing import Any
 from math import isclose
 from shutil import rmtree
 from datetime import datetime
-from re import search, findall
 from inspect import currentframe
-from typing import Any
-from subprocess import run, PIPE, CalledProcessError
+from subprocess import CalledProcessError, run, PIPE
 
-from cfkit.util.common import (
-  get_response,
-  check_path_existence,
-  file_name,
-  write_text_to_file,
-  colored_text,
-  convert_to_bytes,
-  create_file_folder,
-  # folder_file_exists,
-  retrieve_template,
-  # display_horizontally,
-  # enter_number,
-  write_json_file,
-  samples_dir,
-  read_text_from_file,
-  read_json_file,
-  wrong_answer_verdict,
-  is_number,
-  yes_or_no,
-  problems_content,
-  fetch_samples,
-  input_with_time_limit,
-)
+from cfkit.util.common import confirm
+from cfkit.util.common import is_number
+from cfkit.util.common import file_name
+from cfkit.util.common import samples_dir
+from cfkit.util.common import get_response
+from cfkit.util.common import colored_text
+from cfkit.util.common import fetch_samples
+from cfkit.util.common import read_json_file
+from cfkit.util.common import write_json_file
+from cfkit.util.common import convert_to_bytes
+from cfkit.util.common import problems_content
+from cfkit.util.common import retrieve_template
+from cfkit.util.common import write_text_to_file
+from cfkit.util.common import create_file_folder
+from cfkit.util.common import read_text_from_file
+from cfkit.util.common import check_path_existence
+from cfkit.util.common import wrong_answer_verdict
+from cfkit.util.common import input_with_time_limit
 from cfkit.util.commands import execute_file
 from cfkit.util.variables import resources_folder
 from cfkit.util.constants import Directory
@@ -68,11 +64,12 @@ class Problem:
 
 
   def __retrieve_html_source_code(self, code: str, err: bool = False) -> str:
-    if search(PROBLEM_CODE_PATTERN + '$', code):
+    if search(PROBLEM_CODE_PATTERN + '$', code) is not None:
       letter_index = len(code) - 1 if code[-1].isalpha() and len(findall(
         r"[A-z]", code)) == 1 else len(code) - 2
       self._contestid = int(code[:letter_index])
-      self._problem_index_letter = code[letter_index:]
+      self._problem_index_letter = code[letter_index:].upper()
+      # self.problem_index = f"{self._contestid}{self._problem_index_letter}"
 
       contest_problems_file_path = resources_folder.joinpath("problems", f"{self._contestid}.txt")
       if not contest_problems_file_path.exists():
@@ -123,14 +120,19 @@ class Problem:
           sys.exit(1)
         file_extension = problem_code.rfind(".")
         if file_extension != -1 and problem_code[file_extension+1:] in EXTENSIONS:
-          colored_text(f"\n<error_9>No such file</> '{problem_code}'\n")
+          colored_text(f"\n<error_5>No such file</> '{problem_code}'\n")
           sys.exit(1)
         content = self.__retrieve_html_source_code(problem_code)
 
       else: # If the user gives the solution file instead of problem code
         # Searching for the problem code in path
         def desired_problem(problem_index: str) -> bool:
-          aux = input_with_time_limit(f"'{problem_index}' Is this the desired problem? [Y/n] ", 'y', 3)
+          aux = input_with_time_limit(
+            confirm, 
+            1, 
+            'y', 
+            message=f"'{problem_index}' Is this the desired problem?"
+          )
           if aux in ("yes", 'y', ''):
             return True
           if aux in ("no", 'n', ''):
@@ -177,7 +179,7 @@ class Problem:
       if search(PROBLEM_CODE_PATTERN + "$", problem_code[0]):
         pass
 
-    return content, problem_code
+    return content, problem_code.upper()
 
 
   def create_solution_file(
@@ -231,6 +233,7 @@ class Problem:
     Documentation
     """
     def fetch(path, create_tests_dir, __check_path):
+      print(self.problem_index)
       self._data_path = samples_dir(create_tests_dir, path, [self.problem_index])
 
       fetch_samples(
@@ -252,7 +255,7 @@ class Problem:
   def run_demo(
       self,
       check_formatting: bool = False,
-      __stop_program: bool = True,
+      stop_program: bool = True,
       file_path: str = None
     ) -> None:
     """
@@ -267,7 +270,8 @@ class Problem:
           file_path = colored_text(
             "The path you provided is not a file path" +
             "\nPlease provide <error>an existing file path</> instead: ",
-            False, False, True
+            one_color=False,
+            return_statement=True
           )
           check_path_existence(file_path, 'f')
         return file_path
@@ -284,12 +288,14 @@ class Problem:
         else:
           self._solution_file = check_file(input("Path of the solution file: ").strip())
 
-      # When the user enter a path as a parameter in this function (run_demo) (e.g. 1234A.py)
-      elif file_path and (self._solution_file is None):
+      # When the user enter a path as a parameter in run_demo (this function) (e.g. 1234A.py)
+      elif (file_path is not None) and (self._solution_file is None):
+        # if file_path == ????
+        # If the file_path is the same as the working file (working in script file)
         self._solution_file = check_file(file_path)
 
       # When the user enter the solution path as a parameter in __init__ function
-      elif (file_path is None) and self._solution_file:
+      elif (file_path is None) and (self._solution_file is not None):
         if currentframe().f_back.f_back.f_code.co_filename != os.path.join(
           os.path.dirname(__file__), "cli.py"):
           working_in_script = True
@@ -306,7 +312,7 @@ class Problem:
             [file for file in list_of_files if search(rf"{self.problem_index}_\d\.out", file)])
           length_input_samples = len(self._input_samples)
           return length_input_samples
-       
+
         self._data_path = os.path.join(cwd, 'tests')
         test = True
         if os.path.exists(self._data_path):
@@ -321,7 +327,7 @@ class Problem:
           self.parse(cwd, True, False, False)
 
         del cwd
-      
+
       os.chdir(self._data_path)
       length_input_samples = input_output_list(self._data_path)
 
@@ -388,7 +394,8 @@ class Problem:
     accepeted = True
     solution_resources = [None] * len(self._input_samples)
     for i, input_sample in enumerate(self._input_samples):
-      output_path = f"{self.problem_index}_test_case{i+1}.out"
+      output_path = os.path.join(self._data_path, f"{self.problem_index}_test_case{i+1}.out")
+      input_sample = os.path.join(self._data_path, input_sample)
 
       # Executing solution
       # ================================================================
@@ -411,11 +418,10 @@ class Problem:
         if solution_resources == error:
           verdict[i] = (
             f"Test case {i+1}", colored_text(
-              error, 
-              one_color=err_num, 
-              print_statement=False, 
-              input_statement=False
-            ) 
+              error,
+              one_color=err_num,
+              return_statement=True,
+            )
           )
           errors[error] += 1
           if self._tfwrong is None:
@@ -462,7 +468,12 @@ class Problem:
       else:
         expected = read_text_from_file(self._expected_output_list[i])
         if expected == observed:
-          verdict[i] = (f"Test case {i+1}", colored_text("OK", one_color="correct", print_statement=False, input_statement=False))
+          verdict[i] = (f"Test case {i+1}", colored_text(
+            "OK",
+            one_color="correct",
+            return_statement=True,
+            )
+          )
           accepeted = accepeted and True
       # ================================================================
 
@@ -542,21 +553,32 @@ class Problem:
             verdict[i] = (
               f"Test case {i+1}",
               colored_text(
-                "Formatting error", 
-                one_color="error 4", 
-                print_statement=False, 
-                input_statement=False
+                "Formatting error",
+                one_color="error 4",
+                return_statement=True,
               )
             )
             errors["Formatting error"] += 1
 
           if equal:
-            verdict[i] = (f"Test case {i+1}", colored_text("OK", one_color="correct", print_statement=False, input_statement=False))
+            verdict[i] = (
+              f"Test case {i+1}", colored_text(
+                "OK",
+                one_color="correct",
+                return_statement=True,
+              )
+            )
             accepeted = accepeted and True
 
           else:
             accepeted = False
-            verdict[i] = (f"Test case {i+1}", colored_text("Wrong answer", one_color="wrong", print_statement=False, input_statement=False))
+            verdict[i] = (
+              f"Test case {i+1}", colored_text(
+                "Wrong answer",
+                one_color="wrong",
+                return_statement=True,
+              )
+            )
             errors["Wrong answer"] += 1
             self._fwrong = i + 1 if self._fwrong is None else None
     # =============================================================================================
@@ -577,7 +599,7 @@ class Problem:
       max_length_memory = len(str(max(memory, key=lambda x: len(str(x[0])))[0]))
       # Add extra space to equal between MB, KB and B units
       test = any(filter(lambda x: x[1] != "B", memory))
-      
+
       for i, verdict_response in enumerate(verdict):
         if memory[0] != "Compilation error":
           colored_text(
@@ -622,15 +644,15 @@ class Problem:
 
       remove = False
       cwd = os.getcwd()
-      user_choice = yes_or_no(
+      user_choice = confirm(
         f"Do you want to remove this directory '{cwd}'\n"
-        f"i.e. '{os.path.basename(cwd)}'"
-        )
+        f"i.e. '{os.path.basename(cwd)}'?"
+        ) # $$$ Coloring basename
       if user_choice:
         rmtree(os.getcwd())
         os.chdir("..")
       else:
-        remove = yes_or_no("Remove samples and output files")
+        remove = confirm("Remove samples and output files?")
 
       if remove:
         def remove_files(file_list) -> None:
@@ -673,7 +695,7 @@ class Problem:
 
       write_json_file(test_results, test_results_file_path, 2)
 
-    if working_in_script and __stop_program:
+    if working_in_script and not stop_program:
       print(code)
       print(f"{line_number = }")
       print(code[line_number:])
@@ -695,7 +717,7 @@ class Problem:
             text=True
           )
           if len(process.stderr) != 0 or len(process.stdout) != 0:
-            if not yes_or_no("Finish executing the program", "[N/y]"):
+            if not confirm("Finish executing the program", False):
               sys.exit(1)
 
         except CalledProcessError as err:

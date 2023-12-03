@@ -5,22 +5,28 @@ Documentation
 # Standard Library Imports
 import sys
 import re
-from pathlib import Path
-from os import get_terminal_size, path as osPath, listdir
-from shutil import rmtree
-from json import load, dump
-from datetime import datetime
-from configparser import NoOptionError
+from json import dump
+from json import load
 from typing import Any
-from inspect import currentframe
+from pathlib import Path
+from shutil import rmtree
+from threading import Thread
+from datetime import datetime
+from os import path as osPath, getcwd
+from os import listdir
+from os import get_terminal_size
+from configparser import NoOptionError
 
 # Third-Party Imports
-from questionary import Choice, Separator, select, confirm
-from requests import get, HTTPError, exceptions as requestsExceptions
-from bs4 import BeautifulSoup
-from colorama import init, Fore, Back, Style
-from threading import Thread
 from pynput.keyboard import Controller
+from questionary import select as questSelect
+from questionary import confirm as questConfirm
+from colorama import init
+from colorama import Fore
+from colorama import Back
+from colorama import Style
+from bs4 import BeautifulSoup
+from requests import HTTPError, get, exceptions as requestsExceptions
 
 # Cfkit Imports
 from cfkit.util.variables import color_conf
@@ -36,7 +42,7 @@ def input_with_time_limit(
     func,
     timeout_seconds: float,
     default: Any = None,
-    default_key: str = 'y',
+    default_keys: str = 'y',
     **kwargs
   ) -> Any:
   """
@@ -54,27 +60,36 @@ def input_with_time_limit(
   if confirmation_thread.is_alive():
     # If the thread is still running, it means the timeout occurred
     keyboard = Controller()
-    keyboard.press(default_key)
-    keyboard.release(default_key)
+    keyboard.press(default_keys)
+    keyboard.release(default_keys)
     if default is None:
       return True
+    return default
 
   return confirmation_thread.result
 
 def select_option(message: str, data: list, index: bool = False, **kwargs) -> int | Any:
-    print(currentframe().f_back)
-    question = select(
-        message=message,
-        choices=data,
-        # qmark="😃",
-        # style=custom_style_dope,
-        # use_shortcuts=True,
-        pointer=">",
-        **kwargs,
-    )
-    if index:
-      return data.index(question.ask())
-    return question.ask()
+  """
+  Documentation
+  """
+  question = questSelect(
+    message=message,
+    choices=data,
+    # qmark="😃",
+    # style=custom_style_dope,
+    # use_shortcuts=True,
+    pointer=">",
+    **kwargs,
+  )
+  if index:
+    return data.index(question.ask())
+  return question.ask()
+
+def confirm(message: str, default: bool = True, **kwargs):
+  """
+  Documentation
+  """
+  return questConfirm(message=message, default=default, **kwargs).ask()
 
 def get_url_with_timeout(url: str, seconds: float = 15):
   """
@@ -97,6 +112,7 @@ def colored_text(
     one_color='',
     print_statement: bool = True,
     input_statement: bool = False,
+    return_statement: bool = False
   ) -> str | Any:
   """
   Documentation
@@ -104,7 +120,7 @@ def colored_text(
   init(autoreset=True)
 
   def generate_color_code_from_components(part: str) -> str:
-    order = ["\x1b[", "s-bright", "s-dim", "light"]
+    ORDER = ["\x1b[", "s-bright", "s-dim", "light"]
     background = part.find("bg")
     if background != -1:
       bg_light_color = part.find("(") != -1
@@ -135,7 +151,7 @@ def colored_text(
       i = 0
       test = False
       while not test and i < 4:
-        test = style[:2] == order[i][:2]
+        test = style[:2] == ORDER[i][:2]
         i += 1
       if not test:
         components.append(style)
@@ -160,7 +176,11 @@ def colored_text(
 
   if one_color:
     try:
-      one_color = color_conf.get("theme", one_color.replace(" ", "_"))
+      pos_color = one_color.find("color=")
+      if pos_color != -1:
+        one_color = one_color[6:]
+      else:
+        one_color = color_conf.get("theme", one_color.replace(" ", "_"))
       message = generate_color_code_from_components(one_color) + message + Style.RESET_ALL
     except NoOptionError:
       pass
@@ -171,17 +191,23 @@ def colored_text(
       color_key = match.group(1)
       if color_key == "/":
         return Style.RESET_ALL
-      color_value = color_conf.get('theme', color_key)
+      pos_color = color_key.find("color-")
+      if pos_color != -1:
+        color_value = color_key[6:]
+      else:
+        color_value = color_conf.get('theme', color_key)
+
       return generate_color_code_from_components(color_value)
     message = color_pattern.sub(replace, message)
+
+  if return_statement:
+    return message
 
   if input_statement:
     return input(message).strip()
 
-  if not print_statement:
-    return message
-  print(message)
-
+  if print_statement:
+    print(message)
 
 def path_exist_error(file_path: str, file_or_dir: str):
   """
@@ -189,9 +215,9 @@ def path_exist_error(file_path: str, file_or_dir: str):
   """
   if osPath.exists(file_path):
     colored_text(
-          f"<error_8>File exists</> '{file_path}'"
+          f"<error_5>File exists</> '{file_path}'"
       if file_or_dir == 'f' else
-          f"<error_8>Directory exists</> '{file_path}'"
+          f"<error_5>Directory exists</> '{file_path}'"
     )
     sys.exit(1)
 
@@ -201,9 +227,9 @@ def check_path_existence(file_path: str, file_or_dir: str):
   """
   if not osPath.exists(file_path):
     colored_text(
-          f"<error_9>No such file</>: '{file_path}'"
+          f"<error_5>No such file</>: '{file_path}'"
       if file_or_dir == 'f' else
-          f"<error_9>No such directory</> '{file_path}'"
+          f"<error_5>No such directory</> '{file_path}'"
     )
     sys.exit(1)
 
@@ -232,17 +258,17 @@ def get_response(url: str, code, contest_id: int = 0, raise_err: bool = False) -
   if not problems:
     if html_source_code.find('Fill in the form to login into Codeforces.') != -1:
       colored_text(
-        f"<error_10>You are not allowed to participate in this contest.</> '{contest_id}'"
+        f"<error_6>You are not allowed to participate in this contest.</> '{contest_id}'"
       )
       sys.exit(1)
 
     elif not isinstance(code, int) and not code.isdigit():
       if raise_err:
         raise SyntaxError
-      colored_text(f"<error_10>No such problem</> '{code}'")
+      colored_text(f"<error_5>No such problem</> '{code}'")
       sys.exit(1)
 
-    colored_text(f"<error_10>No such contest</> '{code}'")
+    colored_text(f"<error_5>No such contest</> '{code}'")
     sys.exit(1)
 
   elif not contest_started:
@@ -293,25 +319,6 @@ def file_name(name: str, code: str, extension: str) -> str:
   problem_name = problem_name[:-1] if problem_name[-1] == "_" else problem_name
   return f"{code}_{problem_name}.{extension}"
 
-def yes_or_no(message: str, aux="[Y/n]") -> bool:
-  """
-  Documentation
-  """
-  user_choice = input(f"{message}? {aux} ").strip().lower()
-  if aux == "[Y/n]":
-    yes = ("yes", "y", '')
-    nope = ("no", "n")
-  else:
-    yes = ("yes", "y")
-    nope = ("no", "n", '')
-  if user_choice in yes:
-    aux = True
-  elif user_choice in nope:
-    aux = False
-  else:
-    aux = yes_or_no(message)
-  return aux
-
 def check_command(command: str, message: str) -> str:
   """
   Documentation
@@ -326,7 +333,7 @@ def check_command(command: str, message: str) -> str:
       command = input("Please enter your command correctly:\n")
   return command
 
-def retype(data: str, input_type: str, _command: str) -> str:
+def retype(data: str, input_type: str, _command: str = None) -> str:
   """
   Documentation
   """
@@ -383,7 +390,7 @@ def create_file_folder(
   """
   Documentation
   """
-  path_to_file = Path(path_to_file)
+  path_to_file: Path = Path(path_to_file)
   if skip_existence:
     # Empty the file
     with path_to_file.open('w', encoding="UTF-8"):
@@ -453,12 +460,10 @@ def folder_file_exists(name: str, file_or_dir: str) -> str:
     sys.exit(1)
 
   return folder_path
-file_or_dir = "directory"
-
 
 def display_horizontally(data: tuple) -> None:
   """
-  Documentation
+  Display data horizontally
   """
   data = tuple(map(lambda x: f"{x[0]}. {x[1]}", enumerate(data, 1)))
   terminal_width = get_terminal_size().columns
@@ -502,9 +507,9 @@ def retrieve_template(file_path: str) -> str:
         elif template_path.is_dir():
           templates.extend(template_path.iterdir())
         else:
-          colored_text(f"<error_9>No such file or directory</> '{template_path}'")
+          colored_text(f"<error_5>No such file or directory</> '{template_path}'")
 
-    templates = list(filter(bool, templates)) # $$$
+    templates = list(filter(bool, templates)) # Maybe the user enter a path of an empty folder
     print(templates)
     if len(templates) > 1:
       print("Available templates: ")
@@ -599,7 +604,6 @@ def problems_content(
       problem_statemen_pos = content.find('<div class="problem-statement">')
 
     def create_problems_txt(
-        resources_folder: Path,
         contest_id: int,
         problems: list,
         contest_name: str
@@ -616,7 +620,7 @@ def problems_content(
         for problem_statement in problems:
           file.write("\n".join(problem_statement) + '\n' + '-' * 100 + '\n')
 
-    create_problems_txt(resources_folder, contest_id, problems, contest_name)
+    create_problems_txt(contest_id, problems, contest_name)
 
   else:
     with open(content, 'r', encoding="UTF-8") as file:
@@ -636,11 +640,11 @@ def problems_content(
     i = 0
     test = False
     while not test and i < len(problems):
-      test = problems[i][0][0].startswith(problem_index)
+      test = problems[i][0].startswith(problem_index)
       i += 1
-      if i == len(problems) and not test:
-        colored_text(f"<error_10>No such problem</> '{problem_index}'")
-        sys.exit(1)
+    if i == len(problems) and not test:
+      colored_text(f"<error_5>No such problem</> '{problem_index}'")
+      sys.exit(1)
     return problems[i-1], contest_name
   return problems, contest_name
 
@@ -657,9 +661,7 @@ def samples_dir(create_tests_dir: bool, samples_path: str, problem_index: str) -
         [file for file in list_of_files if re.search(rf"{problem_index}_\d\.in", file)])
       expected_output_list = sorted(
         [file for file in list_of_files if re.search(rf"{problem_index}_\d\.out", file)])
-      if len(input_samples) == len(expected_output_list):
-        samples_directory = samples_directory
-      else:
+      if len(input_samples) != len(expected_output_list):
         samples_directory = samples_path.joinpath(folder_file_exists("tests", 'directory'))
     else:
       samples_directory = create_file_folder(samples_directory, 'd')

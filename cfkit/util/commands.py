@@ -30,6 +30,7 @@ def execute_file(file: str, input_path: str, output_path: str, memory_limit: flo
     sysExit(1)
 
   language_conf = read_json_file(language_conf_path)
+  # I have to retrieve execute_command in run_demo function (the bug is we are asking every time we run a sample to choose the compiler)
   execute_command = language_conf[programming_language]["execute_command"]
   if execute_command is None:
     run_command = set_language_attributes(programming_language)
@@ -38,7 +39,7 @@ def execute_file(file: str, input_path: str, output_path: str, memory_limit: flo
     ["calculate_memory_usage_and_execution_time_command"]
 
   output = path.basename(input_path)
-  output = output[:output.find("_")]
+  output = path.join(path.dirname(input_path), output[:output.find("_")])
   run_command = run_command.replace("%%{file}%%", file)
   run_command = run_command.replace("%%{memory_limit}%%", str(memory_limit))
   run_command = run_command.replace("%%{output_memory}%%", output_path[:-4])

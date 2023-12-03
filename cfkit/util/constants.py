@@ -9,22 +9,22 @@ from typing import TypeAlias
 
 Directory: TypeAlias = Path
 FileOrDirectory: TypeAlias = str
-ProblemCodeOrFileOrBoth: TypeAlias = str | tuple
+ProblemCodeOrFileOrBoth: TypeAlias = str | tuple[str, str]
 
 MACHINE = platform
 
 PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
 
 NOTE = """
-II. Do not include any input or output specifications in your command! (i.e. '< in > out')
+<color-red>II.</> Do not include any input or output specifications in your command! (i.e. '< in > out')
 """
 
 COMPILING_NOTE = """\
-III. When providing the compilation command, \
+<color-red>III.</> When providing the compilation command, \
 make sure to include the execution part as well if necessary.
 For instance, if you're using Kotlin, your command should look something like this:
-{colored_text("kotlinc {file} -d {output}.jar && java -jar {output}.jar", "command", False, False)}
-The '&& java -jar {{output}}.jar' part is important for executing the compiled code.
+"<command>kotlinc {file} -d {output}.jar && java -jar {output}.jar</>"
+The '<command>&& java -jar {output}.jar</>' part is important for executing the compiled code.
 If your compilation process requires additional steps for execution, \
 be sure to include them in the command as well
 
@@ -36,7 +36,6 @@ There are two types of compilation commands:\n
     Example: go run {file}
 
 Choose the appropriate command based on your needs."""
-
 
 HELP_MESSAGE = """
 Available commands:

@@ -122,23 +122,23 @@ def set_default_compiler(set_as_default: bool, programming_language: str) -> int
     
     return languages[data[user_choice-1]]
   return configuration[programming_language]["default_submission_language"]
-  
+
 
 def login() -> (str, RequestsCookieJar):
   """
   Documentation
   """
-  def valid_username(string):
-    string_length = len(string)
-    is_alnum = string.isalnum()
-    bounds = 3 <= string_length <= 24
+  def valid_username(username: str):
+    username_length = len(username)
+    is_alnum = username.isalnum()
+    bounds = 3 <= username_length <= 24
     if is_alnum and bounds:
       return True
     elif bounds and not is_alnum:
       i = 0
       test = True
-      while test and i < string_length:
-        test = string[i].isalnum() or string[i] in ("_", "-")
+      while test and i < username_length:
+        test = username[i].isalnum() or username[i] in ("_", "-")
         i += 1
       return test
     else:

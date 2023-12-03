@@ -97,7 +97,7 @@ def _get_problem_index():
 
     else:
       print("I need to write a message here to tell the user that he need to enter the problem code or the solution file")
-      exit()
+      sys.exit(1)
 
   except IndexError:
     print(HELP_MESSAGE)

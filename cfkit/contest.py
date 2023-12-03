@@ -4,33 +4,21 @@ Documentation
 import sys
 import os
 
-from cfkit.util.common import (
-  get_response,
-  check_path_existence,
-  file_name,
-  colored_text,
-  create_file_folder,
-  folder_file_exists,
-  retrieve_template,
-  problems_content,
-  # display_horizontally,
-  # enter_number,
-  samples_dir,
-  read_text_from_file,
-  read_json_file,
-  fetch_samples,
-  wrong_answer_verdict,
-  write_text_to_file,
-  is_number,
-  yes_or_no,
-)
-from cfkit.util.variables import (
-  conf_file,
-  resources_folder,
-  template_folder,
-  language_conf_path,  
-)
-
+from cfkit.util.common import get_response
+from cfkit.util.common import check_path_existence
+from cfkit.util.common import file_name
+from cfkit.util.common import colored_text
+from cfkit.util.common import create_file_folder
+from cfkit.util.common import retrieve_template
+from cfkit.util.common import problems_content
+from cfkit.util.common import samples_dir
+from cfkit.util.common import read_text_from_file
+from cfkit.util.common import read_json_file
+from cfkit.util.common import fetch_samples
+from cfkit.util.common import write_text_to_file
+from cfkit.util.variables import conf_file
+from cfkit.util.variables import resources_folder
+from cfkit.util.variables import language_conf_path  
 from cfkit.util.constants import Directory
 from cfkit.util.constants import EXTENSIONS
 
