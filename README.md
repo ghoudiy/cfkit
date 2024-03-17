@@ -35,7 +35,7 @@ To get started with the Codeforces Contest Assistant, follow these steps:
 
 Here are some basic usage instructions:
 
-- [Detailed instructions and examples go here]
+- .....................................
 
 ## Contribution
 
