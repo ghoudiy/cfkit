@@ -31,6 +31,7 @@ class Contest:
     self._id = contest_id
     self._content = self.__content()
     self.problems = list(map(lambda x: x[0], self._content))
+    self._problems_letters = list(map(lambda x: x[:x.find('.')], self.problems))
 
   def __content(self):
     if isinstance(self._id, str) and self._id.isdigit():
@@ -45,27 +46,32 @@ class Contest:
             f"https://codeforces.com/contest/{self._id}/problems",
             self._id,
             self._id
-          ).text,
+          ),
           self._id,
-          None,
-          True
+          html_page=True
         )
       else:
         response, self.name = problems_content(contest_problems_statement_file_path, self._id)
       return response
     else:
-      colored_text("Contest ID must be an integer", one_color="error 5")
-      sys.exit(1)
+      colored_text(
+        "Contest ID must be an integer",
+        one_color="error 5",
+        exit_code_after_print_statement=1
+      )
 
   def create_problems_files(
       self,
       programming_language_extension: str | list | None = None,
       add_problem_name_to_file_name: bool = False,
-      path: Directory = os.getcwd()
+      path: Directory = None
     ) -> None:
     """
     Documentation
     """
+    if path is None:
+      path = os.getcwd()
+
     if path != os.getcwd():
       check_path_existence(path, 'd')
     os.chdir(path)
@@ -76,26 +82,7 @@ class Contest:
 
     problems_num = len(self.problems)
 
-    def check_for_undefined_extensions(programming_language_extension: list):
-      i = 0
-      problems_extensions_length = len(programming_language_extension)
-      undefined_extension = False
-      while not undefined_extension and i < problems_extensions_length:
-        if EXTENSIONS.get(programming_language_extension[i]) is None:
-          undefined_extension = True
-        else:
-          i += 1
-
-      if undefined_extension:
-        print(programming_language_extension[i], "extension is not recognized")
-        return enter_extensions()
-
-      if problems_extensions_length > problems_num:
-        print(f"expected at most {problems_num} extensions, got {problems_extensions_length}.")
-        return enter_extensions()
-      return programming_language_extension, problems_extensions_length
-
-    def enter_extensions(language_conf: dict) -> (list, int):
+    def enter_extensions(language_conf: dict) -> tuple[list, int]:
       # Show availables extensions
       for lang in language_conf:
         print(lang + ":", ", ".join(language_conf[lang]["extensions"]))
@@ -116,12 +103,30 @@ class Contest:
       if len(programming_language_extension) == 1:
         colored_text(
           "To avoid entering extension every time\n"
-          "run <command>'cf config default_language ...'</> command to configure your default programming language"
+          "run <command>'cf config default_language ...'</>",
+          "command to configure your default programming language"
         )
         # colored_text(
         #   "To avoid entering extension every time\n"
         #   "run <command>'cf set'</> command to configure your default programming language"
         # )
+      return programming_language_extension, problems_extensions_length
+
+    def check_for_undefined_extensions(programming_language_extension: list):
+      i = 0
+      problems_extensions_length = len(programming_language_extension)
+      undefined_extension = False
+      while not undefined_extension and i < problems_extensions_length:
+        undefined_extension = EXTENSIONS.get(programming_language_extension[i]) is None
+        i += 1
+
+      if undefined_extension:
+        colored_text(f"'{programming_language_extension[i]}' extension is not recognized")
+        return enter_extensions()
+
+      if problems_extensions_length > problems_num:
+        print(f"expected at most {problems_num} extensions, got {problems_extensions_length}.")
+        return enter_extensions()
       return programming_language_extension, problems_extensions_length
 
     if isinstance(programming_language_extension, list):
@@ -131,7 +136,7 @@ class Contest:
 
     elif isinstance(programming_language_extension, str):
       if EXTENSIONS.get(programming_language_extension) is None:
-        print("Extension is not recognized")
+        colored_text("Extension is not recognized", one_color="error")
         programming_language_extension, problems_extensions_length = enter_extensions(
           read_json_file(language_conf_path)
         )
@@ -155,14 +160,14 @@ class Contest:
         pt_pos = problem_name.find(".")
         problems_files.append(file_name(
           problem_name[pt_pos+2:],
-          f"{self._id}{problem_name[:pt_pos]}",
+          f"{self._id}{self._problems_letters[i]}",
           programming_language_extension[
             ((i-problems_num+problems_extensions_length
               ) + abs(i-problems_num+problems_extensions_length)) // 2]))
     else:
       for i, problem_name in enumerate(self.problems):
         problems_files.append(
-          f"{problem_name[:problem_name.find('.')].lower()}." +\
+          f"{self._problems_letters[i].lower()}." +\
           programming_language_extension[
             ((i-problems_num+problems_extensions_length
               ) + abs(i-problems_num+problems_extensions_length)) // 2]
@@ -201,19 +206,23 @@ class Contest:
 
   def parse(
       self,
-      path: Directory = os.getcwd(),
+      path: Directory = None,
       create_tests_dir: bool = True,
     ) -> None:
     """
     Documentation
     """
+    if path is None:
+      path = os.getcwd()
+
     print(f"Parsing {self._id} contest")
     fetch_samples(
       problem_statement=self._content,
-      path_to_save_samples=samples_dir(create_tests_dir,
+      path_to_save_samples=samples_dir(
+        create_tests_dir,
         path,
-        list(map(lambda x: f"{self._id}{x[:x.find('.')]}", self.problems)),
-        os.listdir(path)
+        None,
+        False
       ),
       attributes=("contest", self._id, self.name)
     )

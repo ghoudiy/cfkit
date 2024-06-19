@@ -1,0 +1,343 @@
+Codeforces Round 891 (Div. 3)
+
+
+A. Array Coloring
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given an array consisting of $$$n$$$ integers. Your task is to determine whether it is possible to color all its elements in two colors in such a way that the sums of the elements of both colors have the same parity and each color has at least one element colored.
+For example, if the array is [$$$1,2,4,3,2,3,5,4$$$], we can color it as follows: [$$$\color{blue}{1},\color{blue}{2},\color{red}{4},\color{blue}{3},\color{red}{2},\color{red}{3},\color{red}{5},\color{red}{4}$$$], where the sum of the blue elements is $$$6$$$ and the sum of the red elements is $$$18$$$.
+Input
+The first line contains an integer $$$t$$$ ($$$1 \le t \le 1000$$$) — the number of test cases.
+Each test case begins with a line containing an integer $$$n$$$ ($$$2 \le n \le 50$$$) — the length of the array $$$a$$$.
+The next line contains $$$n$$$ integers $$$a_1,a_2, \dots, a_n$$$ ($$$1 \le a_i \le 50$$$) — the elements of the array $$$a$$$.
+Output
+For each test case, output "YES" (without quotes) if it is possible to color the array in two colors in such a way that the sums of the elements of both colors have the same parity and each color has at least one element colored, and "NO" otherwise.
+You can output "Yes" and "No" in any case (for example, the strings "yES", "yes", and "Yes" will be recognized as correct answers).
+Example
+Input
+7
+8
+1 2 4 3 2 3 5 4
+2
+4 7
+3
+3 9 8
+2
+1 7
+5
+5 4 3 2 1
+4
+4 3 4 5
+2
+50 48
+Output
+YES
+NO
+YES
+YES
+NO
+YES
+YES
+----------------------------------------------------------------------------------------------------
+B. Maximum Rounding
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Given a natural number $$$x$$$. You can perform the following operation:
+choose a positive integer $$$k$$$ and round $$$x$$$ to the $$$k$$$-th digit
+Note that the positions are numbered from right to left, starting from zero. If the number has $$$k$$$ digits, it is considered that the digit at the $$$k$$$-th position is equal to $$$0$$$.
+The rounding is done as follows:
+if the digit at the $$$(k-1)$$$-th position is greater than or equal to $$$5$$$, then the digit at the $$$k$$$-th position is increased by $$$1$$$, otherwise the digit at the $$$k$$$-th position remains unchanged (mathematical rounding is used).
+if before the operations the digit at the $$$k$$$-th position was $$$9$$$, and it should be increased by $$$1$$$, then we search for the least position $$$k'$$$ ($$$k'>k$$$), where the digit at the $$$k'$$$-th position is less than $$$9$$$ and add $$$1$$$ to the digit at the $$$k'$$$-th position. Then we assign $$$k=k'$$$.
+after that, all digits which positions are less than $$$k$$$ are replaced with zeros.
+Your task is to make $$$x$$$ as large as possible, if you can perform the operation as many times as you want.
+For example, if $$$x$$$ is equal to $$$3451$$$, then if you choose consecutively:
+$$$k=1$$$, then after the operation $$$x$$$ will become $$$3450$$$
+$$$k=2$$$, then after the operation $$$x$$$ will become $$$3500$$$
+$$$k=3$$$, then after the operation $$$x$$$ will become $$$4000$$$
+$$$k=4$$$, then after the operation $$$x$$$ will become $$$0$$$
+To maximize the answer, you need to choose $$$k=2$$$ first, and then $$$k=3$$$, then the number will become $$$4000$$$.
+Input
+The first line contains a single integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases.
+Each test case consists of positive integer $$$x$$$ with a length of up to $$$2 \cdot 10^5$$$. It is guaranteed that there are no leading zeros in the integer.
+It is guaranteed that the sum of the lengths of all integers $$$x$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
+Output
+For each set of input data, output the maximum possible value of $$$x$$$ after the operations. The number should not have leading zeros in its representation.
+Example
+Input
+10
+1
+5
+99
+913
+1980
+20444
+20445
+60947
+419860
+40862016542130810467
+Output
+1
+10
+100
+1000
+2000
+20444
+21000
+100000
+420000
+41000000000000000000
+----------------------------------------------------------------------------------------------------
+C. Assembly via Minimums
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Sasha has an array $$$a$$$ of $$$n$$$ integers. He got bored and for all $$$i$$$, $$$j$$$ ($$$i < j$$$), he wrote down the minimum value of $$$a_i$$$ and $$$a_j$$$. He obtained a new array $$$b$$$ of size $$$\frac{n\cdot (n-1)}{2}$$$.
+For example, if $$$a=$$$ [$$$2,3,5,1$$$], he would write [$$$\min(2, 3), \min(2, 5), \min(2, 1), \min(3, 5), \min(3, 1), min(5, 1)$$$] $$$=$$$ [$$$2, 2, 1, 3, 1, 1$$$].
+Then, he randomly
+shuffled
+all the elements of the array $$$b$$$.
+Unfortunately, he forgot the array $$$a$$$, and your task is to restore any possible array $$$a$$$ from which the array $$$b$$$ could have been obtained.
+The elements of array $$$a$$$ should be in the range $$$[-10^9,10^9]$$$
+.
+Input
+The first line contains a single integer $$$t$$$ ($$$1\le t\le 200$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$2\le n\le 10^3$$$) — the length of array $$$a$$$.
+The second line of each test case contains $$$\frac{n\cdot (n-1)}{2}$$$ integers $$$b_1,b_2,\dots,b_{\frac{n\cdot (n-1)}{2}}$$$ ($$$−10^9\le b_i\le 10^9$$$) — the elements of array $$$b$$$.
+It is guaranteed that the sum of $$$n$$$ over all tests does not exceed $$$10^3$$$ and for each array $$$b$$$ in the test, there exists an original array.
+Output
+For each test case, output any possible array $$$a$$$ of length $$$n$$$.
+Example
+Input
+5
+3
+1 3 1
+2
+10
+4
+7 5 3 5 3 3
+5
+2 2 2 2 2 2 2 2 2 2
+5
+3 0 0 -2 0 -2 0 0 -2 -2
+Output
+1 3 3
+10 10
+7 5 3 12
+2 2 2 2 2
+0 -2 0 3 5
+----------------------------------------------------------------------------------------------------
+D. Strong Vertices
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Given two arrays $$$a$$$ and $$$b$$$, both of length $$$n$$$. Elements of both arrays indexed from $$$1$$$ to $$$n$$$. You are constructing a directed graph, where edge from $$$u$$$ to $$$v$$$ ($$$u\neq v$$$) exists if $$$a_u-a_v \ge b_u-b_v$$$.
+A vertex $$$V$$$ is called strong if there exists a path from $$$V$$$ to all other vertices.
+A path in a directed graph is a chain of several vertices, connected by edges, such that moving from the vertex $$$u$$$, along the directions of the edges, the vertex $$$v$$$ can be reached.
+Your task is to find all strong vertices.
+For example, if $$$a=[3,1,2,4]$$$ and $$$b=[4,3,2,1]$$$, the graph will look like this:
+The graph has only one strong vertex with number $$$4$$$
+Input
+The first line contains an integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases.
+The first line of each test case contains an integer $$$n$$$ ($$$2 \le n \le 2\cdot 10^5$$$) — the length of $$$a$$$ and $$$b$$$.
+The second line of each test case contains $$$n$$$ integers $$$a_1,a_2 \dots a_n$$$ ($$$-10^9 \le a_i \le 10^9$$$) — the array $$$a$$$.
+The third line of each test case contains $$$n$$$ integers $$$b_1,b_2 \dots b_n$$$ ($$$-10^9 \le b_i \le 10^9$$$) — the array $$$b$$$.
+It is guaranteed that the sum of $$$n$$$ for all test cases does not exceed $$$2\cdot 10^5$$$.
+Output
+For each test case, output two lines: in the first line, output the number of strong vertices, and in the second line, output all strong vertices
+in ascending order
+.
+Example
+Input
+5
+4
+3 1 2 4
+4 3 2 1
+5
+1 2 4 1 2
+5 2 3 3 1
+2
+1 2
+2 1
+3
+0 2 1
+1 3 2
+3
+5 7 4
+-2 -3 -6
+Output
+1
+4 
+2
+3 5 
+1
+2 
+3
+1 2 3 
+2
+2 3
+----------------------------------------------------------------------------------------------------
+E. Power of Points
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given $$$n$$$ points with integer coordinates $$$x_1,\dots x_n$$$, which lie on a number line.
+For some integer $$$s$$$, we construct segments [$$$s,x_1$$$], [$$$s,x_2$$$], $$$\dots$$$, [$$$s,x_n$$$]. Note that if $$$x_i<s$$$, then the segment will look like [$$$x_i,s$$$]. The segment [$$$a, b$$$] covers all integer points $$$a, a+1, a+2, \dots, b$$$.
+We define the
+power
+of a point $$$p$$$ as the number of segments that intersect the point with coordinate $$$p$$$, denoted as $$$f_p$$$.
+Your task is to compute $$$\sum\limits_{p=1}^{10^9}f_p$$$ for each $$$s \in \{x_1,\dots,x_n\}$$$, i.e., the sum of $$$f_p$$$ for all integer points from $$$1$$$ to $$$10^9$$$.
+For example, if the initial coordinates are $$$[1,2,5,7,1]$$$ and we choose $$$s=5$$$, then the segments will be: $$$[1,5]$$$,$$$[2,5]$$$,$$$[5,5]$$$,$$$[5,7]$$$,$$$[1,5]$$$. And the powers of the points will be: $$$f_1=2, f_2=3, f_3=3, f_4=3, f_5=5, f_6=1, f_7=1, f_8=0, \dots, f_{10^9}=0$$$. Their sum is $$$2+3+3+3+5+1+1=18$$$.
+Input
+The first line contains an integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases.
+The first line of each test case contains an integer $$$n$$$ ($$$1 \le n \le 2\cdot 10^5$$$) — the number of points.
+The second line contains $$$n$$$ integers $$$x_1,x_2 \dots x_n$$$ ($$$1 \le x_i \le 10^9$$$) — the coordinates of the points.
+It is guaranteed that the sum of the values of $$$n$$$ over all test cases does not exceed $$$2\cdot 10^5$$$.
+Output
+For each test case, output $$$n$$$ integers, where the $$$i$$$-th integer is equal to the sum of the powers of all points for $$$s=x_i$$$.
+Example
+Input
+3
+3
+1 4 3
+5
+1 2 5 7 1
+4
+1 10 100 1000
+Output
+8 7 6
+16 15 18 24 16
+1111 1093 1093 2893
+----------------------------------------------------------------------------------------------------
+F. Sum and Product
+time limit per test
+4 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You have an array $$$a$$$ of length $$$n$$$.
+Your task is to answer $$$q$$$ queries: given $$$x,y$$$, find the number of pairs $$$i$$$ and $$$j$$$ ($$$1 \le i < j \le n$$$) that both $$$a_i + a_j = x$$$ and $$$a_i \cdot a_j = y$$$.
+That is, for the array $$$[1,3,2]$$$ and asking for $$$x=3,y=2$$$ the answer is $$$1$$$:
+$$$i=1$$$ and $$$j=2$$$ fail because $$$1 + 3 = 4$$$ and not $$$3,$$$ also $$$1 \cdot 3=3$$$ and not $$$2$$$;
+$$$i=1$$$ and $$$j=3$$$ satisfies both conditions;
+$$$i=2$$$ and $$$j=3$$$ fail because $$$3 + 2 = 5$$$ and not $$$3,$$$ also $$$3 \cdot 2=6$$$ and not $$$2$$$;
+Input
+The first line contains one integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases.
+The second line of each test case contains one integer $$$n$$$ ($$$1 \le n \le 2\cdot 10^5$$$) — the length of the array $$$a$$$.
+The third line of each test case contains $$$n$$$ integers $$$a_1,a_2,\dots,a_n$$$ ($$$1 \le |a_i| \le 10^9$$$) — array $$$a$$$.
+The fourth line of each test case contains the integer $$$q$$$ ($$$1 \le q \le 2\cdot 10^5$$$) — the number of requests.
+The next $$$q$$$ lines contain two numbers each $$$x$$$ and $$$y$$$ ($$$1 \le |x|\le 2\cdot 10^9,1\le |y|\le 10^{18}$$$) — request.
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2\cdot 10^5$$$. This is also guaranteed for the sum of $$$q$$$ values.
+Output
+For each test case print a line with $$$q$$$ numbers — the answers to the queries.
+Example
+Input
+3
+3
+1 3 2
+4
+3 2
+5 6
+3 1
+5 5
+4
+1 1 1 1
+1
+2 1
+6
+1 4 -2 3 3 3
+3
+2 -8
+-1 -2
+7 12
+Output
+1 1 0 0 
+6 
+1 1 3
+----------------------------------------------------------------------------------------------------
+G. Counting Graphs
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Given a tree consisting of $$$n$$$ vertices. A tree is a connected undirected graph without cycles. Each edge of the tree has its weight, $$$w_i$$$.
+Your task is to count the number of different graphs that satisfy all four conditions:
+The graph does not have self-loops and multiple edges.
+The weights on the edges of the graph are integers and do not exceed $$$S$$$.
+The graph has
+exactly one
+minimum spanning tree
+.
+The minimum spanning tree of the graph is the given tree.
+Two graphs are considered different if their sets of edges are different, taking into account the weights of the edges.
+The answer can be large, output it modulo $$$998244353$$$.
+Input
+The first line contains an integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases.
+The first line of each test case contains two integers $$$n$$$ and $$$S$$$ ($$$2 \le n \le 2 \cdot 10^5, 1\le S\le 10^9$$$) — the number of vertices and the upper bound of the weights.
+Then follow $$$n-1$$$ lines describing the tree, the $$$i$$$-th line contains three integers $$$u_i$$$, $$$v_i$$$, and $$$w_i$$$ ($$$1\le u_i,v_i\le n, u_i \ne v_i, 1\le w_i\le S$$$) — an edge in the tree with weight $$$w_i$$$.
+It is guaranteed that the sum of $$$n$$$ for all tests does not exceed $$$2\cdot 10^5$$$.
+Output
+For each test, output the number of different graphs that satisfy the conditions, modulo $$$998244353$$$.
+Example
+Input
+4
+2 5
+1 2 4
+4 5
+1 2 2
+2 3 4
+3 4 3
+5 6
+1 2 3
+1 3 2
+3 4 6
+3 5 1
+10 200
+1 2 3
+2 3 33
+3 4 200
+1 5 132
+5 6 1
+5 7 29
+7 8 187
+7 9 20
+7 10 4
+Output
+1
+8
+80
+650867886
+----------------------------------------------------------------------------------------------------

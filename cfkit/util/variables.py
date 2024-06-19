@@ -10,11 +10,24 @@ from configparser import ConfigParser
 from cfkit.util.constants import MACHINE
 
 
+# -------------------------------------------------------------------------
+# Editable
+if MACHINE == "win32":
+
+  config_folder = Path("~").expanduser().joinpath("AppData", "Roaming")
+  input_extension_file = "txt"
+  output_extension_file = "txt"
+else:
+  config_folder = Path("~").expanduser().joinpath(".config", "cfkit")
+  input_extension_file = "in"
+  output_extension_file = "out"
+
+output_filename = f"%%problem_code%%_test_case%%test_case_num%%.{output_extension_file}"
+
+errors_memory_time_filename = f"%%problem_code%%_test_case%%test_case_num%%_err_memory_time.{output_extension_file}"
+# -------------------------------------------------------------------------
+
 json_folder = Path(__file__).parent.parent.joinpath("json")
-
-config_folder = Path("~").expanduser().joinpath((
-
-  "AppData", "Roaming") if MACHINE == "win32" else ".config", "cfkit")
 
 template_folder = config_folder.joinpath("templates")
 

@@ -31,32 +31,42 @@ def set_language_attributes(programming_language: str) -> str:
   Documentation
   """
   command, save_command = detect_implementation(programming_language)
-  execute_command, implementation = command[0], command[1]
-  del command
-  run_command = path.join(
+  command, implementation = command[0], command[1]
+  calculate_memory_usage_and_execution_time_command = path.join(
     path.dirname(__file__),
     "util",
-    "memory_usage.exe " if MACHINE == "win32" else "./memory_usage.exe"
+    "memory_usage.exe " if MACHINE == "win32" else "./memory_usage.exe "
   )
   if implementation == "compiler":
-    run_command += (
-      f" %%{{dir_name}}%%{'/./' if MACHINE != 'win32' else ''}%%{{output}}%%.exe "
-      f"%%{{memory_limit}}%% %%{{output_memory}}%%_memory.out "
-      f"%%{{input_file}}%% %%{{output_file}}%% \"{execute_command}\""
+    execute_command = f"%%{{dir_name}}%%{'/./' if MACHINE != 'win32' else ''}%%{{output}}%%.exe "
+    calculate_memory_usage_and_execution_time_command += f'"{execute_command}"' + (
+      f" %%{{memory_limit}}%% %%{{output_memory}}%% "
+      f"%%{{input_file}}%% %%{{output_file}}%%"
     )
   else:
-    run_command += (
-      f" \"{execute_command}\" %%{{memory_limit}}%% %%{{output_memory}}%%_memory.out "
+    calculate_memory_usage_and_execution_time_command += (
+      f" \"{command}\" %%{{memory_limit}}%% %%{{output_memory}}%% "
       f"%%{{input_file}}%% %%{{output_file}}%%"
     )
   if save_command:
+      
     language_conf = read_json_file(language_conf_path)
-    language_conf[programming_language]["execute_command"] = execute_command
-    language_conf[programming_language][
-      "calculate_memory_usage_and_execution_time_command"] = run_command
+    if implementation == "compiler":
+      language_conf[programming_language]["compile_command"] = command
+      language_conf[programming_language]["execute_command"] = execute_command
+      language_conf[programming_language][
+        "calculate_memory_usage_and_execution_time_command"
+      ] = calculate_memory_usage_and_execution_time_command
+    else:
+      language_conf[programming_language]["execute_command"] = command
+      language_conf[programming_language][
+        "calculate_memory_usage_and_execution_time_command"
+      ] = calculate_memory_usage_and_execution_time_command
     write_json_file(language_conf, language_conf_path, 4)
 
-  return run_command
+  if implementation == "compiler":
+    return command, execute_command, calculate_memory_usage_and_execution_time_command
+  return None, command, calculate_memory_usage_and_execution_time_command
 
 def set_default_language():
   """
@@ -124,7 +134,7 @@ def set_default_compiler(set_as_default: bool, programming_language: str) -> int
   return configuration[programming_language]["default_submission_language"]
 
 
-def login() -> (str, RequestsCookieJar):
+def login() -> tuple[str, RequestsCookieJar]:
   """
   Documentation
   """
@@ -174,7 +184,10 @@ def login() -> (str, RequestsCookieJar):
   }
   write_json_file(session, session_path)
   return username, cookie_dict
-  
+
+
+if __name__ == "__main__":
+  print(set_language_attributes("C++"))
 
 # create_file_folder(config_folder, 'd')
 # create_file_folder(language_conf)

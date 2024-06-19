@@ -45,7 +45,7 @@ def detect_implementation(programming_language: str):
     If the user utilizes a compatibility layer on Linux or macOS to execute Windows applications.
     '''
     return command.replace("&& ren", "&& mv")\
-    if command and (MACHINE in ("linux", "darwin")) else command
+    if command and (MACHINE != "win32") else command
 
   def check_installed_implementation(check_implementations_availability_list):
     '''
@@ -160,9 +160,9 @@ def detect_implementation(programming_language: str):
           if lang == "JavaScript":
             implementation = "interpreters"
 
-      # Debugging
-      for key in implementation_lists:
-        implementation_lists[key] = True
+      #! Debugging 
+      # for key in implementation_lists:
+      #   implementation_lists[key] = False
 
       implementation_lists[".NET"] = False
       for key in [key for key, value in implementation_lists.items() if not value]:
@@ -171,7 +171,7 @@ def detect_implementation(programming_language: str):
       implementation_lists = implementation_lists.keys()
       implementation_lists_length = len(implementation_lists)
       if implementation_lists_length:
-        def select_implementation(list_of_implementations: dict, save_command):
+        def select_implementation(list_of_implementations: dict, save_command: bool):
           def has_versions(compiler, deep=True) -> bool:
             if isinstance(compiler, dict):
               value = list(compiler.values())[0]
@@ -272,10 +272,8 @@ def detect_implementation(programming_language: str):
 
       else:
         compilers_interpreters[lang] = list(compilers_interpreters[lang].keys())
-
         statement = (
-          f"{(', '.join(compilers_interpreters[lang][:-2]))} "
-          f"{compilers_interpreters[lang][-2]} and "
+          f"{(', '.join(compilers_interpreters[lang][:-1]))} and "
           f"{compilers_interpreters[lang][-1]} {implementation}".lstrip()
         )
         print(f"Oops! {statement} that are used in Codeforces aren't available on your system.",)
@@ -348,34 +346,32 @@ def detect_implementation(programming_language: str):
     else:
       webOpen(site)
 
-
-
     sysExit(1)
 
   placeholders = [
     "Notes:",
     colored_text(
-      "<color-red>I</>. Please include the following placeholders in your command:",
+      "<color_red>I</>. Please include the following placeholders in your command:",
       return_statement=True
     ),
-    "- {file}: This represents the path to the script file.",
+    "- %%{file}%%: This represents the path to the script file.",
     "Your command might look like this:",
-    "interpreting-command [options...] {file}"
+    "interpreting-command [options...] %%{file}%%"
   ]
 
   if implementation in ("compiler", "compile and execute"):
-    placeholders.insert(3, "- {output}: This represents the compiled code. (Without .exe or .out)")
-    placeholders[-1] =  "compile-command [options...] {file} -o {output}"
+    placeholders.insert(3, "- %%{output}%%: This represents the compiled code. (Without .exe or .out)")
+    placeholders[-1] =  "compile-command [options...] %%{file}%% -o %%{output}%%"
     print("\n\n" + "\n".join(placeholders))
-    print(colored_text(NOTE))
-    print(colored_text(COMPILING_NOTE))
+    colored_text(NOTE)
+    colored_text(COMPILING_NOTE)
     compilation_type = enter_number(
       "Compilation type index: ",
       "Compilation type index: ",
       range(1, 3))
     if compilation_type == 1:
       implementation = "compiler"
-      message = f"{placeholders[1][3:]}\n{placeholders[2]}\n{placeholders[3]}", None
+      message = f"{placeholders[1]}\n{placeholders[2]}\n{placeholders[3]}", None
       command = retype(
         check_command(
           input("\nEnter below the command you'd like to use:\n").strip(),
@@ -398,7 +394,7 @@ def detect_implementation(programming_language: str):
 
   else:
     print("\n\n" + "\n".join(placeholders))
-    print(colored_text(NOTE))
+    colored_text(NOTE)
     implementation = "interpreter"
     message = f"{placeholders[1][3:]}\n{placeholders[2]}"
     command = retype(
@@ -416,4 +412,4 @@ def detect_implementation(programming_language: str):
   return (command, implementation), save_command
 
 if __name__ == "__main__":
-  print(detect_implementation("Go"))
+  print(detect_implementation("C++"))

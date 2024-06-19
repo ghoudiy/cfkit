@@ -4,6 +4,7 @@ from requests.utils import cookiejar_from_dict
 from mechanicalsoup import StatefulBrowser
 
 from cfkit.util.common import read_json_file
+from cfkit.util.common import colored_text
 from cfkit.config import login, set_default_compiler
 from cfkit.util.variables import resources_folder
 
@@ -35,11 +36,14 @@ def submit(contest_id, problem_code, file_path):
       print(f"Welcome, {username}!")
 
     else:
-      print("Login failed. Please check your credentials.")
-      sys_exit(1)
+      colored_text(
+        "Login failed. Please check your credentials.",
+        one_color="error",
+        exit_code_after_print_statement=1
+      )
 
     browser.open(f'https://codeforces.com/contest/{contest_id}/submit')
-    form = browser.select_form(f'form[class="submit-form"]')
+    form = browser.select_form('form[class="submit-form"]')
 
     # Fill out the form fields
     form.set("submittedProblemIndex", problem_code)

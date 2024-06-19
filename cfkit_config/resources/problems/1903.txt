@@ -1,0 +1,437 @@
+Codeforces Round 912 (Div. 2)
+
+
+A. Halloumi Boxes
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Theofanis is busy after his
+last contest
+, as now, he has to deliver many halloumis all over the world. He stored them inside $$$n$$$ boxes and each of which has some number $$$a_i$$$ written on it.
+He wants to sort them in non-decreasing order based on their number, however, his machine works in a strange way. It can only reverse any subarray$$$^{\dagger}$$$ of boxes with length
+at most
+$$$k$$$.
+Find if it's possible to sort the boxes using
+any number of reverses
+.
+$$$^{\dagger}$$$ Reversing a subarray means choosing two indices $$$i$$$ and $$$j$$$ (where $$$1 \le i \le j \le n$$$) and changing the array $$$a_1, a_2, \ldots, a_n$$$ to $$$a_1, a_2, \ldots, a_{i-1}, \; a_j, a_{j-1}, \ldots, a_i, \; a_{j+1}, \ldots, a_{n-1}, a_n$$$. The length of the subarray is then $$$j - i + 1$$$.
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases.
+Each test case consists of two lines.
+The first line of each test case contains two integers $$$n$$$ and $$$k$$$ ($$$1 \le k \le n \le 100$$$) — the number of boxes and the length of the maximum reverse that Theofanis can make.
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$1 \le a_i \le 10^{9}$$$) — the number written on each box.
+Output
+For each test case, print
+YES
+(case-insensitive), if the array can be sorted in non-decreasing order, or
+NO
+(case-insensitive) otherwise.
+Example
+Input
+5
+3 2
+1 2 3
+3 1
+9 9 9
+4 4
+6 4 2 1
+4 3
+10 3 830 14
+2 1
+3 1
+Output
+YES
+YES
+YES
+YES
+NO
+----------------------------------------------------------------------------------------------------
+B. StORage room
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+In Cyprus, the weather is pretty hot. Thus, Theofanis saw this as an opportunity to create an ice cream company.
+He keeps the ice cream safe from other ice cream producers by locking it inside big storage rooms. However, he forgot the password. Luckily, the lock has a special feature for forgetful people!
+It gives you a table $$$M$$$ with $$$n$$$ rows and $$$n$$$ columns of non-negative integers, and to open the lock, you need to find an array $$$a$$$ of $$$n$$$ elements such that:
+$$$0 \le a_i < 2^{30}$$$, and
+$$$M_{i,j} = a_i | a_j$$$ for all $$$i \neq j$$$, where $$$|$$$ denotes the
+bitwise OR operation
+.
+The lock has a bug, and sometimes it gives tables without any solutions. In that case, the ice cream will remain frozen for the rest of eternity.
+Can you find an array to open the lock?
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^{3}$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 10^{3}$$$) — the size of the hidden array.
+The next $$$n$$$ lines describe the rows of $$$M$$$, line $$$i$$$ contains the table values $$$M_{i,1}, M_{i,2}, \ldots, M_{i,n}$$$ ($$$0 \le M_{i,j} < 2^{30}$$$).
+It is guaranteed that $$$M_{i,i} = 0$$$ and $$$M_{i,j} = M_{j,i}$$$ for all $$$1 \le i,j \le n$$$.
+It is also guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$10^{3}$$$.
+Output
+For each test case, if there is a solution print
+YES
+and an array that satisfies the property, otherwise print
+NO
+.
+If there are multiple solutions, print any of them.
+You can output the answer in any case (upper or lower). For example, the strings "
+yEs
+", "
+yes
+", "
+Yes
+", and "
+YES
+" will be recognized as positive responses.
+Example
+Input
+4
+1
+0
+4
+0 3 3 5
+3 0 3 7
+3 3 0 7
+5 7 7 0
+5
+0 7 7 5 5
+7 0 3 2 6
+7 3 0 3 7
+5 2 3 0 4
+5 6 7 4 0
+3
+0 0 1
+0 0 0
+1 0 0
+Output
+YES
+7
+YES
+1 3 2 5 
+YES
+5 2 3 0 4
+NO
+----------------------------------------------------------------------------------------------------
+C. Theofanis' Nightmare
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Theofanis easily gets obsessed with problems before going to sleep and often has nightmares about them. To deal with his obsession he visited his doctor, Dr. Emix.
+In his latest nightmare, he has an array $$$a$$$ of size $$$n$$$ and wants to divide it into non-empty subarrays$$$^{\dagger}$$$ such that every element is in exactly one of the subarrays.
+For example, the array $$$[1,-3,7,-6,2,5]$$$ can be divided to $$$[1] [-3,7] [-6,2] [5]$$$.
+The Cypriot value of such division is equal to $$$\Sigma_{i=1}^{k} i \cdot \mathrm{sum}_i$$$ where $$$k$$$ is the number of subarrays that we divided the array into and $$$\mathrm{sum}_i$$$ is the sum of the $$$i$$$-th subarray.
+The Cypriot value of this division of the array $$$[1] [-3,7] [-6,2] [5] = 1 \cdot 1 + 2 \cdot (-3 + 7) + 3 \cdot (-6 + 2) + 4 \cdot 5 = 17$$$.
+Theofanis is wondering what is the
+maximum
+Cypriot value of any division of the array.
+$$$^{\dagger}$$$ An array $$$b$$$ is a subarray of an array $$$a$$$ if $$$b$$$ can be obtained from $$$a$$$ by deletion of several (possibly, zero or all) elements from the beginning and several (possibly, zero or all) elements from the end. In particular, an array is a subarray of itself.
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
+Each test case consists of two lines.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 10^{5}$$$) — the size of the array.
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$-10^8 \le a_i \le 10^{8}$$$) — the elements of the array.
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^{5}$$$.
+Output
+For each test case, print one integer — the
+maximum
+Cypriot value of the array $$$a$$$.
+Example
+Input
+4
+6
+1 -3 7 -6 2 5
+4
+2 9 -5 -3
+8
+-3 -4 2 -5 1 10 17 23
+1
+830
+Output
+32
+4
+343
+830
+----------------------------------------------------------------------------------------------------
+D1. Maximum And Queries (easy version)
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+This is the easy version of the problem. The only difference between the two versions is the constraint on $$$n$$$ and $$$q$$$, the memory and time limits. You can make hacks only if all versions of the problem are solved.
+Theofanis really likes to play with the bits of numbers. He has an array $$$a$$$ of size $$$n$$$ and an integer $$$k$$$. He can make at most $$$k$$$ operations in the array. In each operation, he picks a single element and increases it by $$$1$$$.
+He found the
+maximum
+bitwise AND
+that array $$$a$$$ can have after at most $$$k$$$ operations.
+Theofanis has put a lot of work into finding this value and was very happy with his result. Unfortunately, Adaś, being the evil person that he is, decided to bully him by repeatedly changing the value of $$$k$$$.
+Help Theofanis by calculating the
+maximum
+possible
+bitwise AND
+for $$$q$$$ different values of $$$k$$$. Note that queries are independent.
+Input
+The first line contains two integers $$$n$$$ and $$$q$$$ ($$$1 \le n, q \le 10^5$$$ and $$$n \cdot q \le 10^5$$$) — the size of the array and the number of queries.
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \le a_i \le 10^6$$$) — the elements of the array.
+Next $$$q$$$ lines describe the queries. The $$$i$$$-th line contains one integer $$$k_i$$$ ($$$0 \le k_i \le 10^{18}$$$) — the number of operations that can be done in the $$$i$$$-th query.
+Output
+For each query, print one integer — the
+maximum
+bitwise AND that array $$$a$$$ can have after at most $$$k_i$$$ operations.
+Examples
+Input
+4 2
+1 3 7 5
+2
+10
+Output
+2
+6
+Input
+3 5
+4 0 2
+9
+8
+17
+1
+3
+Output
+5
+4
+7
+0
+1
+Input
+1 2
+10
+5
+2318381298321
+Output
+15
+2318381298331
+----------------------------------------------------------------------------------------------------
+D2. Maximum And Queries (hard version)
+time limit per test
+7 seconds
+memory limit per test
+512 megabytes
+input
+standard input
+output
+standard output
+This is the hard version of the problem. The only difference between the two versions is the constraint on $$$n$$$ and $$$q$$$, the memory and time limits. You can make hacks only if all versions of the problem are solved.
+Theofanis really likes to play with the bits of numbers. He has an array $$$a$$$ of size $$$n$$$ and an integer $$$k$$$. He can make at most $$$k$$$ operations in the array. In each operation, he picks a single element and increases it by $$$1$$$.
+He found the
+maximum
+bitwise AND
+that array $$$a$$$ can have after at most $$$k$$$ operations.
+Theofanis has put a lot of work into finding this value and was very happy with his result. Unfortunately, Adaś, being the evil person that he is, decided to bully him by repeatedly changing the value of $$$k$$$.
+Help Theofanis by calculating the
+maximum
+possible
+bitwise AND
+for $$$q$$$ different values of $$$k$$$. Note that queries are independent.
+Input
+The first line contains two integers $$$n$$$ and $$$q$$$ ($$$1 \le n, q \le 10^6$$$) — the size of the array and the number of queries.
+The second line contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \le a_i \le 10^6$$$) — the elements of the array.
+Next $$$q$$$ lines describe the queries. The $$$i$$$-th line contains one integer $$$k_i$$$ ($$$0 \le k_i \le 10^{18}$$$) — the number of operations that can be done in the $$$i$$$-th query.
+Output
+For each query, print one integer — the
+maximum
+bitwise AND that array $$$a$$$ can have after at most $$$k_i$$$ operations.
+Examples
+Input
+4 2
+1 3 7 5
+2
+10
+Output
+2
+6
+Input
+3 5
+4 0 2
+9
+8
+17
+1
+3
+Output
+5
+4
+7
+0
+1
+Input
+1 2
+10
+5
+2318381298321
+Output
+15
+2318381298331
+----------------------------------------------------------------------------------------------------
+E. Geo Game
+time limit per test
+2.5 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+This is an interactive problem.
+Theofanis and his sister are playing the following game.
+They have $$$n$$$ points in a 2D plane and a starting point $$$(s_x,s_y)$$$. Each player (starting from the first player) chooses one of the $$$n$$$ points that wasn't chosen before and adds to the sum (which is initially $$$0$$$) the
+square
+of the
+Euclidean distance
+from the previous point (which is either the starting point or it was chosen by the other person) to the new point (that the current player selected).
+The game ends after exactly $$$n$$$ moves (after all the points are chosen). The first player wins if the sum is even in the end. Otherwise, the second player wins.
+Theofanis is a very competitive person and he hates losing. Thus, he wants to choose whether he should play first or second. Can you show him, which player to choose, and how he should play to beat his sister?
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 2000$$$) — the number of test cases.
+The data for each test case is only available after the end of the interaction (the end of the game) for all previous test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 10^{5}$$$) — the number of points.
+The second line of each test case contains two integers $$$s_x$$$, $$$s_y$$$ ($$$0 \le s_x, s_y \le 10^{9}$$$) — the coordinates of the starting point.
+Two or more points may have the same coordinates.
+The $$$i$$$-th of the following $$$n$$$ lines contains two integers $$$x_i$$$ and $$$y_i$$$ ($$$0 \le x_i, y_i \le 10^{9}$$$) — the coordinates of the $$$i$$$-th point.
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$10^{5}$$$.
+Interaction
+For each test case, you should first output the player that you want to play as (
+First
+or
+Second
+).
+Then, you should play the game. When it's your turn, you should output the index $$$j$$$ ($$$1 \le j \le n$$$) of the point that you want to choose, and when it's the other player's turn, you should read the index that they choose.
+When all the turns are done, continue with reading the input for the next test case, or finish the program, if there are none.
+If you receive the integer $$$-1$$$ instead of an index or a valid value of $$$n$$$, it means your program has made an invalid move or has lost the game in the previous test case. Your program must terminate immediately to receive a
+Wrong Answer
+verdict. Otherwise, you can get an arbitrary verdict because your solution will continue to read from a closed stream.
+After printing a choice for a player, or a turn, do not forget to output the end of line and flush the output. Otherwise, you will get
+Idleness limit exceeded
+. To do this, use:
+fflush(stdout)
+or
+cout.flush()
+in C++;
+System.out.flush()
+in Java;
+flush(output)
+in Pascal;
+stdout.flush()
+in Python;
+see the documentation for other languages.
+Hacks
+To hack, use the following format.
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 2000$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 10^{5}$$$) — the number of points.
+The second line of each test case contains two integers $$$s_x$$$, $$$s_y$$$ ($$$0 \le s_x, s_y \le 10^{9}$$$) — the coordinates of the starting point.
+The $$$i$$$-th of the following $$$n$$$ lines contains two integers $$$x_i$$$ and $$$y_i$$$ ($$$0 \le x_i, y_i \le 10^{9}$$$) — the coordinates of the $$$i$$$-th point.
+The sum of $$$n$$$ over all test cases should not exceed $$$10^{5}$$$.
+Example
+Input
+2
+6
+4 6
+7 6
+8 5
+2 1
+6 2
+6 4
+3 3
+
+2
+
+5
+
+1
+4
+1 1
+3 2
+2 1
+3 3
+1 2
+
+
+2
+
+3
+Output
+Second
+
+4
+
+6
+
+3
+First
+1
+
+4
+----------------------------------------------------------------------------------------------------
+F. Babysitting
+time limit per test
+7 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Theofanis wants to play video games, however he should also take care of his sister. Since Theofanis is a CS major, he found a way to do both. He will install some cameras in his house in order to make sure his sister is okay.
+His house is an undirected graph with $$$n$$$ nodes and $$$m$$$ edges. His sister likes to play at the edges of the graph, so he has to install a camera to at least one endpoint of every edge of the graph. Theofanis wants to find a
+vertex cover
+that maximizes the minimum difference between indices of the chosen nodes.
+More formally, let $$$a_1, a_2, \ldots, a_k$$$ be a vertex cover of the graph. Let the minimum difference between indices of the chosen nodes be the minimum $$$\lvert a_i - a_j \rvert$$$ (where $$$i \neq j$$$) out of the nodes that you chose.
+If $$$k = 1$$$ then we assume that the minimum difference between indices of the chosen nodes is $$$n$$$
+.
+Can you find the maximum possible minimum difference between indices of the chosen nodes over all vertex covers?
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
+The first line of each test case contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n \le 10^{5}, 1 \le m \le 2 \cdot 10^{5}$$$) — the number of nodes and the number of edges.
+The $$$i$$$-th of the following $$$m$$$ lines in the test case contains two positive integers $$$u_i$$$ and $$$v_i$$$ ($$$1 \le u_i,v_i \le n$$$), meaning that there exists an edge between them in the graph.
+It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$10^{5}$$$.
+It is guaranteed that the sum of $$$m$$$ over all test cases does not exceed $$$2 \cdot 10^{5}$$$.
+Output
+For each test case, print the maximum minimum difference between indices of the chosen nodes over all vertex covers.
+Example
+Input
+3
+7 6
+1 2
+1 3
+1 4
+1 6
+2 3
+5 7
+3 3
+1 2
+1 3
+1 1
+2 4
+1 2
+1 2
+2 1
+1 1
+Output
+2
+3
+2
+----------------------------------------------------------------------------------------------------

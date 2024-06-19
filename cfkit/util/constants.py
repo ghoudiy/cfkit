@@ -9,31 +9,31 @@ from typing import TypeAlias
 
 Directory: TypeAlias = Path
 FileOrDirectory: TypeAlias = str
-ProblemCodeOrFileOrBoth: TypeAlias = str | tuple[str, str]
+ProblemCodeOrFileOrBoth: TypeAlias = str | tuple[str, str] | list[str, str]
 
 MACHINE = platform
 
 PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
 
 NOTE = """
-<color-red>II.</> Do not include any input or output specifications in your command! (i.e. '< in > out')
+<color_red>II.</> Do not include any input or output specifications in your command! (i.e. '< in > out')
 """
 
 COMPILING_NOTE = """\
-<color-red>III.</> When providing the compilation command, \
+<color_red>III.</> When providing the compilation command, \
 make sure to include the execution part as well if necessary.
 For instance, if you're using Kotlin, your command should look something like this:
-"<command>kotlinc {file} -d {output}.jar && java -jar {output}.jar</>"
-The '<command>&& java -jar {output}.jar</>' part is important for executing the compiled code.
+"<command>kotlinc %%{file}%% -d %%{output}%%.jar && java -jar %%{output}%%.jar</>"
+The '<command>&& java -jar %%{output}%%.jar</>' part is important for executing the compiled code.
 If your compilation process requires additional steps for execution, \
 be sure to include them in the command as well
 
 
 There are two types of compilation commands:\n
 1. Compile only: Compiles the code without executing.
-    Example: g++ -Wall -o {output} {file}
+    Example: g++ -Wall -o %%{output}%% %%{file}%%
 2. Compile and Execute: Compiles and immediately executes the code.
-    Example: go run {file}
+    Example: go run %%{file}%%
 
 Choose the appropriate command based on your needs."""
 
@@ -94,6 +94,27 @@ LANGUAGES = [
   'Scala',
   'JavaScript'
 ]
+
+LANGUAGES_EXTENSIONS = {
+  'C': ['c'],
+  'C++': ['cpp', 'cxx', 'C', 'cc', 'c++'],
+  'C#': ['cs'],
+  'D': ['d'],
+  'Go': ['go'],
+  'Haskell': ['hs'],
+  'Java': ['java'],
+  'Kotlin': ['kt'],
+  'OCaml': ['ml'],
+  'Delphi': ['dpr'],
+  'Pascal': ['pas'],
+  'Perl': ['pl'],
+  'PHP': ['php'],
+  'Python': ['py'],
+  'Ruby': ['rb'],
+  'Rust': ['rs'],
+  'Scala': ['scala'],
+  'JavaScript': ['js']
+}
 
 ALL_ACTIONS = (
   "list", 
