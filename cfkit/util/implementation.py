@@ -18,7 +18,7 @@ from cfkit.util.common import (
 )
 
 from cfkit.util.variables import json_folder
-from cfkit.util.constants import MACHINE
+from cfkit.util.variables import MACHINE
 from cfkit.util.constants import COMPILING_NOTE
 from cfkit.util.constants import NOTE
 

@@ -3,28 +3,28 @@ Documentation
 """
 
 # Standard Library Imports
+from sys import platform
 from pathlib import Path
 from configparser import ConfigParser
 
-# Cfkit Imports
-from cfkit.util.constants import MACHINE
-
+MACHINE = platform
 
 # -------------------------------------------------------------------------
 # Editable
+config_folder = Path("~").expanduser().joinpath(".cfkit")
 if MACHINE == "win32":
 
-  config_folder = Path("~").expanduser().joinpath("AppData", "Roaming")
+  # config_folder = Path("~").expanduser().joinpath("AppData", "Roaming", "cfkit")
   input_extension_file = "txt"
   output_extension_file = "txt"
 else:
-  config_folder = Path("~").expanduser().joinpath(".config", "cfkit")
+  # config_folder = Path("~").expanduser().joinpath(".config", "cfkit")
   input_extension_file = "in"
   output_extension_file = "out"
 
-output_filename = f"%%problem_code%%_test_case%%test_case_num%%.{output_extension_file}"
+output_filename = "%%problem_code%%_test_case%%test_case_num%%." + output_extension_file
 
-errors_memory_time_filename = f"%%problem_code%%_test_case%%test_case_num%%_err_memory_time.{output_extension_file}"
+errors_memory_time_filename = "%%problem_code%%_test_case%%test_case_num%%_err_memory_time." + output_extension_file
 # -------------------------------------------------------------------------
 
 json_folder = Path(__file__).parent.parent.joinpath("json")

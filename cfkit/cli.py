@@ -179,7 +179,8 @@ def run_action():
   parser = ArgumentParser(description='Run options')
 
   parser.add_argument("file", action='store', help="Solution file")
-  parser.add_argument("-c", action='store', dest="problem_code", help="Problem code")
+  parser.add_argument("-p", "--problem", action='store', dest="problem_code", help="Problem code")
+  parser.add_argument("-c", "--custom", action='store', dest="custom", help="Run custom samples only")
   parser.add_argument('-f', '--format', action='store_true', dest='formatting', help='Check formatting')
   parser.add_argument('-r', '--remove', action='store_true', dest='remove', help='Remove samples and output files')
   parser.add_argument('-nv', '--notVerbose', action='store_false', dest='not_verbose', help='Do not print input, output and answer')
@@ -188,14 +189,15 @@ def run_action():
 
   file, _ = _check_problem_index(args.file)
   problem_code = args.problem_code
+  custom = args.custom
   check_output_formatting = args.formatting
   remove_test_samples = args.remove
   not_verbose = args.not_verbose
 
   if problem_code is None:
-    Problem(file).run_demo(file, check_output_formatting, False, remove_test_samples, not_verbose)
+    Problem(file).run_demo(file, check_output_formatting,remove_test_samples, None, not_verbose)
   else:
-    Problem(problem_code).run_demo(file, check_output_formatting, False, remove_test_samples, not_verbose)
+    Problem(problem_code).run_demo(file, check_output_formatting,remove_test_samples, None, not_verbose)
 
 
 def main():

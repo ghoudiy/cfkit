@@ -166,12 +166,15 @@ def colored_text(
     components = filter(bool, components)
     light = False
     for style in components:
+      print(f"{style = }")
       if style == "light":
         light = True
       if style[0] == 's':
         color = Style.__dict__.get(style[2:].upper(), '')
       else:
-        style = (f"LIGHT{style.upper()}_EX") if light else style
+        print(style, 1)
+        style = f"LIGHT{style.upper()}_EX" if light else style
+        print(style, 2)
         color = Fore.__dict__.get(style.upper(), style if style[:2] == "\x1b[" else '')
       colors += color
     return colors
@@ -687,7 +690,7 @@ def samples_dir(
         file for file in list_of_files if re.search(rf"{problem_code}_\d\.{input_extension_file}", file)
       ]
       expected_output_list = [
-        file for file in list_of_files if re.search(rf"{problem_code}_\d\{output_extension_file}", file)
+        file for file in list_of_files if re.search(rf"{problem_code}_\d\.{output_extension_file}", file)
       ]
       if len(input_samples) == len(expected_output_list):
         samples_directory = samples_path.joinpath(folder_file_exists("tests", 'directory'))
@@ -700,7 +703,7 @@ def samples_dir(
 def fetch_samples(
   problem_statement: list[list[str]] | list[str],
   path_to_save_samples: Directory = Path.cwd(),
-  attributes: tuple = None,
+  attributes: tuple = None, # (problem index, problem name) or ('contest', contest id and contest name)
   check_path: bool = True,
   short_names: bool = False,
 ) -> None:

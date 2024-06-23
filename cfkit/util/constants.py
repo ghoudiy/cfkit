@@ -2,7 +2,6 @@
 Documentation
 """
 
-from sys import platform
 from pathlib import Path
 from typing import TypeAlias
 
@@ -10,8 +9,6 @@ from typing import TypeAlias
 Directory: TypeAlias = Path
 FileOrDirectory: TypeAlias = str
 ProblemCodeOrFileOrBoth: TypeAlias = str | tuple[str, str] | list[str, str]
-
-MACHINE = platform
 
 PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
 

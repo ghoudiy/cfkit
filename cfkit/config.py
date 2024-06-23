@@ -23,7 +23,7 @@ from cfkit.util.implementation import detect_implementation
 from cfkit.util.variables import resources_folder
 from cfkit.util.variables import conf_file
 from cfkit.util.variables import language_conf_path
-from cfkit.util.constants import MACHINE
+from cfkit.util.variables import MACHINE
 
 
 def set_language_attributes(programming_language: str) -> str:

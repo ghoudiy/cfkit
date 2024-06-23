@@ -58,7 +58,7 @@ class Problem:
   """
   # Ask chatgpt about this name ProblemCodeOrFileOrBoth
   def __init__(self, problem_code: ProblemCodeOrFileOrBoth = None) -> None:
-    self._solution_file = None
+    self._solution_file: str = None
     self._contestid: int = None
     self._problem_index_letter: str = None
     self.contest_name: str = None
@@ -73,10 +73,12 @@ class Problem:
     self.memory_limit_bytes: float = convert_to_bytes(self._response[4])
     self.input_output_type: str = f"input: {self._response[6]}\noutput: {self._response[8]}"
 
-    self._data_path = None
-    self._expected_output_samples = None
-    self._input_samples = None
-    self._fwrong = None
+    self._data_path: str = None
+    self._input_samples: list[str] = None
+    self._expected_output_samples: list[str] = None
+    self._custom_input_samples: list[str] = None
+    self._expected_custom_output_samples: list[str] = None
+    self._fwrong: str = None
 
 
   def __retrieve_html_source_code(self, code: str, err: bool = False) -> str:
@@ -208,7 +210,7 @@ class Problem:
           exit_code_after_print_statement=1
         )
 
-      #* Check if the path exists and is a file.
+      #* Check if the path exists and is a file
       if os.path.isfile(problem_code[0]):
         self.problem_index = problem_code[0]
         self._solution_file = problem_code[1]
@@ -325,8 +327,8 @@ class Problem:
       self,
       file_path: str = None,
       check_formatting: bool = False,
-      stop_program: bool = True,
       remove_samples_output_files_if_demo_accepted: bool = False,
+      stop_program: bool = True,
       verbose: bool = True,
     ) -> None:
     """
@@ -341,12 +343,20 @@ class Problem:
       code = None
       line_number = None
 
+      if file_path is not None:
+        check_path_existence(file_path, 'f')
+
       # When the user enter 234A problem index as a parameter in __init__
+      # -------------------------------------------------------------------------------------------
       if (file_path is None) and (self._solution_file is None):
-        self._solution_file = check_file(input("Path of the solution file: ").strip())
+        self._solution_file = sys.argv[0]
+        working_in_script = True
+        # self._solution_file = check_file(input("Path of the solution file: ").strip())
+      # -------------------------------------------------------------------------------------------
 
 
       # When the user enter a path as a parameter in run_demo (this function) (e.g. 1234A.py)
+      # -------------------------------------------------------------------------------------------
       elif (file_path is not None) and (self._solution_file is None):
         # If the file_path is the same as the working file (working in script file)
         if Path(file_path).samefile(os.path.abspath(sys.argv[0])):
@@ -355,9 +365,11 @@ class Problem:
           self._solution_file = file_path
         else:
           self._solution_file = check_file(file_path)
+      # -------------------------------------------------------------------------------------------
 
 
       # When the user enters two different paths (one in the init method and another in the run_demo function)
+      # -------------------------------------------------------------------------------------------
       elif (file_path is not None) and (self._solution_file is not None):
         file_path = Path(file_path)
         if not file_path.samefile(self._solution_file):
@@ -369,32 +381,44 @@ class Problem:
         elif file_path.samefile(os.path.abspath(sys.argv[0])):
           working_in_script = True
           line_number = currentframe().f_back.f_back.f_lineno
-      del file_path # Now we have the solution file stored in self._solution_file
-      # ------------------------------------------------------------------------------------
-
-      cwd = os.getcwd()
-      self._solution_file = os.path.join(cwd, self._solution_file)
+      # -------------------------------------------------------------------------------------------
 
       def input_output_list(data_path) -> None:
         list_of_files = os.listdir(data_path)
         self._input_samples = sorted(
           [
             file for file in list_of_files if search(
-            rf"{self.problem_index}_\d\.{input_extension_file}", file) or search(r"\Ain\d{0,}$", file)
-          ])
+            rf"{self.problem_index}_\d+\.{input_extension_file}", file)
+          ]
+        )
         self._expected_output_samples = sorted(
-          [file for file in list_of_files if search(
-            rf"{self.problem_index}_\d\.{output_extension_file}", file) or search(r"\Aout\d{0,}$", file)])
+          [
+            file for file in list_of_files if search(
+            rf"{self.problem_index}_\d+\.{output_extension_file}", file)
+          ]
+        )
+
+        self._custom_input_samples = sorted(
+          [file for file in list_of_files if search(r"\A" + rf"{input_extension_file}" + "\d{0,}$", file)]
+        )
+        self._expected_custom_output_samples = sorted(
+          [file for file in list_of_files if search(r"\A" + rf"{output_extension_file}" + "\d{0,}$", file)]
+        )
+
+      del file_path # Now we have the solution file stored in self._solution_file
+      cwd = os.getcwd()
+      self._solution_file = os.path.join(cwd, self._solution_file)
+
 
       if self._data_path is None:
         self._data_path = os.path.join(cwd, 'tests')
         test = True
         if os.path.exists(self._data_path):
           input_output_list(self._data_path)
-          length_input_samples = len(self._input_samples)
-          if length_input_samples > 0 and length_input_samples == len(self._expected_output_samples):
+          input_samples_num = len(self._input_samples)
+          if input_samples_num > 0 and input_samples_num == len(self._expected_output_samples):
             test = False
-            del length_input_samples
+            del input_samples_num
 
         if test:
           # Here where I got the idea of adding __check_path parameter in parse function
@@ -409,19 +433,20 @@ class Problem:
       if working_in_script:
         with open(self._solution_file, 'r', encoding="UTF-8") as file:
           code = file.readlines()
+        code_length = len(code)
 
-        try:
-          my_solution = code.index("# solution\n")
-        except ValueError:
-          my_solution = -1
+        # Searching for the beginning of the solution
+        solution_pos = None
+        end_pos = code_length
+        for i in range(code_length):
+          line_without_spaces = code[i].replace(" ", "")
+          if line_without_spaces == "#solution\n":
+            solution_pos = i
+          elif line_without_spaces.replace("\n", "") == "#end":
+            end_pos = i
 
-        if my_solution != -1:
-          try:
-            end_pos = code.index("# end\n")
-          except ValueError:
-            end_pos = len(code)
-
-          code = code[my_solution+1:end_pos]
+        if solution_pos is not None:
+          code = code[solution_pos + 1:end_pos]
           write_text_to_file("".join(code), os.path.join(os.getcwd(), "cfkit_module_user_code.py"))
         else:
           # Modify the participant's code by removing the 'import cfkit' package line (BETA)
@@ -452,12 +477,14 @@ class Problem:
             os.path.join(os.getcwd(), "cfkit_module_user_code.py")
           )
 
-      return working_in_script, code, line_number
+      return working_in_script
+      # return working_in_script, code, line_number
 
-    working_in_script, code, line_number = check_path(file_path)
+    # working_in_script, code, line_number = check_path(file_path)
+    working_in_script = check_path(file_path)
 
-    # -----------------------------------------------------------------------------
-    #* Retrieve the execution and compile commands
+    # Retrieve the execution and compile commands
+    # =============================================================================================
     ext = self._solution_file[self._solution_file.rfind(".")+1:]
     if ext == self._solution_file:
       colored_text(
@@ -505,7 +532,15 @@ class Problem:
       calculate_memory_usage_and_execution_time_command is None):
       compile_command, execute_command, calculate_memory_usage_and_execution_time_command = set_language_attributes(programming_language)
 
+
+    if calculate_memory_usage_and_execution_time_bool:
+      execute_command = calculate_memory_usage_and_execution_time_command
+    else:
+      execute_command += " < %%{input_file}%% > %%{output_file}%% 2> %%{output_memory}%%"
+    # =============================================================================================
+
     #* Compile the solution file if the language requires compilation
+    # =============================================================================================
     if compile_command is not None:
       try:
         run(
@@ -514,355 +549,391 @@ class Problem:
           ),
           shell=True,
           check=True,
-          stderr=PIPE,
           # text=True
         )
       except CalledProcessError as err:
         errors["Compilation error"] = 1
         colored_text(
-          f"<error_1>Compilation error</>\n<blue_text>Command:</> `{err.cmd}`",
-          f"returned non-zero exit status: <bright_text>{err.returncode}</>\n<error>Error:</>\n{err.stderr}",
+          f"\n<error_1>Compilation error</>\n<blue_text>Command:</> `{err.cmd}`",
+          f"returned non-zero exit status: <bright_text>{err.returncode}</>",
           exit_code_after_print_statement=1
         )
+    # =============================================================================================
+    def save_first_error(error, test_num):
+      if self._fwrong is None:
+        self._fwrong = colored_text(
+        f"{error} on test {test_num}",
+        one_color="error 1",
+        return_statement=True
+      )
 
-    if calculate_memory_usage_and_execution_time_bool:
-      execute_command = calculate_memory_usage_and_execution_time_command
-    else:
-      execute_command += " < %%{input_file}%% > %%{output_file}%% 2> %%{output_memory}%%"
-    # -----------------------------------------------------------------------------
-
-
-    # Loop through samples
-    accepeted = True
-    number_of_tests = len(self._input_samples)
-    verdict = [(None, None)] * number_of_tests
-    checker_log_list = [None] * number_of_tests
-    custom_input = [None] * number_of_tests
-    errors_memory_time_of_solution = [None] * number_of_tests
-    output_filenames_list = [None] * number_of_tests # To remove them later if demanded
-    errors_memory_time_of_solution_filenames_list = [None] * number_of_tests # To remove them later if demanded
-
-    for i, input_sample in enumerate(self._input_samples):
-
-      output_path = os.path.join(self._data_path, output_filename.replace(
-        "%%problem_code%%", self.problem_index).replace("%%test_case_num%%", str(i + 1)))
-      output_filenames_list[i] = output_path
-
-      _ = errors_memory_time_filename.replace(
-        "%%problem_code%%", self.problem_index).replace("%%test_case_num%%", str(i + 1))
-      errors_memory_time_of_solution_filenames_list[i] = _
-
-      input_sample = os.path.join(self._data_path, input_sample)
-      custom_input[i] = search(r'\Ain\d{0,}$', os.path.basename(input_sample)) is not None
-
-      # Executing solution
-      # ================================================================
-      if not working_in_script:
-        returncode = execute_file(
-          self._solution_file,
-          self.problem_index,
-          input_sample,
-          output_path,
-          errors_memory_time_of_solution_filenames_list[i],
-          self.memory_limit_bytes,
-          execute_command,
-          # self.time_limit_seconds_number,
-          # i + 1
+    def save_ok_test(verdict, i, ok):
+      ok = ok and True
+      if calculate_memory_usage_and_execution_time_bool and verdict[i] is not None:
+        verdict[i] = colored_text(
+          f"<correct>OK</> (Warning: {verdict[i]})", return_statement=True
         )
       else:
-        returncode = execute_file(
-          "cfkit_module_user_code.py",
-          self.problem_index,
-          input_sample,
-          output_path,
-          errors_memory_time_of_solution_filenames_list[i],
-          self.memory_limit_bytes,
-          execute_command,
+        verdict[i] = colored_text("OK", one_color="correct", return_statement=True)
+      return ok
 
-          # self.time_limit_seconds_number,
-          # working_in_script,
-          # i + 1
-        )
-        # os.remove("cfkit_module_user_code.py")
+    def test_solution_against_samples(input_samples_list: list[str], expected_output_samples: list[str] = None, expected_output_bool: bool = True):
 
-      # ================================================================
+      def adjusting_paths(input_sample, i, output_filenames_list, errors_memory_time_of_solution_filenames_list):
+        participant_output_path = os.path.join(self._data_path, output_filename.replace(
+          "%%problem_code%%", self.problem_index).replace("%%test_case_num%%", str(i + 1)))
+        output_filenames_list[i] = participant_output_path
 
-      # Checking go program output
-      # ================================================================
-      terminal_columns = os.get_terminal_size().columns
-      observed = read_text_from_file(output_path)
-      observed_without_nl = observed.replace("\n", " ")
-      try:
-        def save_error(error, err_num, message):
-          colored_text(message)
-          print('-' * terminal_columns)
-          verdict[i] = (
-            f"Test case {i+1}", colored_text(
-              error,
-              one_color=f"error {err_num}",
-              return_statement=True
-            )
-          )
-          errors[error] += 1
-          if self._fwrong is None:
-            self._fwrong = f"{error} on test {i + 1}"
+        errors_memory_time_of_solution_filenames_list[i] = errors_memory_time_filename.replace(
+          "%%problem_code%%", self.problem_index).replace("%%test_case_num%%", str(i + 1))
 
-        if calculate_memory_usage_and_execution_time_bool:
-          def checker_log(
-          error,
-          err_num: str,
-          solution_resources: str,
-          message: str
-          ) -> None:
-            if solution_resources == error:
-              save_error(error, err_num, message)
-              if error == "Runtime error":
-                raise InterruptedError
+        input_sample = os.path.join(self._data_path, input_sample)
 
-            elif error == "Time limit exceeded":
-              time_taken_test = float(solution_resources[:solution_resources.find(" ")])
-              if time_taken_test > self.time_limit_seconds_number * 1000:
-                save_error()
+        return input_sample, participant_output_path
 
-          errors_memory_time_of_solution[i] = read_text_from_file(
-            errors_memory_time_of_solution_filenames_list[i]
-          )
-
-          checker_log(
-            "Runtime error",
-            2,
-            errors_memory_time_of_solution[i],
-            f"<error>Error:</> Can't finish executing file on test {i + 1}:\n{observed}\n"
-          )
-          checker_log(
-            "Memory limit exceeded",
-            3,
-            errors_memory_time_of_solution[i],
-            f"<warning>Warning</>: The memory limit exceeded for test case {i + 1}."
-          )
-          checker_log(
-            "Time limit exceeded",
-            8,
-            errors_memory_time_of_solution[i],
-            f"<warning>Warning</>: The time limit exceeded for test case {i + 1}."
+      def execute_solution(input_sample, participant_output_path, errors_memory_time_of_solution_filename):
+        if not working_in_script:
+          return execute_file(
+            self._solution_file,
+            self.problem_index,
+            input_sample,
+            participant_output_path,
+            errors_memory_time_of_solution_filename,
+            self.memory_limit_bytes,
+            execute_command,
           )
         else:
-          if returncode != 0:
-            save_error(
-              "Runtime error", 2, f"<error>Error:</> Can't finish executing file on test {i + 1}:\n{observed}\n"
-            )
-            raise InterruptedError
-
-      except InterruptedError:
-        accepeted = False
-        continue
-
-      else:
-        expected = read_text_from_file(self._expected_output_samples[i])
-        expected_without_nl = expected.replace("\n", " ")
-
-        expected = expected.split("\n")
-        observed = observed.split("\n")
-
-        observed_len = 0
-        for line in observed:
-          observed_len += 1 if line else 0
-        if len(expected) > 0 and observed_len == 0:
-          colored_text(
-            "No output was generated",
-            one_color="error",
-            exit_code_after_print_statement=1
+          return execute_file(
+            "cfkit_module_user_code.py",
+            self.problem_index,
+            input_sample,
+            participant_output_path,
+            errors_memory_time_of_solution_filename,
+            self.memory_limit_bytes,
+            execute_command
           )
+
+      terminal_columns = os.get_terminal_size().columns
+
+      number_of_tests = len(input_samples_list)
+      checker_log_list = [None] * number_of_tests
+      errors_memory_time_of_solution = [None] * number_of_tests
+
+      participant_output_filenames_list = [None] * number_of_tests # To remove them later if demanded
+      errors_memory_time_of_solution_filenames_list = [None] * number_of_tests # To remove them later if demanded
+
+      if expected_output_bool:
+        accepeted = True
+        verdict = [None] * number_of_tests
+
+      #* Loop through samples
+      # =============================================================================
+      for i, input_sample in enumerate(input_samples_list):
+        input_sample, participant_output_path = adjusting_paths(
+          input_sample,
+          i,
+          participant_output_filenames_list,
+          errors_memory_time_of_solution_filenames_list
+        )
+
+        exitcode = execute_solution(
+          input_sample,
+          participant_output_path,
+          errors_memory_time_of_solution_filenames_list[i]
+        )
 
         def fill_checker_log_list(data):
           data = data[:-1] if data[-1] == '' else data
           for line in data:
             checker_log_list[i] += f"| {line} {' ' * (50 - len(line) - 2)}|\n"
 
+        if expected_output_bool:
+          expected = read_text_from_file(expected_output_samples[i])
+          while expected[-1] == "\n":
+            expected = expected[:-1]
+          expected_without_nl = expected.replace("\n", " ")
+          expected = expected.split("\n")
+
+        observed = read_text_from_file(participant_output_path)
+        while observed[-1] == "\n":
+          observed[-1] == "\n"
+        observed_without_nl = observed.replace("\n", " ")
+
+        observed = observed.split("\n")
+
         checker_log_list[i] = f"Input\n {'-' * 50}\n"
         fill_checker_log_list(read_text_from_file(input_sample).split("\n"))
+
         checker_log_list[i] += f" {'-' * 50 }\n\nOutput\n {'-' * 50}\n"
         fill_checker_log_list(observed)
-        checker_log_list[i] += f" {'-' * 50 }\n\nAnswer\n {'-' * 50}\n"
-        fill_checker_log_list(expected)
-        checker_log_list[i] += f" {'-' * 50 }\nChecker log:\n"
 
-        if expected_without_nl == observed_without_nl:
-          checker_log_list[i] += "ok\n\n"
-          verdict[i] = (f"Test case {i+1}", colored_text(
-            "OK",
-            one_color="correct",
-            return_statement=True,
-          )
-          )
-          accepeted = accepeted and True
-      # ================================================================
+        if expected_output_bool:
+          checker_log_list[i] += f" {'-' * 50 }\n\nAnswer\n {'-' * 50}\n"
+          fill_checker_log_list(expected)
 
-        # In case of wrong answer and results are floating point numbers
-        # ================================================================
+        if expected_output_bool:
+          checker_log_list[i] += f" {'-' * 50 }\nChecker log: "
         else:
-          del expected_without_nl
-          del observed_without_nl
-          def remove_empty_strings(data: list):
-            while data[-1] == "":
-              data.pop()
+          checker_log_list[i] += " " + "-" * 50 + "\n"
 
-          remove_empty_strings(expected)
-          remove_empty_strings(observed)
+        # Judge test results
+        # ===========================================================================================
 
-          def check_length(line1, line2, message, err = True) -> bool | str | None:
-            if (line1_length:=len(line1)) != (line2_length:=len(line2)):
-              message = message.replace('%1%', str(line1_length)).replace('%2%', str(line2_length))
-              if line1_length > 1:
-                message = message.replace("(s)", 's')
-              else:
-                message = message.replace("(s)", '')
-              if not err:
-                return message
-              raise InterruptedError(message)
-            return True
+        try:
+          def save_error(error, err_num, message):
+            colored_text(message)
+            print('-' * terminal_columns)
+            verdict[i] = colored_text(error, one_color=f"error {err_num}", return_statement=True)
+            errors[error] += 1
 
-          def check_answer() -> tuple[bool, str] | tuple[None, None]:
-            wrong_answer_message = None
-            if check_formatting:
-              check_length(expected, observed, "Wrong answer: expected %1% line(s), found %2%\n\n")
+          if calculate_memory_usage_and_execution_time_bool:
+            def checker_log(error, err_num: str, solution_resources: str, message: str) -> None:
+              if solution_resources == error:
+                save_error(error, err_num, message)
+                if error == "Runtime error":
+                  raise InterruptedError
 
-            def compare_values(expected_value, observed_value, line, column) -> bool:
-              """
-              Compare two values only
-              """
-              if is_number(expected_value) and is_number(observed_value):
-                num1 = float(expected_value)
-                num2 = float(observed_value)
-                equal = isclose(num1, num2, rel_tol=1.5E-5 + 1E-15)
-                numbers_or_words = 'numbers'
-              else:
-                equal = expected_value == observed_value
-                numbers_or_words = 'words'
+              elif error == "Time limit exceeded":
+                time_taken_test = float(solution_resources[:solution_resources.find(" ")])
+                if time_taken_test > self.time_limit_seconds_number * 1000:
+                  save_error()
 
-              wrong_answer_message = None
-              if not equal:
-                wrong_answer_message = wrong_answer_verdict(
-                  line,
-                  column,
-                  numbers_or_words,
-                  expected_value,
-                  observed_value
-                )
-                return False, wrong_answer_message
-              return True, wrong_answer_message
-
-            equal = False
-
-            if check_formatting:
-              for line_number, line_values in enumerate(zip(expected, observed)):
-                expected_line = line_values[0].split(' ')
-                observed_line = line_values[1].split(' ')
-                check_length(
-                  expected_line,
-                  observed_line,
-                  f"Wrong answer: {line_number + 1}{english_ending(line_number + 1)} line, "
-                  "expected %1% value(s), found %2%\n\n"
-                )
-                for column_number, column_value in enumerate(zip(expected_line, observed_line)):
-                  # column_value[0] is the exepected value and column_value[1] is the observed value
-                  equal, wrong_answer_message = compare_values(
-                    column_value[0],
-                    column_value[1],
-                    line_number + 1,
-                    column_number + 1
-                  )
-                  if not equal:
-                    return equal, wrong_answer_message
-
-            else:
-              data = [[], []]
-              if len(observed) == 0 and len(expected) > 0:
-                equal, wrong_answer_message = compare_values(expected[0].split(" ")[0], '', 0, 1)
-
-              for line_number, line_values in enumerate(zip(expected, observed)):
-                expected_line = line_values[0].split(' ')
-                observed_line = line_values[1].split(' ')
-                data[0].extend(expected_line)
-                data[1].extend(observed_line)
-
-              remove_empty_strings(data[0])
-              remove_empty_strings(data[1])
-
-              if len(data[0]) != len(data[1]):
-                length = check_length(
-                  data[0],
-                  data[1],
-                  "Wrong answer: expected %1% value(s), found %2%\n\n",
-                  False
-                )
-                if isinstance(length, str):
-                  return False, length
-              for column_num, output in enumerate(zip(data[0], data[1])):
-                equal, wrong_answer_message = compare_values(output[0], output[1], 0, column_num + 1)
-                if not equal:
-                  return equal, wrong_answer_message
-
-            # End of check_answer() function
-            return True, None
-
-          try:
-            equal, wrong_answer_message = check_answer()
-          except InterruptedError as err:
-            if self._fwrong is None:
-              self._fwrong = colored_text(
-                f"Formatting error on test {i + 1}",
-                one_color="error 1",
-                return_statement=True
-              )
-
-            checker_log_list[i] += err
-            verdict[i] = (
-              f"Test case {i+1}",
-              colored_text(
-                "Formatting error",
-                one_color="error 4",
-                return_statement=True,
-              )
+            errors_memory_time_of_solution[i] = read_text_from_file(
+              errors_memory_time_of_solution_filenames_list[i]
             )
-            errors["Formatting error"] += 1
-            accepeted = False
-            continue
 
-          if equal:
-            verdict[i] = (
-              f"Test case {i+1}", colored_text(
-                "OK",
-                one_color="correct",
-                return_statement=True
-              )
+            checker_log(
+              "Runtime error",
+              2,
+              errors_memory_time_of_solution[i],
+              f"<error>Error:</> Can't finish executing file on test {i + 1}:\n{observed}\n"
             )
-            accepeted = accepeted and True
-
+            checker_log(
+              "Memory limit exceeded",
+              3,
+              errors_memory_time_of_solution[i],
+              f"<warning>Warning</>: The memory limit exceeded for test case {i + 1}."
+            )
+            checker_log(
+              "Time limit exceeded",
+              8,
+              errors_memory_time_of_solution[i],
+              f"<warning>Warning</>: The time limit exceeded for test case {i + 1}."
+            )
           else:
+            if exitcode != 0:
+              save_error(
+                "Runtime error", 2, f"<error>Error:</> Can't finish executing file on test {i + 1}"
+              )
+              raise InterruptedError
+
+        except InterruptedError:
+          if expected_output_bool:
             accepeted = False
-            checker_log_list[i] += wrong_answer_message
-            verdict[i] = (
-              f"Test case {i+1}", colored_text(
-                "Wrong answer",
-                one_color="wrong",
-                return_statement=True
-              )
-            )
-            errors["Wrong answer"] += 1
-            if self._fwrong is None:
-              self._fwrong = colored_text(
-                f"Wrong answer on test {i + 1}",
-                one_color="error 1",
-                return_statement=True
+          save_first_error("Runtime error", i + 1)
+          checker_log_list[i] += f"Exit code is {exitcode}"
+          continue
+
+        # If there are no runtime errors
+        else:
+          if expected_output_bool:
+            #* Compare the results if the output is an integer or a string
+            # =========================================================================================
+            observed_len = 0
+            for line in observed:
+              observed_len += 1 if line else 0
+            if len(expected) > 0 and observed_len == 0:
+              colored_text(
+                "No output was generated",
+                one_color="error",
+                exit_code_after_print_statement=1
               )
 
-    # =============================================================================================
+            if expected_without_nl == observed_without_nl:
+              accepeted = save_ok_test(verdict, i, accepeted)
+              checker_log_list[i] += "ok"
+          # ===========================================================================================
 
-    # Results
-    def print_results(verdict, errors_memory_time: list[str]) -> None:
+
+            # In case of wrong answer and results are floating point numbers
+            # =========================================================================================
+            else:
+              def check_length(line1, line2, message, err = True) -> bool | str | None:
+                if (line1_length:=len(line1)) != (line2_length:=len(line2)):
+                  message = message.replace('%1%', str(line1_length)).replace('%2%', str(line2_length))
+                  if line1_length > 1:
+                    message = message.replace("(s)", 's')
+                  else:
+                    message = message.replace("(s)", '')
+                  if not err:
+                    return message
+                  raise InterruptedError(message)
+                return True
+
+              def check_answer() -> tuple[bool, str] | tuple[None, None]:
+                wrong_answer_message = None
+                if check_formatting:
+                  check_length(expected, observed, "Wrong answer: expected %1% line(s), found %2%\n\n")
+
+                def compare_values(expected_value, observed_value, line, column) -> bool:
+                  """
+                  Compare two values only
+                  """
+                  if is_number(expected_value) and is_number(observed_value):
+                    num1 = float(expected_value)
+                    num2 = float(observed_value)
+                    equal = isclose(num1, num2, rel_tol=1.5E-5 + 1E-15)
+                    numbers_or_words = 'numbers'
+                  else:
+                    equal = expected_value == observed_value
+                    numbers_or_words = 'words'
+
+                  wrong_answer_message = None
+                  if not equal:
+                    wrong_answer_message = wrong_answer_verdict(
+                      line,
+                      column,
+                      numbers_or_words,
+                      expected_value,
+                      observed_value
+                    )
+                    return False, wrong_answer_message
+                  return True, wrong_answer_message
+
+                equal = False
+
+                if check_formatting:
+                  for line_number, line_values in enumerate(zip(expected, observed)):
+                    expected_line = line_values[0].split(' ')
+                    observed_line = line_values[1].split(' ')
+                    check_length(
+                      expected_line,
+                      observed_line,
+                      f"Wrong answer: {line_number + 1}{english_ending(line_number + 1)} line, "
+                      "expected %1% value(s), found %2%\n\n"
+                    )
+                    for column_number, column_value in enumerate(zip(expected_line, observed_line)):
+                      # column_value[0] is the exepected value and column_value[1] is the observed value
+                      equal, wrong_answer_message = compare_values(
+                        column_value[0],
+                        column_value[1],
+                        line_number + 1,
+                        column_number + 1
+                      )
+                      if not equal:
+                        return equal, wrong_answer_message
+
+                else:
+                  data = [[], []]
+                  if len(observed) == 0 and len(expected) > 0:
+                    equal, wrong_answer_message = compare_values(expected[0].split(" ")[0], '', 0, 1)
+
+                  for line_number, line_values in enumerate(zip(expected, observed)):
+                    expected_line = line_values[0].split(' ')
+                    observed_line = line_values[1].split(' ')
+                    data[0].extend(expected_line)
+                    data[1].extend(observed_line)
+
+                  remove_empty_strings(data[0])
+                  remove_empty_strings(data[1])
+
+                  if len(data[0]) != len(data[1]):
+                    length = check_length(
+                      data[0],
+                      data[1],
+                      "Wrong answer: expected %1% value(s), found %2%\n\n",
+                      False
+                    )
+                    if isinstance(length, str):
+                      return False, length
+                  for column_num, output in enumerate(zip(data[0], data[1])):
+                    equal, wrong_answer_message = compare_values(output[0], output[1], 0, column_num + 1)
+                    if not equal:
+                      return equal, wrong_answer_message
+
+                # End of check_answer() function
+                return True, None
+
+
+              del expected_without_nl
+              del observed_without_nl
+              def remove_empty_strings(data: list):
+                while data[-1] == "":
+                  data.pop()
+
+              remove_empty_strings(expected)
+              remove_empty_strings(observed)
+
+              try:
+                equal, wrong_answer_message = check_answer()
+              except InterruptedError as err:
+                if self._fwrong is None:
+                  self._fwrong = colored_text(
+                    f"Formatting error on test {i + 1}",
+                    one_color="error 1",
+                    return_statement=True
+                  )
+
+                accepeted = False
+                verdict[i] = colored_text("Formatting error", one_color="error 4",return_statement=True)
+                checker_log_list[i] += err
+                errors["Formatting error"] += 1
+                save_first_error("Formatting error", i + 1)
+                continue
+
+              if equal:
+                accepeted = save_ok_test(verdict, i, accepeted)
+                checker_log_list[i] += "ok"
+
+              else:
+                accepeted = False
+                verdict[i] = colored_text("Wrong answer", one_color="wrong", return_statement=True)
+                checker_log_list[i] += wrong_answer_message
+                errors["Wrong answer"] += 1
+                save_first_error("Wrong answer", i + 1)
+            # =========================================================================================
+
+
+          # =============================================================================================
+
+      if expected_output_bool:
+        return accepeted, verdict, checker_log_list, errors_memory_time_of_solution, participant_output_filenames_list, errors_memory_time_of_solution_filenames_list
+      else:
+        return checker_log_list, errors_memory_time_of_solution, participant_output_filenames_list, errors_memory_time_of_solution_filenames_list
+
+
+    def validate_custom_samples(
+        input_samples: list[str],
+        output_samples: list[str],
+        input_samples_without_expected_output: list[str],
+        length
+    ):
+        ok = True
+        for i in range(length):
+          try:
+            output_samples.index(f"{output_extension_file}{input_samples[i][len(input_extension_file):]}")
+          except ValueError:
+            input_samples_without_expected_output.append(input_samples.pop(i))
+            ok = False
+        return ok
+
+    custom_input_samples_num = len(self._custom_input_samples)
+    input_samples_without_expected_output = []
+    expected_output_bool = validate_custom_samples(self._custom_input_samples, self._expected_custom_output_samples, input_samples_without_expected_output, custom_input_samples_num)
+
+    accepeted, verdict, checker_log_list, errors_memory_time_of_solution, participant_output_filenames_list, errors_memory_time_of_solution_filenames_list = test_solution_against_samples(self._input_samples + self._custom_input_samples, self._expected_output_samples + self._expected_custom_output_samples)
+
+    if not expected_output_bool:
+      checker_log_list_custom, errors_memory_time_of_solution_custom, participant_output_filenames_list_custom, errors_memory_time_of_solution_filenames_list_custom = test_solution_against_samples(input_samples_without_expected_output, None, False)
+
+
+    # Finished testing the solution
+    def print_results() -> None:
+
+      input_samples_num = len(self._input_samples)
+
       if calculate_memory_usage_and_execution_time_bool:
-        def extract_list(solution_resources) -> tuple[list[float], list[float]]:
+        def extract_list(solution_resources: list[str]) -> tuple[list[float], list[float]]:
           memory = [None] * len(solution_resources)
           time = [None] * len(solution_resources)
           for i, resources in enumerate(solution_resources):
@@ -872,78 +943,71 @@ class Problem:
             # e.g. of memory item: [(123.4, "MB")]
             memory[i] = round(float(resources[1][:pos_space]), 3), resources[1][pos_space+1:]
           return memory, time
-        
-        memory, time = extract_list(errors_memory_time)
-        # Add extra space to equal between MB, KB and B units
-        max_length_time = len(str(max(time, key=lambda x: len(str(x)))))
-        max_length_memory = len(str(max(memory, key=lambda x: len(str(x[0])))[0]))
-      if verbose:
+
+        memory, time = extract_list(errors_memory_time_of_solution)
+
         for i, verdict_response in enumerate(verdict):
-          if memory[0] != "Compilation error" and calculate_memory_usage_and_execution_time_bool:
+          colored_text(
+            "\n" + '\n' * (i > 0) + f"Test case {i + 1}" + ((" (Custom '" + self._custom_input_samples[i - input_samples_num] + "'),") if i >= input_samples_num else ','),
+            f"time: <values>{time[i]} ms</>,",
+            f"memory: <values_1>{memory[i][0]} <values_1>{memory[i][1]}</>,",
+            f"verdict: {verdict_response}"
+          )
+          print(checker_log_list[i] * verbose)
+
+        if not expected_output_bool:
+          memory, time = extract_list(errors_memory_time_of_solution_custom)
+          x = 0
+          custom_input_samples_num = len(self._custom_input_samples)
+          for i in range(input_samples_num + custom_input_samples_num, input_samples_num + custom_input_samples_num + len(input_samples_without_expected_output)):
             colored_text(
-              f"{verdict_response[0]}{' (Custom)' if custom_input[i] else ''},",
+              "\n" + '\n' * (i > 0) + f"Test case {i + 1} (Custom '" + input_samples_without_expected_output[i - (input_samples_num + custom_input_samples_num)] + "'),",
               f"time: <values>{time[i]} ms</>,",
-              f"memory: <values_1>{memory[i][0]}</> <values_1>{memory[i][1]}</>,",
-              f"verdict: {verdict_response[1]}"
+              f"memory: <values_1>{memory[i][0]} <values_1>{memory[i][1]}</>,",
             )
-            print(checker_log_list[i])
+            print(checker_log_list_custom[x] * verbose)
+            x += 1
 
-          elif memory[0] != "Compilation error" and not calculate_memory_usage_and_execution_time_bool:
-            colored_text(
-              f"{verdict_response[0]}{' (Custom)' if custom_input[i] else ''},",
-              f"verdict: {verdict_response[1]}"
-            )
-            print(checker_log_list[i])
-
-          elif memory[0] == "Compilation error" and calculate_memory_usage_and_execution_time_bool:
-            print(f"{verdict_response[0]}, time: 0s, memory: 0B, verdict: Compilation error")
-
-          else:
-            print(f"{verdict_response[0]}, verdict: Compilation error")
       else:
-        if calculate_memory_usage_and_execution_time_bool:
-          i = 0
-          test = False
-          while not test and i < len(memory):
-            test = memory[i][1] != "B"
-            i = i + 1
-
         for i, verdict_response in enumerate(verdict):
-          if memory[0] != "Compilation error" and calculate_memory_usage_and_execution_time_bool:
+          colored_text(
+            "\n" + '\n' * (i > 0) + f"Test case {i + 1}" + ((" (Custom '" + self._custom_input_samples[i - input_samples_num] + "'),") if i >= input_samples_num else ','),
+            f"verdict: {verdict_response}"
+          )
+          print(checker_log_list[i] * verbose)
+
+        if not expected_output_bool:
+          x = 0
+          custom_input_samples_num = len(self._custom_input_samples)
+          for i in range(input_samples_num + custom_input_samples_num, input_samples_num + custom_input_samples_num + len(input_samples_without_expected_output)):
             colored_text(
-              f"{verdict_response[0]},",
-              f"time: <values>{time[i]}{' ' * (max_length_time - len(str(time[i])))} ms</>,",
-              f"memory: <values_1>{memory[i][0]}</>"
-              f"{' ' * (max_length_memory - len(str(memory[i][0])))}",
-              f"{' ' if test and memory[i][1] == 'B' else ''}<values_1>{memory[i][1]}</>,",
-              f"verdict: {verdict_response[1]}"
+              "\n" + '\n' * (i > 0) + f"<color_red>Test case</> {i + 1} (Custom '" + input_samples_without_expected_output[i - (input_samples_num + custom_input_samples_num)] + "')",
             )
+            print(checker_log_list_custom[x] * verbose)
+            x += 1
 
-          elif memory[0] != "Compilation error" and not calculate_memory_usage_and_execution_time_bool:
-            colored_text(
-              f"{verdict_response[0]},",
-              f"verdict: {verdict_response[1]}"
-            )
+    def augment_errors(errors: dict, test_results_errors_dict: dict):
+      for err in errors.keys():
+        if test_results_errors_dict.get(err) is not None:
+          test_results_errors_dict[err] += errors[err]
+        else:
+          test_results_errors_dict[err] = errors[err]
 
-          elif memory[0] == "Compilation error" and calculate_memory_usage_and_execution_time_bool:
-            print(f"{verdict_response[0]}, time: 0s, memory: 0B, verdict: Compilation error")
-
-          else:
-            print(f"{verdict_response[0]}, verdict: Compilation error")
 
     test_results_file_path = os.path.join(resources_folder, "test_samples_results.json")
     test_results: dict = read_json_file(test_results_file_path)
-
     # If solution get accepted
     if accepeted:
-      colored_text("Demo accepeted", one_color="accepted")
-      print_results(verdict, errors_memory_time_of_solution)
+      colored_text("\nDemo accepeted", one_color="accepted")
+      print_results()
+
+      # Saving test results
+      # ========================================================================
       if test_results["unsolved_problems"].get(self.problem_index) is not None:
         test_results["demo_accepted"][
           self.problem_index] = test_results["unsolved_problems"].pop(self.problem_index)
         test_results["demo_accepted"][self.problem_index]["timestamp"] = datetime.now(
           ).strftime("%Y-%m-%d %H:%M:%S")
-        write_json_file(test_results, test_results_file_path, 2)
 
       elif test_results["demo_accepted"].get(self.problem_index) is None:
         test_results["demo_accepted"][self.problem_index] = {}
@@ -951,16 +1015,17 @@ class Problem:
         test_results["demo_accepted"][self.problem_index]["programming_language"] = programming_language
         test_results["demo_accepted"][self.problem_index]["timestamp"] = datetime.now(
           ).strftime("%Y-%m-%d %H:%M:%S")
-        if test_results["unsolved_problems"].get(self.problem_index) is None:
-          test_results["demo_accepted"][self.problem_index]["errors"] = errors
-        else:
-          test_results["demo_accepted"][self.problem_index]["errors"] = test_results[
-            "unsolved_problems"][self.problem_index]["errors"]
-        write_json_file(test_results, test_results_file_path, 2)
+        test_results["demo_accepted"][self.problem_index]["errors"] = errors
+      # ========================================================================
 
       else:
-        print("You have already solved this problem!")
+        print("\nYou have already solved this problem!")
+        augment_errors(errors, test_results["demo_accepted"][self.problem_index]["errors"])
 
+      write_json_file(test_results, test_results_file_path, 2)
+
+      # Removing test samples files
+      # =========================================================
       if remove_samples_output_files_if_demo_accepted:
         def remove_files(file_list) -> None:
           for file in file_list:
@@ -972,17 +1037,20 @@ class Problem:
 
         remove_files(self._input_samples)
         remove_files(self._expected_output_samples)
-        remove_files(output_filenames_list)
+        remove_files(participant_output_filenames_list)
         remove_files(errors_memory_time_of_solution_filenames_list)
+        if not expected_output_bool:
+          remove_files(errors_memory_time_of_solution_filenames_list_custom)
+          remove_files(participant_output_filenames_list_custom)
+      # =========================================================
 
-    # If solution is not correct whether the verdict output wrong answer or an error
+    #* The solution is not correct, whether the verdict outputs 'wrong answer' or an error
     else:
-      print(f"\nVerdict:\n{self._fwrong}\n")
-      print_results(verdict, errors_memory_time_of_solution)
+      print(f"\n{self._fwrong}")
+      print_results()
 
       if test_results["demo_accepted"].get(self.problem_index) is not None:
-        for key in test_results["demo_accepted"][self.problem_index]["errors"].keys():
-          test_results["demo_accepted"][self.problem_index]["errors"][key] += errors[key]
+        augment_errors(errors, test_results["demo_accepted"][self.problem_index]["errors"])
 
       elif test_results["unsolved_problems"].get(self.problem_index) is None:
         test_results["unsolved_problems"][self.problem_index] = {}
@@ -993,42 +1061,14 @@ class Problem:
         test_results["unsolved_problems"][self.problem_index]["errors"] = errors
 
       else:
-        for key in test_results["unsolved_problems"][self.problem_index]["errors"].keys():
-          test_results["unsolved_problems"][self.problem_index]["errors"][key] += errors[key]
+        augment_errors(errors, test_results["unsolved_problems"][self.problem_index]["errors"])
 
       write_json_file(test_results, test_results_file_path, 2)
 
-    # TODO: This condition is not completed
-    # if working_in_script and not stop_program:
-    #   print(code)
-    #   print(f"{line_number = }")
-    #   print(code[line_number:])
-    #   print(any(code[line_number:]))
-    #   print(working_in_script, any(code[line_number:]))
-    #   if working_in_script and any(code[line_number:]):
-    #     print(os.getcwd())
-    #     with open("cfkit_finish_program.py", 'w', encoding="UTF-8") as file:
-    #       file.writelines(code[line_number:])
-
-    #     create_file_folder("cfkit_empty_input_test.in", 'f', True)
-    #     try:
-    #       process = run(
-    #         f"{python_command} cfkit_finish_program.py < cfkit_empty_input_test.in",
-    #         check=True,
-    #         shell=True,
-    #         stdout=PIPE,
-    #         stderr=PIPE,
-    #         text=True
-    #       )
-    #       if len(process.stderr) != 0 or len(process.stdout) != 0:
-    #         if not confirm("Finish executing the program", False):
-    #           sys.exit(1)
-
-    #     except CalledProcessError as err:
-    #       colored_text(f"<error>Error:</> {err}")
-
-    #     os.remove("cfkit_empty_input_test.in")
-    #     os.remove("cfkit_finish_program.py")
+    if working_in_script:
+      os.remove("cfkit_module_user_code.py")
+      if stop_program:
+        sys.exit(0)
 
 if __name__ == "__main__":
   # problem_one = Problem("1882C")

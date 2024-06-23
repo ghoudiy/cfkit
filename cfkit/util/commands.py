@@ -34,11 +34,11 @@ def execute_file(
   run_command = run_command.replace("%%{dir_name}%%", path.dirname(input_path))
   
   try:
-    returncode = run(run_command, shell=True, check=True).returncode
+    exitcode = run(run_command, shell=True, check=True).returncode
   except CalledProcessError as err:
-    returncode = err.returncode
+    exitcode = err.returncode
   finally:
-    return returncode
+    return exitcode
 
   # def target():
   #   run(run_command, shell=True, check=True)
