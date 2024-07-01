@@ -1,6 +1,5 @@
 """
 cfkit Documentation
 """
-# from cfkit.problem import Problem
-# from cfkit.contest import Contest
-# print("Hello, World!")
+# from cfkit.src.problem import Problem
+# from cfkit.src.contest import Contest

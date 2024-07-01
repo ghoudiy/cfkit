@@ -1,0 +1,491 @@
+Codeforces Round 103 (Div. 2)
+
+
+A. Arrival of the General
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+A Ministry for Defense sent a general to inspect the Super Secret Military Squad under the command of the Colonel SuperDuper. Having learned the news, the colonel ordered to all
+n
+squad soldiers to line up on the parade ground.
+By the military charter the soldiers should stand in the order of non-increasing of their height. But as there's virtually no time to do that, the soldiers lined up in the arbitrary order. However, the general is rather short-sighted and he thinks that the soldiers lined up correctly if the first soldier in the line has the maximum height and the last soldier has the minimum height. Please note that the way other solders are positioned does not matter, including the case when there are several soldiers whose height is maximum or minimum. Only the heights of the
+first
+and the
+last
+soldier are important.
+For example, the general considers the sequence of heights
+(4, 3, 4, 2, 1, 1)
+correct and the sequence
+(4, 3, 1, 2, 2)
+wrong.
+Within one second the colonel can swap any two neighboring soldiers. Help him count the minimum time needed to form a line-up which the general will consider correct.
+Input
+The first input line contains the only integer
+n
+(
+2 ≤
+n
+≤ 100
+) which represents the number of soldiers in the line. The second line contains integers
+a
+1
+,
+a
+2
+, ...,
+a
+n
+(
+1 ≤
+a
+i
+≤ 100
+) the values of the soldiers' heights in the order of soldiers' heights' increasing in the order from the beginning of the line to its end. The numbers are space-separated. Numbers
+a
+1
+,
+a
+2
+, ...,
+a
+n
+are not necessarily different.
+Output
+Print the only integer — the minimum number of seconds the colonel will need to form a line-up the general will like.
+Examples
+Input
+4
+33 44 11 22
+Output
+2
+Input
+7
+10 10 58 31 63 40 76
+Output
+10
+----------------------------------------------------------------------------------------------------
+B. Meeting
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+The Super Duper Secret Meeting of the Super Duper Secret Military Squad takes place in a Super Duper Secret Place. The place is an infinite plane with introduced Cartesian coordinate system. The meeting table is represented as a rectangle whose sides are parallel to the coordinate axes and whose vertexes are located at the integer points of the plane. At each integer point which belongs to the table perimeter there is a chair in which a general sits.
+Some points on the plane contain radiators for the generals not to freeze in winter. Each radiator is characterized by the number
+r
+i
+— the radius of the area this radiator can heat. That is, if the distance between some general and the given radiator is less than or equal to
+r
+i
+, than the general feels comfortable and warm. Here distance is defined as Euclidean distance, so the distance between points
+(
+x
+1
+,
+y
+1
+)
+and
+(
+x
+2
+,
+y
+2
+)
+is
+Each general who is located outside the radiators' heating area can get sick. Thus, you should bring him a warm blanket. Your task is to count the number of warm blankets you should bring to the Super Duper Secret Place.
+The generals who are already comfortable do not need a blanket. Also the generals never overheat, ever if they are located in the heating area of several radiators. The radiators can be located at any integer points on the plane, even inside the rectangle (under the table) or on the perimeter (directly under some general). Even in this case their radius does not change.
+Input
+The first input line contains coordinates of two opposite table corners
+x
+a
+,
+y
+a
+,
+x
+b
+,
+y
+b
+(
+x
+a
+≠
+x
+b
+,
+y
+a
+≠
+y
+b
+)
+. The second line contains integer
+n
+— the number of radiators (
+1 ≤
+n
+≤ 10
+3
+). Then
+n
+lines contain the heaters' coordinates as "
+x
+i
+y
+i
+r
+i
+", the numbers are separated by spaces. All input data numbers are integers. The absolute value of all coordinates does not exceed
+1000
+,
+1 ≤
+r
+i
+≤ 1000
+. Several radiators can be located at the same point.
+Output
+Print the only number — the number of blankets you should bring.
+Examples
+Input
+2 5 4 2
+3
+3 1 2
+5 3 1
+1 3 2
+Output
+4
+Input
+5 2 6 3
+2
+6 2 2
+6 5 3
+Output
+0
+----------------------------------------------------------------------------------------------------
+C. Anagram Search
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+A string
+t
+is called an
+anagram
+of the string
+s
+, if it is possible to rearrange letters in
+t
+so that it is identical to the string
+s
+. For example, the string "
+aab
+" is an anagram of the string "
+aba
+" and the string "
+aaa
+" is not.
+The string
+t
+is called a
+substring
+of the string
+s
+if it can be read starting from some position in the string
+s
+. For example, the string "
+aba
+" has six substrings: "
+a
+", "
+b
+", "
+a
+", "
+ab
+", "
+ba
+", "
+aba
+".
+You are given a string
+s
+, consisting of lowercase Latin letters and characters "
+?
+". You are also given a string
+p
+, consisting of lowercase Latin letters only. Let's assume that a string is
+good
+if you can obtain an anagram of the string
+p
+from it, replacing the "
+?
+" characters by Latin letters. Each "
+?
+" can be replaced by exactly one character of the Latin alphabet. For example, if the string
+p
+= «
+aba
+», then the string "
+a??
+" is good, and the string «
+?bc
+» is not.
+Your task is to find the number of good substrings of the string
+s
+(identical substrings must be counted in the answer several times).
+Input
+The first line is non-empty string
+s
+, consisting of no more than
+10
+5
+lowercase Latin letters and characters "
+?
+". The second line is non-empty string
+p
+, consisting of no more than
+10
+5
+lowercase Latin letters. Please note that the length of the string
+p
+can exceed the length of the string
+s
+.
+Output
+Print the single number representing the number of good substrings of string
+s
+.
+Two substrings are considered different in their positions of occurrence are different. Thus, if some string occurs several times, then it should be counted the same number of times.
+Examples
+Input
+bb??x???
+aab
+Output
+2
+Input
+ab?c
+acb
+Output
+2
+----------------------------------------------------------------------------------------------------
+D. Missile Silos
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+A country called Berland consists of
+n
+cities, numbered with integer numbers from
+1
+to
+n
+. Some of them are connected by bidirectional roads. Each road has some length. There is a path from each city to any other one by these roads. According to some Super Duper Documents, Berland is protected by the Super Duper Missiles. The exact position of the Super Duper Secret Missile Silos is kept secret but Bob managed to get hold of the information. That information says that all silos are located exactly at a distance
+l
+from the capital. The capital is located in the city with number
+s
+.
+The documents give the formal definition: the Super Duper Secret Missile Silo is located at some place (which is either city or a point on a road) if and only if the shortest distance from this place to the capital along the roads of the country equals exactly
+l
+.
+Bob wants to know how many missile silos are located in Berland to sell the information then to enemy spies. Help Bob.
+Input
+The first line contains three integers
+n
+,
+m
+and
+s
+(
+2 ≤
+n
+≤ 10
+5
+,
+,
+1 ≤
+s
+≤
+n
+) — the number of cities, the number of roads in the country and the number of the capital, correspondingly. Capital is the city no.
+s
+.
+Then
+m
+lines contain the descriptions of roads. Each of them is described by three integers
+v
+i
+,
+u
+i
+,
+w
+i
+(
+1 ≤
+v
+i
+,
+u
+i
+≤
+n
+,
+v
+i
+≠
+u
+i
+,
+1 ≤
+w
+i
+≤ 1000
+), where
+v
+i
+,
+u
+i
+are numbers of the cities connected by this road and
+w
+i
+is its length. The last input line contains integer
+l
+(
+0 ≤
+l
+≤ 10
+9
+) — the distance from the capital to the missile silos. It is guaranteed that:
+between any two cities no more than one road exists;
+each road connects two different cities;
+from each city there is at least one way to any other city by the roads.
+Output
+Print the single number — the number of Super Duper Secret Missile Silos that are located in Berland.
+Examples
+Input
+4 6 1
+1 2 1
+1 3 3
+2 3 1
+2 4 1
+3 4 1
+1 4 2
+2
+Output
+3
+Input
+5 6 3
+3 1 1
+3 2 1
+3 4 1
+3 5 1
+1 2 6
+4 5 8
+4
+Output
+3
+----------------------------------------------------------------------------------------------------
+E. Competition
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+The secondary diagonal of a square matrix is a diagonal going from the top right to the bottom left corner. Let's define an
+n
+-degree
+staircase
+as a square matrix
+n
+×
+n
+containing no squares above the secondary diagonal (the picture below shows a 5-degree staircase).
+The squares of the
+n
+-degree staircase contain
+m
+sportsmen.
+A sportsman needs one second to move to a side-neighboring square of the staircase. Before the beginning of the competition each sportsman must choose one of the shortest ways to the secondary diagonal.
+After the starting whistle the competition begins and all sportsmen start moving along the chosen paths. When a sportsman reaches a cell of the secondary diagonal, he stops and moves no more. The competition ends when all sportsmen reach the secondary diagonal. The competition is considered successful if during it no two sportsmen were present in the same square simultaneously. Any square belonging to the secondary diagonal also cannot contain more than one sportsman. If a sportsman at the given moment of time leaves a square and another sportsman comes to it, then they are not considered to occupy the same square simultaneously. Note that other extreme cases (for example, two sportsmen moving towards each other) are impossible as the chosen ways are the shortest ones.
+You are given positions of
+m
+sportsmen on the staircase. Your task is to choose among them the maximum number of sportsmen for who the competition can be successful, that is, so that there existed such choice of shortest ways for the sportsmen at which no two sportsmen find themselves in the same square simultaneously. All other sportsmen that are not chosen will be removed from the staircase before the competition starts.
+Input
+The first line contains two integers
+n
+and
+m
+(
+1 ≤
+n
+,
+m
+≤ 10
+5
+). Then
+m
+lines contain coordinates of sportsmen on the staircase as pairs of integers
+r
+i
+,
+c
+i
+(
+1 ≤
+r
+i
+,
+c
+i
+≤
+n
+,
+n
+-
+c
+i
+<
+r
+i
+), where
+r
+i
+is the number of the staircase row,
+c
+i
+is the number of the staircase column (to understand the principle of numbering rows and columns see the explanatory pictures). No two sportsmen stand on the same square of the staircase.
+Output
+In the first line print the number of the chosen sportsmen. In the second line print the numbers of chosen sportsmen in any order, separating the numbers with spaces. If there are several answers, you are permitted to print any of them. The sportsmen are numbered starting from one in the order in which they are given in the input data.
+Examples
+Input
+3 3
+2 3
+3 2
+3 3
+Output
+3
+1 2 3
+----------------------------------------------------------------------------------------------------

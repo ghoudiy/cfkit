@@ -1,0 +1,447 @@
+Codeforces Beta Round 84 (Div. 2 Only)
+
+
+A. Nearly Lucky Number
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits
+4
+and
+7
+. For example, numbers
+47
+,
+744
+,
+4
+are lucky and
+5
+,
+17
+,
+467
+are not.
+Unfortunately, not all numbers are lucky. Petya calls a number
+nearly lucky
+if the number of lucky digits in it is a lucky number. He wonders whether number
+n
+is a nearly lucky number.
+Input
+The only line contains an integer
+n
+(
+1 ≤
+n
+≤ 10
+18
+).
+Please do not use the %lld specificator to read or write 64-bit numbers in С++. It is preferred to use the cin, cout streams or the %I64d specificator.
+Output
+Print on the single line "
+YES
+" if
+n
+is a nearly lucky number. Otherwise, print "
+NO
+" (without the quotes).
+Examples
+Input
+40047
+Output
+NO
+Input
+7747774
+Output
+YES
+Input
+1000000000000000000
+Output
+NO
+----------------------------------------------------------------------------------------------------
+B. Lucky String
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits
+4
+and
+7
+. For example, numbers
+47
+,
+744
+,
+4
+are lucky and
+5
+,
+17
+,
+467
+are not.
+Petya recently learned to determine whether a string of lowercase Latin letters is lucky. For each individual letter all its positions in the string are written out in the increasing order. This results in
+26
+lists of numbers; some of them can be empty. A string is considered lucky if and only if in each list the absolute difference of any two
+adjacent
+numbers is a lucky number.
+For example, let's consider string "
+zbcdzefdzc
+". The lists of positions of equal letters are:
+b
+:
+2
+c
+:
+3, 10
+d
+:
+4, 8
+e
+:
+6
+f
+:
+7
+z
+:
+1, 5, 9
+Lists of positions of letters
+a
+,
+g
+,
+h
+, ...,
+y
+are empty.
+This string is lucky as all differences are lucky numbers. For letters
+z
+:
+5 - 1 = 4
+,
+9 - 5 = 4
+, for letters
+c
+:
+10 - 3 = 7
+, for letters
+d
+:
+8 - 4 = 4
+.
+Note that if some letter occurs only once in a string, it doesn't influence the string's luckiness after building the lists of positions of equal letters. The string where all the letters are distinct is considered lucky.
+Find the lexicographically minimal lucky string whose length equals
+n
+.
+Input
+The single line contains a positive integer
+n
+(
+1 ≤
+n
+≤ 10
+5
+) — the length of the sought string.
+Output
+Print on the single line the lexicographically minimal lucky string whose length equals
+n
+.
+Examples
+Input
+5
+Output
+abcda
+Input
+3
+Output
+abc
+----------------------------------------------------------------------------------------------------
+C. Lucky Sum of Digits
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits
+4
+and
+7
+. For example, numbers
+47
+,
+744
+,
+4
+are lucky and
+5
+,
+17
+,
+467
+are not.
+Petya wonders eagerly what minimum lucky number has the sum of digits equal to
+n
+. Help him cope with the task.
+Input
+The single line contains an integer
+n
+(
+1 ≤
+n
+≤ 10
+6
+) — the sum of digits of the required lucky number.
+Output
+Print on the single line the result — the minimum lucky number, whose sum of digits equals
+n
+. If such number does not exist, print -1.
+Examples
+Input
+11
+Output
+47
+Input
+10
+Output
+-1
+----------------------------------------------------------------------------------------------------
+D. Lucky Probability
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits
+4
+and
+7
+. For example, numbers
+47
+,
+744
+,
+4
+are lucky and
+5
+,
+17
+,
+467
+are not.
+Petya and his friend Vasya play an interesting game. Petya randomly chooses an integer
+p
+from the interval
+[
+p
+l
+,
+p
+r
+]
+and Vasya chooses an integer
+v
+from the interval
+[
+v
+l
+,
+v
+r
+]
+(also randomly). Both players choose their integers equiprobably. Find the probability that the interval
+[
+min
+(
+v
+,
+p
+),
+max
+(
+v
+,
+p
+)]
+contains exactly
+k
+lucky numbers.
+Input
+The single line contains five integers
+p
+l
+,
+p
+r
+,
+v
+l
+,
+v
+r
+and
+k
+(
+1 ≤
+p
+l
+≤
+p
+r
+≤ 10
+9
+, 1 ≤
+v
+l
+≤
+v
+r
+≤ 10
+9
+, 1 ≤
+k
+≤ 1000
+).
+Output
+On the single line print the result with an absolute error of no more than
+10
+- 9
+.
+Examples
+Input
+1 10 1 10 2
+Output
+0.320000000000
+Input
+5 6 8 10 1
+Output
+1.000000000000
+----------------------------------------------------------------------------------------------------
+E. Lucky Tree
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Petya loves lucky numbers. We all know that lucky numbers are the positive integers whose decimal representations contain only the lucky digits
+4
+and
+7
+. For example, numbers
+47
+,
+744
+,
+4
+are lucky and
+5
+,
+17
+,
+467
+are not.
+One day Petya encountered a tree with
+n
+vertexes. Besides, the tree was weighted, i. e. each edge of the tree has weight (a positive integer). An edge is lucky if its weight is a lucky number. Note that a
+tree with
+n
+vertexes
+is an undirected connected graph that has exactly
+n
+- 1
+edges.
+Petya wondered how many vertex triples
+(
+i
+,
+j
+,
+k
+)
+exists that on the way from
+i
+to
+j
+, as well as on the way from
+i
+to
+k
+there must be at least one lucky edge (all three vertexes are pairwise distinct). The order of numbers in the triple matters, that is, the triple
+(1, 2, 3)
+is not equal to the triple
+(2, 1, 3)
+and is not equal to the triple
+(1, 3, 2)
+.
+Find how many such triples of vertexes exist.
+Input
+The first line contains the single integer
+n
+(
+1 ≤
+n
+≤ 10
+5
+) — the number of tree vertexes. Next
+n
+- 1
+lines contain three integers each:
+u
+i
+v
+i
+w
+i
+(
+1 ≤
+u
+i
+,
+v
+i
+≤
+n
+, 1 ≤
+w
+i
+≤ 10
+9
+) — the pair of vertexes connected by the edge and the edge's weight.
+Output
+On the single line print the single number — the answer.
+Please do not use the %lld specificator to read or write 64-bit numbers in С++. It is recommended to use the cin, cout streams or the %I64d specificator.
+Examples
+Input
+4
+1 2 4
+3 1 2
+1 4 7
+Output
+16
+Input
+4
+1 2 4
+1 3 47
+1 4 7447
+Output
+24
+----------------------------------------------------------------------------------------------------

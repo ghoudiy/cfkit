@@ -1,0 +1,363 @@
+Codeforces Round 806 (Div. 4)
+
+
+A. YES or YES?
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+There is a string $$$s$$$ of length $$$3$$$, consisting of uppercase and lowercase English letters. Check if it is equal to "
+YES
+" (without quotes), where each letter can be in any case. For example, "
+yES
+", "
+Yes
+", "
+yes
+" are all allowable.
+Input
+The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 10^3$$$) — the number of testcases.
+The description of each test consists of one line containing one string $$$s$$$ consisting of three characters. Each character of $$$s$$$ is either an uppercase or lowercase English letter.
+Output
+For each test case, output "
+YES
+" (without quotes) if $$$s$$$ satisfies the condition, and "
+NO
+" (without quotes) otherwise.
+You can output "
+YES
+" and "
+NO
+" in any case (for example, strings "
+yES
+", "
+yes
+" and "
+Yes
+" will be recognized as a positive response).
+Example
+Input
+10
+YES
+yES
+yes
+Yes
+YeS
+Noo
+orZ
+yEz
+Yas
+XES
+Output
+YES
+YES
+YES
+YES
+YES
+NO
+NO
+NO
+NO
+NO
+----------------------------------------------------------------------------------------------------
+B. ICPC Balloons
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+In an ICPC contest, balloons are distributed as follows:
+Whenever a team solves a problem, that team gets a balloon.
+The first team to solve a problem gets an additional balloon.
+A contest has 26 problems, labelled $$$\textsf{A}$$$, $$$\textsf{B}$$$, $$$\textsf{C}$$$, ..., $$$\textsf{Z}$$$. You are given the order of solved problems in the contest, denoted as a string $$$s$$$, where the $$$i$$$-th character indicates that the problem $$$s_i$$$ has been solved by some team. No team will solve the same problem twice.
+Determine the total number of balloons that the teams received. Note that some problems may be solved by none of the teams.
+Input
+The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of testcases.
+The first line of each test case contains an integer $$$n$$$ ($$$1 \leq n \leq 50$$$) — the length of the string.
+The second line of each test case contains a string $$$s$$$ of length $$$n$$$ consisting of uppercase English letters, denoting the order of solved problems.
+Output
+For each test case, output a single integer — the total number of balloons that the teams received.
+Example
+Input
+6
+3
+ABA
+1
+A
+3
+ORZ
+5
+BAAAA
+4
+BKPT
+10
+CODEFORCES
+Output
+5
+2
+6
+7
+8
+17
+----------------------------------------------------------------------------------------------------
+C. Cypher
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+Luca has a cypher made up of a sequence of $$$n$$$ wheels, each with a digit $$$a_i$$$ written on it. On the $$$i$$$-th wheel, he made $$$b_i$$$ moves. Each move is one of two types:
+up
+move (denoted by $$$\texttt{U}$$$): it increases the $$$i$$$-th digit by $$$1$$$. After applying the up move on $$$9$$$, it becomes $$$0$$$.
+down
+move (denoted by $$$\texttt{D}$$$): it decreases the $$$i$$$-th digit by $$$1$$$. After applying the down move on $$$0$$$, it becomes $$$9$$$.
+Example for $$$n=4$$$. The current sequence is
+0 0 0 0
+.
+Luca knows the final sequence of wheels and the moves for each wheel. Help him find the original sequence and crack the cypher.
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 100$$$) — the number of wheels.
+The second line contains $$$n$$$ integers $$$a_i$$$ ($$$0 \leq a_i \leq 9$$$) — the digit shown on the $$$i$$$-th wheel after all moves have been performed.
+Then $$$n$$$ lines follow, the $$$i$$$-th of which contains the integer $$$b_i$$$ ($$$1 \leq b_i \leq 10$$$) and $$$b_i$$$ characters that are either $$$\texttt{U}$$$ or $$$\texttt{D}$$$ — the number of moves performed on the $$$i$$$-th wheel, and the moves performed. $$$\texttt{U}$$$ and $$$\texttt{D}$$$ represent an
+up
+move and a
+down
+move respectively.
+Output
+For each test case, output $$$n$$$ space-separated digits  — the initial sequence of the cypher.
+Example
+Input
+3
+3
+9 3 1
+3 DDD
+4 UDUU
+2 DU
+2
+0 9
+9 DDDDDDDDD
+9 UUUUUUUUU
+5
+0 5 9 8 3
+10 UUUUUUUUUU
+3 UUD
+8 UUDUUDDD
+10 UUDUUDUDDU
+4 UUUU
+Output
+2 1 1 
+9 0 
+0 4 9 6 9
+----------------------------------------------------------------------------------------------------
+D. Double Strings
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given $$$n$$$ strings $$$s_1, s_2, \dots, s_n$$$ of length at most $$$\mathbf{8}$$$.
+For each string $$$s_i$$$, determine if there exist two strings $$$s_j$$$ and $$$s_k$$$ such that $$$s_i = s_j + s_k$$$. That is, $$$s_i$$$ is the concatenation of $$$s_j$$$ and $$$s_k$$$. Note that $$$j$$$
+can
+be equal to $$$k$$$.
+Recall that the concatenation of strings $$$s$$$ and $$$t$$$ is $$$s + t = s_1 s_2 \dots s_p t_1 t_2 \dots t_q$$$, where $$$p$$$ and $$$q$$$ are the lengths of strings $$$s$$$ and $$$t$$$ respectively. For example, concatenation of "
+code
+" and "
+forces
+" is "
+codeforces
+".
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 10^5$$$) — the number of strings.
+Then $$$n$$$ lines follow, the $$$i$$$-th of which contains non-empty string $$$s_i$$$ of length at most $$$\mathbf{8}$$$, consisting of lowercase English letters. Among the given $$$n$$$ strings, there may be equal (duplicates).
+The sum of $$$n$$$ over all test cases doesn't exceed $$$10^5$$$.
+Output
+For each test case, output a binary string of length $$$n$$$. The $$$i$$$-th bit should be $$$\texttt{1}$$$ if there exist two strings $$$s_j$$$ and $$$s_k$$$ where $$$s_i = s_j + s_k$$$, and $$$\texttt{0}$$$ otherwise. Note that $$$j$$$ can be equal to $$$k$$$.
+Example
+Input
+3
+5
+abab
+ab
+abc
+abacb
+c
+3
+x
+xx
+xxx
+8
+codeforc
+es
+codes
+cod
+forc
+forces
+e
+code
+Output
+10100
+011
+10100101
+----------------------------------------------------------------------------------------------------
+E. Mirror Grid
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given a square grid with $$$n$$$ rows and $$$n$$$ columns. Each cell contains either $$$0$$$ or $$$1$$$.
+In an operation, you can select a cell of the grid and flip it (from $$$0 \to 1$$$ or $$$1 \to 0$$$). Find the minimum number of operations you need to obtain a square that remains the same when rotated $$$0^{\circ}$$$, $$$90^{\circ}$$$, $$$180^{\circ}$$$ and $$$270^{\circ}$$$.
+The picture below shows an example of all rotations of a grid.
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
+The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 100$$$) — the size of the grid.
+Then $$$n$$$ lines follow, each with $$$n$$$ characters $$$a_{i,j}$$$ ($$$0 \leq a_{i,j} \leq 1$$$) — the number written in each cell.
+Output
+For each test case output a single integer  — the minimum number of operations needed to make the square look the same rotated $$$0^{\circ}$$$, $$$90^{\circ}$$$, $$$180^{\circ}$$$ and $$$270^{\circ}$$$.
+Example
+Input
+5
+3
+010
+110
+010
+1
+0
+5
+11100
+11011
+01011
+10011
+11000
+5
+01000
+10101
+01010
+00010
+01001
+5
+11001
+00000
+11111
+10110
+01111
+Output
+1
+0
+9
+7
+6
+----------------------------------------------------------------------------------------------------
+F. Yet Another Problem About Pairs Satisfying an Inequality
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+You are given an array $$$a_1, a_2, \dots a_n$$$. Count the number of pairs of indices $$$1 \leq i, j \leq n$$$ such that $$$a_i < i < a_j < j$$$.
+Input
+The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
+The first line of each test case contains an integer $$$n$$$ ($$$2 \leq n \leq 2 \cdot 10^5$$$) — the length of the array.
+The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$0 \leq a_i \leq 10^9$$$) — the elements of the array.
+It is guaranteed that the sum of $$$n$$$ across all test cases does not exceed $$$2 \cdot 10^5$$$.
+Output
+For each test case, output a single integer — the number of pairs of indices satisfying the condition in the statement.
+Please note, that the answer for some test cases won't fit into 32-bit integer type, so you should use at least 64-bit integer type in your programming language (like
+long long
+for C++).
+Example
+Input
+5
+8
+1 1 2 3 8 2 1 4
+2
+1 2
+10
+0 2 1 6 3 4 1 2 8 3
+2
+1 1000000000
+3
+0 1000000000 2
+Output
+3
+0
+10
+0
+1
+----------------------------------------------------------------------------------------------------
+G. Good Key, Bad Key
+time limit per test
+3 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+There are $$$n$$$ chests. The $$$i$$$-th chest contains $$$a_i$$$ coins. You need to open all $$$n$$$ chests
+in order from chest
+$$$1$$$
+to chest
+$$$n$$$.
+There are two types of keys you can use to open a chest:
+a good key, which costs $$$k$$$ coins to use;
+a bad key, which does not cost any coins, but will halve all the coins in each unopened chest,
+including the chest it is about to open
+. The halving operation
+will round down
+to the nearest integer for each chest halved. In other words using a bad key to open chest $$$i$$$ will do $$$a_i = \lfloor{\frac{a_i}{2}\rfloor}$$$, $$$a_{i+1} = \lfloor\frac{a_{i+1}}{2}\rfloor, \dots, a_n = \lfloor \frac{a_n}{2}\rfloor$$$;
+any key (both good and bad) breaks after a usage, that is, it is a one-time use.
+You need to use in total $$$n$$$ keys, one for each chest. Initially, you have no coins and no keys. If you want to use a good key, then you need to buy it.
+During the process, you are allowed to go into debt; for example, if you have $$$1$$$ coin, you are allowed to buy a good key worth $$$k=3$$$ coins, and your balance will become $$$-2$$$ coins.
+Find the maximum number of coins you can have after opening all $$$n$$$ chests in order from chest $$$1$$$ to chest $$$n$$$.
+Input
+The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
+The first line of each test case contains two integers $$$n$$$ and $$$k$$$ ($$$1 \leq n \leq 10^5$$$; $$$0 \leq k \leq 10^9$$$) — the number of chests and the cost of a good key respectively.
+The second line of each test case contains $$$n$$$ integers $$$a_i$$$ ($$$0 \leq a_i \leq 10^9$$$)  — the amount of coins in each chest.
+The sum of $$$n$$$ over all test cases does not exceed $$$10^5$$$.
+Output
+For each test case output a single integer  — the maximum number of coins you can obtain after opening the chests in order from chest $$$1$$$ to chest $$$n$$$.
+Please note, that the answer for some test cases won't fit into 32-bit integer type, so you should use at least 64-bit integer type in your programming language (like
+long long
+for C++).
+Example
+Input
+5
+4 5
+10 10 3 1
+1 2
+1
+3 12
+10 10 29
+12 51
+5 74 89 45 18 69 67 67 11 96 23 59
+2 57
+85 60
+Output
+11
+0
+13
+60
+58
+----------------------------------------------------------------------------------------------------

@@ -1,0 +1,342 @@
+Codeforces Round 105 (Div. 2)
+
+
+A. Insomnia cure
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+«One dragon. Two dragon. Three dragon», — the princess was counting. She had trouble falling asleep, and she got bored of counting lambs when she was nine.
+However, just counting dragons was boring as well, so she entertained herself at best she could. Tonight she imagined that all dragons were here to steal her, and she was fighting them off. Every
+k
+-th dragon got punched in the face with a frying pan. Every
+l
+-th dragon got his tail shut into the balcony door. Every
+m
+-th dragon got his paws trampled with sharp heels. Finally, she threatened every
+n
+-th dragon to call her mom, and he withdrew in panic.
+How many imaginary dragons suffered moral or physical damage tonight, if the princess counted a total of
+d
+dragons?
+Input
+Input data contains integer numbers
+k
+,
+l
+,
+m
+,
+n
+and
+d
+, each number in a separate line (
+1 ≤
+k
+,
+l
+,
+m
+,
+n
+≤ 10
+,
+1 ≤
+d
+≤ 10
+5
+).
+Output
+Output the number of damaged dragons.
+Examples
+Input
+1
+2
+3
+4
+12
+Output
+12
+Input
+2
+3
+4
+5
+24
+Output
+17
+----------------------------------------------------------------------------------------------------
+B. Escape
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+The princess is going to escape the dragon's cave, and she needs to plan it carefully.
+The princess runs at
+v
+p
+miles per hour, and the dragon flies at
+v
+d
+miles per hour. The dragon will discover the escape after
+t
+hours and will chase the princess immediately. Looks like there's no chance to success, but the princess noticed that the dragon is very greedy and not too smart. To delay him, the princess decides to borrow a couple of bijous from his treasury. Once the dragon overtakes the princess, she will drop one bijou to distract him. In this case he will stop, pick up the item, return to the cave and spend
+f
+hours to straighten the things out in the treasury. Only after this will he resume the chase again from the very beginning.
+The princess is going to run on the straight. The distance between the cave and the king's castle she's aiming for is
+c
+miles. How many bijous will she need to take from the treasury to be able to reach the castle? If the dragon overtakes the princess at exactly the same moment she has reached the castle, we assume that she reached the castle before the dragon reached her, and doesn't need an extra bijou to hold him off.
+Input
+The input data contains integers
+v
+p
+,
+v
+d
+,
+t
+,
+f
+and
+c
+, one per line (
+1 ≤
+v
+p
+,
+v
+d
+≤ 100
+,
+1 ≤
+t
+,
+f
+≤ 10
+,
+1 ≤
+c
+≤ 1000
+).
+Output
+Output the minimal number of bijous required for the escape to succeed.
+Examples
+Input
+1
+2
+1
+1
+10
+Output
+2
+Input
+1
+2
+1
+1
+8
+Output
+1
+----------------------------------------------------------------------------------------------------
+C. Terse princess
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+«Next please», — the princess called and cast an estimating glance at the next groom.
+The princess intends to choose the most worthy groom, this is, the richest one. Whenever she sees a groom who is more rich than each of the previous ones, she says a measured «Oh...». Whenever the groom is richer than all previous ones added together, she exclaims «Wow!» (no «Oh...» in this case). At the sight of the first groom the princess stays calm and says nothing.
+The fortune of each groom is described with an integer between 1 and 50000. You know that during the day the princess saw
+n
+grooms, said «Oh...» exactly
+a
+times and exclaimed «Wow!» exactly
+b
+times. Your task is to output a sequence of
+n
+integers
+t
+1
+,
+t
+2
+, ...,
+t
+n
+, where
+t
+i
+describes the fortune of
+i
+-th groom. If several sequences are possible, output any of them. If no sequence exists that would satisfy all the requirements, output a single number
+-1
+.
+Input
+The only line of input data contains three integer numbers
+n
+,
+a
+and
+b
+(
+1 ≤
+n
+≤ 100, 0 ≤
+a
+,
+b
+≤ 15,
+n
+>
+a
++
+b
+), separated with single spaces.
+Output
+Output any sequence of integers
+t
+1
+,
+t
+2
+, ...,
+t
+n
+, where
+t
+i
+(
+1 ≤
+t
+i
+≤ 50000
+) is the fortune of
+i
+-th groom, that satisfies the given constraints. If no sequence exists that would satisfy all the requirements, output a single number
+-1
+.
+Examples
+Input
+10 2 3
+Output
+5 1 3 6 16 35 46 4 200 99
+Input
+5 0 0
+Output
+10 10 6 6 5
+----------------------------------------------------------------------------------------------------
+D. Bag of mice
+time limit per test
+2 seconds
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+The dragon and the princess are arguing about what to do on the New Year's Eve. The dragon suggests flying to the mountains to watch fairies dancing in the moonlight, while the princess thinks they should just go to bed early. They are desperate to come to an amicable agreement, so they decide to leave this up to chance.
+They take turns drawing a mouse from a bag which initially contains
+w
+white and
+b
+black mice. The person who is the first to draw a white mouse wins. After each mouse drawn by the dragon the rest of mice in the bag panic, and one of them jumps out of the bag itself (the princess draws her mice carefully and doesn't scare other mice).
+Princess draws first.
+What is the probability of the princess winning?
+If there are no more mice in the bag and nobody has drawn a white mouse, the dragon wins. Mice which jump out of the bag themselves are not considered to be drawn (do not define the winner). Once a mouse has left the bag, it never returns to it. Every mouse is drawn from the bag with the same probability as every other one, and every mouse jumps out of the bag with the same probability as every other one.
+Input
+The only line of input data contains two integers
+w
+and
+b
+(
+0 ≤
+w
+,
+b
+≤ 1000
+).
+Output
+Output the probability of the princess winning. The answer is considered to be correct if its absolute or relative error does not exceed
+10
+- 9
+.
+Examples
+Input
+1 3
+Output
+0.500000000
+Input
+5 5
+Output
+0.658730159
+----------------------------------------------------------------------------------------------------
+E. Porcelain
+time limit per test
+1 second
+memory limit per test
+256 megabytes
+input
+standard input
+output
+standard output
+During her tantrums the princess usually smashes some collectable porcelain. Every furious shriek is accompanied with one item smashed.
+The collection of porcelain is arranged neatly on
+n
+shelves. Within each shelf the items are placed in one row, so that one can access only the outermost items — the leftmost or the rightmost item, not the ones in the middle of the shelf. Once an item is taken, the next item on that side of the shelf can be accessed (see example). Once an item is taken, it can't be returned to the shelves.
+You are given the values of all items. Your task is to find the maximal damage the princess' tantrum of
+m
+shrieks can inflict on the collection of porcelain.
+Input
+The first line of input data contains two integers
+n
+(
+1 ≤
+n
+≤ 100
+) and
+m
+(
+1 ≤
+m
+≤ 10000
+). The next
+n
+lines contain the values of the items on the shelves: the first number gives the number of items on this shelf (an integer between
+1
+and
+100
+, inclusive), followed by the values of the items (integers between
+1
+and
+100
+, inclusive), in the order in which they appear on the shelf (the first number corresponds to the leftmost item, the last one — to the rightmost one). The total number of items is guaranteed to be at least
+m
+.
+Output
+Output the maximal total value of a tantrum of
+m
+shrieks.
+Examples
+Input
+2 3
+3 3 7 2
+3 4 1 5
+Output
+15
+Input
+1 3
+4 4 3 1 2
+Output
+9
+----------------------------------------------------------------------------------------------------
