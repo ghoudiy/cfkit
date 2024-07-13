@@ -1,0 +1,1879 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-743380-5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-743380-5');
+        </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="X-Csrf-Token" content="14c0574068102c0435d02ece2d647d0a"/>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=0.01"/>
+
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery-1.8.3.js"></script>
+    <script type="application/javascript">
+        window.locale = "en";
+        window.standaloneContest = false;
+        function adjustViewport() {
+            var screenWidthPx = Math.min($(window).width(), window.screen.width);
+            var siteWidthPx = 1100; // min width of site
+            var ratio = Math.min(screenWidthPx / siteWidthPx, 1.0);
+            var viewport = "width=device-width, initial-scale=" + ratio;
+            $('#viewport').attr('content', viewport);
+            var style = $('<style>html * { max-height: 1000000px; }</style>');
+            $('html > head').append(style);
+        }
+
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            adjustViewport();
+        }
+
+        /* Protection against trailing dot in domain. */
+        let hostLength = window.location.host.length;
+        if (hostLength > 1 && window.location.host[hostLength - 1] === '.') {
+            window.location = window.location.protocol + "//" + window.location.host.substring(0, hostLength - 1);
+        }
+    </script>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="j1">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90"/>
+    <meta property="fb:admins" content="100001352546622" />
+    <meta property="og:image" content="//codeforces.org/s/75364/images/codeforces-sponsored-by-ton.png" />
+    <link rel="image_src" href="//codeforces.org/s/75364/images/codeforces-sponsored-by-ton.png" />
+    <meta property="og:title" content="Problems - Codeforces"/>
+    <meta property="og:description" content=""/>
+    
+    <meta property="og:site_name" content="Codeforces"/>
+    
+    
+    
+    
+    
+    
+    <meta name="utc_offset" content="+03:00"/>
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2" />
+    <title>Problems - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community" />
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/font-awesome.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/line-awesome.min.css" type="text/css" charset="utf-8" />
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Cuprum&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="//codeforces.org/s/75364/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="//codeforces.org/s/75364/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="//codeforces.org/s/75364/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//codeforces.org/s/75364/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="//codeforces.org/s/75364/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//codeforces.org/s/75364/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="//codeforces.org/s/75364/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//codeforces.org/s/75364/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="//codeforces.org/s/75364/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="//codeforces.org/s/75364/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="//codeforces.org/s/75364/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//codeforces.org/s/75364/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//codeforces.org/s/75364/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="//codeforces.org/s/75364/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/prettify.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/clear.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/ttypography.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/problem-statement.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/second-level-menu.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/roundbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/datatable.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/table-form.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/topic.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/jquery.jgrowl.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/facebox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/jquery.wysiwyg.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/jquery.autocomplete.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/codeforces.datepick.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/colorbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/css/jquery.drafts.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/75364/css/community.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/75364/css/sidebar-menu.css" type="text/css" charset="utf-8" />
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$$','$$$']], displayMath: [['$$$$$$','$$$$$$']]}
+    });
+    MathJax.Hub.Register.StartupHook("End", function () {
+        Codeforces.runMathJaxListeners();
+    });
+    </script>
+    <script type="text/javascript" async
+            src="https://mathjax.codeforces.org/MathJax.js?config=TeX-AMS_HTML-full"
+    >
+    </script>
+    <!-- /MathJax -->
+
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/pushstream.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/facebox.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/controls/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/controls/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/controls/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/controls/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/jquery.drafts.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/autosize.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/sjcl.js"></script>
+    <script type="text/javascript" src="/scripts/c0fe948598678c8dbb31e2ace0fb3252/en/codeforces-options.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/codeforces.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/EventCatcher.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/preparedVerdictFormats-en.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/js/confetti.min.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="//codeforces.org/s/75364/markitup/skins/markitup/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/75364/markitup/sets/markdown/style.css" type="text/css" charset="utf-8" />
+
+
+    <script type="text/javascript" src="//codeforces.org/s/75364/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/75364/markitup/sets/markdown/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+
+
+</head>
+<body class=" "><span style='display:none;' class='csrf-token' data-csrf='14c0574068102c0435d02ece2d647d0a'>&nbsp;</span>
+
+<!-- .notificationTextCleaner used in Codeforces.showAnnouncements() -->
+<div class="notificationTextCleaner" style="font-size: 0"></div>
+<div class="button-up" style="display: none; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 3.0rem;"><i class="icon-circle-arrow-up"></i></div>
+<div class="verdictPrototypeDiv" style="display: none;"></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    };
+
+    var queryMobile = Codeforces.queryString.mobile;
+    if (queryMobile === "true" || queryMobile === "false") {
+        Codeforces.putToStorage("useMobile", queryMobile === "true");
+    } else {
+        var useMobile = Codeforces.getFromStorage("useMobile");
+        if (useMobile === true || useMobile === false) {
+            if (useMobile != false) {
+                Codeforces.redirect(Codeforces.updateUrlParameter(document.location.href, "mobile", useMobile));
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    setTimeout(function() {
+        $(".second-level-menu-list").lavaLamp({
+            fx: "backout",
+            speed: 700
+        });
+    }, 100);
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    function showAnnouncements(json) {
+        //info("j=" + JSON.stringify(json));
+
+        if (json.t != "a") {
+            return;
+        }
+
+        setTimeout(function() {
+            Codeforces.showAnnouncements(json.d, "en");
+        }, Math.random() * 500);
+    }
+
+    function showEventCatcherUserMessage(json) {
+        if (json.t == "s") {
+            var points = json.d[5];
+            var passedTestCount = json.d[7];
+            var judgedTestCount = json.d[8];
+            var verdict = preparedVerdictFormats[json.d[12]];
+            var verdictPrototypeDiv = $(".verdictPrototypeDiv");
+            verdictPrototypeDiv.html(verdict);
+            if (judgedTestCount != null && judgedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-judged").text(judgedTestCount);
+            }
+            if (passedTestCount != null && passedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-passed").text(passedTestCount);
+            }
+            if (points != null && points != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-points").text(points);
+            }
+            Codeforces.showMessage(verdictPrototypeDiv.text());
+        }
+    }
+
+    $(".clickable-title").each(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = title;
+            $(this).attr("title", tmp.textContent || tmp.innerText || "");
+        }
+    });
+
+    $(".clickable-title").click(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            Codeforces.alert(title);
+        } else {
+            Codeforces.alert($(this).attr("title"));
+        }
+    }).css("position", "relative").css("bottom", "3px");
+
+        Codeforces.showDelayedMessage();
+
+    Codeforces.reformatTimes();
+
+    //Codeforces.initializePubSub();
+    if (window.codeforcesOptions.subscribeServerUrl) {
+        window.eventCatcher = new EventCatcher(
+            window.codeforcesOptions.subscribeServerUrl,
+            [
+                Codeforces.getGlobalChannel(),
+                Codeforces.getUserChannel(),
+                Codeforces.getUserShowMessageChannel(),
+                Codeforces.getContestChannel(),
+                Codeforces.getParticipantChannel(),
+                Codeforces.getTalkChannel()
+            ]
+        );
+
+        if (Codeforces.getParticipantChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getParticipantChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getContestChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getContestChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getGlobalChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getGlobalChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserShowMessageChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserShowMessageChannel(), function(json) {
+                showEventCatcherUserMessage(json);
+            });
+        }
+    }
+
+    Codeforces.setupContestTimes("/data/contests");
+    Codeforces.setupSpoilers();
+    Codeforces.setupTutorials("/data/problemTutorial");
+        });
+    </script>
+
+
+<div id="body">
+<div style="width: 950px; margin: 0 auto;" class="compact-problemset">
+    <div id="header" style="position: relative; margin: 0;">
+        <div style="float:left;">
+                  <a href="/"><img height="65" style="height: 65px;" src="//codeforces.org/s/75364/images/codeforces-sponsored-by-ton.png" alt="Codeforces"/></a>
+        </div>
+        <div class="lang">
+            <div style="text-align: right;">
+                <a href="?locale=en"><img src="//codeforces.org/s/75364/images/flags/24/gb.png" title="In English" alt="In English"/></a>
+                <a href="?locale=ru"><img src="//codeforces.org/s/75364/images/flags/24/ru.png" title="По-русски" alt="По-русски"/></a>
+            </div>
+        </div>
+        <br style="clear: both;"/>
+    </div>
+
+    <br style="clear: both;"/>
+
+    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5em;"
+         class="caption">Helvetic Coding Contest 2019 online mirror (teams allowed, unrated)</div>
+    <div style="border-top: 1px solid #ccc; height: 1em;"></div>
+
+    <div class="problem-frames">
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+    <style>
+        #facebox .content:has(.diff-popup) {
+            width: 90vw;
+            max-width: 120rem !important;
+        }
+
+        .testCaseMarker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .diff-popup {
+            width: 90vw;
+            max-width: 120rem !important;
+            display: none;
+            overflow: auto;
+        }
+
+        .input-output-copier {
+            font-size: 1.2rem;
+            float: right;
+            color: #888 !important;
+            cursor: pointer;
+            border: 1px solid rgb(185, 185, 185);
+            padding: 3px;
+            margin: 1px;
+            line-height: 1.1rem;
+            text-transform: none;
+        }
+
+        .input-output-copier:hover {
+            background-color: #def;
+        }
+
+        .test-explanation textarea {
+            width: 100%;
+            height: 1.5em;
+        }
+
+        .pending-submission-message {
+            color: darkorange !important;
+        }
+    </style>
+    <script>
+        const OPENING_SPACE = String.fromCharCode(1001);
+        const CLOSING_SPACE = String.fromCharCode(1002);
+
+        const nodeToText = function (node, pre) {
+            let result = [];
+
+            if (node.tagName === "SCRIPT" || node.tagName === "math"
+                || (node.classList && node.classList.contains("input-output-copier")))
+                return [];
+
+            if (node.tagName === "NOBR") {
+                result.push(OPENING_SPACE);
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                let s = node.textContent;
+                if (!pre) {
+                    s = s.replace(/\s+/g, " ");
+                }
+                if (s.length > 0) {
+                    result.push(s);
+                }
+            }
+
+            if (pre && node.tagName === "BR") {
+                result.push("\n");
+            }
+
+            node.childNodes.forEach(function (child) {
+                result.push(nodeToText(child, node.tagName === "PRE").join(""));
+            });
+
+            if (node.tagName === "DIV"
+                || node.tagName === "P"
+                || node.tagName === "PRE"
+                || node.tagName === "UL"
+                || node.tagName === "LI"
+            ) {
+                result.push("\n");
+            }
+
+            if (node.tagName === "NOBR") {
+                result.push(CLOSING_SPACE);
+            }
+
+            return result;
+        }
+
+        const isSpecial = function (c) {
+            return c === ',' || c === '.' || c === ';' || c === ')' || c === ' ';
+        }
+
+        const convertStatementToText = function(statmentNode) {
+            const text = nodeToText(statmentNode, false).join("").replace(/ +/g, " ").replace(/\n\n+/g, "\n\n");
+            let result = [];
+            for (let i = 0; i < text.length; i++) {
+                const c = text.charAt(i);
+                if (c === OPENING_SPACE) {
+                    if (!((i > 0 && text.charAt(i - 1) === '(') || (result.length > 0 && result[result.length - 1] === ' '))) {
+                        result.push('+');
+                    }
+                } else if (c === CLOSING_SPACE) {
+                    if (!(i + 1 < text.length && isSpecial(text.charAt(i + 1)))) {
+                        result.push('-');
+                    }
+                } else {
+                    result.push(c);
+                }
+            }
+            return result.join("").split("\n").map(value => value.trim()).join("\n");
+        };
+    </script>
+    <div class="diff-popup">
+    </div>
+
+<div class="problemindexholder" problemindex="A1" data-uuid="ps_cf3b001449b8423e0fa8c2682ddcf2dc9010a45d">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">A1. Heidi Learns Hashing (Easy)</div><div class="time-limit"><div class="property-title">time limit per test</div>1 second</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Melody Pond was stolen from her parents as a newborn baby by Madame Kovarian, to become a weapon of the Silence in their crusade against the Doctor. Madame Kovarian changed Melody's name to River Song, giving her a new identity that allowed her to kill the Eleventh Doctor.</p><p>Heidi figured out that Madame Kovarian uses a very complicated hashing function in order to change the names of the babies she steals. In order to prevent this from happening to future Doctors, Heidi decided to prepare herself by learning some basic hashing techniques.</p><p>The first hashing function she designed is as follows.</p><p>Given two positive integers $$$(x, y)$$$ she defines $$$H(x,y):=x^2+2xy+x+1$$$.</p><p>Now, Heidi wonders if the function is reversible. That is, given a positive integer $$$r$$$, can you find a pair $$$(x, y)$$$ (of positive integers) such that $$$H(x, y) = r$$$?</p><p>If multiple such pairs exist, output the one with smallest possible $$$x$$$. If there is no such pair, output &quot;<span class="tex-font-style-tt">NO</span>&quot;.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first and only line contains an integer $$$r$$$ ($$$1 \le r \le 10^{12}$$$).</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output integers $$$x, y$$$ such that $$$H(x,y) = r$$$ and $$$x$$$ is smallest possible, or &quot;<span class="tex-font-style-tt">NO</span>&quot; if no such pair exists.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+19
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1 8
+</pre></div><div class="input"><div class="title">Input</div><pre>
+16
+</pre></div><div class="output"><div class="title">Output</div><pre>
+NO
+</pre></div></div></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.changedTests = new Set();
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+        String.prototype.replaceAll = function (search, replace) {
+            return this.split(search).join(replace);
+        };
+
+        $(".sample-test .title").each(function () {
+            const preId = ("id" + Math.random()).replaceAll(".", "0");
+            const cpyId = ("id" + Math.random()).replaceAll(".", "0");
+
+            $(this).parent().find("pre").attr("id", preId);
+            const $copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='input-output-copier'>Copy</div>");
+            $(this).append($copy);
+
+            const clipboard = new Clipboard('#' + cpyId, {
+                text: function (trigger) {
+                    const pre = document.querySelector('#' + preId);
+                    const lines = pre.querySelectorAll(".test-example-line");
+                    return Codeforces.filterClipboardText(pre.innerText, lines.length);
+                }
+            });
+
+            const isInput = $(this).parent().hasClass("input");
+
+            clipboard.on('success', function (e) {
+                if (isInput) {
+                    Codeforces.showMessage("The example input has been copied into the clipboard");
+                } else {
+                    Codeforces.showMessage("The example output has been copied into the clipboard");
+                }
+                e.clearSelection();
+            });
+        });
+
+        $(".test-form-item input").change(function () {
+            addPendingSubmissionMessage($($(this).closest("form")), "You changed the answer, do not forget to submit it if you want to save the changes");
+            const index = $(this).closest(".problemindexholder").attr("problemindex");
+            let test = "";
+            $(this).closest("form input").each(function () {
+                const test_ = $(this).attr("name");
+                if (test_ && test_.substring(0, 4) === "test") {
+                    test = test_;
+                }
+            });
+            if (index.length > 0 && test.length > 0) {
+                const indexTest = index + "::" + test;
+                window.changedTests.add(indexTest);
+            }
+        });
+
+        $(window).on('beforeunload', function () {
+            if (window.changedTests.size > 0) {
+                return 'Dialog text here';
+            }
+        });
+
+        autosize($('.test-explanation textarea'));
+
+        $(".test-example-line").hover(function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        let top = 1E20;
+                        let left = 1E20;
+                        let problem = $(this).closest(".problemindexholder");
+                        $(this).closest(".input").find("." + clazz).css("background-color", "#FFFDE7").each(function() {
+                            top = Math.min(top, $(this).offset().top);
+                            left = Math.min(left, $(this).offset().left);
+                        });
+                        let testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        if (testCaseMarker.length === 0) {
+                            const html = "<div class=\"testCaseMarker testCaseMarker_" + end + " notice\"></div>";
+                            problem.append($(html));
+                            testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        }
+                        if (testCaseMarker) {
+                            testCaseMarker.show()
+                                    .offset({top, left: left - 20})
+                                    .text(end);
+                        }
+                    }
+                }
+            });
+        }, function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        $("." + clazz).css("background-color", "");
+                        $(this).closest(".problemindexholder").find(".testCaseMarker_" + end).hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="A2" data-uuid="ps_a672e1f79b146e09f1b235193a13ab728eb7665a">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">A2. Heidi Learns Hashing (Medium)</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>After learning about polynomial hashing, Heidi decided to learn about shift-xor hashing. In particular, she came across this interesting problem.</p><p>Given a bitstring $$$y \in \{0,1\}^n$$$ find out the number of different $$$k$$$ ($$$0 \leq k &lt; n$$$) such that there exists $$$x \in \{0,1\}^n$$$ for which $$$y = x \oplus \mbox{shift}^k(x).$$$</p><p>In the above, $$$\oplus$$$ is the xor operation and $$$\mbox{shift}^k$$$ is the operation of shifting a bitstring cyclically to the right $$$k$$$ times. For example, $$$001 \oplus 111 = 110$$$ and $$$\mbox{shift}^3(00010010111000) = 00000010010111$$$.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains an integer $$$n$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$), the length of the bitstring $$$y$$$.</p><p>The second line contains the bitstring $$$y$$$.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output a single integer: the number of suitable values of $$$k$$$.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+4
+1010
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example:</p><ul> <li> $$$1100\oplus \mbox{shift}^1(1100) = 1010$$$ </li><li> $$$1000\oplus \mbox{shift}^2(1000) = 1010$$$ </li><li> $$$0110\oplus \mbox{shift}^3(0110) = 1010$$$ </li></ul><p>There is no $$$x$$$ such that $$$x \oplus x = 1010$$$, hence the answer is $$$3$$$.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="A3" data-uuid="ps_a6ee1ae9fd3bb25979d0b054bd248bb5b47d1b9e">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">A3. Heidi Learns Hashing (Hard)</div><div class="time-limit"><div class="property-title">time limit per test</div>5 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Now Heidi is ready to crack Madame Kovarian's hashing function.</p><p>Madame Kovarian has a very strict set of rules for name changes. Two names can be interchanged only if using the following hashing function on them results in a collision. However, the hashing function is parametrized, so one can always find a set of parameters that causes such a collision. Heidi decided to exploit this to her advantage.</p><p>Given two strings $$$w_1$$$, $$$w_2$$$ of equal length $$$n$$$ consisting of lowercase English letters and an integer $$$m$$$.</p><p>Consider the standard polynomial hashing function:</p><p>$$$H_p(w) := \left( \sum_{i=0}^{|w|-1} w_i r^i \right) \mbox{mod}(p)$$$</p><p>where $$$p$$$ is some prime, and $$$r$$$ is some number such that $$$2\leq r \leq p-2$$$.</p><p>The goal is to find $$$r$$$ and a prime $$$p$$$ ($$$m \leq p \leq 10^9$$$) such that $$$H_p(w_1) = H_p(w_2)$$$.</p><p>Strings $$$w_1$$$ and $$$w_2$$$ are sampled independently at random from all strings of length $$$n$$$ over lowercase English letters.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n$$$ and $$$m$$$ ($$$10 \le n \le 10^5$$$, $$$2 \le m \le 10^5$$$).</p><p>The second and the third line, respectively, contain the words $$$w_1$$$, $$$w_2$$$ that were sampled independently at random from all strings of length $$$n$$$ over lowercase English letters.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output integers $$$p, r$$$.</p><p>$$$p$$$ should be a prime in the range $$$[m, 10^9]$$$ and $$$r$$$ should be an integer satisfying $$$r\in [2,p-2]$$$.</p><p>At least one solution is guaranteed to exist. In case multiple solutions exist, print any of them.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+10 5
+bgcbaaaaaa
+cccaaaaaaa
+</pre></div><div class="output"><div class="title">Output</div><pre>
+5 2</pre></div><div class="input"><div class="title">Input</div><pre>
+10 100
+melodypond
+riversongg
+</pre></div><div class="output"><div class="title">Output</div><pre>
+118219 79724
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, note that even though $$$p=3$$$ and $$$r=2$$$ also causes a colision of hashes, it is not a correct solution, since $$$m$$$ is $$$5$$$ and thus we want $$$p\geq 5$$$.</p><p>In the second example, we are aware of the extra 'g' at the end. We just didn't realize that &quot;River Song&quot; and &quot;Melody Pond&quot; have different lengths...</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B1" data-uuid="ps_2a7c03ab097bc4ae1893d3fe343fcdbc3733802c">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">B1. The Doctor Meets Vader (Easy)</div><div class="time-limit"><div class="property-title">time limit per test</div>4 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Heidi and Doctor Who hopped out of the TARDIS and found themselves at EPFL in 2018. They were surrounded by stormtroopers and Darth Vader was approaching. Miraculously, they managed to escape to a nearby rebel base but the Doctor was very confused. Heidi reminded him that last year's HC2 theme was Star Wars. Now he understood, and he's ready to face the evils of the Empire!</p><p>The rebels have $$$s$$$ spaceships, each with a certain attacking power $$$a$$$.</p><p>They want to send their spaceships to destroy the empire bases and steal enough gold and supplies in order to keep the rebellion alive.</p><p>The empire has $$$b$$$ bases, each with a certain defensive power $$$d$$$, and a certain amount of gold $$$g$$$.</p><p>A spaceship can attack all the bases which have a defensive power less than or equal to its attacking power.</p><p>If a spaceship attacks a base, it steals all the gold in that base.</p><p>The rebels are still undecided which spaceship to send out first, so they asked for the Doctor's help. They would like to know, for each spaceship, the maximum amount of gold it can steal.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains integers $$$s$$$ and $$$b$$$ ($$$1 \leq s, b \leq 10^5$$$), the number of spaceships and the number of bases, respectively.</p><p>The second line contains $$$s$$$ integers $$$a$$$ ($$$0 \leq a \leq 10^9$$$), the attacking power of each spaceship.</p><p>The next $$$b$$$ lines contain integers $$$d, g$$$ ($$$0 \leq d \leq 10^9$$$, $$$0 \leq g \leq 10^4$$$), the defensive power and the gold of each base, respectively.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print $$$s$$$ integers, the maximum amount of gold each spaceship can steal, in the same order as the spaceships are given in the input.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5 4
+1 3 5 2 4
+0 1
+4 2
+2 8
+9 4
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1 9 11 9 11
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>The first spaceship can only attack the first base.</p><p>The second spaceship can attack the first and third bases.</p><p>The third spaceship can attack the first, second and third bases.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B2" data-uuid="ps_399262c490b2f7a82208cd662bc4eab51f9968d3">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">B2. The Doctor Meets Vader (Medium)</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Thanks to the Doctor's help, the rebels managed to steal enough gold to launch a full-scale attack on the Empire! However, Darth Vader is looking for revenge and wants to take back his gold.</p><p>The rebels have hidden the gold in various bases throughout the galaxy. Darth Vader and the Empire are looking to send out their spaceships to attack these bases.</p><p>The galaxy can be represented as an undirected graph with $$$n$$$ planets (nodes) and $$$m$$$ wormholes (edges), each connecting two planets.</p><p>A total of $$$s$$$ empire spaceships and $$$b$$$ rebel bases are located at different planets in the galaxy.</p><p>Each spaceship is given a location $$$x$$$, denoting the index of the planet on which it is located, an attacking strength $$$a$$$, and a certain amount of fuel $$$f$$$.</p><p>Each base is given a location $$$x$$$, and a defensive strength $$$d$$$.</p><p>A spaceship can attack a base if both of these conditions hold: </p><ul> <li> the spaceship's attacking strength is greater or equal than the defensive strength of the base </li><li> the spaceship's fuel is greater or equal to the shortest distance, computed as the number of wormholes, between the spaceship's planet and the base's planet </li></ul><p>Vader is very particular about his attacking formations. He requires that each spaceship is to attack at most one base and that each base is to be attacked by at most one spaceship.</p><p>Vader knows that the rebels have hidden $$$k$$$ gold in each base, so he will assign the spaceships to attack bases in such a way that maximizes the number of bases attacked.</p><p>Therefore, for each base that is attacked, the rebels lose $$$k$$$ gold.</p><p>However, the rebels have the ability to create any number of dummy bases. With the Doctor's help, these bases would exist beyond space and time, so all spaceship can reach them and attack them. Moreover, a dummy base is designed to seem irresistible: that is, it will always be attacked by some spaceship.</p><p>Of course, dummy bases do not contain any gold, but creating such a dummy base costs $$$h$$$ gold.</p><p>What is the minimum gold the rebels can lose if they create an optimal number of dummy bases?</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \leq n \leq 100$$$, $$$0 \leq m \leq 10000$$$), the number of nodes and the number of edges, respectively.</p><p>The next $$$m$$$ lines contain two integers $$$u$$$ and $$$v$$$ ($$$1 \leq u$$$, $$$v \leq n$$$) denoting an undirected edge between the two nodes.</p><p>The next line contains four integers $$$s$$$, $$$b$$$, $$$k$$$ and $$$h$$$ ($$$1 \leq s$$$, $$$b \leq 1000$$$, $$$0 \leq k$$$, $$$h \leq 10^9$$$), the number of spaceships, the number of bases, the cost of having a base attacked, and the cost of creating a dummy base, respectively.</p><p>The next $$$s$$$ lines contain three integers $$$x$$$, $$$a$$$, $$$f$$$ ($$$1 \leq x \leq n$$$, $$$0 \leq a$$$, $$$f \leq 10^9$$$), denoting the location, attack, and fuel of the spaceship.</p><p>The next $$$b$$$ lines contain two integers $$$x$$$, $$$d$$$ ($$$1 \leq x \leq n$$$, $$$0 \leq d \leq 10^9$$$), denoting the location and defence of the base.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single integer, the minimum cost in terms of gold.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+6 7
+1 2
+2 3
+3 4
+4 6
+6 5
+4 4
+3 6
+4 2 7 3
+1 10 2
+3 8 2
+5 1 0
+6 5 4
+3 7
+5 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+12
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>One way to minimize the cost is to build $$$4$$$ dummy bases, for a total cost of $$$4 \times 3 = 12$$$.</p><p>One empire spaceship will be assigned to attack each of these dummy bases, resulting in zero actual bases attacked.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B3" data-uuid="ps_bb0d1ad5687f9b0ac19a7e09a14a48814111e163">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">B3. The Doctor Meets Vader (Hard)</div><div class="time-limit"><div class="property-title">time limit per test</div>4 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>The rebels have saved enough gold to launch a full-scale attack. Now the situation is flipped, the rebels will send out the spaceships to attack the Empire bases!</p><p>The galaxy can be represented as an undirected graph with $$$n$$$ planets (nodes) and $$$m$$$ wormholes (edges), each connecting two planets.</p><p>A total of $$$s$$$ rebel spaceships and $$$b$$$ empire bases are located at different planets in the galaxy.</p><p>Each spaceship is given a location $$$x$$$, denoting the index of the planet on which it is located, an attacking strength $$$a$$$, a certain amount of fuel $$$f$$$, and a price to operate $$$p$$$.</p><p>Each base is given a location $$$x$$$, a defensive strength $$$d$$$, and a certain amount of gold $$$g$$$.</p><p>A spaceship can attack a base if both of these conditions hold: </p><ul> <li> the spaceship's attacking strength is greater or equal than the defensive strength of the base </li><li> the spaceship's fuel is greater or equal to the shortest distance, computed as the number of wormholes, between the spaceship's node and the base's node </li></ul><p>The rebels are very proud fighters. So, if a spaceship cannot attack any base, no rebel pilot will accept to operate it.</p><p>If a spaceship is operated, the profit generated by that spaceship is equal to the gold of the base it attacks minus the price to operate the spaceship. Note that this might be negative. A spaceship that is operated will attack the base that maximizes its profit.</p><p>Darth Vader likes to appear rich at all times. Therefore, whenever a base is attacked and its gold stolen, he makes sure to immediately refill that base with gold.</p><p>Therefore, for the purposes of the rebels, multiple spaceships can attack the same base, in which case each spaceship will still receive all the gold of that base.</p><p>The rebels have tasked Heidi and the Doctor to decide which set of spaceships to operate in order to maximize the total profit.</p><p>However, as the war has been going on for a long time, the pilots have formed unbreakable bonds, and some of them refuse to operate spaceships if their friends are not also operating spaceships.</p><p>They have a list of $$$k$$$ dependencies of the form $$$s_1, s_2$$$, denoting that spaceship $$$s_1$$$ can be operated only if spaceship $$$s_2$$$ is also operated.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line of input contains integers $$$n$$$ and $$$m$$$ ($$$1 \leq n \leq 100$$$, $$$0 \leq m \leq 10000$$$), the number of nodes and the number of edges, respectively.</p><p>The next $$$m$$$ lines contain integers $$$u$$$ and $$$v$$$ ($$$1 \leq u, v \leq n$$$) denoting an undirected edge between the two nodes.</p><p>The next line contains integers $$$s$$$, $$$b$$$ and $$$k$$$ ($$$1 \leq s, b \leq 10^5$$$, $$$0 \leq k \leq 1000$$$), the number of spaceships, bases, and dependencies, respectively.</p><p>The next $$$s$$$ lines contain integers $$$x, a, f, p$$$ ($$$1 \leq x \leq n$$$, $$$0 \leq a, f, p \leq 10^9$$$), denoting the location, attack, fuel, and price of the spaceship. Ships are numbered from $$$1$$$ to $$$s$$$.</p><p>The next $$$b$$$ lines contain integers $$$x, d, g$$$ ($$$1 \leq x \leq n$$$, $$$0 \leq d, g \leq 10^9$$$), denoting the location, defence, and gold of the base.</p><p>The next $$$k$$$ lines contain integers $$$s_1$$$ and $$$s_2$$$ ($$$1 \leq s_1, s_2 \leq s$$$), denoting a dependency of $$$s_1$$$ on $$$s_2$$$.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single integer, the maximum total profit that can be achieved.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+6 7
+1 2
+2 3
+3 4
+4 6
+6 5
+4 4
+3 6
+4 2 2
+1 10 2 5
+3 8 2 7
+5 1 0 2
+6 5 4 1
+3 7 6
+5 2 3
+4 2
+3 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>The optimal strategy is to operate spaceships 1, 2, and 4, which will attack bases 1, 1, and 2, respectively.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C1" data-uuid="ps_46ecf3c284f77cff67296a2446b020e562b284fe">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C1. Heidi and the Turing Test (Easy)</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>The Cybermen and the Daleks have long been the Doctor's main enemies. Everyone knows that both these species enjoy destroying everything they encounter. However, a little-known fact about them is that they both also love taking Turing tests!</p><p>Heidi designed a series of increasingly difficult tasks for them to spend their time on, which would allow the Doctor enough time to save innocent lives!</p><p>The funny part is that these tasks would be very easy for a human to solve.</p><p>The first task is as follows. There are some points on the plane. All but one of them are on the boundary of an axis-aligned square (its sides are parallel to the axes). Identify that point.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains an integer $$$n$$$ ($$$2 \le n \le 10$$$).</p><p>Each of the following $$$4n + 1$$$ lines contains two integers $$$x_i, y_i$$$ ($$$0 \leq x_i, y_i \leq 50$$$), describing the coordinates of the next point.</p><p>It is guaranteed that there are at least $$$n$$$ points on each side of the square and all $$$4n + 1$$$ points are distinct.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print two integers — the coordinates of the point that is not on the boundary of the square.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+2
+0 0
+0 1
+0 2
+1 0
+1 1
+1 2
+2 0
+2 1
+2 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1 1
+</pre></div><div class="input"><div class="title">Input</div><pre>
+2
+0 0
+0 1
+0 2
+0 3
+1 0
+1 2
+2 0
+2 1
+2 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+0 3
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In both examples, the square has four sides $$$x=0$$$, $$$x=2$$$, $$$y=0$$$, $$$y=2$$$.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C2" data-uuid="ps_c8d9c444a85165e67d34feb72806ecf8316d71be">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C2. Heidi and the Turing Test (Medium)</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>The Cybermen solved that first test much quicker than the Daleks. Luckily for us, the Daleks were angry (shocking!) and they destroyed some of the Cybermen.</p><p>After the fighting stopped, Heidi gave them another task to waste their time on.</p><p>There are $$$n$$$ points on a plane. Given a radius $$$r$$$, find the maximum number of points that can be covered by an $$$L^1$$$-ball with radius $$$r$$$.</p><p>An $$$L^1$$$-ball with radius $$$r$$$ and center $$$(x_0, y_0)$$$ in a 2D-plane is defined as the set of points $$$(x, y)$$$ such that the Manhattan distance between $$$(x_0, y_0)$$$ and $$$(x, y)$$$ is at most $$$r$$$.</p><p>Manhattan distance between $$$(x_0, y_0)$$$ and $$$(x, y)$$$ is defined as $$$|x - x_0| + |y - y_0|$$$.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n, r$$$ ($$$1 \le n \le 300\,000, 1 \le r \le 10^6$$$), the number of points and the radius of the ball, respectively. </p><p>Each of the next $$$n$$$ lines contains integers $$$x_i, y_i$$$ ($$$-10^6 \leq x_i, y_i \leq 10^6$$$), describing the coordinates of the $$$i$$$-th point.</p><p>It is guaranteed, that all points are distinct.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print one integer — the maximum number points that an $$$L^1$$$-ball with radius $$$r$$$ can cover.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5 1
+1 1
+1 -1
+-1 1
+-1 -1
+2 0
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+</pre></div><div class="input"><div class="title">Input</div><pre>
+5 2
+1 1
+1 -1
+-1 1
+-1 -1
+2 0
+</pre></div><div class="output"><div class="title">Output</div><pre>
+5
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, a ball centered at $$$(1, 0)$$$ covers the points $$$(1, 1)$$$, $$$(1, -1)$$$, $$$(2, 0)$$$.</p><p>In the second example, a ball centered at $$$(0, 0)$$$ covers all the points.</p><p>Note that $$$x_0$$$ and $$$y_0$$$ need not be integer.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C3" data-uuid="ps_837f17d4695f00151a9b30d484854db237dab8e0">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C3. Heidi and the Turing Test (Hard)</div><div class="time-limit"><div class="property-title">time limit per test</div>15 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>The Cybermen have again outwitted the Daleks! Unfortunately, this time the Daleks decided to abandon these tasks altogether, which means the Doctor has to deal with them.</p><p>The Doctor can handle the Daleks on his own, but Heidi now has to make sure that the Cybermen are kept busy with this next task.</p><p>There are $$$k$$$ rings on a plane. For each ring, $$$n$$$ points are uniformly sampled with a small random noise. The task is to recover the rings given only the noisy samples.</p><p>The rings and the samples are generated as follows. The center of a ring is uniformly sampled from a disk of radius $$$1\,000\,000$$$ centered at the origin, and the radius of the ring is uniformly sampled from $$$[250\,000, 750\,000]$$$. Let $$$R$$$ be a ring with center $$$(x, y)$$$ and radius $$$r$$$. To sample a point from $$$R$$$, an angle $$$\theta$$$ is uniformly sampled from $$$[0, 2\pi]$$$ and a distance $$$d$$$ is uniformly sampled from $$$[0.9r, 1.1r]$$$. The coordinates of the sampled point are then $$$(x+d\cos(\theta), y+d\sin(\theta))$$$ rounded to the closest integers.</p><p>The distance between rings is measured by their Hausdorff distance. In our case, the distance between two rings $$$R_1, R_2$$$ can be written as follow. Let $$$d$$$ be the distance between the two centers and $$$r_1, r_2$$$ be the radii. Then the distance is $$$$$$dist(R_1, R_2)=\max(\min(d_{--}, d_{-+}),\min(d_{+-}, d_{++}), \min(d_{--}, d_{+-}), \min(d_{-+}, d_{++}))$$$$$$, where $$$d_{++}=|d+r_1+r_2|$$$, $$$d_{+-}=|d+r_1-r_2|$$$, $$$d_{-+}=|d-r_1+r_2|$$$, $$$d_{--}=|d-r_1-r_2|$$$.</p><p>We say that a ring $$$R_0$$$ is recovered if one of the rings $$$R$$$ in the output has Hausdorff distance less than $$$100\,000$$$ from $$$R_0$$$. </p><p>An output is accepted if all the rings are recovered. It is guaranteed that the distances between any two rings is greater than $$$600\,000$$$.</p><p>Remember that a human can very easily solve this task, so make sure that no human traitors are helping the Cybermen complete this task.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains an integer $$$k$$$ ($$$1 \leq k \leq 4$$$), the number of rings.</p><p>The second line contains an integer $$$n$$$ ($$$100 \leq n \leq 1\,000$$$), the number of samples per ring.</p><p>The following $$$n \times k$$$ lines contain the samples, one sample per line.</p><p>Each line contains a pair of integers $$$x_i, y_i$$$, where $$$(x_i, y_i)$$$ are the coordinates of the $$$i$$$-th sample.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Print $$$k$$$ lines, each describing a single ring.</p><p>For each line, print three real numbers $$$x_i, y_i, r_i$$$, where $$$(x_i, y_i)$$$ and $$$r_i$$$ are the coordinates and the radius of the $$$i$$$-th ring.</p><p>The order of the rings does not matter.</p></div><div class="note"><div class="section-title">Note</div><p>Here is how one of tests with $$$k=4$$$ and $$$n=100$$$ looks like. </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/22ec10f4af36c124f397656f67fe74c5d22f16c6.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>You can download the sample input and output <a href="//assets.codeforces.com/rounds/1184/c1.zip">here</a>.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="D1" data-uuid="ps_a793db67e097f4ad3149672a371b19a13c3c57d6">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">D1. Parallel Universes (Easy)</div><div class="time-limit"><div class="property-title">time limit per test</div>1 second</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>The Third Doctor Who once correctly said that travel between parallel universes is &quot;like travelling sideways&quot;. However, he incorrectly thought that there were infinite parallel universes, whereas in fact, as we now all know, there will never be more than 250.</p><p>Heidi recently got her hands on a multiverse observation tool. She was able to see all $$$n$$$ universes lined up in a row, with non-existent links between them. She also noticed that the Doctor was in the $$$k$$$-th universe.</p><p>The tool also points out that due to restrictions originating from the space-time discontinuum, the number of universes will never exceed $$$m$$$.</p><p>Obviously, the multiverse is unstable because of free will. Each time a decision is made, one of two events will randomly happen: a new parallel universe is created, or a non-existent link is broken.</p><p>More specifically, </p><ul>  <li> When a universe is created, it will manifest itself between any two adjacent universes or at one of the ends.  </li><li> When a link is broken, it could be cut between any two adjacent universes. After separating the multiverse into two segments, the segment <span class="tex-font-style-it">NOT</span> containing the Doctor will cease to exist. </li></ul><p>Heidi wants to perform a simulation of $$$t$$$ decisions. Each time a decision is made, Heidi wants to know the length of the multiverse (i.e. the number of universes), and the position of the Doctor.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains four integers $$$n$$$, $$$k$$$, $$$m$$$ and $$$t$$$ ($$$2 \le k \le n \le m \le 250$$$, $$$1 \le t \le 1000$$$).</p><p>Each of the following $$$t$$$ lines is in one of the following formats: </p><ul> <li> &quot;$$$1$$$ $$$i$$$&quot; — meaning that a universe is inserted at the position $$$i$$$ ($$$1 \le i \le l + 1$$$), where $$$l$$$ denotes the current length of the multiverse. </li><li> &quot;$$$0$$$ $$$i$$$&quot; — meaning that the $$$i$$$-th link is broken ($$$1 \le i \le l - 1$$$), where $$$l$$$ denotes the current length of the multiverse. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Output $$$t$$$ lines. Each line should contain $$$l$$$, the current length of the multiverse and $$$k$$$, the current position of the Doctor.</p><p>It is guaranteed that the sequence of the steps will be valid, i.e. the multiverse will have length at most $$$m$$$ and when the link breaking is performed, there will be at least one universe in the multiverse.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5 2 10 4
+0 1
+1 1
+0 4
+1 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+4 1
+5 2
+4 2
+5 3
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>The multiverse initially consisted of 5 universes, with the Doctor being in the second.</p><p>First, link 1 was broken, leaving the multiverse with 4 universes, and the Doctor in the first.</p><p>Then, a universe was added to the leftmost end of the multiverse, increasing the multiverse length to 5, and the Doctor was then in the second universe.</p><p>Then, the rightmost link was broken.</p><p>Finally, a universe was added between the first and the second universe.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=D1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="D2" data-uuid="ps_2bf2339e69105806569c28788b3d76a56ceaf5c9">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">D2. Parallel Universes (Hard)</div><div class="time-limit"><div class="property-title">time limit per test</div>4 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Heidi enjoyed performing the simulation because she knew exactly when a new universe would be formed and where, and when a non-existent link would be broken and where.</p><p>However, the multiverse itself works in mysterious ways. Well, it works using probabilities, which to some people is mysterious.</p><p>At each unit time, when a decision is made, one of the two events will happen randomly. Let's denote $$$l$$$ as the current length of the multiverse. With a probability of $$$p_{create} = 1 - \frac{l}{m}$$$, a universe will be created. With a probability of $$$p_{break}=\frac{l}{m}$$$, a non-existent link will be broken at some position.</p><p>More specifically, </p><ul>  <li> When a universe is created, it will manifest itself between any two adjacent universes or at one of the ends. Each position occurs with a probability of $$$\frac{1}{l + 1}$$$.  </li><li> When a link is broken, it could be cut between any two adjacent universes, each with a probability of $$$\frac{1}{l-1}$$$. After separating the multiverse into two segments, the segment <span class="tex-font-style-it">NOT</span> containing the Doctor will cease to exist. </li></ul><p>As earlier, the Doctor remains in the same universe. However, if at some point the multiverse breaks in such a way that the Doctor finds himself at the leftmost or rightmost end of it, the TARDIS stops functioning.</p><p>In such a case, the Doctor must actually walk across the multiverse to find the tools to fix it.</p><p>We are interested in the expected value of the length of the multiverse when such an event occurs.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first and only line contains three integers $$$n$$$, $$$k$$$ and $$$m$$$ $$$(1 \le k \le n \le m \le 250)$$$, the initial length of the multiverse, the initial position of the Doctor, and the maximum possible length of the multiverse.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output a single integer on a single line, indicating the expected length of the multiverse.</p><p>If the answer is $$$\frac{p}{q}$$$, please print $$$r$$$ where $$$p \equiv r \cdot q (\text{mod } 10^9 + 7)$$$.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+2 1 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+</pre></div><div class="input"><div class="title">Input</div><pre>
+2 2 10
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+</pre></div><div class="input"><div class="title">Input</div><pre>
+3 2 3
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+</pre></div><div class="input"><div class="title">Input</div><pre>
+3 2 5
+</pre></div><div class="output"><div class="title">Output</div><pre>
+941659828
+</pre></div><div class="input"><div class="title">Input</div><pre>
+10 4 20
+</pre></div><div class="output"><div class="title">Output</div><pre>
+196683114
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>For the first and the second test case, without any change to the multiverse, the Doctor is already at one of the ends.</p><p>For the third test case, the multiverse can only break at a position, which renders the Doctor at one of its ends.</p><p>For the fourth case, things seem to be a little more complicated, because the multiverse can grow and then be broken again.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=D2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E1" data-uuid="ps_40e8a56df1536ff70774ba594fad7c11c4fc1d77">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E1. Daleks' Invasion (easy)</div><div class="time-limit"><div class="property-title">time limit per test</div>6 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>128 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Heidi found out that the Daleks have created a network of bidirectional Time Corridors connecting different destinations (at different times!). She suspects that they are planning another invasion on the entire Space and Time. In order to counter the invasion, she plans to deploy a trap in the Time Vortex, along a carefully chosen Time Corridor. She knows that tinkering with the Time Vortex is dangerous, so she consulted the Doctor on how to proceed. She has learned the following:</p><ul> <li> Different Time Corridors require different amounts of energy to keep stable. </li><li> Daleks are unlikely to use all corridors in their invasion. They will pick a set of Corridors that requires the smallest total energy to maintain, yet still makes (time) travel possible between any two destinations (for those in the know: they will use a minimum spanning tree). </li><li> Setting the trap may modify the energy required to keep the Corridor stable. </li></ul><p>Heidi decided to carry out a field test and deploy one trap, placing it along the first Corridor. But she needs to know whether the Daleks are going to use this corridor after the deployment of the trap. </p><p>She gives you a map of Time Corridors (an undirected graph) with energy requirements for each Corridor.</p><p>For a Corridor $$$c$$$, $$$E_{max}(c)$$$ is the largest $$$e \le 10^9$$$ such that if we changed the required amount of energy of $$$c$$$ to $$$e$$$, then the Daleks may still be using $$$c$$$ in their invasion (that is, it belongs to some minimum spanning tree). Your task is to calculate $$$E_{max}(c_1)$$$ for the Corridor $$$c_1$$$ that Heidi plans to arm with a trap, which is the first edge in the graph.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains integers $$$n$$$ and $$$m$$$ ($$$2 \leq n \leq 10^5$$$, $$$n - 1 \leq m \leq 10^6$$$), number of destinations to be invaded and the number of Time Corridors.</p><p>Each of the next $$$m$$$ lines describes a Corridor: destinations $$$a$$$, $$$b$$$ and energy $$$e$$$ ($$$1 \leq a, b \leq n$$$, $$$a \neq b$$$, $$$0 \leq e \leq 10^9$$$).</p><p>It's guaranteed, that no pair $$$\{a, b\}$$$ will repeat and that the graph is connected — that is, it is possible to travel between any two destinations using zero or more Time Corridors.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output a single integer: $$$E_{max}(c_1)$$$ for the first Corridor $$$c_1$$$ from the input.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 3<br />1 2 8<br />2 3 3<br />3 1 4<br /></pre></div><div class="output"><div class="title">Output</div><pre>4<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>After the trap is set, the new energy requirement for the first Corridor may be either smaller, larger, or equal to the old energy requiremenet.</p><p>In the example, if the energy of the first Corridor is set to $$$4$$$ or less, then the Daleks may use the set of Corridors $$$\{ \{ 1,2 \}, \{ 2,3 \} \}$$$ (in particular, if it were set to less than $$$4$$$, then this would be the only set of Corridors that they would use). However, if it is larger than $$$4$$$, then they will instead use the set $$$\{ \{2,3\}, \{3,1\} \}$$$.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E2" data-uuid="ps_28df3a2f5087f024c66cb9524e506c5f95222308">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E2. Daleks' Invasion (medium)</div><div class="time-limit"><div class="property-title">time limit per test</div>15 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>After a successful field test, Heidi is considering deploying a trap along some Corridor, possibly not the first one. She wants to avoid meeting the Daleks inside the Time Vortex, so for abundance of caution she considers placing the traps <span class="tex-font-style-underline">only</span> along those Corridors that are <span class="tex-font-style-underline">not</span> going to be used according to the current Daleks' plan – which is to use a minimum spanning tree of Corridors. Heidi knows that all energy requirements for different Corridors are now different, and that the Daleks have a single unique plan which they are intending to use.</p><p>Your task is to calculate the number $$$E_{max}(c)$$$, which is defined in the same way as in the easy version – i.e., the largest $$$e \le 10^9$$$ such that if we changed the energy of corridor $$$c$$$ to $$$e$$$, the Daleks might use it – but now for <span class="tex-font-style-it">every</span> corridor that Heidi considers. </p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line: number $$$n$$$ of destinations, number $$$m$$$ of Time Corridors ($$$2 \leq n \leq 10^5$$$, $$$n - 1 \leq m \leq 10^6$$$). The next $$$m$$$ lines: destinations $$$a$$$, $$$b$$$ and energy $$$e$$$ ($$$1 \leq a, b \leq n$$$, $$$a \neq b$$$, $$$0 \leq e \leq 10^9$$$).</p><p>No pair $$$\{a, b\}$$$ will repeat. The graph is guaranteed to be connected. All energy requirements $$$e$$$ are distinct.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output $$$m-(n-1)$$$ lines, each containing one integer: $$$E_{max}(c_i)$$$ for the $$$i$$$-th Corridor $$$c_i$$$ from the input that is not part of the current Daleks' plan (minimum spanning tree).</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 3<br />1 2 8<br />2 3 3<br />3 1 4<br /></pre></div><div class="output"><div class="title">Output</div><pre>4<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>If $$$m = n-1$$$, then you need not output anything.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 1em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E3" data-uuid="ps_362529f4154f4b18008ce1e1ebef159add2b0c9a">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E3. Daleks' Invasion (hard)</div><div class="time-limit"><div class="property-title">time limit per test</div>10 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>With your help, Heidi has prepared a plan of trap placement and defence. Yet suddenly, the Doctor popped out of the TARDIS and told her that he had spied on the Daleks' preparations, and there is more of them than ever. Desperate times require desperate measures, so Heidi is going to risk meeting with the Daleks and she will consider placing a trap along <span class="tex-font-style-underline">any</span> Corridor.</p><p>This means she needs your help again in calculating $$$E_{max}(c)$$$ – the largest $$$e \le 10^9$$$ such that if we changed the energy requirement of $$$c$$$ to $$$e$$$, then the Daleks might use $$$c$$$ in their invasion – but this time for all Time Corridors.</p></div><div class="input-specification"><div class="section-title">Input</div><p>First line: number $$$n$$$ of destinations, number $$$m$$$ of corridors ($$$2 \leq n \leq 10^5$$$, $$$n - 1 \leq m \leq 10^6$$$). The next $$$m$$$ lines: destinations $$$a$$$, $$$b$$$ and energy $$$e$$$ ($$$1 \leq a, b \leq n$$$, $$$a \neq b$$$, $$$0 \leq e \leq 10^9$$$).</p><p>No pair $$$\{a, b\}$$$ will repeat. The graph is guaranteed to be connected. It is <span class="tex-font-style-underline">not</span> guaranteed that all energy requirements $$$e$$$ are distinct, or that the minimum spanning tree is unique.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output $$$m$$$ lines, each containing one integer: $$$E_{max}(c_i)$$$ for the $$$i$$$-th Corridor $$$c_i$$$ from the input.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 3<br />1 2 8<br />2 3 3<br />3 1 4<br /></pre></div><div class="output"><div class="title">Output</div><pre>4<br />8<br />8<br /></pre></div></div></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/75364");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div><a href="https://codeforces.com/">Codeforces</a> (c) Copyright 2010-2024 Mike Mirzayanov</div>
+        <div>The only programming contests Web 2.0 platform</div>
+
+    </div>
+
+</div>
+</div>
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator && 'fetch' in window && 'caches' in window) {
+            navigator.serviceWorker.register('/service-worker-75364.js')
+                .then(function (registration) {
+                    console.log('Service worker registered: ', registration);
+                })
+                .catch(function (error) {
+                    console.log('Registration failed: ', error);
+                });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a181a208896c39c',t:'MTcyMDY5MzY1OC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

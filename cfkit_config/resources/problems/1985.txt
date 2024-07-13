@@ -2,22 +2,12 @@ Codeforces Round 952 (Div. 4)
 
 
 A. Creating Words
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Matthew is given two strings $$$a$$$ and $$$b$$$, both of length $$$3$$$. He thinks it's particularly funny to create two new words by swapping the first character of $$$a$$$ with the first character of $$$b$$$. He wants you to output $$$a$$$ and $$$b$$$ after the swap.
-Note that the new words may not necessarily be different.
-Input
-The first line contains $$$t$$$ ($$$1 \leq t \leq 100$$$)  — the number of test cases.
-The first and only line of each test case contains two space-separated strings, $$$a$$$ and $$$b$$$, both of length $$$3$$$. The strings only contain lowercase Latin letters.
-Output
-For each test case, after the swap, output $$$a$$$ and $$$b$$$, separated by a space.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 bit set
@@ -35,23 +25,12 @@ cat cat
 zzz zzz
 ----------------------------------------------------------------------------------------------------
 B. Maximum Multiple Sum
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Given an integer $$$n$$$, find an integer $$$x$$$ such that:
-$$$2 \leq x \leq n$$$.
-The sum of multiples of $$$x$$$ that are less than or equal to $$$n$$$ is maximized. Formally, $$$x + 2x + 3x + \dots + kx$$$ where $$$kx \leq n$$$ is maximized over all possible values of $$$x$$$.
-Input
-The first line contains $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
-Each test case contains a single integer $$$n$$$ ($$$2 \leq n \leq 100$$$).
-Output
-For each test case, output an integer, the optimal value of $$$x$$$. It can be shown there is only one unique answer.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 2
 3
@@ -61,28 +40,12 @@ Output
 2
 ----------------------------------------------------------------------------------------------------
 C. Good Prefixes
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Alex thinks some array is
-good
-if there exists some element that can be represented as the sum of all
-other
-elements (the sum of all other elements is $$$0$$$ if there are no other elements). For example, the array $$$[1,6,3,2]$$$ is good since $$$1+3+2=6$$$. Furthermore, the array $$$[0]$$$ is also good. However, the arrays $$$[1,2,3,4]$$$ and $$$[1]$$$ are not good.
-Alex has an array $$$a_1,a_2,\ldots,a_n$$$. Help him count the number of good non-empty prefixes of the array $$$a$$$. In other words, count the number of integers $$$i$$$ ($$$1 \le i \le n$$$) such that the length $$$i$$$ prefix (i.e. $$$a_1,a_2,\ldots,a_i$$$) is good.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n \le 2 \cdot 10^5$$$) — the number of elements in the array.
-The second line of each test case contains $$$n$$$ integers $$$a_1,a_2,\ldots,a_n$$$ ($$$0 \le a_i \le 10^9$$$) — the elements of the array.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, output a single integer — the number of good non-empty prefixes of the array $$$a$$$.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 1
@@ -109,25 +72,12 @@ Output
 2
 ----------------------------------------------------------------------------------------------------
 D. Manhattan Circle
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Given a $$$n$$$ by $$$m$$$ grid consisting of '.' and '#' characters, there exists a whole manhattan circle on the grid. The top left corner of the grid has coordinates $$$(1,1)$$$, and the bottom right corner has coordinates $$$(n, m)$$$.
-Point ($$$a, b$$$) belongs to the manhattan circle centered at ($$$h, k$$$) if $$$|h - a| + |k - b| < r$$$, where $$$r$$$ is a positive constant.
-On the grid, the set of points that are part of the manhattan circle is marked as '#'. Find the coordinates of the center of the circle.
-Input
-The first line contains $$$t$$$ ($$$1 \leq t \leq 1000$$$)  — the number of test cases.
-The first line of each test case contains $$$n$$$ and $$$m$$$ ($$$1 \leq n \cdot m \leq 2 \cdot 10^5$$$) — the height and width of the grid, respectively.
-The next $$$n$$$ lines contains $$$m$$$ characters '.' or '#'. If the character is '#', then the point is part of the manhattan circle.
-It is guaranteed the sum of $$$n \cdot m$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$, and there is a whole manhattan circle on the grid.
-Output
-For each test case, output the two integers, the coordinates of the center of the circle.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 5 5
@@ -168,33 +118,12 @@ Output
 2 4
 ----------------------------------------------------------------------------------------------------
 E. Secret Box
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Ntarsis has a box $$$B$$$ with side lengths $$$x$$$, $$$y$$$, and $$$z$$$. It lies in the 3D coordinate plane, extending from $$$(0,0,0)$$$ to $$$(x,y,z)$$$.
-Ntarsis has a secret box $$$S$$$. He wants to choose its dimensions such that all side lengths are positive integers, and the volume of $$$S$$$ is $$$k$$$. He can place $$$S$$$ somewhere within $$$B$$$ such that:
-$$$S$$$ is parallel to all axes.
-every corner of $$$S$$$ lies on an integer coordinate.
-$$$S$$$ is magical, so when placed at an integer location inside $$$B$$$, it will not fall to the ground.
-Among all possible ways to choose the dimensions of $$$S$$$, determine the
-maximum
-number of distinct locations he can choose to place his secret box $$$S$$$ inside $$$B$$$. Ntarsis does not rotate $$$S$$$ once its side lengths are selected.
-Input
-The first line consists of an integer $$$t$$$, the number of test cases ($$$1 \leq t \leq 2000$$$). The description of the test cases follows.
-The first and only line of each test case contains four integers $$$x, y, z$$$ and $$$k$$$ ($$$1 \leq x, y, z \leq 2000$$$, $$$1 \leq k \leq x \cdot y \cdot z$$$).
-It is guaranteed the sum of all $$$x$$$, sum of all $$$y$$$, and sum of all $$$z$$$ do not exceed $$$2000$$$ over all test cases.
-Note that
-$$$k$$$
-may not fit in a standard 32-bit integer data type
-.
-Output
-For each test case, output the answer as an integer on a new line. If there is no way to select the dimensions of $$$S$$$ so it fits in $$$B$$$, output $$$0$$$.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 3 3 3 8
@@ -214,27 +143,12 @@ Output
 1030301
 ----------------------------------------------------------------------------------------------------
 F. Final Boss
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are facing the final boss in your favorite video game. The boss enemy has $$$h$$$ health. Your character has $$$n$$$ attacks. The $$$i$$$'th attack deals $$$a_i$$$ damage to the boss but has a cooldown of $$$c_i$$$ turns, meaning the next time you can use this attack is turn $$$x + c_i$$$ if your current turn is $$$x$$$. Each turn, you can use all attacks that are not currently on cooldown,
-all at once
-. If all attacks are on cooldown, you do nothing for the turn and skip to the next turn.
-Initially, all attacks are not on cooldown. How many turns will you take to beat the boss? The boss is beaten when its health is $$$0$$$ or less.
-Input
-The first line contains $$$t$$$ ($$$1 \leq t \leq 10^4$$$)  – the number of test cases.
-The first line of each test case contains two integers $$$h$$$ and $$$n$$$ ($$$1 \leq h, n \leq 2 \cdot 10^5$$$) – the health of the boss and the number of attacks you have.
-The following line of each test case contains $$$n$$$ integers $$$a_1, a_2, ..., a_n$$$ ($$$1 \leq a_i \leq 2 \cdot 10^5$$$) – the damage of your attacks.
-The following line of each test case contains $$$n$$$ integers $$$c_1, c_2, ..., c_n$$$ ($$$1 \leq c_i \leq 2 \cdot 10^5$$$) – the cooldown of your attacks.
-It is guaranteed that the sum of $$$h$$$ and $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, output an integer, the minimum number of turns required to beat the boss.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 8
 3 2
@@ -272,21 +186,12 @@ Output
 21
 ----------------------------------------------------------------------------------------------------
 G. D-Function
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Let $$$D(n)$$$ represent the sum of digits of $$$n$$$. For how many integers $$$n$$$ where $$$10^{l} \leq n < 10^{r}$$$ satisfy $$$D(k \cdot n) = k \cdot D(n)$$$? Output the answer modulo $$$10^9+7$$$.
-Input
-The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) – the number of test cases.
-Each test case contains three integers $$$l$$$, $$$r$$$, and $$$k$$$ ($$$0 \leq l < r \leq 10^9$$$, $$$1 \leq k \leq 10^9$$$).
-Output
-For each test case, output an integer, the answer, modulo $$$10^9 + 7$$$.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 0 1 4
@@ -304,49 +209,12 @@ Output
 999
 ----------------------------------------------------------------------------------------------------
 H1. Maximize the Largest Component (Easy Version)
-time limit per test
-2 seconds
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-Easy and hard versions are actually different problems, so read statements of both problems completely and carefully. The only difference between the two versions is the operation.
-Alex has a grid with $$$n$$$ rows and $$$m$$$ columns consisting of '
-.
-' and '
-#
-' characters. A set of '
-#
-' cells forms a connected component if from any cell in this set, it is possible to reach any other cell in this set by only moving to another cell in the set that shares a
-common side
-. The size of a connected component is the number of cells in the set.
-In one operation, Alex selects any row $$$r$$$ ($$$1 \le r \le n$$$)
-or
-any column $$$c$$$ ($$$1 \le c \le m$$$), then sets every cell in row $$$r$$$
-or
-column $$$c$$$ to be '
-#
-'. Help Alex find the maximum possible size of the largest connected component of '
-#
-' cells that he can achieve after performing the operation
-at most once
-.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The first line of each test case contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n \cdot m \le 10^6$$$) — the number of rows and columns of the grid.
-The next $$$n$$$ lines each contain $$$m$$$ characters. Each character is either '
-.
-' or '
-#
-'.
-It is guaranteed that the sum of $$$n \cdot m$$$ over all test cases does not exceed $$$10^6$$$.
-Output
-For each test case, output a single integer — the maximum possible size of a connected component of '
-#
-' cells that Alex can achieve.
-Example
+time limit per test: 2 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 1 1
@@ -389,49 +257,12 @@ Output
 30
 ----------------------------------------------------------------------------------------------------
 H2. Maximize the Largest Component (Hard Version)
-time limit per test
-2 seconds
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-Easy and hard versions are actually different problems, so read statements of both problems completely and carefully. The only difference between the two versions is the operation.
-Alex has a grid with $$$n$$$ rows and $$$m$$$ columns consisting of '
-.
-' and '
-#
-' characters. A set of '
-#
-' cells forms a connected component if from any cell in this set, it is possible to reach any other cell in this set by only moving to another cell in the set that shares a
-common side
-. The size of a connected component is the number of cells in the set.
-In one operation, Alex selects any row $$$r$$$ ($$$1 \le r \le n$$$)
-and
-any column $$$c$$$ ($$$1 \le c \le m$$$), then sets every cell in row $$$r$$$
-and
-column $$$c$$$ to be '
-#
-'. Help Alex find the maximum possible size of the largest connected component of '
-#
-' cells that he can achieve after performing the operation
-at most once
-.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The first line of each test case contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n \cdot m \le 10^6$$$) — the number of rows and columns of the grid.
-The next $$$n$$$ lines each contain $$$m$$$ characters. Each character is either '
-.
-' or '
-#
-'.
-It is guaranteed that the sum of $$$n \cdot m$$$ over all test cases does not exceed $$$10^6$$$.
-Output
-For each test case, output a single integer — the maximum possible size of a connected component of '
-#
-' cells that Alex can achieve.
-Example
+time limit per test: 2 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 1 1

@@ -1,0 +1,1579 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-743380-5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-743380-5');
+        </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="X-Csrf-Token" content="f534847fa5ceee2e8fdbb414accf5511"/>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=0.01"/>
+
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery-1.8.3.js"></script>
+    <script type="application/javascript">
+        window.locale = "en";
+        window.standaloneContest = false;
+        function adjustViewport() {
+            var screenWidthPx = Math.min($(window).width(), window.screen.width);
+            var siteWidthPx = 1100; // min width of site
+            var ratio = Math.min(screenWidthPx / siteWidthPx, 1.0);
+            var viewport = "width=device-width, initial-scale=" + ratio;
+            $('#viewport').attr('content', viewport);
+            var style = $('<style>html * { max-height: 1000000px; }</style>');
+            $('html > head').append(style);
+        }
+
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            adjustViewport();
+        }
+
+        /* Protection against trailing dot in domain. */
+        let hostLength = window.location.host.length;
+        if (hostLength > 1 && window.location.host[hostLength - 1] === '.') {
+            window.location = window.location.protocol + "//" + window.location.host.substring(0, hostLength - 1);
+        }
+    </script>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="j3">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90"/>
+    <meta property="fb:admins" content="100001352546622" />
+    <meta property="og:image" content="//codeforces.org/s/52076/images/codeforces-sponsored-by-ton.png" />
+    <link rel="image_src" href="//codeforces.org/s/52076/images/codeforces-sponsored-by-ton.png" />
+    <meta property="og:title" content="Problems - Codeforces"/>
+    <meta property="og:description" content=""/>
+    
+    <meta property="og:site_name" content="Codeforces"/>
+    
+    
+    
+    
+    
+    
+    <meta name="utc_offset" content="+03:00"/>
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2" />
+    <title>Problems - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community" />
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/font-awesome.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/line-awesome.min.css" type="text/css" charset="utf-8" />
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Cuprum&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="//codeforces.org/s/52076/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="//codeforces.org/s/52076/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="//codeforces.org/s/52076/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//codeforces.org/s/52076/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="//codeforces.org/s/52076/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//codeforces.org/s/52076/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="//codeforces.org/s/52076/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//codeforces.org/s/52076/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="//codeforces.org/s/52076/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="//codeforces.org/s/52076/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="//codeforces.org/s/52076/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//codeforces.org/s/52076/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//codeforces.org/s/52076/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="//codeforces.org/s/52076/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/prettify.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/clear.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/ttypography.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/problem-statement.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/second-level-menu.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/roundbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/datatable.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/table-form.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/topic.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/jquery.jgrowl.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/facebox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/jquery.wysiwyg.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/jquery.autocomplete.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/codeforces.datepick.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/colorbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/css/jquery.drafts.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/52076/css/community.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/52076/css/sidebar-menu.css" type="text/css" charset="utf-8" />
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$$','$$$']], displayMath: [['$$$$$$','$$$$$$']]}
+    });
+    MathJax.Hub.Register.StartupHook("End", function () {
+        Codeforces.runMathJaxListeners();
+    });
+    </script>
+    <script type="text/javascript" async
+            src="https://mathjax.codeforces.org/MathJax.js?config=TeX-AMS_HTML-full"
+    >
+    </script>
+    <!-- /MathJax -->
+
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/pushstream.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/facebox.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/controls/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/controls/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/controls/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/controls/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/jquery.drafts.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/autosize.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/sjcl.js"></script>
+    <script type="text/javascript" src="/scripts/2f623d1f667f7b2209d238bdfc040981/en/codeforces-options.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/codeforces.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/EventCatcher.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/preparedVerdictFormats-en.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/js/confetti.min.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="//codeforces.org/s/52076/markitup/skins/markitup/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/52076/markitup/sets/markdown/style.css" type="text/css" charset="utf-8" />
+
+
+    <script type="text/javascript" src="//codeforces.org/s/52076/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/52076/markitup/sets/markdown/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+
+
+</head>
+<body class=" "><span style='display:none;' class='csrf-token' data-csrf='f534847fa5ceee2e8fdbb414accf5511'>&nbsp;</span>
+
+<!-- .notificationTextCleaner used in Codeforces.showAnnouncements() -->
+<div class="notificationTextCleaner" style="font-size: 0"></div>
+<div class="button-up" style="display: none; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 3.0rem;"><i class="icon-circle-arrow-up"></i></div>
+<div class="verdictPrototypeDiv" style="display: none;"></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    };
+
+    var queryMobile = Codeforces.queryString.mobile;
+    if (queryMobile === "true" || queryMobile === "false") {
+        Codeforces.putToStorage("useMobile", queryMobile === "true");
+    } else {
+        var useMobile = Codeforces.getFromStorage("useMobile");
+        if (useMobile === true || useMobile === false) {
+            if (useMobile != false) {
+                Codeforces.redirect(Codeforces.updateUrlParameter(document.location.href, "mobile", useMobile));
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    setTimeout(function() {
+        $(".second-level-menu-list").lavaLamp({
+            fx: "backout",
+            speed: 700
+        });
+    }, 100);
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    function showAnnouncements(json) {
+        //info("j=" + JSON.stringify(json));
+
+        if (json.t != "a") {
+            return;
+        }
+
+        setTimeout(function() {
+            Codeforces.showAnnouncements(json.d, "en");
+        }, Math.random() * 500);
+    }
+
+    function showEventCatcherUserMessage(json) {
+        if (json.t == "s") {
+            var points = json.d[5];
+            var passedTestCount = json.d[7];
+            var judgedTestCount = json.d[8];
+            var verdict = preparedVerdictFormats[json.d[12]];
+            var verdictPrototypeDiv = $(".verdictPrototypeDiv");
+            verdictPrototypeDiv.html(verdict);
+            if (judgedTestCount != null && judgedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-judged").text(judgedTestCount);
+            }
+            if (passedTestCount != null && passedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-passed").text(passedTestCount);
+            }
+            if (points != null && points != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-points").text(points);
+            }
+            Codeforces.showMessage(verdictPrototypeDiv.text());
+        }
+    }
+
+    $(".clickable-title").each(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = title;
+            $(this).attr("title", tmp.textContent || tmp.innerText || "");
+        }
+    });
+
+    $(".clickable-title").click(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            Codeforces.alert(title);
+        } else {
+            Codeforces.alert($(this).attr("title"));
+        }
+    }).css("position", "relative").css("bottom", "3px");
+
+        Codeforces.showDelayedMessage();
+
+    Codeforces.reformatTimes();
+
+    //Codeforces.initializePubSub();
+    if (window.codeforcesOptions.subscribeServerUrl) {
+        window.eventCatcher = new EventCatcher(
+            window.codeforcesOptions.subscribeServerUrl,
+            [
+                Codeforces.getGlobalChannel(),
+                Codeforces.getUserChannel(),
+                Codeforces.getUserShowMessageChannel(),
+                Codeforces.getContestChannel(),
+                Codeforces.getParticipantChannel(),
+                Codeforces.getTalkChannel()
+            ]
+        );
+
+        if (Codeforces.getParticipantChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getParticipantChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getContestChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getContestChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getGlobalChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getGlobalChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserShowMessageChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserShowMessageChannel(), function(json) {
+                showEventCatcherUserMessage(json);
+            });
+        }
+    }
+
+    Codeforces.setupContestTimes("/data/contests");
+    Codeforces.setupSpoilers();
+    Codeforces.setupTutorials("/data/problemTutorial");
+        });
+    </script>
+
+
+<div id="body">
+<div style="width: 950px; margin: 0 auto;" class="compact-problemset">
+    <div id="header" style="position: relative; margin: 0;">
+        <div style="float:left;">
+            <div>
+<a href="/rockethon2014"><img src="//assets.codeforces.com/images/rockethon/HZ-LOGO-TAG-RGB-small.png"/></a>
+</div>
+        </div>
+        <div class="lang">
+            <div style="text-align: right;">
+                <a href="?locale=en"><img src="//codeforces.org/s/52076/images/flags/24/gb.png" title="In English" alt="In English"/></a>
+                <a href="?locale=ru"><img src="//codeforces.org/s/52076/images/flags/24/ru.png" title="По-русски" alt="По-русски"/></a>
+            </div>
+        </div>
+        <br style="clear: both;"/>
+    </div>
+
+    <br style="clear: both;"/>
+
+    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5em;"
+         class="caption">Rockethon 2014</div>
+    <div style="border-top: 1px solid #ccc; height: 1em;"></div>
+
+    <div class="problem-frames">
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+    <style>
+        #facebox .content:has(.diff-popup) {
+            width: 90vw;
+            max-width: 120rem !important;
+        }
+
+        .testCaseMarker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .diff-popup {
+            width: 90vw;
+            max-width: 120rem !important;
+            display: none;
+            overflow: auto;
+        }
+
+        .input-output-copier {
+            font-size: 1.2rem;
+            float: right;
+            color: #888 !important;
+            cursor: pointer;
+            border: 1px solid rgb(185, 185, 185);
+            padding: 3px;
+            margin: 1px;
+            line-height: 1.1rem;
+            text-transform: none;
+        }
+
+        .input-output-copier:hover {
+            background-color: #def;
+        }
+
+        .test-explanation textarea {
+            width: 100%;
+            height: 1.5em;
+        }
+
+        .pending-submission-message {
+            color: darkorange !important;
+        }
+    </style>
+    <script>
+        const OPENING_SPACE = String.fromCharCode(1001);
+        const CLOSING_SPACE = String.fromCharCode(1002);
+
+        const nodeToText = function (node, pre) {
+            let result = [];
+
+            if (node.tagName === "SCRIPT" || node.tagName === "math"
+                || (node.classList && node.classList.contains("input-output-copier")))
+                return [];
+
+            if (node.tagName === "NOBR") {
+                result.push(OPENING_SPACE);
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                let s = node.textContent;
+                if (!pre) {
+                    s = s.replace(/\s+/g, " ");
+                }
+                if (s.length > 0) {
+                    result.push(s);
+                }
+            }
+
+            if (pre && node.tagName === "BR") {
+                result.push("\n");
+            }
+
+            node.childNodes.forEach(function (child) {
+                result.push(nodeToText(child, node.tagName === "PRE").join(""));
+            });
+
+            if (node.tagName === "DIV"
+                || node.tagName === "P"
+                || node.tagName === "PRE"
+                || node.tagName === "UL"
+                || node.tagName === "LI"
+            ) {
+                result.push("\n");
+            }
+
+            if (node.tagName === "NOBR") {
+                result.push(CLOSING_SPACE);
+            }
+
+            return result;
+        }
+
+        const isSpecial = function (c) {
+            return c === ',' || c === '.' || c === ';' || c === ')' || c === ' ';
+        }
+
+        const convertStatementToText = function(statmentNode) {
+            const text = nodeToText(statmentNode, false).join("").replace(/ +/g, " ").replace(/\n\n+/g, "\n\n");
+            let result = [];
+            for (let i = 0; i < text.length; i++) {
+                const c = text.charAt(i);
+                if (c === OPENING_SPACE) {
+                    if (!((i > 0 && text.charAt(i - 1) === '(') || (result.length > 0 && result[result.length - 1] === ' '))) {
+                        result.push('+');
+                    }
+                } else if (c === CLOSING_SPACE) {
+                    if (!(i + 1 < text.length && isSpecial(text.charAt(i + 1)))) {
+                        result.push('-');
+                    }
+                } else {
+                    result.push(c);
+                }
+            }
+            return result.join("").split("\n").map(value => value.trim()).join("\n");
+        };
+    </script>
+    <div class="diff-popup">
+    </div>
+
+<div class="problemindexholder" problemindex="A" data-uuid="ps_dc75f0cc1b580538b5c3166cec0fbbb8198debc6">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">A. Genetic Engineering</div><div class="time-limit"><div class="property-title">time limit per test</div>1 second</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">You will receive 3 points for solving this problem.</span></p><p>Manao is designing the genetic code for a new type of algae to efficiently produce fuel. Specifically, Manao is focusing on a stretch of DNA that encodes one protein. The stretch of DNA is represented by a string containing only the characters '<span class="tex-font-style-tt">A</span>', '<span class="tex-font-style-tt">T</span>', '<span class="tex-font-style-tt">G</span>' and '<span class="tex-font-style-tt">C</span>'.</p><p>Manao has determined that if the stretch of DNA contains a maximal sequence of consecutive identical nucleotides that is of even length, then the protein will be nonfunctional. For example, consider a protein described by DNA string &quot;<span class="tex-font-style-tt">GTTAAAG</span>&quot;. It contains four maximal sequences of consecutive identical nucleotides: &quot;<span class="tex-font-style-tt">G</span>&quot;, &quot;<span class="tex-font-style-tt">TT</span>&quot;, &quot;<span class="tex-font-style-tt">AAA</span>&quot;, and &quot;<span class="tex-font-style-tt">G</span>&quot;. The protein is nonfunctional because sequence &quot;<span class="tex-font-style-tt">TT</span>&quot; has even length.</p><p>Manao is trying to obtain a functional protein from the protein he currently has. Manao can insert additional nucleotides into the DNA stretch. Each additional nucleotide is a character from the set {'<span class="tex-font-style-tt">A</span>', '<span class="tex-font-style-tt">T</span>', '<span class="tex-font-style-tt">G</span>', '<span class="tex-font-style-tt">C</span>'}. Manao wants to determine the minimum number of insertions necessary to make the DNA encode a functional protein.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The input consists of a single line, containing a string <span class="tex-span"><i>s</i></span> of length <span class="tex-span"><i>n</i></span> <span class="tex-span">(1 ≤ <i>n</i> ≤ 100)</span>. Each character of <span class="tex-span"><i>s</i></span> will be from the set {'<span class="tex-font-style-tt">A</span>', '<span class="tex-font-style-tt">T</span>', '<span class="tex-font-style-tt">G</span>', '<span class="tex-font-style-tt">C</span>'}.</p><p><span class="tex-font-style-it">This problem doesn't have subproblems. You will get 3 points for the correct submission.</span></p></div><div class="output-specification"><div class="section-title">Output</div><p>The program should print on one line a single integer representing the minimum number of '<span class="tex-font-style-tt">A</span>', '<span class="tex-font-style-tt">T</span>', '<span class="tex-font-style-tt">G</span>', '<span class="tex-font-style-tt">C</span>' characters that are required to be inserted into the input string in order to make all runs of identical characters have odd length.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>GTTAAAG<br /></pre></div><div class="output"><div class="title">Output</div><pre>1<br /></pre></div><div class="input"><div class="title">Input</div><pre>AACCAACCAAAAC<br /></pre></div><div class="output"><div class="title">Output</div><pre>5<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, it is sufficient to insert a single nucleotide of any type between the two '<span class="tex-font-style-tt">T</span>'s in the sequence to restore the functionality of the protein.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.changedTests = new Set();
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+        String.prototype.replaceAll = function (search, replace) {
+            return this.split(search).join(replace);
+        };
+
+        $(".sample-test .title").each(function () {
+            const preId = ("id" + Math.random()).replaceAll(".", "0");
+            const cpyId = ("id" + Math.random()).replaceAll(".", "0");
+
+            $(this).parent().find("pre").attr("id", preId);
+            const $copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='input-output-copier'>Copy</div>");
+            $(this).append($copy);
+
+            const clipboard = new Clipboard('#' + cpyId, {
+                text: function (trigger) {
+                    const pre = document.querySelector('#' + preId);
+                    const lines = pre.querySelectorAll(".test-example-line");
+                    return Codeforces.filterClipboardText(pre.innerText, lines.length);
+                }
+            });
+
+            const isInput = $(this).parent().hasClass("input");
+
+            clipboard.on('success', function (e) {
+                if (isInput) {
+                    Codeforces.showMessage("The example input has been copied into the clipboard");
+                } else {
+                    Codeforces.showMessage("The example output has been copied into the clipboard");
+                }
+                e.clearSelection();
+            });
+        });
+
+        $(".test-form-item input").change(function () {
+            addPendingSubmissionMessage($($(this).closest("form")), "You changed the answer, do not forget to submit it if you want to save the changes");
+            const index = $(this).closest(".problemindexholder").attr("problemindex");
+            let test = "";
+            $(this).closest("form input").each(function () {
+                const test_ = $(this).attr("name");
+                if (test_ && test_.substring(0, 4) === "test") {
+                    test = test_;
+                }
+            });
+            if (index.length > 0 && test.length > 0) {
+                const indexTest = index + "::" + test;
+                window.changedTests.add(indexTest);
+            }
+        });
+
+        $(window).on('beforeunload', function () {
+            if (window.changedTests.size > 0) {
+                return 'Dialog text here';
+            }
+        });
+
+        autosize($('.test-explanation textarea'));
+
+        $(".test-example-line").hover(function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        let top = 1E20;
+                        let left = 1E20;
+                        let problem = $(this).closest(".problemindexholder");
+                        $(this).closest(".input").find("." + clazz).css("background-color", "#FFFDE7").each(function() {
+                            top = Math.min(top, $(this).offset().top);
+                            left = Math.min(left, $(this).offset().left);
+                        });
+                        let testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        if (testCaseMarker.length === 0) {
+                            const html = "<div class=\"testCaseMarker testCaseMarker_" + end + " notice\"></div>";
+                            problem.append($(html));
+                            testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        }
+                        if (testCaseMarker) {
+                            testCaseMarker.show()
+                                    .offset({top, left: left - 20})
+                                    .text(end);
+                        }
+                    }
+                }
+            });
+        }, function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        $("." + clazz).css("background-color", "");
+                        $(this).closest(".problemindexholder").find(".testCaseMarker_" + end).hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B" data-uuid="ps_62f9424686bb7775ca0801d53cab988228b053fc">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">B. Word Folding</div><div class="time-limit"><div class="property-title">time limit per test</div>1 second</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">You will receive 5 points for solving this problem.</span></p><p>Manao has invented a new operation on strings that is called folding. Each fold happens between a pair of consecutive letters and places the second part of the string above first part, running in the opposite direction and aligned to the position of the fold. Using this operation, Manao converts the string into a structure that has one more level than there were fold operations performed. See the following examples for clarity.</p><p>We will denote the positions of folds with '<span class="tex-font-style-tt">|</span>' characters. For example, the word &quot;<span class="tex-font-style-tt">ABRACADABRA</span>&quot; written as &quot;<span class="tex-font-style-tt">AB|RACA|DAB|RA</span>&quot; indicates that it has been folded three times: first, between the leftmost pair of '<span class="tex-font-style-tt">B</span>' and '<span class="tex-font-style-tt">R</span>' letters; second, between '<span class="tex-font-style-tt">A</span>' and '<span class="tex-font-style-tt">D</span>'; and third, between the rightmost pair of '<span class="tex-font-style-tt">B</span>' and '<span class="tex-font-style-tt">R</span>' letters. Here are several examples of folded strings:</p><pre class="verbatim"><br />&quot;ABCDEF|GHIJK&quot; |  &quot;A|BCDEFGHIJK&quot; |  &quot;AB|RACA|DAB|RA&quot; |  &quot;X|XXXXX|X|X|XXXXXX&quot;<br />               |                 |                   |       XXXXXX<br />    KJIHG      |   KJIHGFEDCB    |      AR           |       X<br />   ABCDEF      |            A    |     DAB           |       X<br />               |                 |     ACAR          |       XXXXX<br />               |                 |       AB          |           X<br /></pre><p>One last example for &quot;<span class="tex-font-style-tt">ABCD|EFGH|IJ|K</span>&quot;: </p><pre class="verbatim"><br /> K<br />IJ<br />HGFE<br />ABCD<br /></pre><p>Manao noticed that each folded string can be viewed as several piles of letters. For instance, in the previous example, there are four piles, which can be read as &quot;<span class="tex-font-style-tt">AHI</span>&quot;, &quot;<span class="tex-font-style-tt">BGJK</span>&quot;, &quot;<span class="tex-font-style-tt">CF</span>&quot;, and &quot;<span class="tex-font-style-tt">DE</span>&quot; from bottom to top. Manao wonders what is the highest pile of identical letters he can build using fold operations on a given word. Note that the pile should not contain gaps and should start at the bottom level. For example, in the rightmost of the four examples above, none of the piles would be considered valid since each of them has gaps, starts above the bottom level, or both.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The input will consist of one line containing a single string of <span class="tex-span"><i>n</i></span> characters with <span class="tex-span">1 ≤ <i>n</i> ≤ 1000</span> and no spaces. All characters of the string will be uppercase letters.</p><p><span class="tex-font-style-it">This problem doesn't have subproblems. You will get 5 points for the correct submission.</span></p></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single integer — the size of the largest pile composed of identical characters that can be seen in a valid result of folding operations on the given string.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>ABRACADABRA<br /></pre></div><div class="output"><div class="title">Output</div><pre>3<br /></pre></div><div class="input"><div class="title">Input</div><pre>ABBBCBDB<br /></pre></div><div class="output"><div class="title">Output</div><pre>3<br /></pre></div><div class="input"><div class="title">Input</div><pre>AB<br /></pre></div><div class="output"><div class="title">Output</div><pre>1<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first example. Manao can create a pile of three '<span class="tex-font-style-tt">A</span>'s using the folding &quot;<span class="tex-font-style-tt">AB|RACAD|ABRA</span>&quot;, which results in the following structure: </p><pre class="verbatim"><br />ABRA<br />DACAR<br />   AB<br /></pre><p>In the second example, Manao can create a pile of three '<span class="tex-font-style-tt">B</span>'s using the following folding: &quot;<span class="tex-font-style-tt">AB|BB|CBDB</span>&quot;. </p><pre class="verbatim"><br />CBDB<br />BB<br />AB<br /></pre><p>Another way for Manao to create a pile of three '<span class="tex-font-style-tt">B</span>'s with &quot;<span class="tex-font-style-tt">ABBBCBDB</span>&quot; is the following folding: &quot;<span class="tex-font-style-tt">AB|B|BCBDB</span>&quot;. </p><pre class="verbatim"><br /> BCBDB<br /> B<br />AB<br /></pre><p>In the third example, there are no folds performed and the string is just written in one line.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C1" data-uuid="ps_24e2bcd81f9dfe40071fe2b84b8a5b8a44d9fddc">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C1. The Tournament</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem C1 you will receive 4 points, for solving subproblem C2 you will receive 4 points, and for solving subproblem C3 you will receive 8 points.</span></p><p>Manao decided to pursue a fighter's career. He decided to begin with an ongoing tournament. Before Manao joined, there were <span class="tex-span"><i>n</i></span> contestants in the tournament, numbered from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span>. Each of them had already obtained some amount of tournament points, namely the <span class="tex-span"><i>i</i></span>-th fighter had <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> points.</p><p>Manao is going to engage in a single fight against each contestant. Each of Manao's fights ends in either a win or a loss. A win grants Manao one point, and a loss grants Manao's opponent one point. For each <span class="tex-span"><i>i</i></span>, Manao estimated the amount of effort <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> he needs to invest to win against the <span class="tex-span"><i>i</i></span>-th contestant. Losing a fight costs no effort.</p><p>After Manao finishes all of his fights, the ranklist will be determined, with <span class="tex-span">1</span> being the best rank and <span class="tex-span"><i>n</i> + 1</span> being the worst. The contestants will be ranked in descending order of their tournament points. The contestants with the same number of points as Manao will be ranked better than him if they won the match against him and worse otherwise. The exact mechanism of breaking ties for other fighters is not relevant here.</p><p>Manao's objective is to have rank <span class="tex-span"><i>k</i></span> or better. Determine the minimum total amount of effort he needs to invest in order to fulfill this goal, if it is possible.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains a pair of integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span> (<span class="tex-span">1 ≤ <i>k</i> ≤ <i>n</i> + 1</span>). The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains two integers separated by a single space — <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub>, <i>e</i><sub class="lower-index"><i>i</i></sub> ≤ 200000</span>).</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem C1 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 15</span> will hold. </li><li> In subproblem C2 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 100</span> will hold. </li><li> In subproblem C3 (8 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 200000</span> will hold. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single number in a single line — the minimum amount of effort Manao needs to use to rank in the top <span class="tex-span"><i>k</i></span>. If no amount of effort can earn Manao such a rank, output number -1.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 2<br />1 1<br />1 4<br />2 2<br /></pre></div><div class="output"><div class="title">Output</div><pre>3<br /></pre></div><div class="input"><div class="title">Input</div><pre>2 1<br />3 2<br />4 0<br /></pre></div><div class="output"><div class="title">Output</div><pre>-1<br /></pre></div><div class="input"><div class="title">Input</div><pre>5 2<br />2 10<br />2 10<br />1 1<br />3 1<br />3 1<br /></pre></div><div class="output"><div class="title">Output</div><pre>12<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first test case. At the time when Manao joins the tournament, there are three fighters. The first of them has 1 tournament point and the victory against him requires 1 unit of effort. The second contestant also has 1 tournament point, but Manao needs 4 units of effort to defeat him. The third contestant has 2 points and victory against him costs Manao 2 units of effort. Manao's goal is top be in top 2. The optimal decision is to win against fighters <span class="tex-span">1</span> and <span class="tex-span">3</span>, after which Manao, fighter <span class="tex-span">2</span>, and fighter <span class="tex-span">3</span> will all have 2 points. Manao will rank better than fighter <span class="tex-span">3</span> and worse than fighter <span class="tex-span">2</span>, thus finishing in second place.</p><p>Consider the second test case. Even if Manao wins against both opponents, he will still rank third.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C2" data-uuid="ps_24e2bcd81f9dfe40071fe2b84b8a5b8a44d9fddc">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C2. The Tournament</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem C1 you will receive 4 points, for solving subproblem C2 you will receive 4 points, and for solving subproblem C3 you will receive 8 points.</span></p><p>Manao decided to pursue a fighter's career. He decided to begin with an ongoing tournament. Before Manao joined, there were <span class="tex-span"><i>n</i></span> contestants in the tournament, numbered from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span>. Each of them had already obtained some amount of tournament points, namely the <span class="tex-span"><i>i</i></span>-th fighter had <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> points.</p><p>Manao is going to engage in a single fight against each contestant. Each of Manao's fights ends in either a win or a loss. A win grants Manao one point, and a loss grants Manao's opponent one point. For each <span class="tex-span"><i>i</i></span>, Manao estimated the amount of effort <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> he needs to invest to win against the <span class="tex-span"><i>i</i></span>-th contestant. Losing a fight costs no effort.</p><p>After Manao finishes all of his fights, the ranklist will be determined, with <span class="tex-span">1</span> being the best rank and <span class="tex-span"><i>n</i> + 1</span> being the worst. The contestants will be ranked in descending order of their tournament points. The contestants with the same number of points as Manao will be ranked better than him if they won the match against him and worse otherwise. The exact mechanism of breaking ties for other fighters is not relevant here.</p><p>Manao's objective is to have rank <span class="tex-span"><i>k</i></span> or better. Determine the minimum total amount of effort he needs to invest in order to fulfill this goal, if it is possible.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains a pair of integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span> (<span class="tex-span">1 ≤ <i>k</i> ≤ <i>n</i> + 1</span>). The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains two integers separated by a single space — <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub>, <i>e</i><sub class="lower-index"><i>i</i></sub> ≤ 200000</span>).</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem C1 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 15</span> will hold. </li><li> In subproblem C2 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 100</span> will hold. </li><li> In subproblem C3 (8 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 200000</span> will hold. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single number in a single line — the minimum amount of effort Manao needs to use to rank in the top <span class="tex-span"><i>k</i></span>. If no amount of effort can earn Manao such a rank, output number -1.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 2<br />1 1<br />1 4<br />2 2<br /></pre></div><div class="output"><div class="title">Output</div><pre>3<br /></pre></div><div class="input"><div class="title">Input</div><pre>2 1<br />3 2<br />4 0<br /></pre></div><div class="output"><div class="title">Output</div><pre>-1<br /></pre></div><div class="input"><div class="title">Input</div><pre>5 2<br />2 10<br />2 10<br />1 1<br />3 1<br />3 1<br /></pre></div><div class="output"><div class="title">Output</div><pre>12<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first test case. At the time when Manao joins the tournament, there are three fighters. The first of them has 1 tournament point and the victory against him requires 1 unit of effort. The second contestant also has 1 tournament point, but Manao needs 4 units of effort to defeat him. The third contestant has 2 points and victory against him costs Manao 2 units of effort. Manao's goal is top be in top 2. The optimal decision is to win against fighters <span class="tex-span">1</span> and <span class="tex-span">3</span>, after which Manao, fighter <span class="tex-span">2</span>, and fighter <span class="tex-span">3</span> will all have 2 points. Manao will rank better than fighter <span class="tex-span">3</span> and worse than fighter <span class="tex-span">2</span>, thus finishing in second place.</p><p>Consider the second test case. Even if Manao wins against both opponents, he will still rank third.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C3" data-uuid="ps_24e2bcd81f9dfe40071fe2b84b8a5b8a44d9fddc">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C3. The Tournament</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem C1 you will receive 4 points, for solving subproblem C2 you will receive 4 points, and for solving subproblem C3 you will receive 8 points.</span></p><p>Manao decided to pursue a fighter's career. He decided to begin with an ongoing tournament. Before Manao joined, there were <span class="tex-span"><i>n</i></span> contestants in the tournament, numbered from <span class="tex-span">1</span> to <span class="tex-span"><i>n</i></span>. Each of them had already obtained some amount of tournament points, namely the <span class="tex-span"><i>i</i></span>-th fighter had <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> points.</p><p>Manao is going to engage in a single fight against each contestant. Each of Manao's fights ends in either a win or a loss. A win grants Manao one point, and a loss grants Manao's opponent one point. For each <span class="tex-span"><i>i</i></span>, Manao estimated the amount of effort <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> he needs to invest to win against the <span class="tex-span"><i>i</i></span>-th contestant. Losing a fight costs no effort.</p><p>After Manao finishes all of his fights, the ranklist will be determined, with <span class="tex-span">1</span> being the best rank and <span class="tex-span"><i>n</i> + 1</span> being the worst. The contestants will be ranked in descending order of their tournament points. The contestants with the same number of points as Manao will be ranked better than him if they won the match against him and worse otherwise. The exact mechanism of breaking ties for other fighters is not relevant here.</p><p>Manao's objective is to have rank <span class="tex-span"><i>k</i></span> or better. Determine the minimum total amount of effort he needs to invest in order to fulfill this goal, if it is possible.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains a pair of integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span> (<span class="tex-span">1 ≤ <i>k</i> ≤ <i>n</i> + 1</span>). The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains two integers separated by a single space — <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>e</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub>, <i>e</i><sub class="lower-index"><i>i</i></sub> ≤ 200000</span>).</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem C1 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 15</span> will hold. </li><li> In subproblem C2 (4 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 100</span> will hold. </li><li> In subproblem C3 (8 points), the constraint <span class="tex-span">1 ≤ <i>n</i> ≤ 200000</span> will hold. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single number in a single line — the minimum amount of effort Manao needs to use to rank in the top <span class="tex-span"><i>k</i></span>. If no amount of effort can earn Manao such a rank, output number -1.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>3 2<br />1 1<br />1 4<br />2 2<br /></pre></div><div class="output"><div class="title">Output</div><pre>3<br /></pre></div><div class="input"><div class="title">Input</div><pre>2 1<br />3 2<br />4 0<br /></pre></div><div class="output"><div class="title">Output</div><pre>-1<br /></pre></div><div class="input"><div class="title">Input</div><pre>5 2<br />2 10<br />2 10<br />1 1<br />3 1<br />3 1<br /></pre></div><div class="output"><div class="title">Output</div><pre>12<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first test case. At the time when Manao joins the tournament, there are three fighters. The first of them has 1 tournament point and the victory against him requires 1 unit of effort. The second contestant also has 1 tournament point, but Manao needs 4 units of effort to defeat him. The third contestant has 2 points and victory against him costs Manao 2 units of effort. Manao's goal is top be in top 2. The optimal decision is to win against fighters <span class="tex-span">1</span> and <span class="tex-span">3</span>, after which Manao, fighter <span class="tex-span">2</span>, and fighter <span class="tex-span">3</span> will all have 2 points. Manao will rank better than fighter <span class="tex-span">3</span> and worse than fighter <span class="tex-span">2</span>, thus finishing in second place.</p><p>Consider the second test case. Even if Manao wins against both opponents, he will still rank third.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="D1" data-uuid="ps_3bb48249f8b33c8a8018964b0196553e2f679a6b">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">D1. Supercollider</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of two subproblems: for solving subproblem D1 you will receive 3 points, and for solving subproblem D2 you will receive 16 points.</span></p><p>Manao is the chief architect involved in planning a new supercollider. He has to identify a plot of land where the largest possible supercollider can be built. The supercollider he is building requires four-way orthogonal collisions of particles traveling at the same speed, so it will consist of four accelerating chambers and be shaped like a plus sign (i.e., +). Each of the four accelerating chambers must be the same length and must be aligned with the Earth's magnetic field (parallel or orthogonal) to minimize interference.</p><p>The accelerating chambers need to be laid down across long flat stretches of land to keep costs under control. Thus, Manao has already commissioned a topographical study that has identified all possible maximal length tracts of land available for building accelerating chambers that are either parallel or orthogonal to the Earth's magnetic field. To build the largest possible supercollider, Manao must identify the largest symmetric plus shape from among these candidate tracts. That is, he must find the two tracts of land that form an axis-aligned plus shape with the largest distance from the center of the plus to the tip of the shortest of the four arms of the plus. Note that the collider need not use the entire length of the tracts identified (see the example in the notes).</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line of the input will contain two single-space-separated integers <span class="tex-span"><i>n</i></span>, the number of north-south tracts and <span class="tex-span"><i>m</i></span>, the number of west-east tracts.</p><p>Each of the <span class="tex-span"><i>n</i></span> lines following the first describes a north-south tract. Each such tract is described by three single-space-separated integers <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>, <i>l</i><sub class="lower-index"><i>i</i></sub></span> representing the vertical line segment from <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span> to <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub> + <i>l</i><sub class="lower-index"><i>i</i></sub>)</span>.</p><p>Similarly, after the <span class="tex-span"><i>n</i></span> lines describing north-south tracts follow <span class="tex-span"><i>m</i></span> similar lines describing the west-east tracts. Each such tract is described by three single-space-separated integers <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>, <i>l</i><sub class="lower-index"><i>i</i></sub></span> representing the horizontal line segment from <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span> to <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub> + <i>l</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span>.</p><p>All <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>y</i><sub class="lower-index"><i>i</i></sub></span> are between -100000000 and 100000000, inclusive. All <span class="tex-span"><i>l</i><sub class="lower-index"><i>i</i></sub></span> are between 1 and 100000000, inclusive. No pair of horizontal segments will touch or intersect, and no pair of vertical segments will touch or intersect.</p><p><span class="tex-font-style-it">The problem consists of two subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem D1 (3 points), <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>m</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">1000</span>, inclusive. </li><li> In subproblem D2 (16 points), <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>m</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">50000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print one line containing a single integer, the size of the largest supercollider that can be built on one north-south tract and one west-east tract. The size of the supercollider is defined to be the length of one of the four accelerating chambers. In other words, the size of the resulting supercollider is defined to be the distance from the intersection of the two line segments to the closest endpoint of either of the two segments. If no pair of north-south and west-east tracts intersects, it is not possible to build a supercollider and the program should report a maximum size of zero.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>1 2<br />4 0 9<br />1 1 8<br />1 2 7<br /></pre></div><div class="output"><div class="title">Output</div><pre>2<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the example. There is one vertical line segment from (4, 0) to (4, 9) and two horizontal line segments: from (1, 1) to (9, 1) and from (1, 2) to (8, 2). The largest plus shape that can be found among these segments is formed from the only vertical segment and the second of horizontal segments, and is centered at (4, 2). </p><p>The program should output 2 because the closest end point of those segments to the center is (4, 0), which is distance 2 from the center point of (4, 2). The collider will be formed by the line segments from (2, 2) to (6, 2) and from (4, 0) to (4, 4).</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=D1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="D2" data-uuid="ps_3bb48249f8b33c8a8018964b0196553e2f679a6b">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">D2. Supercollider</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of two subproblems: for solving subproblem D1 you will receive 3 points, and for solving subproblem D2 you will receive 16 points.</span></p><p>Manao is the chief architect involved in planning a new supercollider. He has to identify a plot of land where the largest possible supercollider can be built. The supercollider he is building requires four-way orthogonal collisions of particles traveling at the same speed, so it will consist of four accelerating chambers and be shaped like a plus sign (i.e., +). Each of the four accelerating chambers must be the same length and must be aligned with the Earth's magnetic field (parallel or orthogonal) to minimize interference.</p><p>The accelerating chambers need to be laid down across long flat stretches of land to keep costs under control. Thus, Manao has already commissioned a topographical study that has identified all possible maximal length tracts of land available for building accelerating chambers that are either parallel or orthogonal to the Earth's magnetic field. To build the largest possible supercollider, Manao must identify the largest symmetric plus shape from among these candidate tracts. That is, he must find the two tracts of land that form an axis-aligned plus shape with the largest distance from the center of the plus to the tip of the shortest of the four arms of the plus. Note that the collider need not use the entire length of the tracts identified (see the example in the notes).</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line of the input will contain two single-space-separated integers <span class="tex-span"><i>n</i></span>, the number of north-south tracts and <span class="tex-span"><i>m</i></span>, the number of west-east tracts.</p><p>Each of the <span class="tex-span"><i>n</i></span> lines following the first describes a north-south tract. Each such tract is described by three single-space-separated integers <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>, <i>l</i><sub class="lower-index"><i>i</i></sub></span> representing the vertical line segment from <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span> to <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub> + <i>l</i><sub class="lower-index"><i>i</i></sub>)</span>.</p><p>Similarly, after the <span class="tex-span"><i>n</i></span> lines describing north-south tracts follow <span class="tex-span"><i>m</i></span> similar lines describing the west-east tracts. Each such tract is described by three single-space-separated integers <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>, <i>l</i><sub class="lower-index"><i>i</i></sub></span> representing the horizontal line segment from <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span> to <span class="tex-span">(<i>x</i><sub class="lower-index"><i>i</i></sub> + <i>l</i><sub class="lower-index"><i>i</i></sub>, <i>y</i><sub class="lower-index"><i>i</i></sub>)</span>.</p><p>All <span class="tex-span"><i>x</i><sub class="lower-index"><i>i</i></sub></span> and <span class="tex-span"><i>y</i><sub class="lower-index"><i>i</i></sub></span> are between -100000000 and 100000000, inclusive. All <span class="tex-span"><i>l</i><sub class="lower-index"><i>i</i></sub></span> are between 1 and 100000000, inclusive. No pair of horizontal segments will touch or intersect, and no pair of vertical segments will touch or intersect.</p><p><span class="tex-font-style-it">The problem consists of two subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem D1 (3 points), <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>m</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">1000</span>, inclusive. </li><li> In subproblem D2 (16 points), <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>m</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">50000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print one line containing a single integer, the size of the largest supercollider that can be built on one north-south tract and one west-east tract. The size of the supercollider is defined to be the length of one of the four accelerating chambers. In other words, the size of the resulting supercollider is defined to be the distance from the intersection of the two line segments to the closest endpoint of either of the two segments. If no pair of north-south and west-east tracts intersects, it is not possible to build a supercollider and the program should report a maximum size of zero.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>1 2<br />4 0 9<br />1 1 8<br />1 2 7<br /></pre></div><div class="output"><div class="title">Output</div><pre>2<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the example. There is one vertical line segment from (4, 0) to (4, 9) and two horizontal line segments: from (1, 1) to (9, 1) and from (1, 2) to (8, 2). The largest plus shape that can be found among these segments is formed from the only vertical segment and the second of horizontal segments, and is centered at (4, 2). </p><p>The program should output 2 because the closest end point of those segments to the center is (4, 0), which is distance 2 from the center point of (4, 2). The collider will be formed by the line segments from (2, 2) to (6, 2) and from (4, 0) to (4, 4).</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=D2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E1" data-uuid="ps_d775abc7af335b42432650b7c09daab1534566ba">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E1. Three Trees</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of two subproblems: for solving subproblem E1 you will receive 11 points, and for solving subproblem E2 you will receive 13 points.</span></p><p>A tree is an undirected connected graph containing no cycles. The distance between two nodes in an unweighted tree is the minimum number of edges that have to be traversed to get from one node to another.</p><p>You are given 3 trees that have to be united into a single tree by adding two edges between these trees. Each of these edges can connect any pair of nodes from two trees. After the trees are connected, the distances between all unordered pairs of nodes in the united tree should be computed. What is the maximum possible value of the sum of these distances?</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains three space-separated integers <span class="tex-span"><i>n</i><sub class="lower-index">1</sub></span>, <span class="tex-span"><i>n</i><sub class="lower-index">2</sub></span>, <span class="tex-span"><i>n</i><sub class="lower-index">3</sub></span> — the number of vertices in the first, second, and third trees, respectively. The following <span class="tex-span"><i>n</i><sub class="lower-index">1</sub> - 1</span> lines describe the first tree. Each of these lines describes an edge in the first tree and contains a pair of integers separated by a single space — the numeric labels of vertices connected by the edge. The following <span class="tex-span"><i>n</i><sub class="lower-index">2</sub> - 1</span> lines describe the second tree in the same fashion, and the <span class="tex-span"><i>n</i><sub class="lower-index">3</sub> - 1</span> lines after that similarly describe the third tree. The vertices in each tree are numbered with consecutive integers starting with <span class="tex-span">1</span>.</p><p><span class="tex-font-style-it">The problem consists of two subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem E1 (11 points), the number of vertices in each tree will be between <span class="tex-span">1</span> and <span class="tex-span">1000</span>, inclusive. </li><li> In subproblem E2 (13 points), the number of vertices in each tree will be between <span class="tex-span">1</span> and <span class="tex-span">100000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single integer number — the maximum possible sum of distances between all pairs of nodes in the united tree.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>2 2 3<br />1 2<br />1 2<br />1 2<br />2 3<br /></pre></div><div class="output"><div class="title">Output</div><pre>56<br /></pre></div><div class="input"><div class="title">Input</div><pre>5 1 4<br />1 2<br />2 5<br />3 4<br />4 2<br />1 2<br />1 3<br />1 4<br /></pre></div><div class="output"><div class="title">Output</div><pre>151<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first test case. There are two trees composed of two nodes, and one tree with three nodes. The maximum possible answer is obtained if the trees are connected in a single chain of 7 vertices.</p><p>In the second test case, a possible choice of new edges to obtain the maximum answer is the following: </p><ul> <li> Connect node 3 from the first tree to node 1 from the second tree; </li><li> Connect node 2 from the third tree to node 1 from the second tree. </li></ul></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E2" data-uuid="ps_d775abc7af335b42432650b7c09daab1534566ba">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E2. Three Trees</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of two subproblems: for solving subproblem E1 you will receive 11 points, and for solving subproblem E2 you will receive 13 points.</span></p><p>A tree is an undirected connected graph containing no cycles. The distance between two nodes in an unweighted tree is the minimum number of edges that have to be traversed to get from one node to another.</p><p>You are given 3 trees that have to be united into a single tree by adding two edges between these trees. Each of these edges can connect any pair of nodes from two trees. After the trees are connected, the distances between all unordered pairs of nodes in the united tree should be computed. What is the maximum possible value of the sum of these distances?</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains three space-separated integers <span class="tex-span"><i>n</i><sub class="lower-index">1</sub></span>, <span class="tex-span"><i>n</i><sub class="lower-index">2</sub></span>, <span class="tex-span"><i>n</i><sub class="lower-index">3</sub></span> — the number of vertices in the first, second, and third trees, respectively. The following <span class="tex-span"><i>n</i><sub class="lower-index">1</sub> - 1</span> lines describe the first tree. Each of these lines describes an edge in the first tree and contains a pair of integers separated by a single space — the numeric labels of vertices connected by the edge. The following <span class="tex-span"><i>n</i><sub class="lower-index">2</sub> - 1</span> lines describe the second tree in the same fashion, and the <span class="tex-span"><i>n</i><sub class="lower-index">3</sub> - 1</span> lines after that similarly describe the third tree. The vertices in each tree are numbered with consecutive integers starting with <span class="tex-span">1</span>.</p><p><span class="tex-font-style-it">The problem consists of two subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem E1 (11 points), the number of vertices in each tree will be between <span class="tex-span">1</span> and <span class="tex-span">1000</span>, inclusive. </li><li> In subproblem E2 (13 points), the number of vertices in each tree will be between <span class="tex-span">1</span> and <span class="tex-span">100000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>Print a single integer number — the maximum possible sum of distances between all pairs of nodes in the united tree.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>2 2 3<br />1 2<br />1 2<br />1 2<br />2 3<br /></pre></div><div class="output"><div class="title">Output</div><pre>56<br /></pre></div><div class="input"><div class="title">Input</div><pre>5 1 4<br />1 2<br />2 5<br />3 4<br />4 2<br />1 2<br />1 3<br />1 4<br /></pre></div><div class="output"><div class="title">Output</div><pre>151<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Consider the first test case. There are two trees composed of two nodes, and one tree with three nodes. The maximum possible answer is obtained if the trees are connected in a single chain of 7 vertices.</p><p>In the second test case, a possible choice of new edges to obtain the maximum answer is the following: </p><ul> <li> Connect node 3 from the first tree to node 1 from the second tree; </li><li> Connect node 2 from the third tree to node 1 from the second tree. </li></ul></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="F1" data-uuid="ps_191f6ed7594ad3c4e7e2217880c4458953c76b4c">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">F1. Stock Trading</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem F1 you will receive 8 points, for solving subproblem F2 you will receive 15 points, and for solving subproblem F3 you will receive 10 points.</span></p><p>Manao has developed a model to predict the stock price of a company over the next <span class="tex-span"><i>n</i></span> days and wants to design a profit-maximizing trading algorithm to make use of these predictions. Unfortunately, Manao's trading account has the following restrictions: </p><ul> <li> It only allows owning either zero or one shares of stock at a time; </li><li> It only allows buying or selling a share of this stock once per day; </li><li> It allows a maximum of <span class="tex-span"><i>k</i></span> buy orders over the next <span class="tex-span"><i>n</i></span> days; </li></ul><p>For the purposes of this problem, we define a <span class="tex-font-style-underline">trade</span> to a be the act of buying one share of stock on day <span class="tex-span"><i>i</i></span>, then holding the stock until some day <span class="tex-span"><i>j</i> &gt; <i>i</i></span> at which point the share is sold. To restate the above constraints, Manao is permitted to make at most <span class="tex-span"><i>k</i></span> non-overlapping trades during the course of an <span class="tex-span"><i>n</i></span>-day trading period for which Manao's model has predictions about the stock price.</p><p>Even though these restrictions limit the amount of profit Manao can make compared to what would be achievable with an unlimited number of trades or the ability to hold more than one share at a time, Manao still has the potential to make a lot of money because Manao's model perfectly predicts the daily price of the stock. For example, using this model, Manao could wait until the price is low, then buy one share and hold until the price reaches a high value, then sell for a profit, and repeat this process up to <span class="tex-span"><i>k</i></span> times until <span class="tex-span"><i>n</i></span> days have passed.</p><p>Nevertheless, Manao is not satisfied by having a merely good trading algorithm, and wants to develop an optimal strategy for trading subject to these constraints. Help Manao achieve this goal by writing a program that will determine when to buy and sell stock to achieve the greatest possible profit during the <span class="tex-span"><i>n</i></span>-day trading period subject to the above constraints.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span>, separated by a single space, with <img align="middle" class="tex-formula" src="https://espresso.codeforces.com/6a8c0febb76e80fce9bce6e28e7894bce0c67a40.png" style="max-width: 100.0%;max-height: 100.0%;" />. The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains a single integer <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub> ≤ 10<sup class="upper-index">12</sup></span>), where <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> represents the price at which someone can either buy or sell one share of stock on day <span class="tex-span"><i>i</i></span>.</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem F1 (8 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">3000</span>, inclusive. </li><li> In subproblem F2 (15 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">100000</span>, inclusive. </li><li> In subproblem F3 (10 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">4000000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>For this problem, the program will only report the amount of the optimal profit, rather than a list of trades that can achieve this profit.</p><p>Therefore, the program should print one line containing a single integer, the maximum profit Manao can achieve over the next <span class="tex-span"><i>n</i></span> days with the constraints of starting with no shares on the first day of trading, always owning either zero or one shares of stock, and buying at most <span class="tex-span"><i>k</i></span> shares over the course of the <span class="tex-span"><i>n</i></span>-day trading period.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>10 2<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>15<br /></pre></div><div class="input"><div class="title">Input</div><pre>10 5<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>21<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, the best trade overall is to buy at a price of <span class="tex-span">1</span> on day 9 and sell at a price of <span class="tex-span">9</span> on day 10 and the second best trade overall is to buy at a price of <span class="tex-span">2</span> on day 1 and sell at a price of <span class="tex-span">9</span> on day 4. Since these two trades do not overlap, both can be made and the profit is the sum of the profits of the two trades. Thus the trade strategy looks like this: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  |      |      | sell |      |      |      |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(9 - 2) + (9 - 1) = 15</span>.</p><p>In the second example, even though Manao is allowed up to 5 trades there are only 4 profitable trades available. Making a fifth trade would cost Manao money so he only makes the following 4: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  | sell | buy  | sell |      | buy  | sell |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(7 - 2) + (9 - 3) + (9 - 7) + (9 - 1) = 21</span>.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=F1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="F2" data-uuid="ps_191f6ed7594ad3c4e7e2217880c4458953c76b4c">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">F2. Stock Trading</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem F1 you will receive 8 points, for solving subproblem F2 you will receive 15 points, and for solving subproblem F3 you will receive 10 points.</span></p><p>Manao has developed a model to predict the stock price of a company over the next <span class="tex-span"><i>n</i></span> days and wants to design a profit-maximizing trading algorithm to make use of these predictions. Unfortunately, Manao's trading account has the following restrictions: </p><ul> <li> It only allows owning either zero or one shares of stock at a time; </li><li> It only allows buying or selling a share of this stock once per day; </li><li> It allows a maximum of <span class="tex-span"><i>k</i></span> buy orders over the next <span class="tex-span"><i>n</i></span> days; </li></ul><p>For the purposes of this problem, we define a <span class="tex-font-style-underline">trade</span> to a be the act of buying one share of stock on day <span class="tex-span"><i>i</i></span>, then holding the stock until some day <span class="tex-span"><i>j</i> &gt; <i>i</i></span> at which point the share is sold. To restate the above constraints, Manao is permitted to make at most <span class="tex-span"><i>k</i></span> non-overlapping trades during the course of an <span class="tex-span"><i>n</i></span>-day trading period for which Manao's model has predictions about the stock price.</p><p>Even though these restrictions limit the amount of profit Manao can make compared to what would be achievable with an unlimited number of trades or the ability to hold more than one share at a time, Manao still has the potential to make a lot of money because Manao's model perfectly predicts the daily price of the stock. For example, using this model, Manao could wait until the price is low, then buy one share and hold until the price reaches a high value, then sell for a profit, and repeat this process up to <span class="tex-span"><i>k</i></span> times until <span class="tex-span"><i>n</i></span> days have passed.</p><p>Nevertheless, Manao is not satisfied by having a merely good trading algorithm, and wants to develop an optimal strategy for trading subject to these constraints. Help Manao achieve this goal by writing a program that will determine when to buy and sell stock to achieve the greatest possible profit during the <span class="tex-span"><i>n</i></span>-day trading period subject to the above constraints.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span>, separated by a single space, with <img align="middle" class="tex-formula" src="https://espresso.codeforces.com/6a8c0febb76e80fce9bce6e28e7894bce0c67a40.png" style="max-width: 100.0%;max-height: 100.0%;" />. The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains a single integer <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub> ≤ 10<sup class="upper-index">12</sup></span>), where <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> represents the price at which someone can either buy or sell one share of stock on day <span class="tex-span"><i>i</i></span>.</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem F1 (8 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">3000</span>, inclusive. </li><li> In subproblem F2 (15 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">100000</span>, inclusive. </li><li> In subproblem F3 (10 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">4000000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>For this problem, the program will only report the amount of the optimal profit, rather than a list of trades that can achieve this profit.</p><p>Therefore, the program should print one line containing a single integer, the maximum profit Manao can achieve over the next <span class="tex-span"><i>n</i></span> days with the constraints of starting with no shares on the first day of trading, always owning either zero or one shares of stock, and buying at most <span class="tex-span"><i>k</i></span> shares over the course of the <span class="tex-span"><i>n</i></span>-day trading period.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>10 2<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>15<br /></pre></div><div class="input"><div class="title">Input</div><pre>10 5<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>21<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, the best trade overall is to buy at a price of <span class="tex-span">1</span> on day 9 and sell at a price of <span class="tex-span">9</span> on day 10 and the second best trade overall is to buy at a price of <span class="tex-span">2</span> on day 1 and sell at a price of <span class="tex-span">9</span> on day 4. Since these two trades do not overlap, both can be made and the profit is the sum of the profits of the two trades. Thus the trade strategy looks like this: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  |      |      | sell |      |      |      |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(9 - 2) + (9 - 1) = 15</span>.</p><p>In the second example, even though Manao is allowed up to 5 trades there are only 4 profitable trades available. Making a fifth trade would cost Manao money so he only makes the following 4: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  | sell | buy  | sell |      | buy  | sell |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(7 - 2) + (9 - 3) + (9 - 7) + (9 - 1) = 21</span>.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=F2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 1em;"
+        >
+
+
+<div class="problemindexholder" problemindex="F3" data-uuid="ps_191f6ed7594ad3c4e7e2217880c4458953c76b4c">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">F3. Stock Trading</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">This problem consists of three subproblems: for solving subproblem F1 you will receive 8 points, for solving subproblem F2 you will receive 15 points, and for solving subproblem F3 you will receive 10 points.</span></p><p>Manao has developed a model to predict the stock price of a company over the next <span class="tex-span"><i>n</i></span> days and wants to design a profit-maximizing trading algorithm to make use of these predictions. Unfortunately, Manao's trading account has the following restrictions: </p><ul> <li> It only allows owning either zero or one shares of stock at a time; </li><li> It only allows buying or selling a share of this stock once per day; </li><li> It allows a maximum of <span class="tex-span"><i>k</i></span> buy orders over the next <span class="tex-span"><i>n</i></span> days; </li></ul><p>For the purposes of this problem, we define a <span class="tex-font-style-underline">trade</span> to a be the act of buying one share of stock on day <span class="tex-span"><i>i</i></span>, then holding the stock until some day <span class="tex-span"><i>j</i> &gt; <i>i</i></span> at which point the share is sold. To restate the above constraints, Manao is permitted to make at most <span class="tex-span"><i>k</i></span> non-overlapping trades during the course of an <span class="tex-span"><i>n</i></span>-day trading period for which Manao's model has predictions about the stock price.</p><p>Even though these restrictions limit the amount of profit Manao can make compared to what would be achievable with an unlimited number of trades or the ability to hold more than one share at a time, Manao still has the potential to make a lot of money because Manao's model perfectly predicts the daily price of the stock. For example, using this model, Manao could wait until the price is low, then buy one share and hold until the price reaches a high value, then sell for a profit, and repeat this process up to <span class="tex-span"><i>k</i></span> times until <span class="tex-span"><i>n</i></span> days have passed.</p><p>Nevertheless, Manao is not satisfied by having a merely good trading algorithm, and wants to develop an optimal strategy for trading subject to these constraints. Help Manao achieve this goal by writing a program that will determine when to buy and sell stock to achieve the greatest possible profit during the <span class="tex-span"><i>n</i></span>-day trading period subject to the above constraints.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers <span class="tex-span"><i>n</i></span> and <span class="tex-span"><i>k</i></span>, separated by a single space, with <img align="middle" class="tex-formula" src="https://espresso.codeforces.com/6a8c0febb76e80fce9bce6e28e7894bce0c67a40.png" style="max-width: 100.0%;max-height: 100.0%;" />. The <span class="tex-span"><i>i</i></span>-th of the following <span class="tex-span"><i>n</i></span> lines contains a single integer <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> (<span class="tex-span">0 ≤ <i>p</i><sub class="lower-index"><i>i</i></sub> ≤ 10<sup class="upper-index">12</sup></span>), where <span class="tex-span"><i>p</i><sub class="lower-index"><i>i</i></sub></span> represents the price at which someone can either buy or sell one share of stock on day <span class="tex-span"><i>i</i></span>.</p><p><span class="tex-font-style-it">The problem consists of three subproblems. The subproblems have different constraints on the input. You will get some score for the correct submission of the subproblem. The description of the subproblems follows.</span></p><ul> <li> In subproblem F1 (8 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">3000</span>, inclusive. </li><li> In subproblem F2 (15 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">100000</span>, inclusive. </li><li> In subproblem F3 (10 points), <span class="tex-span"><i>n</i></span> will be between <span class="tex-span">1</span> and <span class="tex-span">4000000</span>, inclusive. </li></ul></div><div class="output-specification"><div class="section-title">Output</div><p>For this problem, the program will only report the amount of the optimal profit, rather than a list of trades that can achieve this profit.</p><p>Therefore, the program should print one line containing a single integer, the maximum profit Manao can achieve over the next <span class="tex-span"><i>n</i></span> days with the constraints of starting with no shares on the first day of trading, always owning either zero or one shares of stock, and buying at most <span class="tex-span"><i>k</i></span> shares over the course of the <span class="tex-span"><i>n</i></span>-day trading period.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>10 2<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>15<br /></pre></div><div class="input"><div class="title">Input</div><pre>10 5<br />2<br />7<br />3<br />9<br />8<br />7<br />9<br />7<br />1<br />9<br /></pre></div><div class="output"><div class="title">Output</div><pre>21<br /></pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first example, the best trade overall is to buy at a price of <span class="tex-span">1</span> on day 9 and sell at a price of <span class="tex-span">9</span> on day 10 and the second best trade overall is to buy at a price of <span class="tex-span">2</span> on day 1 and sell at a price of <span class="tex-span">9</span> on day 4. Since these two trades do not overlap, both can be made and the profit is the sum of the profits of the two trades. Thus the trade strategy looks like this: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  |      |      | sell |      |      |      |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(9 - 2) + (9 - 1) = 15</span>.</p><p>In the second example, even though Manao is allowed up to 5 trades there are only 4 profitable trades available. Making a fifth trade would cost Manao money so he only makes the following 4: </p><pre class="verbatim"><br />2    | 7    | 3    | 9    | 8    | 7    | 9    | 7    | 1    | 9<br />buy  | sell | buy  | sell |      | buy  | sell |      | buy  | sell<br /></pre><p>The total profit is then <span class="tex-span">(7 - 2) + (9 - 3) + (9 - 7) + (9 - 1) = 21</span>.</p></div></div></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=F3]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/52076");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div><a href="https://codeforces.com/">Codeforces</a> (c) Copyright 2010-2024 Mike Mirzayanov</div>
+        <div>The only programming contests Web 2.0 platform</div>
+
+    </div>
+
+</div>
+</div>
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator && 'fetch' in window && 'caches' in window) {
+            navigator.serviceWorker.register('/service-worker-52076.js')
+                .then(function (registration) {
+                    console.log('Service worker registered: ', registration);
+                })
+                .catch(function (error) {
+                    console.log('Registration failed: ', error);
+                });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'89ffc6170b7d7787',t:'MTcyMDQzODU1Ny4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

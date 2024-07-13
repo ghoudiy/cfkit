@@ -2,30 +2,12 @@ Codeforces Round 653 (Div. 3)
 
 
 A. Required Remainder
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given three integers $$$x, y$$$ and $$$n$$$. Your task is to find the
-maximum
-integer $$$k$$$ such that $$$0 \le k \le n$$$ that $$$k \bmod x = y$$$, where $$$\bmod$$$ is modulo operation. Many programming languages use percent operator
-%
-to implement it.
-In other words, with given $$$x, y$$$ and $$$n$$$ you need to find the maximum possible integer from $$$0$$$ to $$$n$$$ that has the remainder $$$y$$$ modulo $$$x$$$.
-You have to answer $$$t$$$ independent test cases. It is guaranteed that such $$$k$$$ exists for each test case.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 5 \cdot 10^4$$$) — the number of test cases. The next $$$t$$$ lines contain test cases.
-The only line of the test case contains three integers $$$x, y$$$ and $$$n$$$ ($$$2 \le x \le 10^9;~ 0 \le y < x;~ y \le n \le 10^9$$$).
-It can be shown that such $$$k$$$ always exists under the given constraints.
-Output
-For each test case, print the answer —
-maximum non-negative
-integer $$$k$$$ such that $$$0 \le k \le n$$$ and $$$k \bmod x = y$$$. It is guaranteed that the answer always exists.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 7 5 12345
@@ -45,25 +27,12 @@ Output
 999999998
 ----------------------------------------------------------------------------------------------------
 B. Multiply by 2, divide by 6
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given an integer $$$n$$$. In one move, you can either multiply $$$n$$$ by two or divide $$$n$$$ by $$$6$$$ (if it is divisible by $$$6$$$ without the remainder).
-Your task is to find the minimum number of moves needed to obtain $$$1$$$ from $$$n$$$ or determine if it's impossible to do that.
-You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 2 \cdot 10^4$$$) — the number of test cases. Then $$$t$$$ test cases follow.
-The only line of the test case contains one integer $$$n$$$ ($$$1 \le n \le 10^9$$$).
-Output
-For each test case, print the answer — the minimum number of moves needed to obtain $$$1$$$ from $$$n$$$ if it's possible to do that or
--1
-if it's impossible to obtain $$$1$$$ from $$$n$$$.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 1
@@ -83,59 +52,12 @@ Output
 36
 ----------------------------------------------------------------------------------------------------
 C. Move Brackets
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given a bracket sequence $$$s$$$ of length $$$n$$$, where $$$n$$$ is even (divisible by two). The string $$$s$$$ consists of $$$\frac{n}{2}$$$ opening brackets '
-(
-' and $$$\frac{n}{2}$$$ closing brackets '
-)
-'.
-In one move, you can choose
-exactly one bracket
-and move it to the beginning of the string or to the end of the string (i.e. you choose some index $$$i$$$, remove the $$$i$$$-th character of $$$s$$$ and insert it before or after all remaining characters of $$$s$$$).
-Your task is to find the minimum number of moves required to obtain
-regular bracket sequence
-from $$$s$$$. It can be proved that the answer always exists under the given constraints.
-Recall what the regular bracket sequence is:
-"
-()
-" is regular bracket sequence;
-if $$$s$$$ is regular bracket sequence then "
-(
-" + $$$s$$$ + "
-)
-" is regular bracket sequence;
-if $$$s$$$ and $$$t$$$ are regular bracket sequences then $$$s$$$ + $$$t$$$ is regular bracket sequence.
-For example, "
-()()
-", "
-(())()
-", "
-(())
-" and "
-()
-" are regular bracket sequences, but "
-)(
-", "
-()(
-" and "
-)))
-" are not.
-You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 2000$$$) — the number of test cases. Then $$$t$$$ test cases follow.
-The first line of the test case contains one integer $$$n$$$ ($$$2 \le n \le 50$$$) — the length of $$$s$$$. It is guaranteed that $$$n$$$ is even. The second line of the test case containg the string $$$s$$$ consisting of $$$\frac{n}{2}$$$ opening and $$$\frac{n}{2}$$$ closing brackets.
-Output
-For each test case, print the answer — the minimum number of moves required to obtain
-regular bracket sequence
-from $$$s$$$. It can be proved that the answer always exists under the given constraints.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 2
@@ -153,36 +75,12 @@ Output
 3
 ----------------------------------------------------------------------------------------------------
 D. Zero Remainder Array
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given an array $$$a$$$ consisting of $$$n$$$ positive integers.
-Initially, you have an integer $$$x = 0$$$. During one move, you can do one of the following two operations:
-Choose
-exactly one
-$$$i$$$ from $$$1$$$ to $$$n$$$ and increase $$$a_i$$$ by $$$x$$$ ($$$a_i := a_i + x$$$), then increase $$$x$$$ by $$$1$$$ ($$$x := x + 1$$$).
-Just increase $$$x$$$ by $$$1$$$ ($$$x := x + 1$$$).
-The first operation can be applied
-no more than once
-to each $$$i$$$ from $$$1$$$ to $$$n$$$.
-Your task is to find the minimum number of moves required to obtain such an array that each its element is
-divisible by
-$$$k$$$ (the value $$$k$$$ is given).
-You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 2 \cdot 10^4$$$) — the number of test cases. Then $$$t$$$ test cases follow.
-The first line of the test case contains two integers $$$n$$$ and $$$k$$$ ($$$1 \le n \le 2 \cdot 10^5; 1 \le k \le 10^9$$$) — the length of $$$a$$$ and the required divisior. The second line of the test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 10^9$$$), where $$$a_i$$$ is the $$$i$$$-th element of $$$a$$$.
-It is guaranteed that the sum of $$$n$$$ does not exceed $$$2 \cdot 10^5$$$ ($$$\sum n \le 2 \cdot 10^5$$$).
-Output
-For each test case, print the answer — the minimum number of moves required to obtain such an array that each its element is
-divisible by
-$$$k$$$.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 4 3
@@ -203,45 +101,11 @@ Output
 8
 ----------------------------------------------------------------------------------------------------
 E1. Reading Books (easy version)
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Easy and hard versions are actually different problems, so read statements of both problems completely and carefully
-.
-Summer vacation has started so Alice and Bob want to play and joy, but... Their mom doesn't think so. She says that they have to read some amount of books before all entertainments. Alice and Bob will read each book
-together
-to end this exercise faster.
-There are $$$n$$$ books in the family library. The $$$i$$$-th book is described by three integers: $$$t_i$$$ — the amount of time Alice and Bob need to spend to read it, $$$a_i$$$ (equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ if not), and $$$b_i$$$ (equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ if not).
-So they need to choose some books from the given $$$n$$$ books in such a way that:
-Alice likes
-at least
-$$$k$$$ books from the chosen set and Bob likes
-at least
-$$$k$$$ books from the chosen set;
-the total reading time of these books is
-minimized
-(they are children and want to play and joy as soon a possible).
-The set they choose is
-the same
-for both Alice an Bob (it's shared between them) and they read all books
-together
-, so the total reading time is the sum of $$$t_i$$$ over all books that are in the chosen set.
-Your task is to help them and find any suitable set of books or determine that it is impossible to find such a set.
-Input
-The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \le k \le n \le 2 \cdot 10^5$$$).
-The next $$$n$$$ lines contain descriptions of books, one description per line: the $$$i$$$-th line contains three integers $$$t_i$$$, $$$a_i$$$ and $$$b_i$$$ ($$$1 \le t_i \le 10^4$$$, $$$0 \le a_i, b_i \le 1$$$), where:
-$$$t_i$$$ — the amount of time required for reading the $$$i$$$-th book;
-$$$a_i$$$ equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ otherwise;
-$$$b_i$$$ equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ otherwise.
-Output
-If there is no solution, print only one integer
--1
-. Otherwise print one integer $$$T$$$ — the minimum total reading time of the suitable set of books.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 8 4
@@ -275,51 +139,11 @@ Output
 -1
 ----------------------------------------------------------------------------------------------------
 E2. Reading Books (hard version)
-time limit per test
-3 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Easy and hard versions are actually different problems, so read statements of both problems completely and carefully
-.
-Summer vacation has started so Alice and Bob want to play and joy, but... Their mom doesn't think so. She says that they have to read
-exactly
-$$$m$$$ books before all entertainments. Alice and Bob will read each book
-together
-to end this exercise faster.
-There are $$$n$$$ books in the family library. The $$$i$$$-th book is described by three integers: $$$t_i$$$ — the amount of time Alice and Bob need to spend to read it, $$$a_i$$$ (equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ if not), and $$$b_i$$$ (equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ if not).
-So they need to choose
-exactly
-$$$m$$$ books from the given $$$n$$$ books in such a way that:
-Alice likes
-at least
-$$$k$$$ books from the chosen set and Bob likes
-at least
-$$$k$$$ books from the chosen set;
-the total reading time of these $$$m$$$ books is
-minimized
-(they are children and want to play and joy as soon a possible).
-The set they choose is
-the same
-for both Alice an Bob (it's shared between them) and they read all books
-together
-, so the total reading time is the sum of $$$t_i$$$ over all books that are in the chosen set.
-Your task is to help them and find any suitable set of books or determine that it is impossible to find such a set.
-Input
-The first line of the input contains three integers $$$n$$$, $$$m$$$ and $$$k$$$ ($$$1 \le k \le m \le n \le 2 \cdot 10^5$$$).
-The next $$$n$$$ lines contain descriptions of books, one description per line: the $$$i$$$-th line contains three integers $$$t_i$$$, $$$a_i$$$ and $$$b_i$$$ ($$$1 \le t_i \le 10^4$$$, $$$0 \le a_i, b_i \le 1$$$), where:
-$$$t_i$$$ — the amount of time required for reading the $$$i$$$-th book;
-$$$a_i$$$ equals $$$1$$$ if Alice likes the $$$i$$$-th book and $$$0$$$ otherwise;
-$$$b_i$$$ equals $$$1$$$ if Bob likes the $$$i$$$-th book and $$$0$$$ otherwise.
-Output
-If there is no solution, print only one integer
--1
-.
-If the solution exists, print $$$T$$$ in the first line — the minimum total reading time of the suitable set of books. In the second line print $$$m$$$ distinct integers from $$$1$$$ to $$$n$$$ in any order — indices of books which are in the set you found.
-If there are several answers, print any of them.
+time limit per test: 3 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 6 3 1
@@ -345,31 +169,12 @@ Output
 4 6 5
 ----------------------------------------------------------------------------------------------------
 F. Cyclic Shifts Sorting
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given an array $$$a$$$ consisting of $$$n$$$ integers.
-In one move, you can choose some index $$$i$$$ ($$$1 \le i \le n - 2$$$) and shift the segment $$$[a_i, a_{i + 1}, a_{i + 2}]$$$ cyclically to the right (i.e. replace the segment $$$[a_i, a_{i + 1}, a_{i + 2}]$$$ with $$$[a_{i + 2}, a_i, a_{i + 1}]$$$).
-Your task is to sort the initial array by
-no more than $$$n^2$$$ such operations
-or say that it is impossible to do that.
-You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases. Then $$$t$$$ test cases follow.
-The first line of the test case contains one integer $$$n$$$ ($$$3 \le n \le 500$$$) — the length of $$$a$$$. The second line of the test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 500$$$), where $$$a_i$$$ is the $$$i$$$-th element $$$a$$$.
-It is guaranteed that the sum of $$$n$$$ does not exceed $$$500$$$.
-Output
-For each test case, print the answer:
--1
-on the only line if it is impossible to sort the given array using operations described in the problem statement, or the number of operations $$$ans$$$ on the first line and $$$ans$$$ integers $$$idx_1, idx_2, \dots, idx_{ans}$$$ ($$$1 \le idx_i \le n - 2$$$), where $$$idx_i$$$ is the index of left border of the segment for the $$$i$$$-th operation. You should print indices
-in order of performing operations
-.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 5

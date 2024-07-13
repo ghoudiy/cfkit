@@ -1,0 +1,849 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-743380-5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-743380-5');
+        </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="X-Csrf-Token" content="20f7815e23c35353bf95c208cece0516"/>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=0.01"/>
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery-1.8.3.js"></script>
+    <script type="application/javascript">
+        window.locale = "en";
+        window.standaloneContest = false;
+        function adjustViewport() {
+            var screenWidthPx = Math.min($(window).width(), window.screen.width);
+            var siteWidthPx = 1100; // min width of site
+            var ratio = Math.min(screenWidthPx / siteWidthPx, 1.0);
+            var viewport = "width=device-width, initial-scale=" + ratio;
+            $('#viewport').attr('content', viewport);
+            var style = $('<style>html * { max-height: 1000000px; }</style>');
+            $('html > head').append(style);
+        }
+
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            adjustViewport();
+        }
+
+        /* Protection against trailing dot in domain. */
+        let hostLength = window.location.host.length;
+        if (hostLength > 1 && window.location.host[hostLength - 1] === '.') {
+            window.location = window.location.protocol + "//" + window.location.host.substring(0, hostLength - 1);
+        }
+    </script>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="k3">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90"/>
+    <meta property="fb:admins" content="100001352546622" />
+    <meta property="og:image" content="//codeforces.org/s/74235/images/codeforces-sponsored-by-ton.png" />
+    <link rel="image_src" href="//codeforces.org/s/74235/images/codeforces-sponsored-by-ton.png" />
+    <meta property="og:title" content="Problems - Codeforces"/>
+    <meta property="og:description" content=""/>
+    
+    <meta property="og:site_name" content="Codeforces"/>
+    
+    
+    
+    
+    
+    
+    <meta name="utc_offset" content="+03:00"/>
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2" />
+    <title>Problems - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community" />
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/font-awesome.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/line-awesome.min.css" type="text/css" charset="utf-8" />
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Cuprum&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="//codeforces.org/s/74235/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="//codeforces.org/s/74235/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="//codeforces.org/s/74235/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//codeforces.org/s/74235/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="//codeforces.org/s/74235/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//codeforces.org/s/74235/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="//codeforces.org/s/74235/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//codeforces.org/s/74235/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="//codeforces.org/s/74235/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="//codeforces.org/s/74235/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="//codeforces.org/s/74235/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//codeforces.org/s/74235/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//codeforces.org/s/74235/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="//codeforces.org/s/74235/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/prettify.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/clear.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/ttypography.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/problem-statement.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/second-level-menu.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/roundbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/datatable.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/table-form.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/topic.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.jgrowl.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/facebox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.wysiwyg.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.autocomplete.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/codeforces.datepick.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/colorbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.drafts.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/74235/css/community.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/74235/css/sidebar-menu.css" type="text/css" charset="utf-8" />
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$$','$$$']], displayMath: [['$$$$$$','$$$$$$']]}
+    });
+    MathJax.Hub.Register.StartupHook("End", function () {
+        Codeforces.runMathJaxListeners();
+    });
+    </script>
+    <script type="text/javascript" async
+            src="https://mathjax.codeforces.org/MathJax.js?config=TeX-AMS_HTML-full"
+    >
+    </script>
+    <!-- /MathJax -->
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/pushstream.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/facebox.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.drafts.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/autosize.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/sjcl.js"></script>
+    <script type="text/javascript" src="/scripts/035ab48d8606d47d3582ea5213de84e9/en/codeforces-options.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/codeforces.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/EventCatcher.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/preparedVerdictFormats-en.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/confetti.min.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="//codeforces.org/s/74235/markitup/skins/markitup/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/markitup/sets/markdown/style.css" type="text/css" charset="utf-8" />
+
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/markitup/sets/markdown/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+
+
+</head>
+<body class=" "><span style='display:none;' class='csrf-token' data-csrf='20f7815e23c35353bf95c208cece0516'>&nbsp;</span>
+
+<!-- .notificationTextCleaner used in Codeforces.showAnnouncements() -->
+<div class="notificationTextCleaner" style="font-size: 0"></div>
+<div class="button-up" style="display: none; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 3.0rem;"><i class="icon-circle-arrow-up"></i></div>
+<div class="verdictPrototypeDiv" style="display: none;"></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    };
+
+    var queryMobile = Codeforces.queryString.mobile;
+    if (queryMobile === "true" || queryMobile === "false") {
+        Codeforces.putToStorage("useMobile", queryMobile === "true");
+    } else {
+        var useMobile = Codeforces.getFromStorage("useMobile");
+        if (useMobile === true || useMobile === false) {
+            if (useMobile != false) {
+                Codeforces.redirect(Codeforces.updateUrlParameter(document.location.href, "mobile", useMobile));
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    setTimeout(function() {
+        $(".second-level-menu-list").lavaLamp({
+            fx: "backout",
+            speed: 700
+        });
+    }, 100);
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    function showAnnouncements(json) {
+        //info("j=" + JSON.stringify(json));
+
+        if (json.t != "a") {
+            return;
+        }
+
+        setTimeout(function() {
+            Codeforces.showAnnouncements(json.d, "en");
+        }, Math.random() * 500);
+    }
+
+    function showEventCatcherUserMessage(json) {
+        if (json.t == "s") {
+            var points = json.d[5];
+            var passedTestCount = json.d[7];
+            var judgedTestCount = json.d[8];
+            var verdict = preparedVerdictFormats[json.d[12]];
+            var verdictPrototypeDiv = $(".verdictPrototypeDiv");
+            verdictPrototypeDiv.html(verdict);
+            if (judgedTestCount != null && judgedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-judged").text(judgedTestCount);
+            }
+            if (passedTestCount != null && passedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-passed").text(passedTestCount);
+            }
+            if (points != null && points != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-points").text(points);
+            }
+            Codeforces.showMessage(verdictPrototypeDiv.text());
+        }
+    }
+
+    $(".clickable-title").each(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = title;
+            $(this).attr("title", tmp.textContent || tmp.innerText || "");
+        }
+    });
+
+    $(".clickable-title").click(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            Codeforces.alert(title);
+        } else {
+            Codeforces.alert($(this).attr("title"));
+        }
+    }).css("position", "relative").css("bottom", "3px");
+
+        Codeforces.showDelayedMessage();
+
+    Codeforces.reformatTimes();
+
+    //Codeforces.initializePubSub();
+    if (window.codeforcesOptions.subscribeServerUrl) {
+        window.eventCatcher = new EventCatcher(
+            window.codeforcesOptions.subscribeServerUrl,
+            [
+                Codeforces.getGlobalChannel(),
+                Codeforces.getUserChannel(),
+                Codeforces.getUserShowMessageChannel(),
+                Codeforces.getContestChannel(),
+                Codeforces.getParticipantChannel(),
+                Codeforces.getTalkChannel()
+            ]
+        );
+
+        if (Codeforces.getParticipantChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getParticipantChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getContestChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getContestChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getGlobalChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getGlobalChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserShowMessageChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserShowMessageChannel(), function(json) {
+                showEventCatcherUserMessage(json);
+            });
+        }
+    }
+
+    Codeforces.setupContestTimes("/data/contests");
+    Codeforces.setupSpoilers();
+    Codeforces.setupTutorials("/data/problemTutorial");
+        });
+    </script>
+
+
+<div id="body">
+<div style="width: 950px; margin: 0 auto;" class="compact-problemset">
+    <div id="header" style="position: relative; margin: 0;">
+        <div style="float:left;">
+                  <a href="/"><img height="65" style="height: 65px;" src="//codeforces.org/s/74235/images/codeforces-sponsored-by-ton.png" alt="Codeforces"/></a>
+        </div>
+        <div class="lang">
+            <div style="text-align: right;">
+                <a href="?locale=en"><img src="//codeforces.org/s/74235/images/flags/24/gb.png" title="In English" alt="In English"/></a>
+                <a href="?locale=ru"><img src="//codeforces.org/s/74235/images/flags/24/ru.png" title="По-русски" alt="По-русски"/></a>
+            </div>
+        </div>
+        <br style="clear: both;"/>
+    </div>
+
+    <br style="clear: both;"/>
+
+    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5em;"
+         class="caption">ICPC 2022 Online Challenge powered by HUAWEI - Problem 1</div>
+    <div style="border-top: 1px solid #ccc; height: 1em;"></div>
+
+    <div class="problem-frames">
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+    <style>
+        #facebox .content:has(.diff-popup) {
+            width: 90vw;
+            max-width: 120rem !important;
+        }
+
+        .testCaseMarker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .diff-popup {
+            width: 90vw;
+            max-width: 120rem !important;
+            display: none;
+            overflow: auto;
+        }
+
+        .input-output-copier {
+            font-size: 1.2rem;
+            float: right;
+            color: #888 !important;
+            cursor: pointer;
+            border: 1px solid rgb(185, 185, 185);
+            padding: 3px;
+            margin: 1px;
+            line-height: 1.1rem;
+            text-transform: none;
+        }
+
+        .input-output-copier:hover {
+            background-color: #def;
+        }
+
+        .test-explanation textarea {
+            width: 100%;
+            height: 1.5em;
+        }
+
+        .pending-submission-message {
+            color: darkorange !important;
+        }
+    </style>
+    <script>
+        const OPENING_SPACE = String.fromCharCode(1001);
+        const CLOSING_SPACE = String.fromCharCode(1002);
+
+        const nodeToText = function (node, pre) {
+            let result = [];
+
+            if (node.tagName === "SCRIPT" || node.tagName === "math"
+                || (node.classList && node.classList.contains("input-output-copier")))
+                return [];
+
+            if (node.tagName === "NOBR") {
+                result.push(OPENING_SPACE);
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                let s = node.textContent;
+                if (!pre) {
+                    s = s.replace(/\s+/g, " ");
+                }
+                if (s.length > 0) {
+                    result.push(s);
+                }
+            }
+
+            if (pre && node.tagName === "BR") {
+                result.push("\n");
+            }
+
+            node.childNodes.forEach(function (child) {
+                result.push(nodeToText(child, node.tagName === "PRE").join(""));
+            });
+
+            if (node.tagName === "DIV"
+                || node.tagName === "P"
+                || node.tagName === "PRE"
+                || node.tagName === "UL"
+                || node.tagName === "LI"
+            ) {
+                result.push("\n");
+            }
+
+            if (node.tagName === "NOBR") {
+                result.push(CLOSING_SPACE);
+            }
+
+            return result;
+        }
+
+        const isSpecial = function (c) {
+            return c === ',' || c === '.' || c === ';' || c === ')' || c === ' ';
+        }
+
+        const convertStatementToText = function(statmentNode) {
+            const text = nodeToText(statmentNode, false).join("").replace(/ +/g, " ").replace(/\n\n+/g, "\n\n");
+            let result = [];
+            for (let i = 0; i < text.length; i++) {
+                const c = text.charAt(i);
+                if (c === OPENING_SPACE) {
+                    if (!((i > 0 && text.charAt(i - 1) === '(') || (result.length > 0 && result[result.length - 1] === ' '))) {
+                        result.push('+');
+                    }
+                } else if (c === CLOSING_SPACE) {
+                    if (!(i + 1 < text.length && isSpecial(text.charAt(i + 1)))) {
+                        result.push('-');
+                    }
+                } else {
+                    result.push(c);
+                }
+            }
+            return result.join("").split("\n").map(value => value.trim()).join("\n");
+        };
+    </script>
+    <div class="diff-popup">
+    </div>
+
+<div class="problemindexholder" problemindex="GP1" data-uuid="ps_932018b20ff17dec26d1e5a07527e205cad6e58a">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">GP1. Optimal Graph Partition for Fast Routing (GP1)</div><div class="time-limit"><div class="property-title">time limit per test</div>4 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>In computer networks, the Internet Protocol (IP) uses path routing. With path routing, the packet contains only the destination address; routers decide which &quot;next hop&quot; to forward each packet on to get it closer to its destination. Each router makes this decision locally, based only on the destination address and its local configuration. One way to store this configuration is to use routing tables, which means for each router, we store the &quot;next hop&quot; for every possible destination. However, as the scale of the network grows larger, the size of the router table grows as well. It is a big issue since routers only have limited computing resources. One way to address this issue is to divide the graph into several partitions. </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/971c31133ff90d390d442ba1ffff5e11b6e7f6f3.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> For example, in the above figure, there are $$$12$$$ routers in the network. Each edge has a certain weight. Each router has to store $$$12$$$ table entries for all possible destinations in the network (including itself). We can merge four nodes in the graph into one large abstract node $$$R2$$$. When routers are merged, all existing edges connected to the elements of a large node are preserved. Then all routers outside $$$R2$$$ only need to store $$$9$$$ table entries. Therefore, in this case, we can assign the same &quot;next hop&quot; for all destination routers in $$$R2$$$. The intuition behind this is that router $$$R1$$$ does not need to care how to get $$$R24$$$ from $$$R21$$$ if $$$R1$$$ wants to send a packet to $$$R24$$$. $$$R1$$$ just needs to find a path to get its packet to an arbitrary router inside $$$R2$$$ and then let the routers inside $$$R2$$$ decide how to get $$$R24$$$. For routers inside $$$R2$$$, however, there are still $$$12$$$ table entries, because they need to know the routes to each other.<center> <img class="tex-graphics" src="https://espresso.codeforces.com/439f678dbb3a160ab428694567aff2fa8b468db0.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>We can further merge $$$R31, R32, R33, R34$$$ into a single node $$$R3$$$. Then for $$$R1$$$, we need to store only $$$6$$$ entries in its routing table. For routers in $$$R3$$$ or $$$R2$$$, it only needs to store $$$9$$$ entries. Your task is to find an optimal partition of the initial graph to minimize the maximum size of the routing table for all routers in the network.</p><p>A computer network under consideration is an undirected connected graph $$$G = (V,E)$$$, where $$$|V| = N\ (2 \leq N \leq 10^5)$$$, $$$|E| = M\ (1\leq M \leq 2\times 10^5)$$$, $$$V=\{0,1,\ldots ,N-1\}$$$, $$$E=\{ e=(u,v,w) \mid \text{There is an edge between nodes } u \text{ and } v \text{ with weight } w\}.$$$</p><p>A partition $$$P$$$ of the network $$$G$$$ is a set of non-empty subsets of $$$V$$$ such that every node $$$v\in V$$$ belongs to exactly one of these subsets, <span class="tex-font-style-bf">and the induced sub-graph for each subset in $$$P$$$ is connected</span>. Here, one subset corresponds to one abstract node mentioned above.</p><p>Formally, $$$P$$$ is a valid partition if and only if $$$P$$$ is a family of sets that satisfies:</p><ul> <li> $$$\emptyset\not\in P$$$ </li><li> $$$\bigcup\limits_{A\in P} A = V$$$ </li><li> $$$\forall A,B\in P: A\not=B \implies A\cap B = \emptyset$$$ </li><li> $$$\forall A \in P$$$, the induced subgraph $$$G[A]$$$ is connected </li></ul><p>The routing table size of any node $$$v$$$ for the corresponding partition $$$P$$$ is defined by the following equation: $$$$$$RTsize(v,P)=|P|+|Q|-1,$$$$$$ where $$$|P|$$$ is the number of subsets in $$$P$$$, $$$Q$$$ is the subset in $$$P$$$ such that $$$v\in Q$$$. $$$|Q|$$$ is the size of $$$Q$$$.</p><p>The set $$$FE(P)$$$ of free edges of the partition $$$P$$$ are those edges that are not part of the merged nodes, that is, those edges that connect the merged nodes. $$$w(e)$$$ is the weight of the edge $$$e$$$.</p><p>In this subtask, it is necessary to solve a narrowed bi-criteria optimization problem: </p><ul> <li> Find an optimal partition P, which minimizes: $$$$$$\max_{v\in V}RTsize(v, P);$$$$$$ </li><li> Among all the solutions to criteria 1, choose the partition P that maximizes the total weight of free edges: $$$$$$\max_{P}\sum_{e\in FE(P)} w(e)$$$$$$ </li></ul>   The term narrowed means that the second criterion is not applied independently, but only to the solutions of the first criterion.<p>The score for SubTask1 for the $$$i^{th}$$$ graph is calculated by the formula: $$$$$$ Score1_i = Score1(P=P(G_i)) = N-\left[\max_{v\in V}RTsize(v,P) \right]+ {{\sum_{e\in FE(P)}w(e)}\over 10^9}. $$$$$$</p><p>The final score for SubTask1 is calculated according to the following formula: $$$$$$ Score1 = \sum 0.3 \times Score1_i $$$$$$</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$N$$$ and $$$M$$$ $$$(2\leq N\leq 10^5; N-1\leq M\leq 2\times 10^5)$$$ — the number of nodes and edges, respectively.</p><p>Each of the next $$$M$$$ lines contains three integers $$$u_i, v_i$$$ and $$$w_i$$$ ($$$0\leq u_i,\ v_i\leq N-1,\ u_i\neq v_i,\ 1\leq w_i\leq 10^5$$$), denoting an edge between the node $$$u_i$$$ and $$$v_i$$$ with weight $$$w_i$$$. $$$e_i=(u_i,v_i,w_i)$$$ is the edge with index $$$i$$$ in the edge set $$$E$$$. It is guaranteed that the <span class="tex-font-style-bf">input graph is connected</span> and there are no multiple edges. That is, any pair (in any order) of nodes appear in this list no more than once.</p></div><div class="output-specification"><div class="section-title">Output</div><p>In the first line, output the number of subsets in your partition $$$P$$$.</p><p>The $$$(i+1)$$$-th line should begin with a single number $$$cnt_i$$$ — the size of the $$$i$$$-th subset, followed by $$$cnt_i$$$ numbers, denoting the node IDs in the $$$i$$$-th subset.</p></div><div><div class="section-title">Scoring</div><p>During the coding phase, your solutions are tested against pre-tests only. The first $$$5$$$ of them are open and available for download at the link <span class="tex-font-style-tt">problem-gp1-open-testset.zip</span> in the &quot;contest materials&quot; section in a sidebar.</p><p>After the end of the coding phase, the last submission that scored a positive number of points on the pre-tests will be selected. It will be retested in the final tests. The rest of your submissions will be ignored. The final tests are secret and not available to the participants, they are mostly realistic. <span class="tex-font-style-it">The result obtained on the final tests is your final official result for this problem.</span></p><ol> <li> According to the formula, the solution with a larger score wins. </li><li> If two solutions have the same score, the solution submitted first wins. </li><li> For multiple test cases, the ranking is performed based on the following formula: $$$$$$ Score1 = \sum 0.3 \times Score1_i. $$$$$$ </li><li> Final formula for the &quot;ICPC 2022 Online Challenge powered by HUAWEI - Problem 1&quot;: $$$$$$ FinalScore=Score1+Score2. $$$$$$ </li></ol></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+4 4
+0 1 10
+2 3 12
+0 2 2
+2 1 1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+1 0
+2 1 2
+1 3
+</pre></div><div class="input"><div class="title">Input</div><pre>
+4 4
+0 1 1100
+2 3 1120
+0 2 1020
+2 1 1010
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+1 0
+2 1 2
+1 3
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first test case the graph is divided into three subsets: $$$\{0\}$$$, $$$\{1,2\}$$$, and $$$\{3\}$$$, hence $$$P=\{\{0\},\{1,2\},\{3\}\}$$$, $$$|P| = 3$$$.</p><p>As $$$RTsize(1,P) = |\{1,2\}| + |P|-1 = 2+3-1=4$$$ is maximum among all nodes. </p><p>And edges $$$(0, 1, 10), (0, 2, 2), (2, 3, 12)$$$ are free edges of partition $$$P$$$. $$$(2,1,1)$$$ is not a free edge since nodes 2 and 1 are in the same subset $$$\{1,2\}$$$ from $$$P$$$.From the formula we have: $$$$$$ Score1(P) = 4 - 4 + \frac{10+2+12}{10^9} = 2.4\times 10^{-8} $$$$$$</p><p>In the second test case the input graph is almost the same except the edge weights.</p><p>So the maximum $$$RTsize$$$ is unchanged and the weight sum of free edges increased.</p><p>The $$$Score1$$$ for the output will be $$$0.3\times(1100+1120+1020)/10^9$$$ points.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=GP1]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.changedTests = new Set();
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+        String.prototype.replaceAll = function (search, replace) {
+            return this.split(search).join(replace);
+        };
+
+        $(".sample-test .title").each(function () {
+            const preId = ("id" + Math.random()).replaceAll(".", "0");
+            const cpyId = ("id" + Math.random()).replaceAll(".", "0");
+
+            $(this).parent().find("pre").attr("id", preId);
+            const $copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='input-output-copier'>Copy</div>");
+            $(this).append($copy);
+
+            const clipboard = new Clipboard('#' + cpyId, {
+                text: function (trigger) {
+                    const pre = document.querySelector('#' + preId);
+                    const lines = pre.querySelectorAll(".test-example-line");
+                    return Codeforces.filterClipboardText(pre.innerText, lines.length);
+                }
+            });
+
+            const isInput = $(this).parent().hasClass("input");
+
+            clipboard.on('success', function (e) {
+                if (isInput) {
+                    Codeforces.showMessage("The example input has been copied into the clipboard");
+                } else {
+                    Codeforces.showMessage("The example output has been copied into the clipboard");
+                }
+                e.clearSelection();
+            });
+        });
+
+        $(".test-form-item input").change(function () {
+            addPendingSubmissionMessage($($(this).closest("form")), "You changed the answer, do not forget to submit it if you want to save the changes");
+            const index = $(this).closest(".problemindexholder").attr("problemindex");
+            let test = "";
+            $(this).closest("form input").each(function () {
+                const test_ = $(this).attr("name");
+                if (test_ && test_.substring(0, 4) === "test") {
+                    test = test_;
+                }
+            });
+            if (index.length > 0 && test.length > 0) {
+                const indexTest = index + "::" + test;
+                window.changedTests.add(indexTest);
+            }
+        });
+
+        $(window).on('beforeunload', function () {
+            if (window.changedTests.size > 0) {
+                return 'Dialog text here';
+            }
+        });
+
+        autosize($('.test-explanation textarea'));
+
+        $(".test-example-line").hover(function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        let top = 1E20;
+                        let left = 1E20;
+                        let problem = $(this).closest(".problemindexholder");
+                        $(this).closest(".input").find("." + clazz).css("background-color", "#FFFDE7").each(function() {
+                            top = Math.min(top, $(this).offset().top);
+                            left = Math.min(left, $(this).offset().left);
+                        });
+                        let testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        if (testCaseMarker.length === 0) {
+                            const html = "<div class=\"testCaseMarker testCaseMarker_" + end + " notice\"></div>";
+                            problem.append($(html));
+                            testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        }
+                        if (testCaseMarker) {
+                            testCaseMarker.show()
+                                    .offset({top, left: left - 20})
+                                    .text(end);
+                        }
+                    }
+                }
+            });
+        }, function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        $("." + clazz).css("background-color", "");
+                        $(this).closest(".problemindexholder").find(".testCaseMarker_" + end).hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 1em;"
+        >
+
+
+<div class="problemindexholder" problemindex="GP2" data-uuid="ps_e38d174832f355a5cc33140f0d9d962854dd0f67">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">GP2. Optimal Graph Partition for Fast Routing (GP2)</div><div class="time-limit"><div class="property-title">time limit per test</div>5 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>In computer networks, the Internet Protocol (IP) uses path routing. With path routing, the packet contains only the destination address; routers decide which &quot;next hop&quot; to forward each packet on to get it closer to its destination. Each router makes this decision locally, based only on the destination address and its local configuration. One way to store this configuration is to use routing tables, which means for each router, we store the &quot;next hop&quot; for every possible destination. However, as the scale of the network grows larger, the size of the router table grows as well. It is a big issue since routers only have limited computing resources. One way to address this issue is to divide the graph into several partitions. </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/971c31133ff90d390d442ba1ffff5e11b6e7f6f3.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> For example, in the above figure, there are $$$12$$$ routers in the network. Each edge has a certain weight. Each router has to store $$$12$$$ table entries for all possible destinations in the network (including itself). We can merge four nodes in the graph into one large abstract node $$$R2$$$. When routers are merged, all existing edges connected to the elements of a large node are preserved. Then all routers outside $$$R2$$$ only need to store $$$9$$$ table entries. Therefore, in this case, we can assign the same &quot;next hop&quot; for all destination routers in $$$R2$$$. The intuition behind this is that router $$$R1$$$ does not need to care how to get $$$R24$$$ from $$$R21$$$ if $$$R1$$$ wants to send a packet to $$$R24$$$. $$$R1$$$ just needs to find a path to get its packet to an arbitrary router inside $$$R2$$$ and then let the routers inside $$$R2$$$ decide how to get $$$R24$$$. For routers inside $$$R2$$$, however, there are still $$$12$$$ table entries, because they need to know the routes to each other.<center> <img class="tex-graphics" src="https://espresso.codeforces.com/930815c74d0e46f7fc3a632aeb288271f1cd775f.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>We can further merge $$$R31, R32, R33, R34$$$ into a single node $$$R3$$$. Then for $$$R1$$$, we need to store only $$$6$$$ entries in its routing table. For routers in $$$R3$$$ or $$$R2$$$, it only needs to store $$$9$$$ entries. Your task is to find an optimal partition of the initial graph to minimize the maximum size of the routing table for all routers in the network.</p><p>A computer network under consideration is an undirected connected graph $$$G = (V,E)$$$, where $$$|V| = N\ (2\leq N\leq 10^5)$$$, $$$|E| = M\ (N-1\leq M\leq 2\times 10^5)$$$, $$$V=\{1,2,\ldots ,N\}$$$, $$$E=\{e=(u,v,w) \mid \text{There is an edge between nodes } u \text{ and } v \text{ with weight } w\}.$$$</p><p>A partition $$$P$$$ of the network $$$G$$$ is a set of non-empty subsets of $$$V$$$ such that every node $$$v\in V$$$ belongs to exactly one of these subsets, <span class="tex-font-style-bf">and the induced sub-graph for each subset in $$$P$$$ is connected</span>. Here, one subset corresponds to one abstract node mentioned above.</p><p>Formally, $$$P$$$ is a valid partition if and only if $$$P$$$ is a family of sets that satisfies:</p><ul> <li> $$$\emptyset\not\in P$$$ </li><li> $$$\bigcup\limits_{A\in P} A = V$$$ </li><li> $$$\forall A,B\in P: A\not=B \implies A\cap B = \emptyset$$$ </li><li> $$$\forall A \in P$$$, the induced subgraph $$$G[A]$$$ is connected </li></ul><p>The routing table size of any node $$$v$$$ for the corresponding partition $$$P$$$ is defined by the following equation: $$$$$$RTsize(v,P)=|P|+|Q|-1,$$$$$$ where $$$|P|$$$ is the number of subsets in $$$P$$$, $$$Q$$$ is the subset in $$$P$$$ such that $$$v\in Q$$$. $$$|Q|$$$ is the size of $$$Q$$$.</p><p>The &quot;next hop&quot; is defined by the shortest path tree. For each node pair $$$(u,v),u\in V,v\in V$$$, the &quot;next hop&quot; is a node $$$z\in V$$$, such that there is an edge $$$e\in E$$$ connected from $$$u$$$ to $$$z$$$ directly, and $$$dist(u,v)=w(e)+dist(z,v)$$$, here $$$dist(u,v)$$$ denotes the length of the shortest path from $$$u$$$ to $$$v$$$, and $$$w(e)$$$ denotes the weight of the edge connecting $$$u$$$ and $$$z$$$. The valid &quot;next hop&quot; may not be unique. After the graph partitioning, the &quot;next hop&quot; for nodes in the same subset $$$A \in P$$$ is calculated via the shortest path in the induced sub-graph $$$G[A]$$$ using the same method above. We compute the &quot;next hop&quot; for two nodes from different subsets of $$$P$$$ by calculating the shortest path in the &quot;compressed&quot; graph (we compress all nodes in the same subset into a single node). The new graph only contains edges between nodes from different subsets. And then find the shortest path from the subset containing $$$u$$$ to the subset containing $$$v$$$. Suppose the first edge in this path is between $$$(x,y)$$$. From the definition, $$$x$$$, $$$y$$$ are in different subsets of $$$P$$$, and $$$u$$$ is in the same subset of $$$x$$$. If $$$x=u$$$, then the &quot;next hop&quot; of $$$(u,v)$$$ is $$$y$$$, otherwise the &quot;next hop&quot; of $$$(u,v)$$$ is the &quot;next hop&quot; of $$$(u,x)$$$.</p><p>The path from $$$u$$$ to $$$v$$$ may differ from the path in the graph before partition.</p><p>For example:</p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/5e449ed11b3abde82b95343af6984fa83922a07e.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>Originally, the packet transmission path from $$$1$$$ to $$$2$$$ is the shortest in the whole graph, so it is $$$1\to 3\to 2$$$, and the total length is 3.</p><p>If our partition $$$P = \{\{1,2\},\{3\},\{4\}\}$$$, then the packet transmission path from $$$1$$$ to $$$2$$$ is the shortest path in the subgraph, so it is $$$1\to 2$$$. The total length is $$$10$$$, which gets much greater after partition.</p><p>Define $$$dist(u,v)$$$ as the length of the shortest path from $$$u$$$ to $$$v$$$ in graph $$$G$$$.</p><p>Let $$$cost(u,v,P)$$$ be the length of the optimal transmission path after dividing graph $$$G$$$ by partition $$$P$$$. The way to determine $$$cost(u,v,P)$$$ is specified later.</p><p>For node $$$u$$$, we define $$$B(u,P)=Q$$$, where $$$Q$$$ is the unique subset in $$$P$$$ such that $$$u\in Q$$$.</p><p>Define two new edge sets: </p><p>$$$$$$EdgeZero(P)=\{(u,v,w)\mid (u,v,w)\in E\land B(u,P)\not =B(v,P)\}\cup \{(u,v,0)\mid (u,v,w)\in E\land B(u,P)=B(v,P)\}$$$$$$</p><p>$$$$$$EdgeInf(P)=\{ (u,v,\infty)\mid (u,v,w)\in E\land B(u,P)\not =B(v,P)\}\cup\{(u,v,w)\mid(u,v,w) \in E\land B(u,P)=B(v,P)\}$$$$$$</p><p>Define two undirected weighted graphs: $$$GraphZero(P)=(V,EdgeZero(P))$$$, $$$GraphInf(P)=(V,EdgeInf(P))$$$.</p><p>In other words, $$$GraphZero(P)=(V, EdgeZero(P))$$$ is almost a copy of the original graph, except for all edges that have both endpoints in the same subset of $$$P$$$ (their weights are set to $$$0$$$). $$$GraphInf(P)=(V, EdgeInf(P))$$$ is also almost a copy of the original graph, except for all edges that connect different subsets of $$$P$$$ (their weights are set to infinity).</p><p>Let $$$disZero(u,v,P)$$$ be the length of the shortest path from $$$u$$$ to $$$v$$$ in $$$GraphZero(P)$$$.</p><p>Let $$$disInf(u,v,P)$$$ be the length of the shortest path from $$$u$$$ to $$$v$$$ in $$$GraphInf(P)$$$.</p><p>For nodes $$$u,v:\ (B(u,P)\neq B(v,P))$$$, we define that $$$middle(u,v,P)$$$ be the edge $$$e=(x,y,w)\in EdgeZero(P)$$$ with the smallest edge index which makes the following equation holds:</p><p>$$$$$$disZero(u,v,P)=disZero(u,x,P)+w+disZero(y,v,P),\ w&gt;0$$$$$$</p><p>We can prove such an edge always exists.</p><p>Then $$$cost(u,v,P)$$$ can be calculated recursively: </p><ul> <li> For nodes $$$u,v:\ (B(u,P)=B(v,P))$$$, $$$cost(u,v,P)=disInf(u,v,P)$$$. </li><li>  For nodes $$$u,v:\ (B(u,P)\neq B(v,P))$$$, let $$$e=(x,y,w)=middle(u,v,P)$$$, then $$$cost(u,v,P)=cost(u,x,P)+w+cost(y,v,P)$$$. </li></ul><p>Given a real number $$$k\geq 0$$$, and a vertex set $$$S\subseteq V,\ 1\leq |S|\leq \min(50,N)$$$, find an optimal partition $$$P$$$, which maximizes $$$Score2(P)$$$.</p><p>The score for SubTask2 for the $$$i^{th}$$$ graph is calculated by the formula: $$$$$$ Score2_i = Score2(P=P(G_i)) = \max\left\{0, N-\left[\max_{v\in V} RTsize(v,P) \right]-k \max_{u\in S,v\in V, u\not=v} \frac{ cost(u,v,P)-dist(u,v)}{dist(u,v)}\right\}. $$$$$$</p><p>The final score for SubTask2 is calculated according to the following formula: $$$$$$ Score2 = \sum 0.7\times Score2_i $$$$$$</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$N$$$ and $$$M$$$ $$$(2\leq N\leq 10^5; N-1\leq M\leq 2\times 10^5)$$$ — the number of nodes and edges, respectively.</p><p>Each of the next $$$M$$$ lines contains three integers $$$u_i, v_i$$$ and $$$w_i$$$ ($$$0\leq u_i,\ v_i\leq N-1,\ u_i\neq v_i,\ 1\leq w_i\leq 10^5$$$), denoting an edge between the node $$$u_i$$$ and $$$v_i$$$ with weight $$$w_i$$$. $$$e_i=(u_i,v_i,w_i)$$$ is the edge with index $$$i$$$ in the edge set $$$E$$$. It is guaranteed that the <span class="tex-font-style-bf">input graph is connected</span> and there are no multiple edges. That is, any pair (in any order) of nodes appear in this list no more than once.</p><p>The next line contains two numbers: one integer $$$SetSize$$$ ($$$1\leq SetSize \leq \min(50,N)$$$), the size of node set $$$S$$$ and one real number $$$k$$$, given with at most six digits after the decimal point $$$(0\leq k \leq 10^6)$$$.</p><p>Each of the next $$$SetSize$$$ lines contains one integer $$$NodeID$$$ ($$$0\leq NodeID \leq N-1$$$), the node in $$$S$$$.</p></div><div class="output-specification"><div class="section-title">Output</div><p>In the first line, output the number of subsets in your partition $$$P$$$.</p><p>The $$$(i+1)$$$-th line should begin with a single number $$$cnt_i$$$ — the size of the $$$i$$$-th subset, followed by $$$cnt_i$$$ numbers, denoting the node IDs in the $$$i$$$-th subset.</p></div><div><div class="section-title">Scoring</div><p>During the coding phase, your solutions are tested against pre-tests only. The first $$$6$$$ of them are open and available for download at the link <span class="tex-font-style-tt">problem-gp2-open-testset.zip</span> in the &quot;contest materials&quot; section in a sidebar.</p><p>After the end of the coding phase, the last submission that scored a positive number of points on the pre-tests will be selected. It will be retested in the final tests. The rest of your submissions will be ignored. The final tests are secret and not available to the participants, they are mostly realistic. <span class="tex-font-style-it">The result obtained on the final tests is your final official result for this problem.</span></p><ol> <li> According to the formula, the solution with a larger score wins. </li><li> If two solutions have the same score, the solution submitted first wins. </li><li> For multiple test cases, the ranking is performed based on the following formula: $$$$$$ Score2 = \sum 0.7 \times Score2_i. $$$$$$ </li><li> Final formula for the &quot;ICPC 2022 Online Challenge powered by HUAWEI - Problem 1&quot;: $$$$$$ FinalScore=Score1+Score2. $$$$$$ </li></ol></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+4 4
+0 1 10
+2 3 12
+0 2 2
+2 1 1
+4 0
+0
+1
+2
+3
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+2 0 1
+2 2 3
+</pre></div><div class="input"><div class="title">Input</div><pre>
+4 4
+0 1 10
+2 3 12
+0 2 2
+2 1 1
+4 2.3
+0
+1
+2
+3
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+2 0 1
+2 2 3
+</pre></div></div></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=GP2]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div><a href="https://codeforces.com/">Codeforces</a> (c) Copyright 2010-2024 Mike Mirzayanov</div>
+        <div>The only programming contests Web 2.0 platform</div>
+
+    </div>
+
+</div>
+</div>
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator && 'fetch' in window && 'caches' in window) {
+            navigator.serviceWorker.register('/service-worker-74235.js')
+                .then(function (registration) {
+                    console.log('Service worker registered: ', registration);
+                })
+                .catch(function (error) {
+                    console.log('Registration failed: ', error);
+                });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a18727a38d9777b',t:'MTcyMDY5NzI3Ni4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

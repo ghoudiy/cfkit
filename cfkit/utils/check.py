@@ -46,11 +46,11 @@ def check_command(command: str, message: str | tuple) -> str:
   """
   if isinstance(message, tuple):
     while command.find("%%{output}%%") == -1 or command.find("%%{file}%%") == -1:
-      print(message[0])
+      colored_text(message[0])
       command = input("Please enter your command correctly:\n")
   else:
     while command.find("%%{file}%%") == -1:
-      print(message)
+      colored_text(message)
       command = input("Please enter your command correctly:\n")
   return command
 

@@ -2,47 +2,11 @@ Codeforces Round 473 (Div. 2)
 
 
 A. Mahmoud and Ehab and the even-odd game
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mahmoud and Ehab play a game called the even-odd game. Ehab chooses his favorite integer
-n
-and then they take turns, starting from Mahmoud. In each player's turn, he has to choose an integer
-a
-and subtract it from
-n
-such that:
-1 ≤
-a
-≤
-n
-.
-If it's Mahmoud's turn,
-a
-has to be even, but if it's Ehab's turn,
-a
-has to be odd.
-If the current player can't choose any number satisfying the conditions, he loses. Can you determine the winner if they both play optimally?
-Input
-The only line contains an integer
-n
-(1 ≤
-n
-≤ 10
-9
-)
-, the number at the beginning of the game.
-Output
-Output "
-Mahmoud
-" (without quotes) if Mahmoud wins and "
-Ehab
-" (without quotes) otherwise.
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 1
@@ -54,100 +18,11 @@ Output
 Mahmoud
 ----------------------------------------------------------------------------------------------------
 B. Mahmoud and Ehab and the message
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mahmoud wants to send a message to his friend Ehab. Their language consists of
-n
-words numbered from
-1
-to
-n
-. Some words have the same meaning so there are
-k
-groups of words such that all the words in some group have the same meaning.
-Mahmoud knows that the
-i
--th word can be sent with cost
-a
-i
-. For each word in his message, Mahmoud can either replace it with another word of the same meaning or leave it as it is. Can you help Mahmoud determine the minimum cost of sending the message?
-The cost of sending the message is the sum of the costs of sending every word in it.
-Input
-The first line of input contains integers
-n
-,
-k
-and
-m
-(1 ≤
-k
-≤
-n
-≤ 10
-5
-, 1 ≤
-m
-≤ 10
-5
-)
-— the number of words in their language, the number of groups of words, and the number of words in Mahmoud's message respectively.
-The second line contains
-n
-strings consisting of lowercase English letters of length not exceeding 20 which represent the words. It's guaranteed that the words are
-distinct
-.
-The third line contains
-n
-integers
-a
-1
-,
-a
-2
-,
-...
-,
-a
-n
-(1 ≤
-a
-i
-≤ 10
-9
-)
-where
-a
-i
-is the cost of sending the
-i
--th word.
-The next
-k
-lines describe the groups of words of same meaning. The next
-k
-lines each start with an integer
-x
-(1 ≤
-x
-≤
-n
-)
-which means that there are
-x
-words in this group, followed by
-x
-integers which represent the indices of words in this group. It's guaranteed that each word appears in exactly one group.
-The next line contains
-m
-space-separated words which represent Mahmoud's message. Each of these words appears in the list of language's words.
-Output
-The only line should contain the minimum cost to send the message after replacing some words (maybe none) with some words of the same meaning.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5 4 4
@@ -173,83 +48,11 @@ Output
 116
 ----------------------------------------------------------------------------------------------------
 C. Mahmoud and Ehab and the wrong algorithm
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mahmoud was trying to solve the vertex cover problem on trees. The problem statement is:
-Given an undirected tree consisting of
-n
-nodes, find the minimum number of vertices that cover all the edges. Formally, we need to find a set of vertices such that for each edge
-(
-u
-,
-v
-)
-that belongs to the tree, either
-u
-is in the set, or
-v
-is in the set,
-or both are in the set
-. Mahmoud has found the following algorithm:
-Root the tree at node
-1
-.
-Count the number of nodes at an even depth. Let it be
-evenCnt
-.
-Count the number of nodes at an odd depth. Let it be
-oddCnt
-.
-The answer is the minimum between
-evenCnt
-and
-oddCnt
-.
-The depth of a node in a tree is the number of edges in the shortest path between this node and the root. The depth of the root is 0.
-Ehab told Mahmoud that this algorithm is wrong, but he didn't believe because he had tested his algorithm against many trees and it worked, so Ehab asked you to find 2 trees consisting of
-n
-nodes. The algorithm should find an incorrect answer for the first tree and a correct answer for the second one.
-Input
-The only line contains an integer
-n
-(2 ≤
-n
-≤ 10
-5
-)
-, the number of nodes in the desired trees.
-Output
-The output should consist of 2
-independent
-sections, each containing a tree. The algorithm should find an incorrect answer for the tree in the first section and a correct answer for the tree in the second. If a tree doesn't exist for some section, output "-1" (without quotes)
-for that section only
-.
-If the answer for a section exists, it should contain
-n
-- 1
-lines, each containing 2 space-separated integers
-u
-and
-v
-(1 ≤
-u
-,
-v
-≤
-n
-)
-, which means that there's an undirected edge between node
-u
-and node
-v
-. If the given graph isn't a tree or it doesn't follow the format, you'll receive wrong answer verdict.
-If there are multiple answers, you can print any of them.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 2
@@ -275,149 +78,11 @@ Output
 6 8
 ----------------------------------------------------------------------------------------------------
 D. Mahmoud and Ehab and another array construction task
-time limit per test
-3 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mahmoud has an array
-a
-consisting of
-n
-integers. He asked Ehab to find another array
-b
-of the same length
-such that:
-b
-is lexicographically greater than or equal to
-a
-.
-b
-i
-≥ 2
-.
-b
-is pairwise coprime: for every
-1 ≤
-i
-<
-j
-≤
-n
-,
-b
-i
-and
-b
-j
-are coprime, i. e.
-GCD
-(
-b
-i
-,
-b
-j
-) = 1
-, where
-GCD
-(
-w
-,
-z
-)
-is the greatest common divisor of
-w
-and
-z
-.
-Ehab wants to choose a special array so he wants the lexicographically minimal array between all the variants. Can you find it?
-An array
-x
-is lexicographically greater than an array
-y
-if there exists an index
-i
-such than
-x
-i
->
-y
-i
-and
-x
-j
-=
-y
-j
-for all
-1 ≤
-j
-<
-i
-. An array
-x
-is equal to an array
-y
-if
-x
-i
-=
-y
-i
-for all
-1 ≤
-i
-≤
-n
-.
-Input
-The first line contains an integer
-n
-(1 ≤
-n
-≤ 10
-5
-)
-, the number of elements in
-a
-and
-b
-.
-The second line contains
-n
-integers
-a
-1
-,
-a
-2
-,
-...
-,
-a
-n
-(2 ≤
-a
-i
-≤ 10
-5
-)
-, the elements of
-a
-.
-Output
-Output
-n
-space-separated integers, the
-i
--th of them representing
-b
-i
-.
+time limit per test: 3 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5
@@ -431,144 +96,23 @@ Output
 10 3 7
 ----------------------------------------------------------------------------------------------------
 E. Mahmoud and Ehab and the xor-MST
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Ehab is interested in the bitwise-xor operation and the special graphs. Mahmoud gave him a problem that combines both. He has a complete graph consisting of
-n
-vertices numbered from
-0
-to
-n
-- 1
-. For all
-0 ≤
-u
-<
-v
-<
-n
-, vertex
-u
-and vertex
-v
-are connected with an undirected edge that has weight
-(where
-is the
-bitwise-xor operation
-). Can you find the weight of the minimum spanning tree of that graph?
-You can read about complete graphs in
-https://en.wikipedia.org/wiki/Complete_graph
-You can read about the minimum spanning tree in
-https://en.wikipedia.org/wiki/Minimum_spanning_tree
-The weight of the minimum spanning tree is the sum of the weights on the edges included in it.
-Input
-The only line contains an integer
-n
-(2 ≤
-n
-≤ 10
-12
-)
-, the number of vertices in the graph.
-Output
-The only line contains an integer
-x
-, the weight of the graph's minimum spanning tree.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 Output
 4
 ----------------------------------------------------------------------------------------------------
 F. Mahmoud and Ehab and yet another xor task
-time limit per test
-1 second
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-Ehab has an array
-a
-of
-n
-integers. He likes the
-bitwise-xor operation
-and he likes to bother Mahmoud so he came up with a problem. He gave Mahmoud
-q
-queries. In each of them, he gave Mahmoud 2 integers
-l
-and
-x
-, and asked him to find the number of subsequences of the first
-l
-elements of the array such that their bitwise-xor sum is
-x
-. Can you help Mahmoud answer the queries?
-A subsequence can contain elements that are not neighboring.
-Input
-The first line contains integers
-n
-and
-q
-(1 ≤
-n
-,
-q
-≤ 10
-5
-)
-, the number of elements in the array and the number of queries.
-The next line contains
-n
-integers
-a
-1
-,
-a
-2
-,
-...
-,
-a
-n
-(0 ≤
-a
-i
-< 2
-20
-)
-, the elements of the array.
-The next
-q
-lines, each contains integers
-l
-and
-x
-(1 ≤
-l
-≤
-n
-,
-0 ≤
-x
-< 2
-20
-)
-, representing the queries.
-Output
-For each query, output its answer modulo
-10
-9
-+ 7
-in a newline.
+time limit per test: 1 second
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5 5

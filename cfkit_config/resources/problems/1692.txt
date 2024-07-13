@@ -2,27 +2,12 @@ Codeforces Round 799 (Div. 4)
 
 
 A. Marathon
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given four
-distinct
-integers $$$a$$$, $$$b$$$, $$$c$$$, $$$d$$$.
-Timur and three other people are running a marathon. The value $$$a$$$ is the distance that Timur has run and $$$b$$$, $$$c$$$, $$$d$$$ correspond to the distances the other three participants ran.
-Output the number of participants in front of Timur.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The description of each test case consists of four
-distinct
-integers $$$a$$$, $$$b$$$, $$$c$$$, $$$d$$$ ($$$0 \leq a, b, c, d \leq 10^4$$$).
-Output
-For each test case, output a single integer — the number of participants in front of Timur.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 2 3 4 1
@@ -36,32 +21,12 @@ Output
 3
 ----------------------------------------------------------------------------------------------------
 B. All Distinct
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Sho has an array $$$a$$$ consisting of $$$n$$$ integers. An operation consists of choosing two distinct indices $$$i$$$ and $$$j$$$ and removing $$$a_i$$$ and $$$a_j$$$ from the array.
-For example, for the array $$$[2, 3, 4, 2, 5]$$$, Sho can choose to remove indices $$$1$$$ and $$$3$$$. After this operation, the array becomes $$$[3, 2, 5]$$$. Note that after any operation, the length of the array is reduced by two.
-After he made some operations, Sho has an array that has only
-distinct
-elements. In addition, he made operations such that the resulting array is the
-longest
-possible.
-More formally, the array after Sho has made his operations respects these criteria:
-No pairs such that ($$$i < j$$$) and $$$a_i = a_j$$$ exist.
-The length of $$$a$$$ is maximized.
-Output the length of the final array.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^3$$$) — the number of test cases.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 50$$$) — the length of the array.
-The second line of each test case contains $$$n$$$ integers $$$a_i$$$ ($$$1 \leq a_i \leq 10^4$$$) — the elements of the array.
-Output
-For each test case, output a single integer — the length of the final array. Remember that in the final array, all elements are different, and its length is maximum.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 6
@@ -79,32 +44,12 @@ Output
 4
 ----------------------------------------------------------------------------------------------------
 C. Where's the Bishop?
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mihai has an $$$8 \times 8$$$ chessboard whose rows are numbered from $$$1$$$ to $$$8$$$ from top to bottom and whose columns are numbered from $$$1$$$ to $$$8$$$ from left to right.
-Mihai has placed exactly one bishop on the chessboard.
-The bishop is not placed on the edges of the board.
-(In other words, the row and column of the bishop are between $$$2$$$ and $$$7$$$, inclusive.)
-The bishop attacks in all directions diagonally, and there is no limit to the distance which the bishop can attack. Note that the cell on which the bishop is placed is also considered attacked.
-An example of a bishop on a chessboard. The squares it attacks are marked in red.
-Mihai has marked all squares the bishop attacks, but forgot where the bishop was! Help Mihai find the position of the bishop.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 36$$$) — the number of test cases. The description of test cases follows. There is an empty line before each test case.
-Each test case consists of $$$8$$$ lines, each containing $$$8$$$ characters. Each of these characters is either '
-#
-' or '
-.
-', denoting a square under attack and a square not under attack, respectively.
-Output
-For each test case, output two integers $$$r$$$ and $$$c$$$ ($$$2 \leq r, c \leq 7$$$) — the row and column of the bishop.
-The input is generated in such a way that there is always exactly one possible location of the bishop that is not on the edge of the board.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 .....#..
@@ -137,86 +82,12 @@ Output
 4 5
 ----------------------------------------------------------------------------------------------------
 D. The Clock
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Victor has a
-24-hour clock
-that shows the time in the format "
-HH:MM
-" (
-00
-$$$\le$$$
-HH
-$$$\le$$$
-23
-,
-00
-$$$\le$$$
-MM
-$$$\le$$$
-59
-). He looks at the clock every $$$x$$$ minutes, and the clock is currently showing time $$$s$$$.
-How many
-different
-palindromes will Victor see in total after looking at the clock every $$$x$$$ minutes, the first time being at time $$$s$$$?
-For example, if the clock starts out as
-03:12
-and Victor looks at the clock every $$$360$$$ minutes (i.e. every $$$6$$$ hours), then he will see the times
-03:12
-,
-09:12
-,
-15:12
-,
-21:12
-,
-03:12
-, and the times will continue to repeat. Here the time
-21:12
-is the only palindrome he will ever see, so the answer is $$$1$$$.
-A palindrome is a string that reads the same backward as forward. For example, the times
-12:21
-,
-05:50
-,
-11:11
-are palindromes but
-13:13
-,
-22:10
-,
-02:22
-are not.
-Input
-The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases. The description of each test case follows.
-The only line of each test case contains a string $$$s$$$ of length $$$5$$$ with the format "
-HH:MM
-" where "
-HH
-" is from "
-00
-" to "
-23
-" and "
-MM
-" is from "
-00
-" to "
-59
-" (both "
-HH
-" and "
-MM
-" have exactly two digits) and an integer $$$x$$$ ($$$1 \leq x \leq 1440$$$) — the number of minutes Victor takes to look again at the clock.
-Output
-For each test case, output a single integer — the number of different palindromes Victor will see if he looks at the clock every $$$x$$$ minutes starting from time $$$s$$$.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 03:12 360
@@ -234,28 +105,12 @@ Output
 1
 ----------------------------------------------------------------------------------------------------
 E. Binary Deque
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Slavic has an array of length $$$n$$$ consisting only of zeroes and ones. In one operation, he removes either the first or the last element of the array.
-What is the minimum number of operations Slavic has to perform such that the total sum of the array is equal to $$$s$$$ after performing all the operations? In case the sum $$$s$$$ can't be obtained after any amount of operations, you should output
--1
-.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The first line of each test case contains two integers $$$n$$$ and $$$s$$$ ($$$1 \leq n, s \leq 2 \cdot 10^5$$$) — the length of the array and the needed sum of elements.
-The second line of each test case contains $$$n$$$ integers $$$a_i$$$ ($$$0 \leq a_i \leq 1$$$) — the elements of the array.
-It is guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, output a single integer — the minimum amount of operations required to have the total sum of the array equal to $$$s$$$, or
--1
-if obtaining an array with sum $$$s$$$ isn't possible.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 3 1
@@ -282,40 +137,12 @@ Output
 -1
 ----------------------------------------------------------------------------------------------------
 F. 3SUM
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Given an array $$$a$$$ of positive integers with length $$$n$$$, determine if there exist three
-distinct
-indices $$$i$$$, $$$j$$$, $$$k$$$ such that $$$a_i + a_j + a_k$$$ ends in the digit $$$3$$$.
-Input
-The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
-The first line of each test case contains an integer $$$n$$$ ($$$3 \leq n \leq 2 \cdot 10^5$$$) — the length of the array.
-The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \leq a_i \leq 10^9$$$) — the elements of the array.
-The sum of $$$n$$$ across all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-Output $$$t$$$ lines, each of which contains the answer to the corresponding test case. Output "
-YES
-" if there exist three
-distinct
-indices $$$i$$$, $$$j$$$, $$$k$$$ satisfying the constraints in the statement, and "
-NO
-" otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 4
@@ -339,27 +166,12 @@ YES
 YES
 ----------------------------------------------------------------------------------------------------
 G. 2^Sort
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Given an array $$$a$$$ of length $$$n$$$ and an integer $$$k$$$, find the number of indices $$$1 \leq i \leq n - k$$$ such that the subarray $$$[a_i, \dots, a_{i+k}]$$$ with length $$$k+1$$$ (
-not
-with length $$$k$$$) has the following property:
-If you multiply the first element by $$$2^0$$$, the second element by $$$2^1$$$, ..., and the ($$$k+1$$$)-st element by $$$2^k$$$, then this subarray is sorted in strictly increasing order.
-More formally, count the number of indices $$$1 \leq i \leq n - k$$$ such that $$$$$$2^0 \cdot a_i < 2^1 \cdot a_{i+1} < 2^2 \cdot a_{i+2} < \dots < 2^k \cdot a_{i+k}.$$$$$$
-Input
-The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
-The first line of each test case contains two integers $$$n$$$, $$$k$$$ ($$$3 \leq n \leq 2 \cdot 10^5$$$, $$$1 \leq k < n$$$) — the length of the array and the number of inequalities.
-The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \leq a_i \leq 10^9$$$) — the elements of the array.
-The sum of $$$n$$$ across all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, output a single integer — the number of indices satisfying the condition in the statement.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 4 2
@@ -383,28 +195,12 @@ Output
 0
 ----------------------------------------------------------------------------------------------------
 H. Gambling
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Marian is at a casino. The game at the casino works like this.
-Before each round, the player selects a number between $$$1$$$ and $$$10^9$$$. After that, a dice with $$$10^9$$$ faces is rolled so that a random number between $$$1$$$ and $$$10^9$$$ appears. If the player guesses the number correctly their total money is doubled, else their total money is halved.
-Marian predicted the future and knows all the numbers $$$x_1, x_2, \dots, x_n$$$ that the dice will show in the next $$$n$$$ rounds.
-He will pick three integers $$$a$$$, $$$l$$$ and $$$r$$$ ($$$l \leq r$$$). He will play $$$r-l+1$$$ rounds (rounds between $$$l$$$ and $$$r$$$ inclusive). In each of these rounds, he will guess the same number $$$a$$$. At the start (before the round $$$l$$$) he has $$$1$$$ dollar.
-Marian asks you to determine the integers $$$a$$$, $$$l$$$ and $$$r$$$ ($$$1 \leq a \leq 10^9$$$, $$$1 \leq l \leq r \leq n$$$) such that he makes the most money at the end.
-Note that during halving and multiplying there is no rounding and there are no precision errors. So, for example during a game, Marian could have money equal to $$$\dfrac{1}{1024}$$$, $$$\dfrac{1}{128}$$$, $$$\dfrac{1}{2}$$$, $$$1$$$, $$$2$$$, $$$4$$$, etc. (any value of $$$2^t$$$, where $$$t$$$ is an integer of any sign).
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 2\cdot 10^5$$$) — the number of rounds.
-The second line of each test case contains $$$n$$$ integers $$$x_1, x_2, \dots, x_n$$$ ($$$1 \leq x_i \leq 10^9$$$), where $$$x_i$$$ is the number that will fall on the dice in the $$$i$$$-th round.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2\cdot10^5$$$.
-Output
-For each test case, output three integers $$$a$$$, $$$l$$$, and $$$r$$$ such that Marian makes the most amount of money gambling with his strategy. If there are multiple answers, you may output any of them.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 5

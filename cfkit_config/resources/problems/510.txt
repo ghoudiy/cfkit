@@ -2,72 +2,11 @@ Codeforces Round 290 (Div. 2)
 
 
 A. Fox And Snake
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Fox Ciel starts to learn programming. The first task is drawing a fox! However, that turns out to be too hard for a beginner, so she decides to draw a snake instead.
-A snake is a pattern on a
-n
-by
-m
-table. Denote
-c
--th cell of
-r
--th row as
-(
-r
-,
-c
-)
-. The tail of the snake is located at
-(1, 1)
-, then it's body extends to
-(1,
-m
-)
-, then goes down
-2
-rows to
-(3,
-m
-)
-, then goes left to
-(3, 1)
-and so on.
-Your task is to draw this snake for Fox Ciel: the empty cells should be represented as dot characters ('
-.
-') and the snake cells should be filled with number signs ('
-#
-').
-Consider sample tests in order to understand the snake pattern.
-Input
-The only line contains two integers:
-n
-and
-m
-(
-3 ≤
-n
-,
-m
-≤ 50
-).
-n
-is an
-odd
-number.
-Output
-Output
-n
-lines. Each line should contain a string consisting of
-m
-characters. Do not output spaces.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3 3
@@ -103,100 +42,11 @@ Output
 #########
 ----------------------------------------------------------------------------------------------------
 B. Fox And Two Dots
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Fox Ciel is playing a mobile puzzle game called "Two Dots". The basic levels are played on a board of size
-n
-×
-m
-cells, like this:
-Each cell contains a dot that has some color. We will use different uppercase Latin characters to express different colors.
-The key of this game is to find a cycle that contain dots of same color. Consider 4 blue dots on the picture forming a circle as an example. Formally, we call a sequence of dots
-d
-1
-,
-d
-2
-, ...,
-d
-k
-a
-cycle
-if and only if it meets the following condition:
-These
-k
-dots are different: if
-i
-≠
-j
-then
-d
-i
-is different from
-d
-j
-.
-k
-is at least 4.
-All dots belong to the same color.
-For all
-1 ≤
-i
-≤
-k
-- 1
-:
-d
-i
-and
-d
-i
-+ 1
-are adjacent. Also,
-d
-k
-and
-d
-1
-should also be adjacent. Cells
-x
-and
-y
-are called adjacent if they share an edge.
-Determine if there exists a
-cycle
-on the field.
-Input
-The first line contains two integers
-n
-and
-m
-(
-2 ≤
-n
-,
-m
-≤ 50
-): the number of rows and columns of the board.
-Then
-n
-lines follow, each line contains a string consisting of
-m
-characters, expressing colors of dots in each line. Each character is an uppercase Latin letter.
-Output
-Output "
-Yes
-" if there exists a
-cycle
-, and "
-No
-" otherwise.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3 4
@@ -239,71 +89,11 @@ Output
 No
 ----------------------------------------------------------------------------------------------------
 C. Fox And Names
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Fox Ciel is going to publish a paper on FOCS (Foxes Operated Computer Systems, pronounce: "Fox"). She heard a rumor: the authors list on the paper is always sorted in the
-lexicographical
-order.
-After checking some examples, she found out that sometimes it wasn't true. On some papers authors' names weren't sorted in
-lexicographical
-order in normal sense. But it was always true that after some modification of the order of letters in alphabet, the order of authors becomes
-lexicographical
-!
-She wants to know, if there exists an order of letters in Latin alphabet such that the names on the paper she is submitting are following in the
-lexicographical
-order. If so, you should find out any such order.
-Lexicographical
-order is defined in following way. When we compare
-s
-and
-t
-, first we find the leftmost position with differing characters:
-s
-i
-≠
-t
-i
-. If there is no such position (i. e.
-s
-is a prefix of
-t
-or vice versa) the shortest string is less. Otherwise, we compare characters
-s
-i
-and
-t
-i
-according to their order in alphabet.
-Input
-The first line contains an integer
-n
-(
-1 ≤
-n
-≤ 100
-): number of names.
-Each of the following
-n
-lines contain one string
-name
-i
-(
-1 ≤ |
-name
-i
-| ≤ 100
-), the
-i
--th name. Each name contains only lowercase Latin letters. All names are different.
-Output
-If there exists such order of letters that the given names are sorted lexicographically, output any such order as a permutation of characters 'a'–'z' (i. e. first output the first letter of the modified alphabet, then the second, and so on).
-Otherwise output a single word "Impossible" (without quotes).
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3
@@ -353,86 +143,11 @@ Output
 acbdefhijklmnogpqrstuvwxyz
 ----------------------------------------------------------------------------------------------------
 D. Fox And Jumping
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Fox Ciel is playing a game. In this game there is an infinite long tape with cells indexed by integers (positive, negative and zero). At the beginning she is standing at the cell 0.
-There are also
-n
-cards, each card has 2 attributes: length
-l
-i
-and cost
-c
-i
-. If she pays
-c
-i
-dollars then she can apply
-i
--th card. After applying
-i
--th card she becomes able to make jumps of length
-l
-i
-, i. e. from cell
-x
-to cell
-(
-x
--
-l
-i
-)
-or cell
-(
-x
-+
-l
-i
-)
-.
-She wants to be able to jump to any cell on the tape (possibly, visiting some intermediate cells). For achieving this goal, she wants to buy some cards, paying as little money as possible.
-If this is possible, calculate the minimal cost.
-Input
-The first line contains an integer
-n
-(
-1 ≤
-n
-≤ 300
-), number of cards.
-The second line contains
-n
-numbers
-l
-i
-(
-1 ≤
-l
-i
-≤ 10
-9
-), the jump lengths of cards.
-The third line contains
-n
-numbers
-c
-i
-(
-1 ≤
-c
-i
-≤ 10
-5
-), the costs of cards.
-Output
-If it is impossible to buy some cards and become able to jump to any cell, output -1. Otherwise output the minimal cost of buying such set of cards.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3
@@ -460,90 +175,11 @@ Output
 7237
 ----------------------------------------------------------------------------------------------------
 E. Fox And Dinner
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Fox Ciel is participating in a party in Prime Kingdom. There are
-n
-foxes there (include Fox Ciel). The i-th fox is
-a
-i
-years old.
-They will have dinner around some round tables. You want to distribute foxes such that:
-Each fox is sitting at some table.
-Each table has at least 3 foxes sitting around it.
-The sum of ages of any two adjacent foxes around each table should be a prime number.
-If
-k
-foxes
-f
-1
-,
-f
-2
-, ...,
-f
-k
-are sitting around table in clockwise order, then for
-1 ≤
-i
-≤
-k
-- 1
-:
-f
-i
-and
-f
-i
-+ 1
-are adjacent, and
-f
-1
-and
-f
-k
-are also adjacent.
-If it is possible to distribute the foxes in the desired manner, find out a way to do that.
-Input
-The first line contains single integer
-n
-(
-3 ≤
-n
-≤ 200
-): the number of foxes in this party.
-The second line contains
-n
-integers
-a
-i
-(
-2 ≤
-a
-i
-≤ 10
-4
-).
-Output
-If it is impossible to do this, output "Impossible".
-Otherwise, in the first line output an integer
-m
-(
-): the number of tables.
-Then output
-m
-lines, each line should start with an integer
-k
--=– the number of foxes around that table, and then
-k
-numbers — indices of fox sitting around that table in clockwise order.
-If there are several possible arrangements, output any of them.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 4

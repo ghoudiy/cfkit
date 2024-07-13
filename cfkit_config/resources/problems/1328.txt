@@ -2,21 +2,12 @@ Codeforces Round 629 (Div. 3)
 
 
 A. Divisibility Problem
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given two positive integers $$$a$$$ and $$$b$$$. In one move you can increase $$$a$$$ by $$$1$$$ (replace $$$a$$$ with $$$a+1$$$). Your task is to find the minimum number of moves you need to do in order to make $$$a$$$ divisible by $$$b$$$. It is possible, that you have to make $$$0$$$ moves, as $$$a$$$ is already divisible by $$$b$$$. You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases. Then $$$t$$$ test cases follow.
-The only line of the test case contains two integers $$$a$$$ and $$$b$$$ ($$$1 \le a, b \le 10^9$$$).
-Output
-For each test case print the answer — the minimum number of moves you need to do in order to make $$$a$$$ divisible by $$$b$$$.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 10 4
@@ -32,45 +23,12 @@ Output
 0
 ----------------------------------------------------------------------------------------------------
 B. K-th Beautiful String
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-For the given integer $$$n$$$ ($$$n > 2$$$) let's write down all the strings of length $$$n$$$ which contain $$$n-2$$$ letters '
-a
-' and two letters '
-b
-' in
-lexicographical
-(alphabetical) order.
-Recall that the string $$$s$$$ of length $$$n$$$ is lexicographically less than string $$$t$$$ of length $$$n$$$, if there exists such $$$i$$$ ($$$1 \le i \le n$$$), that $$$s_i < t_i$$$, and for any $$$j$$$ ($$$1 \le j < i$$$) $$$s_j = t_j$$$. The lexicographic comparison of strings is implemented by the operator
-<
-in modern programming languages.
-For example, if $$$n=5$$$ the strings are (the order does matter):
-aaabb
-aabab
-aabba
-abaab
-ababa
-abbaa
-baaab
-baaba
-babaa
-bbaaa
-It is easy to show that such a list of strings will contain exactly $$$\frac{n \cdot (n-1)}{2}$$$ strings.
-You are given $$$n$$$ ($$$n > 2$$$) and $$$k$$$ ($$$1 \le k \le \frac{n \cdot (n-1)}{2}$$$). Print the $$$k$$$-th string from the list.
-Input
-The input contains one or more test cases.
-The first line contains one integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases in the test. Then $$$t$$$ test cases follow.
-Each test case is written on the the separate line containing two integers $$$n$$$ and $$$k$$$ ($$$3 \le n \le 10^5, 1 \le k \le \min(2\cdot10^9, \frac{n \cdot (n-1)}{2})$$$.
-The sum of values $$$n$$$ over all test cases in the test doesn't exceed $$$10^5$$$.
-Output
-For each test case print the $$$k$$$-th string from the list of all described above strings of length $$$n$$$. Strings in the list are sorted lexicographically (alphabetically).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 5 1
@@ -90,26 +48,12 @@ bab
 aaaaabaaaaabaaaaaaaa
 ----------------------------------------------------------------------------------------------------
 C. Ternary XOR
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-A number is
-ternary
-if it contains only digits $$$0$$$, $$$1$$$ and $$$2$$$. For example, the following numbers are ternary: $$$1022$$$, $$$11$$$, $$$21$$$, $$$2002$$$.
-You are given a long ternary number $$$x$$$. The first (leftmost) digit of $$$x$$$ is guaranteed to be $$$2$$$, the other digits of $$$x$$$ can be $$$0$$$, $$$1$$$ or $$$2$$$.
-Let's define the ternary XOR operation $$$\odot$$$ of two ternary numbers $$$a$$$ and $$$b$$$ (both of length $$$n$$$) as a number $$$c = a \odot b$$$ of length $$$n$$$, where $$$c_i = (a_i + b_i) \% 3$$$ (where $$$\%$$$ is modulo operation). In other words, add the corresponding digits and take the remainders of the sums when divided by $$$3$$$. For example, $$$10222 \odot 11021 = 21210$$$.
-Your task is to find such ternary numbers $$$a$$$ and $$$b$$$ both of length $$$n$$$ and both without leading zeros that $$$a \odot b = x$$$ and $$$max(a, b)$$$ is the minimum possible.
-You have to answer $$$t$$$ independent test cases.
-Input
-The first line of the input contains one integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases. Then $$$t$$$ test cases follow. The first line of the test case contains one integer $$$n$$$ ($$$1 \le n \le 5 \cdot 10^4$$$) — the length of $$$x$$$. The second line of the test case contains ternary number $$$x$$$ consisting of $$$n$$$ digits $$$0, 1$$$ or $$$2$$$. It is guaranteed that the first digit of $$$x$$$ is $$$2$$$. It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$5 \cdot 10^4$$$ ($$$\sum n \le 5 \cdot 10^4$$$).
-Output
-For each test case, print the answer — two ternary integers $$$a$$$ and $$$b$$$ both of length $$$n$$$ and both without leading zeros such that $$$a \odot b = x$$$ and $$$max(a, b)$$$ is the minimum possible. If there are several answers, you can print any.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 5
@@ -131,30 +75,12 @@ Output
 110111010
 ----------------------------------------------------------------------------------------------------
 D. Carousel
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-The round carousel consists of $$$n$$$ figures of animals. Figures are numbered from $$$1$$$ to $$$n$$$ in order of the carousel moving. Thus, after the $$$n$$$-th figure the figure with the number $$$1$$$ follows. Each figure has its own type — the type of the animal corresponding to this figure (the horse, the tiger and so on). The type of animal of the $$$i$$$-th figure equals $$$t_i$$$.
-The example of the carousel for $$$n=9$$$ and $$$t=[5, 5, 1, 15, 1, 5, 5, 1, 1]$$$
-.
-You want to color each figure in one of the colors. You think that it's boring if the carousel contains two different figures (with the distinct types of animals) going one right after another and colored in the same color.
-Your task is to color the figures in such a way that the number of distinct colors used is the minimum possible and there are no figures of the different types going one right after another and colored in the same color. If you use exactly $$$k$$$ distinct colors, then the colors of figures should be denoted with integers from $$$1$$$ to $$$k$$$.
-Input
-The input contains one or more test cases.
-The first line contains one integer $$$q$$$ ($$$1 \le q \le 10^4$$$) — the number of test cases in the test. Then $$$q$$$ test cases follow. One test case is given on two lines.
-The first line of the test case contains one integer $$$n$$$ ($$$3 \le n \le 2 \cdot 10^5$$$) — the number of figures in the carousel. Figures are numbered from $$$1$$$ to $$$n$$$ in order of carousel moving. Assume that after the $$$n$$$-th figure the figure $$$1$$$ goes.
-The second line of the test case contains $$$n$$$ integers $$$t_1, t_2, \dots, t_n$$$ ($$$1 \le t_i \le 2 \cdot 10^5$$$), where $$$t_i$$$ is the type of the animal of the $$$i$$$-th figure.
-The sum of $$$n$$$ over all test cases does not exceed $$$2\cdot10^5$$$.
-Output
-Print $$$q$$$ answers, for each test case print two lines.
-In the first line print one integer $$$k$$$ — the minimum possible number of distinct colors of figures.
-In the second line print $$$n$$$ integers $$$c_1, c_2, \dots, c_n$$$ ($$$1 \le c_i \le k$$$), where $$$c_i$$$ is the color of the $$$i$$$-th figure. If there are several answers, you can print any.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 5
@@ -176,31 +102,12 @@ Output
 1 1 1
 ----------------------------------------------------------------------------------------------------
 E. Tree Queries
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given a rooted tree consisting of $$$n$$$ vertices numbered from $$$1$$$ to $$$n$$$. The root of the tree is a vertex number $$$1$$$.
-A tree is a connected undirected graph with $$$n-1$$$ edges.
-You are given $$$m$$$ queries. The $$$i$$$-th query consists of the set of $$$k_i$$$ distinct vertices $$$v_i[1], v_i[2], \dots, v_i[k_i]$$$. Your task is to say if there is a path from the root to some vertex $$$u$$$ such that each of the given $$$k$$$ vertices is either belongs to this path or has the distance $$$1$$$ to some vertex of this path.
-Input
-The first line of the input contains two integers $$$n$$$ and $$$m$$$ ($$$2 \le n \le 2 \cdot 10^5$$$, $$$1 \le m \le 2 \cdot 10^5$$$) — the number of vertices in the tree and the number of queries.
-Each of the next $$$n-1$$$ lines describes an edge of the tree. Edge $$$i$$$ is denoted by two integers $$$u_i$$$ and $$$v_i$$$, the labels of vertices it connects $$$(1 \le u_i, v_i \le n, u_i \ne v_i$$$).
-It is guaranteed that the given edges form a tree.
-The next $$$m$$$ lines describe queries. The $$$i$$$-th line describes the $$$i$$$-th query and starts with the integer $$$k_i$$$ ($$$1 \le k_i \le n$$$) — the number of vertices in the current query. Then $$$k_i$$$ integers follow: $$$v_i[1], v_i[2], \dots, v_i[k_i]$$$ ($$$1 \le v_i[j] \le n$$$), where $$$v_i[j]$$$ is the $$$j$$$-th vertex of the $$$i$$$-th query.
-It is guaranteed that all vertices in a single query are distinct.
-It is guaranteed that the sum of $$$k_i$$$ does not exceed $$$2 \cdot 10^5$$$ ($$$\sum\limits_{i=1}^{m} k_i \le 2 \cdot 10^5$$$).
-Output
-For each query, print the answer — "
-YES
-", if there is a path from the root to some vertex $$$u$$$ such that each of the given $$$k$$$ vertices is either belongs to this path or has the distance $$$1$$$ to some vertex of this path and "
-NO
-" otherwise.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 10 6
 1 2
@@ -227,34 +134,11 @@ NO
 NO
 ----------------------------------------------------------------------------------------------------
 F. Make k Equal
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given the array $$$a$$$ consisting of $$$n$$$ elements and the integer $$$k \le n$$$.
-You want to obtain
-at least
-$$$k$$$ equal elements in the array $$$a$$$. In one move, you can make one of the following two operations:
-Take
-one
-of the minimum elements of the array and increase its value by one (more formally, if the minimum value of $$$a$$$ is $$$mn$$$ then you choose such index $$$i$$$ that $$$a_i = mn$$$ and set $$$a_i := a_i + 1$$$);
-take
-one
-of the maximum elements of the array and decrease its value by one (more formally, if the maximum value of $$$a$$$ is $$$mx$$$ then you choose such index $$$i$$$ that $$$a_i = mx$$$ and set $$$a_i := a_i - 1$$$).
-Your task is to calculate the minimum number of moves required to obtain
-at least
-$$$k$$$ equal elements in the array.
-Input
-The first line of the input contains two integers $$$n$$$ and $$$k$$$ ($$$1 \le k \le n \le 2 \cdot 10^5$$$) — the number of elements in $$$a$$$ and the required number of equal elements.
-The second line of the input contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 10^9$$$), where $$$a_i$$$ is the $$$i$$$-th element of $$$a$$$.
-Output
-Print one integer — the minimum number of moves required to obtain
-at least
-$$$k$$$ equal elements in the array.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 6 5

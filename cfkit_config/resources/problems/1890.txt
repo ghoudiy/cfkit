@@ -2,37 +2,12 @@ Codeforces Round 906 (Div. 2)
 
 
 A. Doremy's Paint 3
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-An array $$$b_1, b_2, \ldots, b_n$$$ of positive integers is good if all the sums of two adjacent elements are equal to the same value. More formally, the array is good if there exists a $$$k$$$ such that $$$b_1 + b_2 = b_2 + b_3 = \ldots = b_{n-1} + b_n = k$$$.
-Doremy has an array $$$a$$$ of length $$$n$$$. Now Doremy can permute its elements (change their order) however she wants. Determine if she can make the array good.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1\le t\le 100$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$2 \le n \le 100$$$) — the length of the array $$$a$$$.
-The second line of each test case contains $$$ n $$$ integers $$$ a_1,a_2,\ldots,a_n $$$ ($$$1 \le a_i \le 10^5$$$).
-There are no constraints on the sum of $$$n$$$ over all test cases.
-Output
-For each test case, print "
-Yes
-" (without quotes), if it is possible to make the array good, and "
-No
-" (without quotes) otherwise.
-You can output the answer in any case (upper or lower). For example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-", and "
-YES
-" will be recognized as positive responses.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 2
@@ -53,35 +28,12 @@ No
 Yes
 ----------------------------------------------------------------------------------------------------
 B. Qingshan Loves Strings
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Qingshan has a string $$$s$$$, while Daniel has a string $$$t$$$. Both strings only contain $$$\texttt{0}$$$ and $$$\texttt{1}$$$.
-A string $$$a$$$ of length $$$k$$$ is good if and only if
-$$$a_i \ne a_{i+1}$$$ for all $$$i=1,2,\ldots,k-1$$$.
-For example, $$$\texttt{1}$$$, $$$\texttt{101}$$$, $$$\texttt{0101}$$$ are good, while $$$\texttt{11}$$$, $$$\texttt{1001}$$$, $$$\texttt{001100}$$$ are not good.
-Qingshan wants to make $$$s$$$ good. To do this, she can do the following operation any number of times (possibly, zero):
-insert $$$t$$$ to any position of $$$s$$$ (getting a new $$$s$$$).
-Please tell Qingshan if it is possible to make $$$s$$$ good.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$T$$$ ($$$1\le T\le 2000$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains two integers $$$n$$$ and $$$m$$$ ($$$1 \le n,m \le 50$$$) — the length of the strings $$$s$$$ and $$$t$$$, respectively.
-The second line of each test case contains a string $$$s$$$ of length $$$n$$$.
-The third line of each test case contains a string $$$t$$$ of length $$$m$$$.
-It is guaranteed that $$$s$$$ and $$$t$$$ only contain $$$\texttt{0}$$$ and $$$\texttt{1}$$$.
-Output
-For each test case, print "
-YES
-" (without quotes), if it is possible to make $$$s$$$ good, and "
-NO
-" (without quotes) otherwise.
-You can print letters in any case (upper or lower).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 1 1
@@ -107,35 +59,12 @@ No
 No
 ----------------------------------------------------------------------------------------------------
 C. Qingshan Loves Strings 2
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Qingshan has a string $$$s$$$ which only contains $$$\texttt{0}$$$ and $$$\texttt{1}$$$.
-A string $$$a$$$ of length $$$k$$$ is good if and only if
-$$$a_i \ne a_{k-i+1}$$$ for all $$$i=1,2,\ldots,k$$$.
-For Div. 2 contestants, note that this condition is different from the condition in problem B.
-For example, $$$\texttt{10}$$$, $$$\texttt{1010}$$$, $$$\texttt{111000}$$$ are good, while $$$\texttt{11}$$$, $$$\texttt{101}$$$, $$$\texttt{001}$$$, $$$\texttt{001100}$$$ are not good.
-Qingshan wants to make $$$s$$$ good. To do this, she can do the following operation
-at most
-$$$300$$$ times (possibly, zero):
-insert $$$\texttt{01}$$$ to any position of $$$s$$$ (getting a new $$$s$$$).
-Please tell Qingshan if it is possible to make $$$s$$$ good. If it is possible, print a sequence of operations that makes $$$s$$$ good.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1\le t\le 100$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \le n\le 100$$$) — the length of string $$$s$$$, respectively.
-The second line of each test case contains a string $$$s$$$ with length $$$n$$$.
-It is guaranteed that $$$s$$$ only consists of $$$\texttt{0}$$$ and $$$\texttt{1}$$$.
-Output
-For each test case, if it impossible to make $$$s$$$ good, output $$$-1$$$.
-Otherwise, output $$$p$$$ ($$$0 \le p \le 300$$$) — the number of operations, in the first line.
-Then, output $$$p$$$ integers in the second line. The $$$i$$$-th integer should be an index $$$x_i$$$ ($$$0 \le x_i \le n+2i-2$$$) — the position where you want to insert $$$\texttt{01}$$$ in the current $$$s$$$. If $$$x_i=0$$$, you insert $$$\texttt{01}$$$ at the beginning of $$$s$$$. Otherwise, you insert $$$\texttt{01}$$$ immediately after the $$$x_i$$$-th character of $$$s$$$.
-We can show that under the constraints in this problem, if an answer exists, there is always an answer that requires at most $$$300$$$ operations.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 2
@@ -162,36 +91,12 @@ Output
 -1
 ----------------------------------------------------------------------------------------------------
 D. Doremy's Connecting Plan
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Doremy lives in a country consisting of $$$n$$$ cities numbered from $$$1$$$ to $$$n$$$, with $$$a_i$$$ people living in the $$$i$$$-th city. It can be modeled as an undirected graph with $$$n$$$ nodes.
-Initially, there are no edges in the graph. Now Doremy wants to make the graph
-connected
-.
-To do this, she can add an edge between $$$i$$$ and $$$j$$$ if
-$$$$$$ \sum_{k \in S} a_k \ge i\cdot j \cdot c, $$$$$$
-where $$$S$$$ is the set of all the nodes that are currently in the same connected component of either $$$i$$$ or $$$j$$$, and $$$c$$$ is a given constant.
-Can Doremy make the graph connected?
-Two nodes $$$(i, j)$$$ are in the same connected component if there exists a path from $$$i$$$ to $$$j$$$. A graph is connected if all its nodes are in the same connected component.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases. The description of the test cases follows.
-The first line contains two integers $$$n$$$, $$$c$$$ ($$$2\le n\le 2\cdot 10^5$$$, $$$1 \le c \le 10^6$$$) — the number of nodes and the constant.
-The second line of each test case contains $$$ n $$$ integers $$$ a_1,a_2,\ldots,a_n $$$ ($$$0 \le a_i \le 10^{12}$$$) — the number of people living in the $$$i$$$-th city.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2\cdot 10^5$$$.
-Output
-For each test case, print "
-YES
-" (without quotes), if it is possible to make the graph connected, and "
-NO
-" (without quotes) otherwise.
-You can print letters in any case (upper or lower).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 4 10
@@ -218,26 +123,12 @@ Yes
 No
 ----------------------------------------------------------------------------------------------------
 E1. Doremy's Drying Plan (Easy Version)
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-The only differences between the two versions of this problem are the constraint on $$$k$$$, the time limit and the memory limit. You can make hacks only if all versions of the problem are solved.
-Doremy lives in a rainy country consisting of $$$n$$$ cities numbered from $$$1$$$ to $$$n$$$.
-The weather broadcast predicted the distribution of rain in the next $$$m$$$ days. In the $$$i$$$-th day, it will rain in the cities in the interval $$$[l_i, r_i]$$$. A city is called dry if it will never rain in that city in the next $$$m$$$ days.
-It turns out that Doremy has a special power. She can choose $$$k$$$ days (in the easy version, $$$k = 2$$$), and during these days it will not rain. Doremy wants to calculate the maximum number of dry cities after using the special power.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases. The description of the test cases follows.
-The first line contains three integers $$$n$$$, $$$m$$$ and $$$k$$$ ($$$1\le n\le 2\cdot 10^5$$$, $$$2 \le m \le 2\cdot 10^5$$$, $$$k = 2$$$) — the number of cities, the number of days, and the number of days of rain that Doremy can prevent.
-Then, $$$m$$$ lines follow. The $$$i$$$-th line contains two integers $$$l_i$$$, $$$r_i$$$ ($$$1\le l_i\le r_i\le n$$$) — the rain coverage on day $$$i$$$.
-It is guaranteed that the sum of $$$n$$$ and the sum of $$$m$$$ over all test cases do not exceed $$$2\cdot 10^5$$$.
-Output
-For each test case, output one integer — the maximum number of dry cities.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 2 3 2
@@ -280,26 +171,12 @@ Output
 15
 ----------------------------------------------------------------------------------------------------
 E2. Doremy's Drying Plan (Hard Version)
-time limit per test
-4 seconds
-memory limit per test
-1024 megabytes
-input
-standard input
-output
-standard output
-The only differences between the two versions of this problem are the constraint on $$$k$$$, the time limit and the memory limit. You can make hacks only if all versions of the problem are solved.
-Doremy lives in a rainy country consisting of $$$n$$$ cities numbered from $$$1$$$ to $$$n$$$.
-The weather broadcast predicted the distribution of rain in the next $$$m$$$ days. In the $$$i$$$-th day, it will rain in the cities in the interval $$$[l_i, r_i]$$$. A city is called dry if it will never rain in that city in the next $$$m$$$ days.
-It turns out that Doremy has a special power. She can choose $$$k$$$ days, and during these days it will not rain. Doremy wants to calculate the maximum number of dry cities after using the special power.
-Input
-The input consists of multiple test cases. The first line contains a single integer $$$t$$$ ($$$1\le t\le 10^4$$$) — the number of test cases. The description of the test cases follows.
-The first line contains three integers $$$n$$$, $$$m$$$ and $$$k$$$ ($$$1\le n\le 2\cdot 10^5$$$, $$$2 \le m \le 2\cdot 10^5$$$, $$$2 \le k \le \min(10, m)$$$) — the number of cities, the number of days, and the number of days of rain that Doremy can prevent.
-Then, $$$m$$$ lines follow. The $$$i$$$-th line contains two integers $$$l_i$$$, $$$r_i$$$ ($$$1\le l_i\le r_i\le n$$$) — the rain coverage on day $$$i$$$.
-It is guaranteed that the sum of $$$n$$$ and the sum of $$$m$$$ over all test cases do not exceed $$$2\cdot 10^5$$$.
-Output
-For each test case, output one integer — the maximum number of dry cities.
-Example
+time limit per test: 4 seconds
+memory limit per test: 1024 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 2 3 2
@@ -342,34 +219,11 @@ Output
 17
 ----------------------------------------------------------------------------------------------------
 F. Game of Stacks
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You have $$$n$$$ stacks $$$r_1,r_2,\ldots,r_n$$$. Each stack contains some positive integers ranging from $$$1$$$ to $$$n$$$.
-Define the following functions:
-function init(pos):
-stacks := an array that contains n stacks r[1], r[2], ..., r[n]
-return get(stacks, pos)
-function get(stacks, pos):
-if stacks[pos] is empty:
-return pos
-else:
-new_pos := the top element of stacks[pos]
-pop the top element of stacks[pos]
-return get(stacks, new_pos)
-You want to know the values returned by $$$\texttt{init(1)}, \texttt{init(2)}, \ldots, \texttt{init(n)}$$$.
-Note that, during these calls, the stacks $$$r_1,r_2,\ldots,r_n$$$ don't change, so the calls $$$\texttt{init(1)}, \texttt{init(2)}, \ldots, \texttt{init(n)}$$$ are independent.
-Input
-The first line of the input contains one integer $$$n$$$ ($$$1\le n\le 10^5$$$) — the length of the array $$$r$$$.
-Each of the following $$$n$$$ lines contains several integers. The first integer $$$k_i$$$ ($$$0\le k_i\le 10^5$$$) represents the number of elements in the $$$i$$$-th stack, and the following $$$k_i$$$ positive integers $$$c_{i,1},c_{i,2},\ldots,c_{i,k_i}$$$ ($$$1\le c_{i,j}\le n$$$) represent the elements in the $$$i$$$-th stack. $$$c_{i,1}$$$ is the bottom element.
-In each test, $$$\sum k_i\le 10^6$$$.
-Output
-You need to output $$$n$$$ values, the $$$i$$$-th of which is the value returned by $$$\texttt{init(i)}$$$.
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3

@@ -2,22 +2,11 @@ European Championship 2024 - Online Mirror (Unrated, ICPC Rules, Teams Preferred
 
 
 A. Grove
-time limit per test
-4 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You want to plant trees in a square lawn of size $$$n \times n$$$ whose corners have Cartesian coordinates $$$(0, 0)$$$, $$$(n, 0)$$$, $$$(0, n)$$$, and $$$(n, n)$$$. Trees can only be planted at locations with integer coordinates. Every tree will grow roots within a disk of radius $$$r$$$ centered at the location where the tree was planted; such disks must be fully contained in the lawn (possibly touching the boundary of the lawn) and can only intersect each other on their boundaries.
-Find a configuration that maximizes the number of trees.
-Input
-The first and only line contains an integer $$$n$$$ ($$$1 \leq n \leq 20$$$) and a real number $$$r$$$ ($$$0 < r \leq n/2$$$) — the length of the sides of the lawn, and the radius of the disks where each tree will grow roots. The real number $$$r$$$ is given in decimal notation with at least $$$1$$$ and at most $$$3$$$ digits after the decimal point.
-Output
-In the first line, print the maximum number $$$m$$$ of trees that can be planted.
-In the next $$$m$$$ lines, print a configuration that maximizes the number of trees. Specifically, in the $$$(i+1)$$$-th line, print two integers $$$x$$$ and $$$y$$$ — the coordinates of the location where the $$$i$$$-th tree should be planted. You can print the trees in any order.
-If there are multiple solutions, print any of them.
+time limit per test: 4 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 6 1.241
@@ -35,27 +24,12 @@ Output
 6 6
 ----------------------------------------------------------------------------------------------------
 B. Charming Meals
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-The Czech cuisine features $$$n$$$ appetizers and $$$n$$$ main dishes. The $$$i$$$-th appetizer has spiciness $$$a_i$$$, and the $$$i$$$-th main dish has spiciness $$$b_i$$$.
-A typical Czech meal consists of exactly one appetizer and one main dish. You want to pair up the $$$n$$$ appetizers and $$$n$$$ main dishes into $$$n$$$ meals with each appetizer and each main dish being included in exactly one meal.
-Your meals shall surprise the diners, so you want the spiciness levels of the two parts of the same meal to be as different as possible. The charm of a meal is the difference (in absolute value) between the spiciness of the appetizer and the spiciness of the main dish. So, a meal consisting of an appetizer with spiciness $$$x$$$ and a main dish with spiciness $$$y$$$ has charm equal to $$$|x-y|$$$.
-You want to maximize the minimum charm of the resulting $$$n$$$ meals. What is the largest possible value of the minimum charm that you can achieve?
-Input
-Each test contains multiple test cases. The first line contains an integer $$$t$$$ ($$$1\le t\le 1\,000$$$) — the number of test cases. The descriptions of the $$$t$$$ test cases follow.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 5\,000$$$) —the number of appetizers and main dishes.
-The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \ldots, a_n$$$ ($$$0 \leq a_i \leq 10^{9}$$$) — the spicinesses of the $$$n$$$ appetizers.
-The third line of each test case contains $$$n$$$ integers $$$b_1, b_2, \ldots, b_n$$$ ($$$0 \leq b_i \leq 10^{9}$$$) — the spicinesses of the $$$n$$$ main dishes.
-It is guaranteed that the sum of $$$n^2$$$ over all test cases does not exceed $$$25\cdot 10^6$$$.
-Output
-For each test case, print the largest possible value of the minimum charm you can achieve.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 3
@@ -77,23 +51,11 @@ Output
 30
 ----------------------------------------------------------------------------------------------------
 C. Annual Ants' Gathering
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Deep within a forest lies an ancient tree, home to $$$n$$$ ants living in $$$n$$$ tiny houses, indexed from $$$1$$$ to $$$n$$$, connected by the branches of the tree.
-Once a year, all the ants need to gather to watch the EUC. For this, all ants move along the $$$n-1$$$ branches of the tree they live on to meet at the home of one ant.
-However, this year the ants could not agree on where to meet and need your help to gather up. You can tell all the ants currently at house $$$u$$$ to move to house $$$v$$$ if there is a branch directly connecting those two houses. However, the ants ignore your command if there are fewer ants gathered in house $$$v$$$ than in house $$$u$$$, i.e., if it would be easier for the ants from house $$$v$$$ to move. This even holds true if no ant at all is currently in house $$$v$$$. You can give this kind of commands as many times as you want.
-Is it possible for you to gather all the ants in a single house?
-Input
-The first line contains one integer $$$n$$$ ($$$1\leq n\leq 200\,000$$$) — the number of ant homes.
-Each of the following $$$n-1$$$ lines contains two integers $$$u$$$ and $$$v$$$ ($$$1\leq u, v\leq n$$$) — there is a branch directly connecting the house $$$u$$$ and house $$$v$$$. It is guaranteed that every ant can reach the house of any other ant just by following the branches of the tree.
-Output
-Print $$$\texttt{YES}$$$ if it is possible to gather all the ants in a single house. Otherwise, print $$$\texttt{NO}$$$.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 7
@@ -124,54 +86,11 @@ Output
 YES
 ----------------------------------------------------------------------------------------------------
 D. Funny or Scary?
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are designing a new video game. It has $$$n$$$ scenarios, which the player may play in any order, but each scenario must be played exactly once. When a player switches from a scenario to another scenario, the game shows a specially crafted transition video to make it all feel part of one big story. This video is specific to a pair of scenarios, but not to their order, in other words, the video playing when switching from scenario $$$a$$$ to scenario $$$b$$$ is the same as the video playing when switching from scenario $$$b$$$ to scenario $$$a$$$. Therefore, you need to create $$$\frac{n(n-1)}{2}$$$ different transition videos, one for each possible pair of different scenarios.
-Each transition video can be either
-funny
-or
-scary
-. It is boring to see too many funny videos or too many scary videos in a row. Therefore, your goal is to create the videos in such a way that no matter in which order does the player approach the scenarios, they will never see more than $$$\lceil \frac{3n}{4} \rceil$$$ transition videos of the same type in a row.
-You have already come up with ideas for at most $$$\lfloor \frac{n}{2} \rfloor$$$ of the transition videos, and therefore already know if those will be funny or scary. Now you need to choose funny or scary for all other transition videos in such a way that the above requirement is satisfied.
-Input
-The first line contains a single integer $$$n$$$ ($$$2 \le n \le 24$$$) — the number of scenarios in the game.
-The next $$$n$$$ lines describe the partial transition video plan. Each of those lines contains $$$n$$$ characters. The $$$j$$$-th character of the $$$i$$$-th line corresponds to the transition video between the $$$i$$$-th and the $$$j$$$-th scenarios. It will be
-F
-if the corresponding transition video will be funny,
-S
-if the corresponding transition video will be scary,
-?
-if the corresponding transition video is still undecided, or
-.
-if $$$i=j$$$.
-It is guaranteed that the $$$i$$$-th character of the $$$j$$$-th line and the $$$j$$$-th character of the $$$i$$$-th line will be the same for all $$$i$$$ and $$$j$$$. It is guaranteed that at most $$$\lfloor \frac{n}{2} \rfloor$$$ ($$$n$$$ divided by 2, rounded down) transition videos will already be decided, in other words, that at most $$$2\lfloor \frac{n}{2} \rfloor$$$ characters in the input will be
-F
-or
-S
-.
-Output
-Print $$$n$$$ lines describing the full transition video plan in the same format as the input. Each of those lines must contain $$$n$$$ characters. The $$$j$$$-th character of the $$$i$$$-th line must be
-F
-if the corresponding transition video is funny,
-S
-if the corresponding transition video is scary, or
-.
-if $$$i=j$$$.
-Each
-?
-character from the input must be replaced with either
-F
-or
-S
-, and all other characters from the input must remain unchanged. It must still hold that the $$$i$$$-th character of the $$$j$$$-th line and the $$$j$$$-th character of the $$$i$$$-th line are the same for all $$$i$$$ and $$$j$$$.
-For each permutation of the $$$n$$$ scenarios, it must hold that the transition videos corresponding to playing the scenarios in this order do not have more than $$$\lceil \frac{3n}{4} \rceil$$$ ($$$3n$$$ divided by 4, rounded up) videos of the same type consecutively.
-If there are multiple solutions, print any of them. It can be proven that for all inputs satisfying the constraints of this problem a solution always exists.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5
@@ -215,27 +134,11 @@ FFFFSFFFFF.F
 SSSSFFSSSSF.
 ----------------------------------------------------------------------------------------------------
 E. Damage per Second
-time limit per test
-5 seconds
-memory limit per test
-1024 megabytes
-input
-standard input
-output
-standard output
-You just created a new character in your favourite role-playing game and now have to decide how to skill him.
-The two skill attributes to be chosen are:
-damage per hit
-and
-hits per second
-. Damage per hit is the amount of damage you deal with a single hit, while hits per second is the number of hits you can make in one second. Initially, both skill attributes are set at $$$0$$$. You have $$$k$$$ skill points to distribute as you want; in other words, you can choose the values of the two skills so that they are positive integers with sum at most $$$k$$$.
-The tutorial of the game (the boring part you want to finish as soon as possible) consists of $$$n$$$ monsters to be killed one after the other. The $$$i$$$-th monster has $$$h_i$$$ health points, i.e., it dies after you have inflicted at least $$$h_i$$$ damage.
-How can you assign the two skill attributes to minimize the time necessary to kill all the $$$n$$$ monsters?
-Input
-The first line contains two integers $$$n$$$ and $$$k$$$ ($$$1\leq n\leq200\,000$$$, $$$2\leq k\leq200\,000$$$) — the number of enemies and the number of skill points.
-The second line contains $$$n$$$ integers $$$h_i$$$ ($$$1\leq h_i\leq10^{13}$$$) — the health of the $$$i$$$th enemy.
-Output
-Print two positive integers $$$x$$$ and $$$y$$$ ($$$1\le x, y$$$ and $$$x+y\le k$$$) — the number of skill points you want to invest in damage per hit and hits per second. If there are multiple optimal solutions, print any of them.
+time limit per test: 5 seconds
+memory limit per test: 1024 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 1 7
@@ -254,24 +157,11 @@ Output
 7 6
 ----------------------------------------------------------------------------------------------------
 F. Dating
-time limit per test
-3 seconds
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-You are the developer of a dating app which ignores gender completely. The app has $$$n$$$ users, indexed from $$$1$$$ to $$$n$$$. Each user's profile features a list of the activities they enjoy doing. There are $$$m$$$ possible activities, indexed from $$$1$$$ to $$$m$$$.
-A match between two users is good if they share at least one activity and, at the same time, both of them like at least one activity that the other user does not like.
-Find a good match if it exists.
-Input
-The first line contains two integers $$$n$$$ and $$$m$$$ ($$$2 \leq n \leq 200\,000$$$, $$$1 \leq m \leq 10^6$$$) — the number of users and the number of activities.
-Each of the following $$$n$$$ lines contains a number $$$k_i$$$ ($$$0 \leq k_i \leq m$$$) — the number of activities that user $$$i$$$ likes — followed by $$$k_i$$$ distinct integers from $$$1$$$ to $$$m$$$ — the activities user $$$i$$$ likes.
-It is guaranteed that $$$k_1+k_2+\cdots+k_n$$$ does not exceed $$$10^6$$$.
-Output
-Print $$$\texttt{YES}$$$ if a good match exists. Otherwise, print $$$\texttt{NO}$$$.
-If a good match exists, on the next line print two integers — the indexes of two users that make a match.
+time limit per test: 3 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3 5
@@ -290,45 +180,11 @@ Output
 NO
 ----------------------------------------------------------------------------------------------------
 G. Scooter
-time limit per test
-2 seconds
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-The Czech Technical University campus consists of $$$n$$$ buildings, indexed from $$$1$$$ to $$$n$$$. In each building, there can be a math class scheduled, or a computer science class, or neither (but not both). Additionally, in each building, there is at most one professor, and each professor is either an expert in mathematics or in computer science.
-As an intern at University Express Inc., your job is to quickly transport the professors to their classes. For this, you have been granted a brand new two-person scooter, able to accommodate yourself, plus at most one passenger.
-Initially, you are the only person on the scooter. When you arrive at a building, you may drop off or pick up professors to/from that building. However, in order to improve the efficiency of your task, you are allowed to drive to each of the $$$n$$$ buildings
-at most once
-, in the order of your choice (you can also decide where to start the itinerary).
-After the end of your itinerary, in each building where a math class is scheduled, there must be a professor expert in math, and in each building where a computer science class is scheduled, there must be a professor expert in computer science.
-Devise an itinerary that makes it possible to teach all classes.
-Input
-The first line contains an integer $$$n$$$ ($$$1\le n \le 2000$$$) — the number of buildings in the campus.
-The second line contains a string of $$$c$$$ of length $$$n$$$ consisting of the characters $$$\texttt{-}$$$, $$$\texttt{C}$$$, $$$\texttt{M}$$$ — the $$$i$$$-th character denotes the subject of the class scheduled in the $$$i$$$-th building. $$$\texttt{C}$$$ stands for computer science, $$$\texttt{M}$$$ stands for mathematics, while $$$\texttt{-}$$$ means that there is no class scheduled in the $$$i$$$-th building.
-The third line contains a string $$$p$$$ of length $$$n$$$ consisting of the characters $$$\texttt{-}$$$, $$$\texttt{C}$$$, $$$\texttt{M}$$$ — the $$$i$$$-th character denotes the expertise of the professor in the $$$i$$$-th building (if there is a professor). $$$\texttt{C}$$$ stands for computer science, $$$\texttt{M}$$$ stands for mathematics, while $$$\texttt{-}$$$ means that there is no professor in the $$$i$$$-th building.
-It is guaranteed that, for all tests given to your program, there exists a valid itinerary.
-Output
-In the first line print an integer $$$l$$$ — the number of operations in your chosen itinerary.
-The $$$i$$$-th ($$$1 \leq i \leq l$$$) of the next $$$l$$$ lines must contain one of three commands:
-$$$\texttt{DRIVE } x$$$ — go to the building with the number $$$x$$$ ($$$1 \leq x \leq n$$$);
-$$$\texttt{PICKUP}$$$ — pick up the professor which was
-initially
-at the current building;
-$$$\texttt{DROPOFF}$$$ — drop off the passenger professor at the current building.
-In order for the itinerary to be valid, the following conditions must hold:
-No two $$$\texttt{DRIVE}$$$ instructions should go to the same building;
-At most one $$$\texttt{DROPOFF}$$$ and one $$$\texttt{PICKUP}$$$ instruction
-in this order
-should be issued at each specific building;
-For all $$$\texttt{PICKUP}$$$ instructions, there must be a professor
-initially
-at the building, as well as no one already riding along on the scooter;
-For all $$$\texttt{DROPOFF}$$$ instructions, there must be a professor riding along at the time of the command;
-After the itinerary, in each building, if there is a class in that building, there must be a professor expert in the class' subject (either initially, or because they were dropped off there).
-Note that, in particular, you cannot pick up a professor that you just dropped off for an itinerary to be valid.
+time limit per test: 2 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3
@@ -361,30 +217,12 @@ DRIVE 2
 DROPOFF
 ----------------------------------------------------------------------------------------------------
 H. Division Avoidance
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-A newly discovered organism can be represented as a set of cells on an infinite grid. There is a coordinate system on the grid such that each cell has two integer coordinates $$$x$$$ and $$$y$$$. A cell with coordinates $$$x=a$$$ and $$$y=b$$$ will be denoted as $$$(a, b)$$$.
-Initially, the organism consists of a single cell $$$(0, 0)$$$. Then zero or more
-divisions
-can happen. In one division, a cell $$$(a, b)$$$ is removed and replaced by two cells $$$(a+1, b)$$$ and $$$(a, b+1)$$$.
-For example, after the first division, the organism always consists of two cells $$$(1, 0)$$$ and $$$(0, 1)$$$, and after the second division, it is either the three cells $$$(2, 0)$$$, $$$(1, 1)$$$ and $$$(0, 1)$$$, or the three cells $$$(1, 0)$$$, $$$(1, 1)$$$ and $$$(0, 2)$$$.
-A division of a cell $$$(a, b)$$$ can only happen if the cells $$$(a+1, b)$$$ and $$$(a, b+1)$$$ are not yet part of the organism.
-For example, the cell $$$(1, 0)$$$ cannot divide if the organism currently consists of the three cells $$$(1, 0)$$$, $$$(1, 1)$$$ and $$$(0, 2)$$$, since the cell $$$(1, 1)$$$ that would be one of the results of this division is already part of the organism.
-You are given a set of forbidden cells $$${(c_i, d_i)}$$$. Is it possible for the organism to contain none of those cells after zero or more divisions?
-Input
-Each test contains multiple test cases. The first line contains an integer $$$t$$$ ($$$1 \le t \le 10\,000$$$) — the number of test cases. The descriptions of the $$$t$$$ test cases follow.
-The first line of each test case contains an integer $$$n$$$ ($$$1 \le n \le 10^6$$$) — the number of forbidden cells.
-The next $$$n$$$ lines contain two integers each. The $$$i$$$-th of such lines contains $$$c_i$$$ and $$$d_i$$$ ($$$0 \le c_i, d_i \le 10^9$$$) — the coordinates of the $$$i$$$-th forbidden cell. It is guaranteed that all forbidden cells are distinct.
-It is guaranteed that the sum of values of $$$n$$$ over all test cases does not exceed $$$10^6$$$.
-Output
-For each test case, print $$$\texttt{YES}$$$ if it is possible for the organism to contain no forbidden cells after zero or more divisions. Otherwise, print $$$\texttt{NO}$$$.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 2
 4
@@ -414,25 +252,11 @@ YES
 NO
 ----------------------------------------------------------------------------------------------------
 I. Disks
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given $$$n$$$ disks in the plane. The center of each disk has integer coordinates, and the radius of each disk is a positive integer. No two disks overlap in a region of positive area, but it is possible for disks to be tangent to each other.
-Your task is to determine whether it is possible to change the radii of the disks in such a way that:
-Disks that were tangent to each other remain tangent to each other.
-No two disks overlap in a region of positive area.
-The sum of all radii strictly decreases.
-The new radii are allowed to be arbitrary positive real numbers. The centers of the disks cannot be changed.
-Input
-The first line contains an integer $$$n$$$ ($$$1\le n \le 1000$$$) — the number of disks.
-The next $$$n$$$ lines contain three integers each. The $$$i$$$-th of such lines contains $$$x_i$$$, $$$y_i$$$ ($$$-10^9 \leq x_i, y_i \leq 10^9$$$), and $$$r_i$$$ ($$$1 \leq r_i \leq 10^9$$$) — the coordinates of the center, and the radius, of the $$$i$$$-th disk.
-Output
-Print $$$\texttt{YES}$$$ if it is possible to change the radii in the desired manner. Otherwise, print $$$\texttt{NO}$$$.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5
@@ -453,38 +277,11 @@ Output
 NO
 ----------------------------------------------------------------------------------------------------
 J. Amanda the Amoeba
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-This problem has an attachment. You can use it to simulate and visualize the movements of the amoeba.
-Amoeba Amanda lives inside a rectangular grid of square pixels. Her body occupies some of these pixels. Other pixels may be either free or blocked. Amanda moves across the grid using the so-called amoeboid movement. In each step of such a movement, her body first shrinks by one pixel (one pixel of the body is removed and becomes free), and then grows at a different place (one previously-free pixel is added to the body).
-To prevent structural damage, Amanda's body always occupies a connected region of pixels, which means that any pair of pixels forming the body can be connected by a sequence of adjacent pixels without ever leaving the body. Two pixels are considered adjacent if they share a common side (each pixel has at most 4 neighbours). The body remains connected even during the movement, including the moment after removing a pixel and before adding another one.
-Your task is to help Amanda find her way around. Given her initial position and desired final position, suggest a sequence of valid moves leading from the former to the latter.
-Illustration of sample $$$1$$$: The filled shape is the initial position, the dotted region is the final position.
-Input
-The first line contains two integers $$$r$$$ and $$$c$$$ ($$$1\le r,c \le 50$$$) — the size of the rectangular grid in pixels.
-The next $$$r$$$ lines contain $$$c$$$ characters each, describing the initial position of Amanda. Each of those characters is either a dot $$$\texttt{.}$$$ denoting a free pixel, an asterisk $$$\texttt{*}$$$ denoting Amanda's body, or an $$$\texttt{X}$$$ denoting a blocked pixel which may never be occupied.
-The next line is empty.
-The next $$$r$$$ lines describe the desired final position in the same format as the initial position.
-It is guaranteed that:
-The number of pixels forming Amanda's body is the same in both positions, and it is at least 2.
-The body of Amanda is connected in the initial position.
-The body of Amanda is connected in the final position.
-The blocked pixels do not change between the descriptions of the initial and final position, their placement is exactly the same in both positions.
-Output
-Print $$$\texttt{YES}$$$ if it is possible for Amanda to go from the initial position to the final one. Otherwise, print $$$\texttt{NO}$$$.
-If it is possible, on the next line print one integer $$$m$$$ ($$$0\le m\le 10\,000$$$) — the number of moves to execute.
-The following $$$m$$$ lines must contain four integer coordinates each: $$$i_1$$$, $$$j_1$$$, $$$i_2$$$, $$$j_2$$$ ($$$1\le i_1,i_2\le r$$$, $$$1\le j_1,j_2\le c$$$). These four coordinates specify one move, meaning that the pixel at $$$i_1$$$-th row and $$$j_1$$$-th column is first removed from the body. Then, $$$(i_2,j_2)$$$ must designate a
-different
-location where one pixel is added.
-The sequence should consist only of valid moves and after the last move, Amanda's body should occupy the desired final position.
-If there are multiple solutions, print any of them.
-Under the assumptions of this problem, it can be proven that if it is possible for Amanda to go from the initial position to the desired final one, then it is possible to do it with at most $$$10\,000$$$ moves.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5 8
@@ -516,33 +313,12 @@ Output
 NO
 ----------------------------------------------------------------------------------------------------
 K. Make Triangle
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given $$$n$$$ positive integers $$$x_1, x_2, \ldots, x_n$$$ and three positive integers $$$n_a, n_b, n_c$$$ satisfying $$$n_a+n_b+n_c = n$$$.
-You want to split the $$$n$$$ positive integers into three groups, so that:
-The first group contains $$$n_a$$$ numbers, the second group contains $$$n_b$$$ numbers, the third group contains $$$n_c$$$ numbers.
-Let $$$s_a$$$ be the sum of the numbers in the first group, $$$s_b$$$ be the sum in the second group, and $$$s_c$$$ be the sum in the third group. Then $$$s_a, s_b, s_c$$$ are the sides of a triangle with positive area.
-Determine if this is possible. If this is possible, find one way to do so.
-Input
-Each test contains multiple test cases. The first line contains an integer $$$t$$$ ($$$1\le t\le 100\,000$$$) — the number of test cases. The descriptions of the $$$t$$$ test cases follow.
-The first line of each test case contains the integers $$$n, n_a, n_b, n_c$$$ ($$$3 \leq n \leq 200\,000, 1\leq n_a,n_b,n_c \leq n-2, n_a+n_b+n_c = n$$$) — the number of integers to split into three groups, and the desired sizes of the three groups.
-The second line of each test case contains $$$n$$$ integers $$$x_1, x_2, \ldots, x_n$$$ ($$$1 \leq x_i \leq 10^{9}$$$).
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$200\,000$$$.
-Output
-For each test case, print $$$\texttt{YES}$$$ if it is possible to split the numbers into three groups satisfying all the conditions. Otherwise, print $$$\texttt{NO}$$$.
-If such a split exists, then describe the three groups as follows.
-On the next line, print $$$n_a$$$ integers $$$a_1, a_2, \ldots, a_{n_a}$$$ — the numbers in the first group.
-On the next line, print $$$n_b$$$ integers $$$b_1, b_2, \ldots, b_{n_b}$$$ — the numbers in the second group.
-On the next line, print $$$n_c$$$ integers $$$c_1, c_2, \ldots, c_{n_c}$$$ — the numbers in the third group.
-These $$$n_a+n_b+n_c=n$$$ integers should be a permutation of $$$x_1, x_2, \ldots, x_n$$$, and they should satisfy the conditions from the statement.
-If there are multiple solutions, print any of them.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 6 2 2 2

@@ -2,33 +2,12 @@ Educational Codeforces Round 166 (Rated for Div. 2)
 
 
 A. Verify Password
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Monocarp is working on his new site, and the current challenge is to make the users pick strong passwords.
-Monocarp decided that strong passwords should satisfy the following conditions:
-password should consist only of lowercase Latin letters and digits;
-there should be no digit that comes after a letter (so, after each letter, there is either another letter or the string ends);
-all digits should be sorted in the non-decreasing order;
-all letters should be sorted in the non-decreasing order.
-Note that it's allowed for the password to have only letters or only digits.
-Monocarp managed to implement the first condition, but he struggles with the remaining ones. Can you help him to verify the passwords?
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 1000$$$) — the number of testcases.
-The first line of each testcase contains a single integer $$$n$$$ ($$$1 \le n \le 20$$$) — the length of the password.
-The second line contains a string, consisting of exactly $$$n$$$ characters. Each character is either a lowercase Latin letter or a digit.
-Output
-For each testcase, print "
-YES
-" if the given password is strong and "
-NO
-" otherwise.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 4
@@ -49,30 +28,12 @@ NO
 YES
 ----------------------------------------------------------------------------------------------------
 B. Increase/Decrease/Copy
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given two integer arrays: array $$$a$$$ of length $$$n$$$ and array $$$b$$$ of length $$$n+1$$$.
-You can perform the following operations any number of times in any order:
-choose any element of the array $$$a$$$ and increase it by $$$1$$$;
-choose any element of the array $$$a$$$ and decrease it by $$$1$$$;
-choose any element of the array $$$a$$$, copy it and append the copy to the end of the array $$$a$$$.
-Your task is to calculate the minimum number of aforementioned operations (possibly zero) required to transform the array $$$a$$$ into the array $$$b$$$. It can be shown that under the constraints of the problem, it is always possible.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
-Each test case consists of three lines:
-the first line contains a single integer $$$n$$$ ($$$1 \le n \le 2 \cdot 10^5$$$);
-the second line contains $$$n$$$ integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 10^9$$$);
-the third line contains $$$n + 1$$$ integers $$$b_1, b_2, \dots, b_{n + 1}$$$ ($$$1 \le b_i \le 10^9$$$).
-Additional constraint on the input: the sum of $$$n$$$ over all test cases doesn't exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, print a single integer — the minimum number of operations (possibly zero) required to transform the array $$$a$$$ into the array $$$b$$$.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 1
@@ -90,28 +51,12 @@ Output
 8
 ----------------------------------------------------------------------------------------------------
 C. Job Interview
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Monocarp is opening his own IT company. He wants to hire $$$n$$$ programmers and $$$m$$$ testers.
-There are $$$n+m+1$$$ candidates, numbered from $$$1$$$ to $$$n+m+1$$$ in chronological order of their arriving time. The $$$i$$$-th candidate has programming skill $$$a_i$$$ and testing skill $$$b_i$$$ (a person's programming skill is different from their testing skill). The skill of the team is the sum of the programming skills of all candidates hired as programmers, and the sum of the testing skills of all candidates hired as testers.
-When a candidate arrives to interview, Monocarp tries to assign them to the most suitable position for them (if their programming skill is higher, then he hires them as a programmer, otherwise as a tester). If all slots for that position are filled, Monocarp assigns them to the other position.
-Your task is, for each candidate, calculate the skill of the team if everyone except them comes to interview. Note that it means that exactly $$$n+m$$$ candidates will arrive, so all $$$n+m$$$ positions in the company will be filled.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
-Each test case consists of three lines:
-the first line contains two integers $$$n$$$ and $$$m$$$ ($$$0 \le n, m \le 2 \cdot 10^5$$$; $$$2 \le n + m + 1 \le 2 \cdot 10^5$$$) — the number of programmers and the number of testers Monocarp wants to hire, respectively;
-the second line contains $$$n + m + 1$$$ integers $$$a_1, a_2, \dots, a_{n+m+1}$$$ ($$$1 \le a_i \le 10^9$$$), where $$$a_i$$$ is the programming skill of the $$$i$$$-th candidate;
-the third line contains $$$n + m + 1$$$ integers $$$b_1, b_2, \dots, b_{n+m+1}$$$ ($$$1 \le b_i \le 10^9$$$; $$$b_i \ne a_i$$$), where $$$b_i$$$ is the testing skill of the $$$i$$$-th candidate.
-Additional constraint on the input: the sum of $$$(n + m + 1)$$$ over all test cases doesn't exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, print $$$n + m + 1$$$ integers, where the $$$i$$$-th integer should be equal to the skill of the team if everyone except the $$$i$$$-th candidate comes to interview.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 1 0
@@ -133,62 +78,12 @@ Output
 13 13 13 12 15
 ----------------------------------------------------------------------------------------------------
 D. Invertible Bracket Sequences
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-A regular bracket sequence is a bracket sequence that can be transformed into a correct arithmetic expression by inserting characters '
-1
-' and '
-+
-' between the original characters of the sequence. For example:
-bracket sequences "
-()()
-" and "
-(())
-" are regular (the resulting expressions are: "
-(1)+(1)
-" and "
-((1+1)+1)
-");
-bracket sequences "
-)(
-", "
-(
-" and "
-)
-" are not.
-Let's define the
-inverse
-of the bracket sequence as follows: replace all brackets '
-(
-' with '
-)
-', and vice versa (all brackets '
-)
-' with '
-(
-'). For example, strings "
-()((
-" and "
-)())
-" are inverses of each other.
-You are given a regular bracket sequence $$$s$$$. Calculate the number of pairs of integers $$$(l,r)$$$ ($$$1 \le l \le r \le |s|$$$) such that if you replace the substring of $$$s$$$ from the $$$l$$$-th character to the $$$r$$$-th character (inclusive) with its inverse, $$$s$$$ will still be a regular bracket sequence.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of test cases.
-The only line of each test case contains a non-empty regular bracket sequence; it consists only of characters '
-(
-' and/or '
-)
-'.
-Additional constraint on the input: the total length of the regular bracket sequences over all test cases doesn't exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, print a single integer — the number of pairs $$$(l,r)$$$ meeting the conditions from the statement.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 (())
@@ -202,35 +97,11 @@ Output
 13
 ----------------------------------------------------------------------------------------------------
 E. Splittable Permutations
-time limit per test
-2 seconds
-memory limit per test
-512 megabytes
-input
-standard input
-output
-standard output
-Initially, we had one array, which was a permutation of size $$$n$$$ (an array of size $$$n$$$ where each integer from $$$1$$$ to $$$n$$$ appears exactly once).
-We performed $$$q$$$ operations. During the $$$i$$$-th operation, we did the following:
-choose any array we have with at least $$$2$$$ elements;
-split it into two non-empty arrays (prefix and suffix);
-write two integers $$$l_i$$$ and $$$r_i$$$, where $$$l_i$$$ is the maximum element in the left part which we get after the split, and $$$r_i$$$ is the maximum element in the right part;
-remove the array we've chosen from the pool of arrays we can use, and add the two resulting parts into the pool.
-For example, suppose the initial array was $$$[6, 3, 4, 1, 2, 5]$$$, and we performed the following operations:
-choose the array $$$[6, 3, 4, 1, 2, 5]$$$ and split it into $$$[6, 3]$$$ and $$$[4, 1, 2, 5]$$$. Then we write $$$l_1 = 6$$$ and $$$r_1 = 5$$$, and the arrays we have are $$$[6, 3]$$$ and $$$[4, 1, 2, 5]$$$;
-choose the array $$$[4, 1, 2, 5]$$$ and split it into $$$[4, 1, 2]$$$ and $$$[5]$$$. Then we write $$$l_2 = 4$$$ and $$$r_2 = 5$$$, and the arrays we have are $$$[6, 3]$$$, $$$[4, 1, 2]$$$ and $$$[5]$$$;
-choose the array $$$[4, 1, 2]$$$ and split it into $$$[4]$$$ and $$$[1, 2]$$$. Then we write $$$l_3 = 4$$$ and $$$r_3 = 2$$$, and the arrays we have are $$$[6, 3]$$$, $$$[4]$$$, $$$[1, 2]$$$ and $$$[5]$$$.
-You are given two integers $$$n$$$ and $$$q$$$, and two sequences $$$[l_1, l_2, \dots, l_q]$$$ and $$$[r_1, r_2, \dots, r_q]$$$. A permutation of size $$$n$$$ is called
-valid
-if we can perform $$$q$$$ operations and produce the given sequences $$$[l_1, l_2, \dots, l_q]$$$ and $$$[r_1, r_2, \dots, r_q]$$$.
-Calculate the number of valid permutations.
-Input
-The first line contains two integers $$$n$$$ and $$$q$$$ ($$$1 \le q < n \le 3 \cdot 10^5$$$).
-The second line contains $$$q$$$ integers $$$l_1, l_2, \dots, l_q$$$ ($$$1 \le l_i \le n$$$).
-The third line contains $$$q$$$ integers $$$r_1, r_2, \dots, r_q$$$ ($$$1 \le r_i \le n$$$).
-Additional constraint on the input: there exists at least one permutation which can produce the given sequences $$$[l_1, l_2, \dots, l_q]$$$ and $$$[r_1, r_2, \dots, r_q]$$$.
-Output
-Print one integer — the number of valid permutations, taken modulo $$$998244353$$$.
+time limit per test: 2 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 6 3
@@ -252,30 +123,12 @@ Output
 8
 ----------------------------------------------------------------------------------------------------
 F. Remove Bridges
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given a rooted tree, consisting of $$$n$$$ vertices, numbered from $$$1$$$ to $$$n$$$. Vertex $$$1$$$ is the root. Additionally, the root only has one child.
-You are asked to add exactly $$$k$$$ edges to the tree (possibly, multiple edges and/or edges already existing in the tree).
-Recall that a bridge is such an edge that, after you remove it, the number of connected components in the graph increases. So, initially, all edges of the tree are bridges.
-After $$$k$$$ edges are added, some original edges of the tree are still bridges and some are not anymore. You want to satisfy two conditions:
-for every bridge, all tree edges in the subtree of the lower vertex of that bridge should also be bridges;
-the number of bridges is as small as possible.
-Solve the task for all values of $$$k$$$ from $$$1$$$ to $$$n - 1$$$ and output the smallest number of bridges.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \le t \le 10^4$$$) — the number of testcases.
-The first line of each testcase contains a single integer $$$n$$$ ($$$2 \le n \le 3 \cdot 10^5$$$) — the number of vertices of the tree.
-Each of the next $$$n - 1$$$ lines contain two integers $$$v$$$ and $$$u$$$ ($$$1 \le v, u \le n$$$) — the description of the edges of the tree. It's guaranteed that the given edges form a valid tree.
-Additional constraint on the input: the root (vertex $$$1$$$) has exactly one child.
-The sum of $$$n$$$ over all testcases doesn't exceed $$$3 \cdot 10^5$$$.
-Output
-For each testcase, print $$$n - 1$$$ integers. For each $$$k$$$ from $$$1$$$ to $$$n - 1$$$ print the smallest number of bridges that can be left after you add $$$k$$$ edges to the tree.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 2

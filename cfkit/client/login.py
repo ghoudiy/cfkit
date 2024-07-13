@@ -10,7 +10,7 @@ from requests.utils import dict_from_cookiejar
 from requests.cookies import RequestsCookieJar
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.utils.common import write_json_file
+from cfkit.utils.file_operations import write_json_file
 from cfkit.utils.variables import resources_folder
 
 

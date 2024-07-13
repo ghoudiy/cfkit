@@ -1,0 +1,1331 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-743380-5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-743380-5');
+        </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="X-Csrf-Token" content="33c81cbd146115c45ab6c97f83171e6a"/>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=0.01"/>
+
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery-1.8.3.js"></script>
+    <script type="application/javascript">
+        window.locale = "en";
+        window.standaloneContest = false;
+        function adjustViewport() {
+            var screenWidthPx = Math.min($(window).width(), window.screen.width);
+            var siteWidthPx = 1100; // min width of site
+            var ratio = Math.min(screenWidthPx / siteWidthPx, 1.0);
+            var viewport = "width=device-width, initial-scale=" + ratio;
+            $('#viewport').attr('content', viewport);
+            var style = $('<style>html * { max-height: 1000000px; }</style>');
+            $('html > head').append(style);
+        }
+
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            adjustViewport();
+        }
+
+        /* Protection against trailing dot in domain. */
+        let hostLength = window.location.host.length;
+        if (hostLength > 1 && window.location.host[hostLength - 1] === '.') {
+            window.location = window.location.protocol + "//" + window.location.host.substring(0, hostLength - 1);
+        }
+    </script>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="i2">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90"/>
+    <meta property="fb:admins" content="100001352546622" />
+    <meta property="og:image" content="//codeforces.org/s/36856/images/codeforces-sponsored-by-ton.png" />
+    <link rel="image_src" href="//codeforces.org/s/36856/images/codeforces-sponsored-by-ton.png" />
+    <meta property="og:title" content="Problems - Codeforces"/>
+    <meta property="og:description" content=""/>
+    
+    <meta property="og:site_name" content="Codeforces"/>
+    
+    
+    
+    
+    
+    
+    <meta name="utc_offset" content="+03:00"/>
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2" />
+    <title>Problems - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community" />
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/font-awesome.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/line-awesome.min.css" type="text/css" charset="utf-8" />
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Cuprum&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="//codeforces.org/s/36856/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="//codeforces.org/s/36856/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="//codeforces.org/s/36856/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//codeforces.org/s/36856/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="//codeforces.org/s/36856/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//codeforces.org/s/36856/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="//codeforces.org/s/36856/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//codeforces.org/s/36856/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="//codeforces.org/s/36856/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="//codeforces.org/s/36856/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="//codeforces.org/s/36856/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//codeforces.org/s/36856/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//codeforces.org/s/36856/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="//codeforces.org/s/36856/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/prettify.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/clear.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/ttypography.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/problem-statement.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/second-level-menu.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/roundbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/datatable.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/table-form.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/topic.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/jquery.jgrowl.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/facebox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/jquery.wysiwyg.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/jquery.autocomplete.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/codeforces.datepick.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/colorbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/css/jquery.drafts.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/36856/css/community.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/36856/css/sidebar-menu.css" type="text/css" charset="utf-8" />
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$$','$$$']], displayMath: [['$$$$$$','$$$$$$']]}
+    });
+    MathJax.Hub.Register.StartupHook("End", function () {
+        Codeforces.runMathJaxListeners();
+    });
+    </script>
+    <script type="text/javascript" async
+            src="https://mathjax.codeforces.org/MathJax.js?config=TeX-AMS_HTML-full"
+    >
+    </script>
+    <!-- /MathJax -->
+
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/pushstream.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/facebox.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/controls/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/controls/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/controls/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/controls/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/jquery.drafts.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/autosize.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/sjcl.js"></script>
+    <script type="text/javascript" src="/scripts/bb1342251996c2653ea14b0f672b79a1/en/codeforces-options.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/codeforces.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/EventCatcher.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/preparedVerdictFormats-en.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/js/confetti.min.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="//codeforces.org/s/36856/markitup/skins/markitup/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/36856/markitup/sets/markdown/style.css" type="text/css" charset="utf-8" />
+
+
+    <script type="text/javascript" src="//codeforces.org/s/36856/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/36856/markitup/sets/markdown/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+
+
+</head>
+<body class=" "><span style='display:none;' class='csrf-token' data-csrf='33c81cbd146115c45ab6c97f83171e6a'>&nbsp;</span>
+
+<!-- .notificationTextCleaner used in Codeforces.showAnnouncements() -->
+<div class="notificationTextCleaner" style="font-size: 0"></div>
+<div class="button-up" style="display: none; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 3.0rem;"><i class="icon-circle-arrow-up"></i></div>
+<div class="verdictPrototypeDiv" style="display: none;"></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    };
+
+    var queryMobile = Codeforces.queryString.mobile;
+    if (queryMobile === "true" || queryMobile === "false") {
+        Codeforces.putToStorage("useMobile", queryMobile === "true");
+    } else {
+        var useMobile = Codeforces.getFromStorage("useMobile");
+        if (useMobile === true || useMobile === false) {
+            if (useMobile != false) {
+                Codeforces.redirect(Codeforces.updateUrlParameter(document.location.href, "mobile", useMobile));
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    setTimeout(function() {
+        $(".second-level-menu-list").lavaLamp({
+            fx: "backout",
+            speed: 700
+        });
+    }, 100);
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    function showAnnouncements(json) {
+        //info("j=" + JSON.stringify(json));
+
+        if (json.t != "a") {
+            return;
+        }
+
+        setTimeout(function() {
+            Codeforces.showAnnouncements(json.d, "en");
+        }, Math.random() * 500);
+    }
+
+    function showEventCatcherUserMessage(json) {
+        if (json.t == "s") {
+            var points = json.d[5];
+            var passedTestCount = json.d[7];
+            var judgedTestCount = json.d[8];
+            var verdict = preparedVerdictFormats[json.d[12]];
+            var verdictPrototypeDiv = $(".verdictPrototypeDiv");
+            verdictPrototypeDiv.html(verdict);
+            if (judgedTestCount != null && judgedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-judged").text(judgedTestCount);
+            }
+            if (passedTestCount != null && passedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-passed").text(passedTestCount);
+            }
+            if (points != null && points != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-points").text(points);
+            }
+            Codeforces.showMessage(verdictPrototypeDiv.text());
+        }
+    }
+
+    $(".clickable-title").each(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = title;
+            $(this).attr("title", tmp.textContent || tmp.innerText || "");
+        }
+    });
+
+    $(".clickable-title").click(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            Codeforces.alert(title);
+        } else {
+            Codeforces.alert($(this).attr("title"));
+        }
+    }).css("position", "relative").css("bottom", "3px");
+
+        Codeforces.showDelayedMessage();
+
+    Codeforces.reformatTimes();
+
+    //Codeforces.initializePubSub();
+    if (window.codeforcesOptions.subscribeServerUrl) {
+        window.eventCatcher = new EventCatcher(
+            window.codeforcesOptions.subscribeServerUrl,
+            [
+                Codeforces.getGlobalChannel(),
+                Codeforces.getUserChannel(),
+                Codeforces.getUserShowMessageChannel(),
+                Codeforces.getContestChannel(),
+                Codeforces.getParticipantChannel(),
+                Codeforces.getTalkChannel()
+            ]
+        );
+
+        if (Codeforces.getParticipantChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getParticipantChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getContestChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getContestChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getGlobalChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getGlobalChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserShowMessageChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserShowMessageChannel(), function(json) {
+                showEventCatcherUserMessage(json);
+            });
+        }
+    }
+
+    Codeforces.setupContestTimes("/data/contests");
+    Codeforces.setupSpoilers();
+    Codeforces.setupTutorials("/data/problemTutorial");
+        });
+    </script>
+
+
+<div id="body">
+<div style="width: 950px; margin: 0 auto;" class="compact-problemset">
+    <div id="header" style="position: relative; margin: 0;">
+        <div style="float:left;">
+            <div style="position:relative;bottom:4px;"><a href="/vkcup2019"><img src="https://assets.codeforces.com/files/vkcup19-500x70-1.jpg"/></a></div>
+        </div>
+        <div class="lang">
+            <div style="text-align: right;">
+                <a href="?locale=en"><img src="//codeforces.org/s/36856/images/flags/24/gb.png" title="In English" alt="In English"/></a>
+                <a href="?locale=ru"><img src="//codeforces.org/s/36856/images/flags/24/ru.png" title="По-русски" alt="По-русски"/></a>
+            </div>
+        </div>
+        <br style="clear: both;"/>
+    </div>
+
+    <br style="clear: both;"/>
+
+    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5em;"
+         class="caption">VK Cup 2019 - Квалификация (Mobile)</div>
+    <div style="border-top: 1px solid #ccc; height: 1em;"></div>
+
+    <div class="problem-frames">
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+    <style>
+        #facebox .content:has(.diff-popup) {
+            width: 90vw;
+            max-width: 120rem !important;
+        }
+
+        .testCaseMarker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .diff-popup {
+            width: 90vw;
+            max-width: 120rem !important;
+            display: none;
+            overflow: auto;
+        }
+
+        .input-output-copier {
+            font-size: 1.2rem;
+            float: right;
+            color: #888 !important;
+            cursor: pointer;
+            border: 1px solid rgb(185, 185, 185);
+            padding: 3px;
+            margin: 1px;
+            line-height: 1.1rem;
+            text-transform: none;
+        }
+
+        .input-output-copier:hover {
+            background-color: #def;
+        }
+
+        .test-explanation textarea {
+            width: 100%;
+            height: 1.5em;
+        }
+
+        .pending-submission-message {
+            color: darkorange !important;
+        }
+    </style>
+    <script>
+        const OPENING_SPACE = String.fromCharCode(1001);
+        const CLOSING_SPACE = String.fromCharCode(1002);
+
+        const nodeToText = function (node, pre) {
+            let result = [];
+
+            if (node.tagName === "SCRIPT" || node.tagName === "math"
+                || (node.classList && node.classList.contains("input-output-copier")))
+                return [];
+
+            if (node.tagName === "NOBR") {
+                result.push(OPENING_SPACE);
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                let s = node.textContent;
+                if (!pre) {
+                    s = s.replace(/\s+/g, " ");
+                }
+                if (s.length > 0) {
+                    result.push(s);
+                }
+            }
+
+            if (pre && node.tagName === "BR") {
+                result.push("\n");
+            }
+
+            node.childNodes.forEach(function (child) {
+                result.push(nodeToText(child, node.tagName === "PRE").join(""));
+            });
+
+            if (node.tagName === "DIV"
+                || node.tagName === "P"
+                || node.tagName === "PRE"
+                || node.tagName === "UL"
+                || node.tagName === "LI"
+            ) {
+                result.push("\n");
+            }
+
+            if (node.tagName === "NOBR") {
+                result.push(CLOSING_SPACE);
+            }
+
+            return result;
+        }
+
+        const isSpecial = function (c) {
+            return c === ',' || c === '.' || c === ';' || c === ')' || c === ' ';
+        }
+
+        const convertStatementToText = function(statmentNode) {
+            const text = nodeToText(statmentNode, false).join("").replace(/ +/g, " ").replace(/\n\n+/g, "\n\n");
+            let result = [];
+            for (let i = 0; i < text.length; i++) {
+                const c = text.charAt(i);
+                if (c === OPENING_SPACE) {
+                    if (!((i > 0 && text.charAt(i - 1) === '(') || (result.length > 0 && result[result.length - 1] === ' '))) {
+                        result.push('+');
+                    }
+                } else if (c === CLOSING_SPACE) {
+                    if (!(i + 1 < text.length && isSpecial(text.charAt(i + 1)))) {
+                        result.push('-');
+                    }
+                } else {
+                    result.push(c);
+                }
+            }
+            return result.join("").split("\n").map(value => value.trim()).join("\n");
+        };
+    </script>
+    <div class="diff-popup">
+    </div>
+
+<div class="problemindexholder" problemindex="A" data-uuid="ps_27957375d7976e0756b2244ff57c6ff6c964efe3">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div style="padding:1em;margin:1em 14em 0 14em;text-align: center;" class="alert alert-info">
+            Statement is not available on English language
+        </div>
+        <div class="ttypography"><DIV class="problem-statement"><DIV class="header"><div class="title">A. Android</div></DIV><DIV class=""><DIV class=""><DIV class="test"><DIV class="test-title">Тест 1 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Если в своем приложении вы создаете уведомление, что необходимо использовать, чтобы определить действие, которое произойдет при клике на него?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="3351d58b1d3bf73122c431502fc94a77abba1edc"><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="a"></INPUT><SPAN class="test-form-label">Intent</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="b"></INPUT><SPAN class="test-form-label">View.OnClickListener</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="c"></INPUT><SPAN class="test-form-label">PendingIntent</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="d"></INPUT><SPAN class="test-form-label">Service</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 2 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">В разметке экрана LinearLayout является дочерним элементом для FrameLayout, какая реализация LayoutParams, в таком случае, будет использоваться для LinearLayout по умолчанию?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="0908cbeb2fbd745cc950e39787ccde1971093238"><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="a"></INPUT><SPAN class="test-form-label">ViewGroup.LayoutParams</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="b"></INPUT><SPAN class="test-form-label">ViewGroup.MarginLayoutParams</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="c"></INPUT><SPAN class="test-form-label">FrameLayout.LayoutParams</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="d"></INPUT><SPAN class="test-form-label">LinearLayout.LayoutParams</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 3 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Как сделать так, чтобы ваше приложение показывалось в системном меню Поделиться?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="18b46b448a93bff9c999360791b6470860750036"><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="a"></INPUT><SPAN class="test-form-label">Добавить intent filter в AndroidManifest</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="b"></INPUT><SPAN class="test-form-label">Добавить content provider в AndroidManifest</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="c"></INPUT><SPAN class="test-form-label">Добавить реализацию SharingService</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="d"></INPUT><SPAN class="test-form-label">Добавить реализацию IntentService</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 4 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Как будет отличаться физический (в сантиметрах) размер View с фиксированным размером в dp на устройствах с разными размерам экранов?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="c249d3e14b7a14a3464bf490cafc81d3372fa4da"><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="a"></INPUT><SPAN class="test-form-label">Физический размер будет одинаковым на всех размерах экрана</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="b"></INPUT><SPAN class="test-form-label">Физический размер будет отличаться пропорционально разнице ppi</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="c"></INPUT><SPAN class="test-form-label">Физический размер будет отличаться пропорционально разнице в размерах экранов</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="d"></INPUT><SPAN class="test-form-label">Физический размер будет отличаться пропорционально разнице в разрешениях экранов</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 5 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Что можно сделать с помощью StaticLayout?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="65e6e002a62d09701223d4f8be3c7a5d9081387b"><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="a"></INPUT><SPAN class="test-form-label">Сделать ViewGroup неизменяемым</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="b"></INPUT><SPAN class="test-form-label">Отрисовать текст на Canvas</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="c"></INPUT><SPAN class="test-form-label">Создать static-фабрику лэйаутов</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="d"></INPUT><SPAN class="test-form-label">Поместить данные в ashmem</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 6 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Что будет, если вызвать метод start() два раза у одного и того же объекта Thread?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="b649682b92a811746098e5c91e891e5142a41950"><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="a"></INPUT><SPAN class="test-form-label">Два раза выполнится run() в двух разных потоках</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="b"></INPUT><SPAN class="test-form-label">Два раза выполнится run() в одном потоке</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="c"></INPUT><SPAN class="test-form-label">Один раз выполнится run()</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="d"></INPUT><SPAN class="test-form-label">Кинется exception</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 7 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Почему плохо использовать вложенные LinearLayout с не нулевыми layout_weight?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="478330af84ea74932db60e35533215de649a06c4"><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="a"></INPUT><SPAN class="test-form-label">Это приведет к экспоненциальному росту числа измерений Layout</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="b"></INPUT><SPAN class="test-form-label">Это удвоит число измерений Layout</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="c"></INPUT><SPAN class="test-form-label">Это приведет к StackOverflowException</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="d"></INPUT><SPAN class="test-form-label">Нет причин</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 8 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Какой стандартный элемент Android может использоваться без создания Application?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="c7e80dc713c241193f886165d0c126d4e5bd4fd5"><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="a"></INPUT><SPAN class="test-form-label">Activity</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="b"></INPUT><SPAN class="test-form-label">Service</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="c"></INPUT><SPAN class="test-form-label">Content Provider</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="d"></INPUT><SPAN class="test-form-label">Все вышеперечисленные</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 9 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Как выглядит lifecycle Activity, когда запускаем одну Activity (B) из другой (A)?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="9bb4877861be251564a0f1906dc28835b696e161"><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="a"></INPUT><SPAN class="test-form-label">A.onPause(), B.onCreate(), B.onStart(), B.onResume(), A.onStop()</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="b"></INPUT><SPAN class="test-form-label">A.onPause(), A.onStop(), B.onCreate(), B.onStart(), B.onResume()</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="c"></INPUT><SPAN class="test-form-label">B.onCreate(), B.onStart(), B.onResume(), A.onPause(), A.onStop()</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="d"></INPUT><SPAN class="test-form-label">B.onCreate(), A.onPause(), A.onStop(), B.onStart(), B.onResume()</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 10 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Какие из приведенных классов корректно работают с null-ключами?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="4143d3a341877154d6e95211464e1df1015b74bd"><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="a"></INPUT><SPAN class="test-form-label">HashSet, HashMap</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="b"></INPUT><SPAN class="test-form-label">TreeSet, TreeMap</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="c"></INPUT><SPAN class="test-form-label">TreeSet, HashSet</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="d"></INPUT><SPAN class="test-form-label">TreeMap, HashMap</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="e"></INPUT><SPAN class="test-form-label">Все вышеперечисленные</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 11 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Какой из способов, приведенных ниже, позволяет обеспечить транзитивное подключение библиотеки в проекте, использующий Gradle?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="dd71038f3463f511ee7403dbcbc87195302d891c"><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="a"></INPUT><SPAN class="test-form-label">implementation</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="b"></INPUT><SPAN class="test-form-label">api</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="c"></INPUT><SPAN class="test-form-label">compile</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="d"></INPUT><SPAN class="test-form-label">Все вышеперечисленные</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 12 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Какой результат работы кода: <IMG  class="tex-graphics" src="https://espresso.codeforces.com/c21c7eaabcc9dd09dce68a09e762b0d340d54b1b.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="ad552e6dc057d1d825bf49df79d6b98eba846ebe"><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="a"></INPUT><SPAN class="test-form-label">1</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="b"></INPUT><SPAN class="test-form-label">0</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="c"></INPUT><SPAN class="test-form-label">Compilation error</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="d"></INPUT><SPAN class="test-form-label">Runtime exception</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 13 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Что напечатает в консоли следующая программа? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/f987183498fe80332608ad479a1724a76615efc5.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="feee44ad365b6b1ec75c5621a0ad067371102854"><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="a"></INPUT><SPAN class="test-form-label">true</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="b"></INPUT><SPAN class="test-form-label">ничего</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="c"></INPUT><SPAN class="test-form-label">Код не скомпилируется</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="d"></INPUT><SPAN class="test-form-label">NullPointerException</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 14 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Используя бинарный сдвиг можно получить значение каждого канала из переменной типа int. Какая из следующих операций возвращает значение синего канала (палитра ARGB): int color = 0xFA4E33AB;</DIV><DIV class="test-form single-response"><FORM data-input-sha1="030514d80869744a4e2f60d2fd37d6081f5ed01a"><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="a"></INPUT><SPAN class="test-form-label">(color » 0) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="b"></INPUT><SPAN class="test-form-label">(color » 8) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="c"></INPUT><SPAN class="test-form-label">(color » 16) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="d"></INPUT><SPAN class="test-form-label">(color » 24) &amp; 0xFF</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 15 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">Что напечатает в консоли следующая программа? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/50128e7d9a801e618e381b23f2ea5c108e5144d4.png" style="max-width: 100%; max-height: 100%"></IMG> </DIV><DIV class="test-form single-response"><FORM data-input-sha1="587b596f04f7db9c2cad3d6b87dd2b3a05de4f35"><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="a"></INPUT><SPAN class="test-form-label">truefalse</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="b"></INPUT><SPAN class="test-form-label">falsetrue</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="c"></INPUT><SPAN class="test-form-label">truetrue</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="d"></INPUT><SPAN class="test-form-label">falsefalse</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV></DIV></DIV></DIV></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/36856");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.changedTests = new Set();
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+        const problemStatementDiv = $("div.problemindexholder[problemindex='A']");
+        const testsDiv = problemStatementDiv.find("div.test:first").parent();
+        testsDiv.css("position", "relative");
+        testsDiv.append("<img class=\"load-answers-waiting-indicator\" style=\"display: none;\" src=\"//codeforces.org/s/36856/images/indicator-big.gif\" alt=\"waiting..\">");
+        testsDiv.append("<div style=\"display: none\" class=\"problem-statement-overlay\">&nbsp</div>");
+
+        problemStatementDiv.find($("div.test")).last().css("margin-bottom", "0");
+
+        const problemStatementWrapper = problemStatementDiv.find(".problem-statement-overlay");
+        const loadAnswersWaitingIndicator = problemStatementDiv.find(".load-answers-waiting-indicator");
+
+        const removeAnswerSubmittedMessage = function (testForm) {
+            testForm.find("span.answer-submitted-marker").remove();
+        };
+
+        const removeInvalidAnswerMessage = function (testForm) {
+            testForm.find("span.invalid-answer-message").remove();
+        };
+
+        const removePendingSubmissionMessage = function (testForm) {
+            testForm.find("span.pending-submission-message").remove();
+        };
+
+        const addAnswerSubmittedMessage = function (testForm, appendix) {
+            const $span = $("<span style=\"display: none; font-size: 1.1rem; font-weight: bold\" class=\"answer-submitted-marker\">&nbsp;</span>");
+
+            if (appendix) {
+                $span.text("Answer submitted: " + appendix)
+            } else {
+                $span.text("Answer submitted")
+            }
+
+            $span.insertAfter(testForm.find("input[type=submit]"));
+            testForm.find("span.answer-submitted-marker").fadeIn(1000);
+        };
+
+        const addInvalidAnswerMessage = function (testForm, message) {
+            $("<span style=\"font-size: 1.1rem; font-weight: bold; color: red\" class=\"invalid-answer-message\">" + message + "</span>").insertAfter(testForm.find("input[type=submit]"));
+        };
+
+        const addPendingSubmissionMessage = function (testForm, message) {
+            if (testForm.find(".pending-submission-message").length === 0) {
+                removeInvalidAnswerMessage(testForm);
+                removeAnswerSubmittedMessage(testForm);
+                $("<span style=\"font-size: 1.1rem; font-weight: bold; color: red\" class=\"pending-submission-message\">" + message + "</span>").insertAfter(testForm.find("input[type=submit]"));
+            }
+        };
+
+        let disabledSubmitHandler = false;
+
+        const addHiddenInput = function (testForm, name, value) {
+            $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', name)
+                .attr('value', value)
+                .appendTo(testForm);
+        };
+
+        const onSubmitFile = function (testForm) {
+            testForm.attr("enctype", "multipart/form-data");
+            testForm.attr("method", "post");
+            testForm.attr("action", "/data/questions");
+            testForm.find("input[type='file']").attr("name", "testSingleFile");
+
+            addHiddenInput(testForm, "action", "submitFile");
+            addHiddenInput(testForm, "contestId", "1274");
+            addHiddenInput(testForm, "problemIndex", "A");
+            addHiddenInput(testForm, "inputSha1", testForm.attr("data-input-sha1"));
+            addHiddenInput(testForm, "backUrl", window.location.href);
+            addHiddenInput(testForm, "csrf_token", Codeforces.getCsrfToken());
+
+            disabledSubmitHandler = true;
+            $(window).off('beforeunload');
+            testForm.submit();
+
+            return false;
+        };
+
+        window.fillQuestionAnswers_A = function () {
+            loadAnswersWaitingIndicator.css("display", "block");
+            problemStatementWrapper.css("display", "block");
+
+            $.post("/data/questions",
+                {action: "getAnswerByInputSha1Map", contestId: "1274", problemIndex: "A"},
+                function (response) {
+                    problemStatementDiv.find("div .test-form form").each(function () {
+                        const inputSha = $(this).attr("data-input-sha1");
+                        if (response.hasOwnProperty(inputSha)) {
+                            const answer = response[inputSha];
+
+                            if ($.find("input[type='file']").length > 0 && answer.length === 1 && answer[0].indexOf("file://") === 0) {
+                                addAnswerSubmittedMessage($(this), answer[0].substring("file://".length));
+                            } else {
+                                addAnswerSubmittedMessage($(this));
+                            }
+
+                            const isAnswer = function (value) {
+                                const result = $.inArray(value, answer);
+                                return result >= 0;
+                            };
+
+                            $(this).find("input[type='checkbox']").each(function () {
+                                $(this).prop('checked', isAnswer($(this).val()));
+                            });
+                            $(this).find("input[type='radio']").each(function () {
+                                $(this).prop('checked', isAnswer($(this).val()));
+                            });
+                            $(this).find("input[type='text']").each(function () {
+                                $(this).val(answer[0]);
+                            });
+                            $(this).find("textarea").each(function () {
+                                if (!$(this).parent().hasClass("test-explanation")) {
+                                    $(this).val(answer[0]);
+                                }
+                            });
+                        }
+                    });
+                },
+                "json"
+            );
+
+            $.post("/data/questions",
+                {action: "getExplanationsByInputSha1Map", contestId: "1274", problemIndex: "A"},
+                function (response) {
+                    problemStatementDiv.find("div .test-form form").each(function () {
+                        const inputSha = $(this).attr("data-input-sha1");
+                        if (response.hasOwnProperty(inputSha)) {
+                            const explanation = response[inputSha];
+                            $(this).find("textarea").each(function () {
+                                if ($(this).parent().hasClass("test-explanation")) {
+                                    $(this).val(explanation);
+                                    autosize.update($(this));
+                                }
+                            });
+                        }
+                    });
+
+                    loadAnswersWaitingIndicator.css("display", "none");
+                    problemStatementWrapper.css("display", "none");
+                },
+                "json"
+            );
+        };
+
+        problemStatementDiv.find("div .test form")
+            .append("<img class=\"waitingIndicator\" style=\"display: none\" src=\"//codeforces.org/s/36856/images/indicator.gif\" alt=\"waiting..\">");
+
+        problemStatementDiv.find("div .test-form form").submit(function () {
+            if (disabledSubmitHandler) {
+                return true;
+            }
+
+            const testForm = $(this);
+            const hasFile = testForm.find("input[type='file']").length > 0;
+            if (hasFile) {
+                return onSubmitFile(testForm);
+            }
+
+            const submitButton = testForm.find("input[type='submit']");
+            const waitingIndicator = testForm.find(".waitingIndicator");
+
+            const inputSha = testForm.attr("data-input-sha1");
+            const answer = [];
+            const explanation = problemStatementDiv.find("div .test-explanation").find("textarea").val();
+
+            const submitResult = function () {
+                if (answer.length > 0) {
+                    removeAnswerSubmittedMessage(testForm);
+                    removeInvalidAnswerMessage(testForm);
+                    removePendingSubmissionMessage(testForm);
+
+                    submitButton.attr("disabled", "disabled");
+                    waitingIndicator.css("display", "");
+
+                    $.post("/data/questions",
+                        {
+                            action: "submitAnswer",
+                            contestId: "1274",
+                            problemIndex: "A",
+                            inputSha1: inputSha,
+                            'answer[]': answer,
+                            'explanation': explanation
+                        },
+                        function (response) {
+                            if (response["success"] === "true") {
+                                Codeforces.showMessage("Your answer is successfully submitted");
+
+                                const index = $(testForm).closest(".problemindexholder").attr("problemindex");
+                                let test = "";
+                                $(testForm).find("input").each(function () {
+                                    const test_ = $(this).attr("name");
+                                    if (test_ && test_.substring(0, 4) === "test") {
+                                        test = test_;
+                                    }
+                                });
+                                if (index.length > 0 && test.length > 0) {
+                                    const indexTest = index + "::" + test;
+                                    window.changedTests.delete(indexTest);
+                                }
+
+                                addAnswerSubmittedMessage(testForm);
+                            } else {
+                                if (response.hasOwnProperty("comment")) {
+                                    addInvalidAnswerMessage(testForm, response["comment"]);
+                                } else {
+                                    addInvalidAnswerMessage(testForm, "Failed to submit answer. Please, try again.");
+                                }
+                            }
+
+                            submitButton.removeAttr("disabled");
+                            waitingIndicator.css("display", "none");
+                        },
+                        "json"
+                    );
+                } else {
+                    alert("Can't sent an empty answer");
+                }
+            };
+
+            if (testForm.parent().hasClass("multiple-response")) {
+                const checkboxes = testForm.find("input[type=checkbox]");
+                let checkboxesCount = checkboxes.length;
+                checkboxes.each(function () {
+                    if ($(this).is(':checked')) {
+                        answer.push($(this).val());
+                    }
+                    checkboxesCount--;
+                    if (checkboxesCount === 0) {
+                        submitResult();
+                    }
+                });
+            }
+
+            if (testForm.parent().hasClass("single-response")) {
+                const radios = testForm.find("input[type=radio]");
+                let radioCount = radios.length;
+
+                radios.each(function () {
+                    if ($(this).is(':checked')) {
+                        answer.push($(this).val());
+                    }
+                    radioCount--;
+                    if (radioCount === 0) {
+                        submitResult();
+                    }
+                });
+            }
+
+            if (testForm.parent().hasClass("single-line")) {
+                testForm.find("input[type=text]").each(function () {
+                    answer.push($(this).val());
+                    submitResult();
+                });
+            }
+
+            if ($(this).parent().hasClass("multiple-line")) {
+                testForm.find("textarea").each(function () {
+                    answer.push($(this).val());
+                    submitResult();
+                });
+            }
+
+            return false;
+        });
+
+        String.prototype.replaceAll = function (search, replace) {
+            return this.split(search).join(replace);
+        };
+
+        $(".sample-test .title").each(function () {
+            const preId = ("id" + Math.random()).replaceAll(".", "0");
+            const cpyId = ("id" + Math.random()).replaceAll(".", "0");
+
+            $(this).parent().find("pre").attr("id", preId);
+            const $copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='input-output-copier'>Copy</div>");
+            $(this).append($copy);
+
+            const clipboard = new Clipboard('#' + cpyId, {
+                text: function (trigger) {
+                    const pre = document.querySelector('#' + preId);
+                    const lines = pre.querySelectorAll(".test-example-line");
+                    return Codeforces.filterClipboardText(pre.innerText, lines.length);
+                }
+            });
+
+            const isInput = $(this).parent().hasClass("input");
+
+            clipboard.on('success', function (e) {
+                if (isInput) {
+                    Codeforces.showMessage("The example input has been copied into the clipboard");
+                } else {
+                    Codeforces.showMessage("The example output has been copied into the clipboard");
+                }
+                e.clearSelection();
+            });
+        });
+
+        $(".test-form-item input").change(function () {
+            addPendingSubmissionMessage($($(this).closest("form")), "You changed the answer, do not forget to submit it if you want to save the changes");
+            const index = $(this).closest(".problemindexholder").attr("problemindex");
+            let test = "";
+            $(this).closest("form input").each(function () {
+                const test_ = $(this).attr("name");
+                if (test_ && test_.substring(0, 4) === "test") {
+                    test = test_;
+                }
+            });
+            if (index.length > 0 && test.length > 0) {
+                const indexTest = index + "::" + test;
+                window.changedTests.add(indexTest);
+            }
+        });
+
+        $(window).on('beforeunload', function () {
+            if (window.changedTests.size > 0) {
+                return 'Dialog text here';
+            }
+        });
+
+        autosize($('.test-explanation textarea'));
+
+        $(".test-example-line").hover(function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        let top = 1E20;
+                        let left = 1E20;
+                        let problem = $(this).closest(".problemindexholder");
+                        $(this).closest(".input").find("." + clazz).css("background-color", "#FFFDE7").each(function() {
+                            top = Math.min(top, $(this).offset().top);
+                            left = Math.min(left, $(this).offset().left);
+                        });
+                        let testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        if (testCaseMarker.length === 0) {
+                            const html = "<div class=\"testCaseMarker testCaseMarker_" + end + " notice\"></div>";
+                            problem.append($(html));
+                            testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        }
+                        if (testCaseMarker) {
+                            testCaseMarker.show()
+                                    .offset({top, left: left - 20})
+                                    .text(end);
+                        }
+                    }
+                }
+            });
+        }, function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        $("." + clazz).css("background-color", "");
+                        $(this).closest(".problemindexholder").find(".testCaseMarker_" + end).hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 1em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B" data-uuid="ps_64336f28a95d47cbaf45cf775ef9703e47322566">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div style="padding:1em;margin:1em 14em 0 14em;text-align: center;" class="alert alert-info">
+            Statement is not available on English language
+        </div>
+        <div class="ttypography"><DIV class="problem-statement"><DIV class="header"><div class="title">B. iOS</div></DIV><DIV class=""><DIV class=""><DIV class="test"><DIV class="test-title">Тест 1 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какие значения будут у переменных same и equal? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/3f19368ea44a3fac81fb7cfa669516a3a70a8669.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="3351d58b1d3bf73122c431502fc94a77abba1edc"><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="a"></INPUT><SPAN class="test-form-label">same = YES, equal = YES</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="b"></INPUT><SPAN class="test-form-label">same = YES, equal = NO</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="c"></INPUT><SPAN class="test-form-label">same = NO, equal = NO</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test1" type="radio" value="d"></INPUT><SPAN class="test-form-label">same = NO, equal = YES</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 2 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется на экран после исполнения данного кода? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/ba6dc9c55c14e3367beee5b35851ec0829fc1b39.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="0908cbeb2fbd745cc950e39787ccde1971093238"><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="a"></INPUT><SPAN class="test-form-label">FooBarBarFoo</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="b"></INPUT><SPAN class="test-form-label">FooBarFoo</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="c"></INPUT><SPAN class="test-form-label">FooBar</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test2" type="radio" value="d"></INPUT><SPAN class="test-form-label">BarFooFooBar</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 3 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">На основе чего реализован @synchronized?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="18b46b448a93bff9c999360791b6470860750036"><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="a"></INPUT><SPAN class="test-form-label">os_unfair_lock</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="b"></INPUT><SPAN class="test-form-label">pthread_rwlock_t</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="c"></INPUT><SPAN class="test-form-label">pthread_mutex_t</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test3" type="radio" value="d"></INPUT><SPAN class="test-form-label">dispatch_semaphore_t</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 4 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Как хранятся обсерверы в NSNotificationCenter, добавленные через addObserver:selector:name: (начиная с iOS 9.0)?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="c249d3e14b7a14a3464bf490cafc81d3372fa4da"><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="a"></INPUT><SPAN class="test-form-label">weak</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="b"></INPUT><SPAN class="test-form-label">unsafe_unretained</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="c"></INPUT><SPAN class="test-form-label">strong</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test4" type="radio" value="d"></INPUT><SPAN class="test-form-label">assign</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 5 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Зачем блокам делают вызов copy? </DIV><DIV class="test-form single-response"><FORM data-input-sha1="65e6e002a62d09701223d4f8be3c7a5d9081387b"><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="a"></INPUT><SPAN class="test-form-label">Чтобы перенести его хранение из стека в кучу</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="b"></INPUT><SPAN class="test-form-label">Чтобы избежать retain cycle</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="c"></INPUT><SPAN class="test-form-label">Чтобы его безопасно можно было вызвать в другом потоке</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test5" type="radio" value="d"></INPUT><SPAN class="test-form-label">Чтобы скопировать переменные захваченные блоком</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 6 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">В Swift ключевое слово 'static' является alias'ом других ключевых слов. Каких?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="b649682b92a811746098e5c91e891e5142a41950"><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="a"></INPUT><SPAN class="test-form-label">mutating class</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="b"></INPUT><SPAN class="test-form-label">class</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="c"></INPUT><SPAN class="test-form-label">final class</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test6" type="radio" value="d"></INPUT><SPAN class="test-form-label">final internal class</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 7 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какие особенности стоит учитывать при переопределении метода - [NSObject (BOOL)respondsToSelector:(SEL)aSelector]?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="478330af84ea74932db60e35533215de649a06c4"><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="a"></INPUT><SPAN class="test-form-label">результат может быть закеширован системой</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="b"></INPUT><SPAN class="test-form-label">есть особенности с вызовом super</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="c"></INPUT><SPAN class="test-form-label">все вышеперечисленные</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test7" type="radio" value="d"></INPUT><SPAN class="test-form-label">ничего из перечисленного</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 8 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Для анимации UIView с текущим frame (50, 50, 100, 100) код, представленный ниже. Что можно добавить к данному коду, чтобы изменения в разметке содержимого view так же анимировались? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/b02e8ca490edd3d2069c22447601e1ddd7cbc117.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="c7e80dc713c241193f886165d0c126d4e5bd4fd5"><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="a"></INPUT><SPAN class="test-form-label">Добавить в блок animations вызов [view setNeedsLayout]</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="b"></INPUT><SPAN class="test-form-label">Добавить UIViewAnimationOptionLayoutSubviews в options</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="c"></INPUT><SPAN class="test-form-label">Изменить duration на 0.0</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test8" type="radio" value="d"></INPUT><SPAN class="test-form-label">Ничего добавлять не требуется</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 9 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Как завершить обработку жеста в UIGestureRecognizer *gestureRecognizer? </DIV><DIV class="test-form single-response"><FORM data-input-sha1="9bb4877861be251564a0f1906dc28835b696e161"><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="a"></INPUT><SPAN class="test-form-label">Послать сообщение [gestureRecognizer cancel];</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="b"></INPUT><SPAN class="test-form-label">С помощью метода делегата - (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)r;</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="c"></INPUT><SPAN class="test-form-label">Обработчик жеста завершить невозможно</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test9" type="radio" value="d"></INPUT><SPAN class="test-form-label">Деактивировать обработчик, установив NO в свойство enabled</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 10 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">В приложении имеется успешно компилируемый код, призванный изменять оформление навигационной панели. Почему может не достигаться желаемый результат при вызове этого кода на текущем экране? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/c3206da7c0a94bfd837c5ff7b9acb01ebac0c23e.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="4143d3a341877154d6e95211464e1df1015b74bd"><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="a"></INPUT><SPAN class="test-form-label">Изменения произойдут только при добавлении в стек UINavigationController новых экранов</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="b"></INPUT><SPAN class="test-form-label">Изменения UIAppearance влияют только на в последующем созданные новые сущности</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="c"></INPUT><SPAN class="test-form-label">Свойство tintColor не влияет на внешний вид навигационной панели</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test10" type="radio" value="d"></INPUT><SPAN class="test-form-label">Значения свойств из UIAppearance применяются после добавления представления на окно приложения</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 11 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Если в процессе выполнения метода объекта класса А в main thread была удалена последняя strong ссылка на этот объект, когда будет удален этот объект?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="dd71038f3463f511ee7403dbcbc87195302d891c"><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="a"></INPUT><SPAN class="test-form-label">В момент выхода из текущего скоупа</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="b"></INPUT><SPAN class="test-form-label">В момент выхода из скоупа метода</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="c"></INPUT><SPAN class="test-form-label">В момент выхода из скоупа, вызвавшего этот метод</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test11" type="radio" value="d"></INPUT><SPAN class="test-form-label">В конце цикла runloop</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 12 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Скомпилируется ли этот код? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/4d4872f772cc289d5f368b5e499a93251618d12f.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="ad552e6dc057d1d825bf49df79d6b98eba846ebe"><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="a"></INPUT><SPAN class="test-form-label">Да, всегда</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="b"></INPUT><SPAN class="test-form-label">Да, только при использовании ARC</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="c"></INPUT><SPAN class="test-form-label">Да, только при использовании MRC</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test12" type="radio" value="d"></INPUT><SPAN class="test-form-label">Нет</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 13 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какого типа инициализаторов не существует в Swift?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="feee44ad365b6b1ec75c5621a0ad067371102854"><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="a"></INPUT><SPAN class="test-form-label">Memberwise</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="b"></INPUT><SPAN class="test-form-label">Failable</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="c"></INPUT><SPAN class="test-form-label">Subsript</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test13" type="radio" value="d"></INPUT><SPAN class="test-form-label">Convenience</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 14 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что не так с этим кодом? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/af6a7d69d4fbc759339adad0fa0852268d0bb0f1.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="030514d80869744a4e2f60d2fd37d6081f5ed01a"><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="a"></INPUT><SPAN class="test-form-label">Не скомпилируется</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="b"></INPUT><SPAN class="test-form-label">Возможен некорректный результат</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="c"></INPUT><SPAN class="test-form-label">Здесь все хорошо</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test14" type="radio" value="d"></INPUT><SPAN class="test-form-label">Всегда будет равен 0</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 15 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Такой тип данных в Swift будет: <IMG  class="tex-graphics" src="https://espresso.codeforces.com/401e6c696ed39902fc34b5cd9f8447c8c08dbd4f.png" style="max-width: 100%; max-height: 100%"></IMG> </DIV><DIV class="test-form single-response"><FORM data-input-sha1="587b596f04f7db9c2cad3d6b87dd2b3a05de4f35"><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="a"></INPUT><SPAN class="test-form-label">ковариантным</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="b"></INPUT><SPAN class="test-form-label">контравариантным</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="c"></INPUT><SPAN class="test-form-label">инвариантным</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test15" type="radio" value="d"></INPUT><SPAN class="test-form-label">интровариантым</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 16 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Выберите верное утверждение:</DIV><DIV class="test-form single-response"><FORM data-input-sha1="3596ea087bfdaf52380eae441077572ed289d657"><DIV class="test-form-item"><LABEL><INPUT  name="test16" type="radio" value="a"></INPUT><SPAN class="test-form-label">Метод +load будет вызван дважды, если реализовать его в классе и его категории</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test16" type="radio" value="b"></INPUT><SPAN class="test-form-label">Метод +load не будет вызван, если вы не будете вызвать методы класса</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test16" type="radio" value="c"></INPUT><SPAN class="test-form-label">Метод +initialize можно определить только у категории</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test16" type="radio" value="d"></INPUT><SPAN class="test-form-label">Методы +load и +initialize сначала вызываются у сабклассов</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 17 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что произойдёт с кодом? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/2ff8564b3c1e92164ce77219df16b8930689ee0d.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="ad48103e4fc71796e9708cafc43adeed0d1076b7"><DIV class="test-form-item"><LABEL><INPUT  name="test17" type="radio" value="a"></INPUT><SPAN class="test-form-label">Не скомпилируется</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test17" type="radio" value="b"></INPUT><SPAN class="test-form-label">Произойдёт ошибка в runtime</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test17" type="radio" value="c"></INPUT><SPAN class="test-form-label">Всё хорошо</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test17" type="radio" value="d"></INPUT><SPAN class="test-form-label">Текст поменяется сразу</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 18 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется в консоль? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/39bdd21e86b5d5835a324a0b934be4eafafc0b1d.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="24b9c1f3fddff79893e5304f998f2f95ebebd149"><DIV class="test-form-item"><LABEL><INPUT  name="test18" type="radio" value="a"></INPUT><SPAN class="test-form-label">1, 3, 2, 4</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test18" type="radio" value="b"></INPUT><SPAN class="test-form-label">1, 2</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test18" type="radio" value="c"></INPUT><SPAN class="test-form-label">2, 1, 4, 3</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test18" type="radio" value="d"></INPUT><SPAN class="test-form-label">1, 3, 4</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 19 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">UIImage *image будет использоваться в качестве маски в UIImageView с фреймом rect. Все ли в порядке с этим кодом? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/4f2c42c90aec36adf33657edf0f4dfb4a6de7938.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="ba9f376fa71904ccde2a756a24a4e47ec014ee0a"><DIV class="test-form-item"><LABEL><INPUT  name="test19" type="radio" value="a"></INPUT><SPAN class="test-form-label">Все в порядке</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test19" type="radio" value="b"></INPUT><SPAN class="test-form-label">Будет утечка памяти</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test19" type="radio" value="c"></INPUT><SPAN class="test-form-label">Изображение не сформируется</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test19" type="radio" value="d"></INPUT><SPAN class="test-form-label">Изображение сформируется некорректно</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 20 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется в консоль после выполнения программы? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/8168f02fc3d3f289b5e4d7e05f4e8cc40a857bed.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="d0758565fd06c37aa66b071160d156f5628cd518"><DIV class="test-form-item"><LABEL><INPUT  name="test20" type="radio" value="a"></INPUT><SPAN class="test-form-label">1</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test20" type="radio" value="b"></INPUT><SPAN class="test-form-label">5</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test20" type="radio" value="c"></INPUT><SPAN class="test-form-label">6</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test20" type="radio" value="d"></INPUT><SPAN class="test-form-label">Error</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 21 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Каково значение свойства center для UIView, frame которого равен {25, 25, 50, 50}?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="8eecbb71d418ef8c7d583dd506a994b1bc1c3f7b"><DIV class="test-form-item"><LABEL><INPUT  name="test21" type="radio" value="a"></INPUT><SPAN class="test-form-label">{25, 25}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test21" type="radio" value="b"></INPUT><SPAN class="test-form-label">{75, 75}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test21" type="radio" value="c"></INPUT><SPAN class="test-form-label">{50, 50}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test21" type="radio" value="d"></INPUT><SPAN class="test-form-label">другое</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 22 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какая из перечисленных коллекций может хранить слабые ссылки на ключи и значения своих элементов?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="a66ca4290ebaf525721fc670ea53476a15957f9e"><DIV class="test-form-item"><LABEL><INPUT  name="test22" type="radio" value="a"></INPUT><SPAN class="test-form-label">NSDictionary</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test22" type="radio" value="b"></INPUT><SPAN class="test-form-label">NSHashTable</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test22" type="radio" value="c"></INPUT><SPAN class="test-form-label">NSOrderedSet</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test22" type="radio" value="d"></INPUT><SPAN class="test-form-label">NSMapTable</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 23 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Как изменится frame? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/e8f9c8037f3b4ef79d47db817cd05de94423f489.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="aec46dc0de48f39f98f9572b6560ca3f0916b715"><DIV class="test-form-item"><LABEL><INPUT  name="test23" type="radio" value="a"></INPUT><SPAN class="test-form-label">{{0, 0}, {120, 120}}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test23" type="radio" value="b"></INPUT><SPAN class="test-form-label">{{-10, -10}, {120, 120}}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test23" type="radio" value="c"></INPUT><SPAN class="test-form-label">{{0, 0}, {100, 100}}</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test23" type="radio" value="d"></INPUT><SPAN class="test-form-label">{{-10, -10}, {100, 100}}</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 24 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какой размер у определенных ниже структур? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/05c7ae6f0972ae35cc323b76c00610b5240d261a.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="b31990eea1cee9f421c933461a2f3c3dd741a58b"><DIV class="test-form-item"><LABEL><INPUT  name="test24" type="radio" value="a"></INPUT><SPAN class="test-form-label">Foo: 6 байт, Bar: 9 байт</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test24" type="radio" value="b"></INPUT><SPAN class="test-form-label">Foo: 8 байт, Bar: 12 байт</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test24" type="radio" value="c"></INPUT><SPAN class="test-form-label">Foo: 4 байт, Bar: 4 байт</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test24" type="radio" value="d"></INPUT><SPAN class="test-form-label">Foo: 8 байт, Bar: 10 байт</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 25 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Как из цвета 0xFA5779a8 палитре ARGB получить значение синего канала с помощью операции битового сдвига? </DIV><DIV class="test-form single-response"><FORM data-input-sha1="c6e4ffdb7e1f4c736fb7ab897162332b4619d9ca"><DIV class="test-form-item"><LABEL><INPUT  name="test25" type="radio" value="a"></INPUT><SPAN class="test-form-label">(color » 0) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test25" type="radio" value="b"></INPUT><SPAN class="test-form-label">(color » 8) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test25" type="radio" value="c"></INPUT><SPAN class="test-form-label">(color » 16) &amp; 0xFF</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test25" type="radio" value="d"></INPUT><SPAN class="test-form-label">(color » 24) &amp; 0xFF</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 26 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется в консоли? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/207a48c1ebca6354faf27af6fbb6c72295524273.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="a0361d509d714f50e954ffeb49ac18222609cf2a"><DIV class="test-form-item"><LABEL><INPUT  name="test26" type="radio" value="a"></INPUT><SPAN class="test-form-label">0</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test26" type="radio" value="b"></INPUT><SPAN class="test-form-label">1</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test26" type="radio" value="c"></INPUT><SPAN class="test-form-label">Ничего</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test26" type="radio" value="d"></INPUT><SPAN class="test-form-label">Ошибка в runtime</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 27 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется в консоли, если код будет запущен на iPhone X? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/6908ab310f831dad9035d6f37f83688e5f93bbc1.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="9c7ba4b1689f7c1fdc31399e11419302afe23085"><DIV class="test-form-item"><LABEL><INPUT  name="test27" type="radio" value="a"></INPUT><SPAN class="test-form-label">0</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test27" type="radio" value="b"></INPUT><SPAN class="test-form-label">Ошибка компиляции</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test27" type="radio" value="c"></INPUT><SPAN class="test-form-label">Ошибка в runtime</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test27" type="radio" value="d"></INPUT><SPAN class="test-form-label">undefined</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 28 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Какое значение будет у переменной name? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/42a6ef0b94996d3cb314c43b24fa98558b36ed42.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="29581e412c0981bffd7d0f4a9cdd9b114fb80947"><DIV class="test-form-item"><LABEL><INPUT  name="test28" type="radio" value="a"></INPUT><SPAN class="test-form-label">Andrew</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test28" type="radio" value="b"></INPUT><SPAN class="test-form-label">Ivan</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test28" type="radio" value="c"></INPUT><SPAN class="test-form-label">Anton</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test28" type="radio" value="d"></INPUT><SPAN class="test-form-label">Olga</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 29 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что будет выведено в консоли? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/6ec1b76dbfa3d773914539fadc3c8ce6d0fb5b6d.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="c6112fc247276d82a57cc9b56a41999dbba4b169"><DIV class="test-form-item"><LABEL><INPUT  name="test29" type="radio" value="a"></INPUT><SPAN class="test-form-label">ABC</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test29" type="radio" value="b"></INPUT><SPAN class="test-form-label">ACB</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test29" type="radio" value="c"></INPUT><SPAN class="test-form-label">CAB</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test29" type="radio" value="d"></INPUT><SPAN class="test-form-label">Ошибка компиляции</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 30 <SPAN class="test-points">(1 балл)</SPAN></DIV><DIV class="test-stem">Что выведется в консоли? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/081b6825e27f26c4571773313401418fc4324b7f.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="97ea7ec8a6bb8ab9049d86bc39b5be2b0800b14b"><DIV class="test-form-item"><LABEL><INPUT  name="test30" type="radio" value="a"></INPUT><SPAN class="test-form-label">A</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test30" type="radio" value="b"></INPUT><SPAN class="test-form-label">B</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test30" type="radio" value="c"></INPUT><SPAN class="test-form-label">BA</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test30" type="radio" value="d"></INPUT><SPAN class="test-form-label">Ошибка компиляции</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 31 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Какой максимальный размер payload для VOIP-пушей?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="22980f6cd0807e719d7f1b7cf25edc9df659ba1f"><DIV class="test-form-item"><LABEL><INPUT  name="test31" type="radio" value="a"></INPUT><SPAN class="test-form-label">2 KB</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test31" type="radio" value="b"></INPUT><SPAN class="test-form-label">3 KB</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test31" type="radio" value="c"></INPUT><SPAN class="test-form-label">4 KB</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test31" type="radio" value="d"></INPUT><SPAN class="test-form-label">5 KB</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 32 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Какая категория аудиосессии не воспроизводит звук при выключенном переключателе звука?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="69340613d824dc2a0f66fef2b97214550b6ae248"><DIV class="test-form-item"><LABEL><INPUT  name="test32" type="radio" value="a"></INPUT><SPAN class="test-form-label">AVAudioSessionCategoryAmbient</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test32" type="radio" value="b"></INPUT><SPAN class="test-form-label">AVAudioSessionCategoryPlayback</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test32" type="radio" value="c"></INPUT><SPAN class="test-form-label">AVAudioSessionCategoryRecord</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test32" type="radio" value="d"></INPUT><SPAN class="test-form-label">AVAudioSessionCategoryMultiRoute</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 33 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Что будет выведено в консоль? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/f1a46f48d2de971d673b72b79d8fbc1065c7b097.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="37e3ecf5f468d8af8698ba15797184523a4b401c"><DIV class="test-form-item"><LABEL><INPUT  name="test33" type="radio" value="a"></INPUT><SPAN class="test-form-label">A</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test33" type="radio" value="b"></INPUT><SPAN class="test-form-label">NSObject</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test33" type="radio" value="c"></INPUT><SPAN class="test-form-label">SwiftObject</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test33" type="radio" value="d"></INPUT><SPAN class="test-form-label">nil</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 34 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Что будет выведено в консоль? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/b245ab20720af375d510671ff9bad4141e7cdb74.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="eeec021898eec14f9c7c888c5899a81ad4dbf1ae"><DIV class="test-form-item"><LABEL><INPUT  name="test34" type="radio" value="a"></INPUT><SPAN class="test-form-label">retain</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test34" type="radio" value="b"></INPUT><SPAN class="test-form-label">Ошибка компиляции</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test34" type="radio" value="c"></INPUT><SPAN class="test-form-label">Ничего</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test34" type="radio" value="d"></INPUT><SPAN class="test-form-label">isProxy</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 35 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Что будет выведено в консоль? <IMG  class="tex-graphics" src="https://espresso.codeforces.com/3fc691cf1812aab40d8c79a8718b575166f8cb5c.png" style="max-width: 100%; max-height: 100%"></IMG></DIV><DIV class="test-form single-response"><FORM data-input-sha1="45c20f2147e030b02a9a42080890a9183c054eba"><DIV class="test-form-item"><LABEL><INPUT  name="test35" type="radio" value="a"></INPUT><SPAN class="test-form-label">55</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test35" type="radio" value="b"></INPUT><SPAN class="test-form-label">false</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test35" type="radio" value="c"></INPUT><SPAN class="test-form-label">Number(wrappedValue: 55, projectedValue: false)</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test35" type="radio" value="d"></INPUT><SPAN class="test-form-label">Ошибка компиляции</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 36 <SPAN class="test-points">(2 балла)</SPAN></DIV><DIV class="test-stem">Какой директивы нет в Objective-C?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="5bf6e5357bd42a6b1d2a3a040e16a91490064d26"><DIV class="test-form-item"><LABEL><INPUT  name="test36" type="radio" value="a"></INPUT><SPAN class="test-form-label">@class</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test36" type="radio" value="b"></INPUT><SPAN class="test-form-label">@objc</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test36" type="radio" value="c"></INPUT><SPAN class="test-form-label">@defs</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test36" type="radio" value="d"></INPUT><SPAN class="test-form-label">@finally</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV><DIV class="test"><DIV class="test-title">Тест 37 <SPAN class="test-points">(3 балла)</SPAN></DIV><DIV class="test-stem">В каком регистре располагается выброшенная из функции ошибка на ARM64?</DIV><DIV class="test-form single-response"><FORM data-input-sha1="02ede1eec131f84e860e69c181f01c93b2ff6d76"><DIV class="test-form-item"><LABEL><INPUT  name="test37" type="radio" value="a"></INPUT><SPAN class="test-form-label">rax</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test37" type="radio" value="b"></INPUT><SPAN class="test-form-label">x0</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test37" type="radio" value="c"></INPUT><SPAN class="test-form-label">r12</SPAN></LABEL></DIV><DIV class="test-form-item"><LABEL><INPUT  name="test37" type="radio" value="d"></INPUT><SPAN class="test-form-label">x21</SPAN></LABEL></DIV><INPUT  type="submit" value="Отправить"></INPUT></FORM></DIV></DIV></DIV></DIV></DIV></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/36856");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+        const problemStatementDiv = $("div.problemindexholder[problemindex='B']");
+        const testsDiv = problemStatementDiv.find("div.test:first").parent();
+        testsDiv.css("position", "relative");
+        testsDiv.append("<img class=\"load-answers-waiting-indicator\" style=\"display: none;\" src=\"//codeforces.org/s/36856/images/indicator-big.gif\" alt=\"waiting..\">");
+        testsDiv.append("<div style=\"display: none\" class=\"problem-statement-overlay\">&nbsp</div>");
+
+        problemStatementDiv.find($("div.test")).last().css("margin-bottom", "0");
+
+        const problemStatementWrapper = problemStatementDiv.find(".problem-statement-overlay");
+        const loadAnswersWaitingIndicator = problemStatementDiv.find(".load-answers-waiting-indicator");
+
+        const removeAnswerSubmittedMessage = function (testForm) {
+            testForm.find("span.answer-submitted-marker").remove();
+        };
+
+        const removeInvalidAnswerMessage = function (testForm) {
+            testForm.find("span.invalid-answer-message").remove();
+        };
+
+        const removePendingSubmissionMessage = function (testForm) {
+            testForm.find("span.pending-submission-message").remove();
+        };
+
+        const addAnswerSubmittedMessage = function (testForm, appendix) {
+            const $span = $("<span style=\"display: none; font-size: 1.1rem; font-weight: bold\" class=\"answer-submitted-marker\">&nbsp;</span>");
+
+            if (appendix) {
+                $span.text("Answer submitted: " + appendix)
+            } else {
+                $span.text("Answer submitted")
+            }
+
+            $span.insertAfter(testForm.find("input[type=submit]"));
+            testForm.find("span.answer-submitted-marker").fadeIn(1000);
+        };
+
+        const addInvalidAnswerMessage = function (testForm, message) {
+            $("<span style=\"font-size: 1.1rem; font-weight: bold; color: red\" class=\"invalid-answer-message\">" + message + "</span>").insertAfter(testForm.find("input[type=submit]"));
+        };
+
+        const addPendingSubmissionMessage = function (testForm, message) {
+            if (testForm.find(".pending-submission-message").length === 0) {
+                removeInvalidAnswerMessage(testForm);
+                removeAnswerSubmittedMessage(testForm);
+                $("<span style=\"font-size: 1.1rem; font-weight: bold; color: red\" class=\"pending-submission-message\">" + message + "</span>").insertAfter(testForm.find("input[type=submit]"));
+            }
+        };
+
+        let disabledSubmitHandler = false;
+
+        const addHiddenInput = function (testForm, name, value) {
+            $('<input>')
+                .attr('type', 'hidden')
+                .attr('name', name)
+                .attr('value', value)
+                .appendTo(testForm);
+        };
+
+        const onSubmitFile = function (testForm) {
+            testForm.attr("enctype", "multipart/form-data");
+            testForm.attr("method", "post");
+            testForm.attr("action", "/data/questions");
+            testForm.find("input[type='file']").attr("name", "testSingleFile");
+
+            addHiddenInput(testForm, "action", "submitFile");
+            addHiddenInput(testForm, "contestId", "1274");
+            addHiddenInput(testForm, "problemIndex", "B");
+            addHiddenInput(testForm, "inputSha1", testForm.attr("data-input-sha1"));
+            addHiddenInput(testForm, "backUrl", window.location.href);
+            addHiddenInput(testForm, "csrf_token", Codeforces.getCsrfToken());
+
+            disabledSubmitHandler = true;
+            $(window).off('beforeunload');
+            testForm.submit();
+
+            return false;
+        };
+
+        window.fillQuestionAnswers_B = function () {
+            loadAnswersWaitingIndicator.css("display", "block");
+            problemStatementWrapper.css("display", "block");
+
+            $.post("/data/questions",
+                {action: "getAnswerByInputSha1Map", contestId: "1274", problemIndex: "B"},
+                function (response) {
+                    problemStatementDiv.find("div .test-form form").each(function () {
+                        const inputSha = $(this).attr("data-input-sha1");
+                        if (response.hasOwnProperty(inputSha)) {
+                            const answer = response[inputSha];
+
+                            if ($.find("input[type='file']").length > 0 && answer.length === 1 && answer[0].indexOf("file://") === 0) {
+                                addAnswerSubmittedMessage($(this), answer[0].substring("file://".length));
+                            } else {
+                                addAnswerSubmittedMessage($(this));
+                            }
+
+                            const isAnswer = function (value) {
+                                const result = $.inArray(value, answer);
+                                return result >= 0;
+                            };
+
+                            $(this).find("input[type='checkbox']").each(function () {
+                                $(this).prop('checked', isAnswer($(this).val()));
+                            });
+                            $(this).find("input[type='radio']").each(function () {
+                                $(this).prop('checked', isAnswer($(this).val()));
+                            });
+                            $(this).find("input[type='text']").each(function () {
+                                $(this).val(answer[0]);
+                            });
+                            $(this).find("textarea").each(function () {
+                                if (!$(this).parent().hasClass("test-explanation")) {
+                                    $(this).val(answer[0]);
+                                }
+                            });
+                        }
+                    });
+                },
+                "json"
+            );
+
+            $.post("/data/questions",
+                {action: "getExplanationsByInputSha1Map", contestId: "1274", problemIndex: "B"},
+                function (response) {
+                    problemStatementDiv.find("div .test-form form").each(function () {
+                        const inputSha = $(this).attr("data-input-sha1");
+                        if (response.hasOwnProperty(inputSha)) {
+                            const explanation = response[inputSha];
+                            $(this).find("textarea").each(function () {
+                                if ($(this).parent().hasClass("test-explanation")) {
+                                    $(this).val(explanation);
+                                    autosize.update($(this));
+                                }
+                            });
+                        }
+                    });
+
+                    loadAnswersWaitingIndicator.css("display", "none");
+                    problemStatementWrapper.css("display", "none");
+                },
+                "json"
+            );
+        };
+
+        problemStatementDiv.find("div .test form")
+            .append("<img class=\"waitingIndicator\" style=\"display: none\" src=\"//codeforces.org/s/36856/images/indicator.gif\" alt=\"waiting..\">");
+
+        problemStatementDiv.find("div .test-form form").submit(function () {
+            if (disabledSubmitHandler) {
+                return true;
+            }
+
+            const testForm = $(this);
+            const hasFile = testForm.find("input[type='file']").length > 0;
+            if (hasFile) {
+                return onSubmitFile(testForm);
+            }
+
+            const submitButton = testForm.find("input[type='submit']");
+            const waitingIndicator = testForm.find(".waitingIndicator");
+
+            const inputSha = testForm.attr("data-input-sha1");
+            const answer = [];
+            const explanation = problemStatementDiv.find("div .test-explanation").find("textarea").val();
+
+            const submitResult = function () {
+                if (answer.length > 0) {
+                    removeAnswerSubmittedMessage(testForm);
+                    removeInvalidAnswerMessage(testForm);
+                    removePendingSubmissionMessage(testForm);
+
+                    submitButton.attr("disabled", "disabled");
+                    waitingIndicator.css("display", "");
+
+                    $.post("/data/questions",
+                        {
+                            action: "submitAnswer",
+                            contestId: "1274",
+                            problemIndex: "B",
+                            inputSha1: inputSha,
+                            'answer[]': answer,
+                            'explanation': explanation
+                        },
+                        function (response) {
+                            if (response["success"] === "true") {
+                                Codeforces.showMessage("Your answer is successfully submitted");
+
+                                const index = $(testForm).closest(".problemindexholder").attr("problemindex");
+                                let test = "";
+                                $(testForm).find("input").each(function () {
+                                    const test_ = $(this).attr("name");
+                                    if (test_ && test_.substring(0, 4) === "test") {
+                                        test = test_;
+                                    }
+                                });
+                                if (index.length > 0 && test.length > 0) {
+                                    const indexTest = index + "::" + test;
+                                    window.changedTests.delete(indexTest);
+                                }
+
+                                addAnswerSubmittedMessage(testForm);
+                            } else {
+                                if (response.hasOwnProperty("comment")) {
+                                    addInvalidAnswerMessage(testForm, response["comment"]);
+                                } else {
+                                    addInvalidAnswerMessage(testForm, "Failed to submit answer. Please, try again.");
+                                }
+                            }
+
+                            submitButton.removeAttr("disabled");
+                            waitingIndicator.css("display", "none");
+                        },
+                        "json"
+                    );
+                } else {
+                    alert("Can't sent an empty answer");
+                }
+            };
+
+            if (testForm.parent().hasClass("multiple-response")) {
+                const checkboxes = testForm.find("input[type=checkbox]");
+                let checkboxesCount = checkboxes.length;
+                checkboxes.each(function () {
+                    if ($(this).is(':checked')) {
+                        answer.push($(this).val());
+                    }
+                    checkboxesCount--;
+                    if (checkboxesCount === 0) {
+                        submitResult();
+                    }
+                });
+            }
+
+            if (testForm.parent().hasClass("single-response")) {
+                const radios = testForm.find("input[type=radio]");
+                let radioCount = radios.length;
+
+                radios.each(function () {
+                    if ($(this).is(':checked')) {
+                        answer.push($(this).val());
+                    }
+                    radioCount--;
+                    if (radioCount === 0) {
+                        submitResult();
+                    }
+                });
+            }
+
+            if (testForm.parent().hasClass("single-line")) {
+                testForm.find("input[type=text]").each(function () {
+                    answer.push($(this).val());
+                    submitResult();
+                });
+            }
+
+            if ($(this).parent().hasClass("multiple-line")) {
+                testForm.find("textarea").each(function () {
+                    answer.push($(this).val());
+                    submitResult();
+                });
+            }
+
+            return false;
+        });
+
+
+    });
+</script>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div><a href="https://codeforces.com/">Codeforces</a> (c) Copyright 2010-2024 Mike Mirzayanov</div>
+        <div>The only programming contests Web 2.0 platform</div>
+
+    </div>
+
+</div>
+</div>
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator && 'fetch' in window && 'caches' in window) {
+            navigator.serviceWorker.register('/service-worker-36856.js')
+                .then(function (registration) {
+                    console.log('Service worker registered: ', registration);
+                })
+                .catch(function (error) {
+                    console.log('Registration failed: ', error);
+                });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a1873c55c386213',t:'MTcyMDY5NzMzMC4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

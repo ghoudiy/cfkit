@@ -2,25 +2,11 @@ Codeforces Beta Round 85 (Div. 2 Only)
 
 
 A. Petya and Strings
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Little Petya loves presents. His mum bought him two strings of the same size for his birthday. The strings consist of uppercase and lowercase Latin letters. Now Petya wants to compare those two strings
-lexicographically
-. The letters' case does not matter, that is an uppercase letter is considered equivalent to the corresponding lowercase letter. Help Petya perform the comparison.
-Input
-Each of the first two lines contains a bought string. The strings' lengths range from
-1
-to
-100
-inclusive. It is guaranteed that the strings are of the same length and also consist of uppercase and lowercase Latin letters.
-Output
-If the first string is less than the second one, print "-1". If the second string is less than the first one, print "1". If the strings are equal, print "0". Note that the letters' case is not taken into consideration when the strings are compared.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 aaaa
@@ -39,64 +25,11 @@ Output
 1
 ----------------------------------------------------------------------------------------------------
 B. Petya and Square
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Little Petya loves playing with squares. Mum bought him a square
-2
-n
-× 2
-n
-in size. Petya marked a cell inside the square and now he is solving the following task.
-The task is to draw a broken line that would go along the grid lines and that would cut the square into two equal parts. The cutting line should not have any common points with the marked cell and the resulting two parts should be equal
-up to rotation
-.
-Petya wants to determine whether it is possible to cut the square in the required manner given the sizes of the square side and the coordinates of the marked cell. Help him.
-Input
-The first line contains three space-separated integers
-2
-n
-,
-x
-and
-y
-(
-2 ≤ 2
-n
-≤ 100, 1 ≤
-x
-,
-y
-≤ 2
-n
-), representing the length of a square's side and the coordinates of the marked cell. It is guaranteed that
-2
-n
-is even.
-The coordinates of the marked cell are represented by a pair of numbers
-x
-y
-, where
-x
-represents the number of the row and
-y
-represents the number of the column. The rows and columns are numbered by consecutive integers from
-1
-to
-2
-n
-. The rows are numbered from top to bottom and the columns are numbered from the left to the right.
-Output
-If the square is possible to cut, print "
-YES
-", otherwise print "
-NO
-" (without the quotes).
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 4 1 1
@@ -108,75 +41,11 @@ Output
 NO
 ----------------------------------------------------------------------------------------------------
 C. Petya and Inequiations
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Little Petya loves inequations. Help him find
-n
-positive integers
-a
-1
-,
-a
-2
-, ...,
-a
-n
-, such that the following two conditions are satisfied:
-a
-1
-2
-+
-a
-2
-2
-+ ... +
-a
-n
-2
-≥
-x
-a
-1
-+
-a
-2
-+ ... +
-a
-n
-≤
-y
-Input
-The first line contains three space-separated integers
-n
-,
-x
-and
-y
-(
-1 ≤
-n
-≤ 10
-5
-, 1 ≤
-x
-≤ 10
-12
-, 1 ≤
-y
-≤ 10
-6
-).
-Please do not use the %lld specificator to read or write 64-bit integers in С++. It is recommended to use cin, cout streams or the %I64d specificator.
-Output
-Print
-n
-positive integers that satisfy the conditions, one integer per line. If such numbers do not exist, print a single number "-1". If there are several solutions, print any of them.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5 15 15
@@ -196,91 +65,11 @@ Output
 11
 ----------------------------------------------------------------------------------------------------
 D. Petya and Divisors
-time limit per test
-5 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Little Petya loves looking for numbers' divisors. One day Petya came across the following problem:
-You are given
-n
-queries in the form "
-x
-i
-y
-i
-". For each query Petya should count how many divisors of number
-x
-i
-divide none of the numbers
-x
-i
--
-y
-i
-,
-x
-i
--
-y
-i
-+ 1
-, ...,
-x
-i
-- 1
-. Help him.
-Input
-The first line contains an integer
-n
-(
-1 ≤
-n
-≤ 10
-5
-). Each of the following
-n
-lines contain two space-separated integers
-x
-i
-and
-y
-i
-(
-1 ≤
-x
-i
-≤ 10
-5
-,
-0 ≤
-y
-i
-≤
-i
-- 1
-, where
-i
-is the query's ordinal number; the numeration starts with
-1
-).
-If
-y
-i
-= 0
-for the query, then the answer to the query will be the number of divisors of the number
-x
-i
-. In this case you do not need to take the previous numbers
-x
-into consideration.
-Output
-For each query print the answer on a single line: the number of positive integers
-k
-such that
+time limit per test: 5 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 6
@@ -299,37 +88,11 @@ Output
 22
 ----------------------------------------------------------------------------------------------------
 E. Petya and Spiders
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Little Petya loves training spiders. Petya has a board
-n
-×
-m
-in size. Each cell of the board initially has a spider sitting on it. After one second Petya chooses a certain action for each spider, and all of them humbly perform its commands. There are 5 possible commands: to stay idle or to move from current cell to some of the four side-neighboring cells (that is, one command for each of the four possible directions). Petya gives the commands so that no spider leaves the field. It is allowed for spiders to pass through each other when they crawl towards each other in opposite directions. All spiders crawl simultaneously and several spiders may end up in one cell. Petya wants to know the maximum possible number of spider-free cells after one second.
-Input
-The first line contains two space-separated integers
-n
-and
-m
-(
-1 ≤
-n
-,
-m
-≤ 40,
-n
-·
-m
-≤ 40
-) — the board sizes.
-Output
-In the first line print the maximum number of cells without spiders.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 1 1

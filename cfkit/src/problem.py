@@ -4,29 +4,29 @@ Documentation
 from os import path as osPath, getcwd, chdir, listdir
 from sys import argv as sysArgv, exit as sysExit
 from pathlib import Path
-from re import search
-from re import findall
+from re import search, findall, compile as reCompile
 from datetime import datetime
 from inspect import currentframe
+from typing import Optional
 from subprocess import CalledProcessError, run
-from collections import Counter
 
 from cfkit.utils.common import (
   file_name,
-  samples_dir,
-  remove_files,
-  fetch_samples,
-  read_json_file,
-  write_json_file,
   adjusting_paths,
   execute_solution,
-  problems_content,
   retrieve_template,
-  write_text_to_file,
-  create_file_folder,
-  read_text_from_file,
   convert_to_megabytes,
   augment_errors_warnings,
+)
+
+from cfkit.utils.parse_samples import samples_dir, fetch_samples, problems_content
+from cfkit.utils.file_operations import (
+  remove_files,
+  read_json_file,
+  write_json_file,
+  write_text_to_file,
+  read_text_from_file,
+  create_file_folder
 )
 from cfkit.utils.input import confirm
 from cfkit.utils.print import colored_text
@@ -35,14 +35,18 @@ from cfkit.client.fetch import get_response
 from cfkit.utils.check import check_file
 from cfkit.utils.check import raise_error_if_path_missing
 from cfkit.utils.answer_handling import check_answer
-# from cfkit.utils.check import raise_error_if_path_exists
+
 
 from cfkit.utils.variables import (
   conf_file,
   resources_folder,
   language_conf_path,
-  INPUT_EXTENSION_FILE,
-  OUTPUT_EXTENSION_FILE
+  INPUT_FILENAME_PATTERN,
+  OUTPUT_FILENAME_PATTERN,
+  CUSTOM_INPUT_FILENAME,
+  CUSTOM_OUTPUT_FILENAME,
+  CUSTOM_INPUT_FILENAME_PATTERN,
+  CUSTOM_OUTPUT_FILENAME_PATTERN
 )
 
 from cfkit.utils.constants import (
@@ -65,20 +69,47 @@ class Problem:
 
     self._response, self.problem_index = self.__validate_parameters(problem_code)
 
-    self.name: str = self._response[0]
-    self.time_limit_seconds: str = self._response[2]
-    self.time_limit_seconds_number: float = float(
-      self.time_limit_seconds[:self.time_limit_seconds.find(" ")]
-    )
-    self.memory_limit_megabytes: float = convert_to_megabytes(self._response[4])
-    self.input_output_type: str = f"input: {self._response[6]}\noutput: {self._response[8]}"
-
+    self._time_limit_seconds: float = None
+    self._memory_limit_megabytes: float = None
+    self._input_output_type: str = None
     self._data_path: str = None
     self._input_samples: list[str] = None
     self._expected_output_samples: list[str] = None
     self._custom_input_samples: list[str] = []
     self._expected_custom_output_samples: list[str] = []
     self._fwrong: str = None
+
+
+  @property
+  def name(self) -> str:
+    """
+    Documentation
+    """
+    return self._response[0]
+
+  @property
+  def time_limit_seconds(self) -> float:
+    """
+    Documentation
+    """
+    self._time_limit_seconds: float = float(self._response[1][21:self._response[1].rfind(" ")])
+    return self._time_limit_seconds
+
+  @property
+  def memory_limit_megabytes(self) -> float:
+    """
+    Documentation
+    """
+    self._memory_limit_megabytes: float = convert_to_megabytes(self._response[2][23:])
+    return self._memory_limit_megabytes
+
+  @property
+  def input_output_type(self) -> str:
+    """
+    Documentation
+    """
+    self._input_output_type: str = f"{self._response[3]}\n{self._response[4]}"
+    return self._input_output_type
 
 
   def __retrieve_html_source_code(self, code: str) -> str:
@@ -173,10 +204,7 @@ class Problem:
 
           # Check if the directory name represents the contest ID and
           # the file name represents the problem code.
-          if dir_name.isdigit() and (
-            search(r"[A-z]\d\.", base_name) is not None  or
-            search(r"[A-z]\.", base_name) is not None
-          ):
+          if dir_name.isdigit() and search(r"[A-z]\d{,2}\.", base_name) is not None:
             self._solution_file = problem_code
             if confirm(
               f"'{dir_name + (base_name[0] if base_name[1] == '.' else base_name[:2])}'"
@@ -194,11 +222,11 @@ class Problem:
             )
 
     elif isinstance(problem_code, (tuple, list)):
-      point_pos0 = problem_code[0].find(".")
-      point_pos1 = problem_code[1].find(".")
-      if point_pos0 != -1 and point_pos1 == -1:
+      pos_point = problem_code[0].find(".")
+      pos_point_1 = problem_code[1].find(".")
+      if pos_point != -1 and pos_point_1 == -1:
         problem_code = problem_code[1], problem_code[0]
-      elif (point_pos0 == -1 and point_pos1 == -1) or (point_pos0 != -1 and point_pos1 != -1):
+      elif (pos_point == -1 and pos_point_1 == -1) or (pos_point != -1 and pos_point_1 != -1):
         colored_text(
           "Please provide the problem code, the solution file itself or both.",
           one_color="error",
@@ -226,20 +254,20 @@ class Problem:
 
   def create_solution_file(
       self,
-      file_extension: str = None,
+      path: Optional[Directory] = None,
+      file_extension: Optional[str] = None,
       create_contest_folder: bool = False,
-      add_problem_name_to_file_name: bool = True,
-      path: Directory = None
+      add_problem_name_to_file_name: bool = True
     ) -> None:
     """
     Documentation
     """
     def add_problem_name_if_demanded(
-        add_problem_name_to_file_name: bool,
-        problem_code: str,
-        problem_name: str,
-        file_extension: str
-      ) -> None:
+      add_problem_name_to_file_name: bool,
+      problem_code: str,
+      problem_name: str,
+      file_extension: str
+    ) -> None:
       if add_problem_name_to_file_name:
         solution_file = file_name(
           problem_name[problem_name.find(" ") + 1:],
@@ -302,7 +330,7 @@ class Problem:
 
   def parse(
     self,
-    path: Directory = None,
+    path: Optional[Directory] = None,
     create_tests_dir: bool = False,
     short_names: bool = False,
     __check_path: bool = True,
@@ -315,7 +343,7 @@ class Problem:
       path = getcwd()
 
     def fetch(path, create_tests_dir, __check_path):
-      self._data_path = samples_dir(create_tests_dir, path, [self.problem_index])
+      self._data_path = samples_dir(create_tests_dir, path)
 
       self._input_samples, self._expected_output_samples = fetch_samples(
         problem_statement=self._response,
@@ -338,12 +366,14 @@ class Problem:
 
   def run_demo(
     self,
-    file_path: str = None,
-    any_order: bool = True,
+    file_path: Optional[str] = None,
+    any_order: bool = False,
+    multiple_answers: bool = False,
     check_formatting: bool = False,
+    print_answers: bool = True,
     remove_samples_output_files_if_demo_accepted: bool = False,
     stop_program: bool = True,
-    verbose: bool = True,
+    verbose: bool = True
   ) -> None:
     """
     Test a participant's solution against Codeforces problem samples
@@ -404,28 +434,23 @@ class Problem:
 
       def input_output_list(data_path) -> None:
         list_of_files = listdir(data_path)
+        INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{INPUT_FILENAME_PATTERN}$")
+        OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{OUTPUT_FILENAME_PATTERN}$")
+        CUSTOM_INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_INPUT_FILENAME_PATTERN}$")
+        CUSTOM_OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_OUTPUT_FILENAME_PATTERN}$")
+
         self._input_samples = sorted(
-          [
-            file for file in list_of_files if search(
-            rf"{self.problem_index}_\d+\.{INPUT_EXTENSION_FILE}", file)
-          ]
+          [file for file in list_of_files if INPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
         self._expected_output_samples = sorted(
-          [
-            file for file in list_of_files if search(
-            rf"{self.problem_index}_\d+\.{OUTPUT_EXTENSION_FILE}", file)
-          ]
+          [file for file in list_of_files if OUTPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
 
         self._custom_input_samples = sorted(
-          [file for file in list_of_files if search(
-            r"\A" + rf"{INPUT_EXTENSION_FILE}" + r"\d{0,}$", file
-          )]
+          [file for file in list_of_files if CUSTOM_INPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
         self._expected_custom_output_samples = sorted(
-          [file for file in list_of_files if search(
-            r"\A" + rf"{OUTPUT_EXTENSION_FILE}" + r"\d{0,}$", file
-          )]
+          [file for file in list_of_files if CUSTOM_OUTPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
 
       del file_path # Now we have the solution file stored in self._solution_file
@@ -455,17 +480,20 @@ class Problem:
       # If working with the solution file itself and it's a python file
       if working_in_script:
         with open(self._solution_file, 'r', encoding="UTF-8") as file:
-          code = file.readlines()
+          code = file.read().split("\n")
 
-        code_length = len(code)
         # Searching for the beginning of the solution
         solution_pos = None
+        code_length = len(code)
         end_pos = code_length
         for i in range(code_length):
           line_without_spaces = code[i].replace(" ", "")
-          if line_without_spaces == "#solution\n":
+          last_line_without_spaces = code[code_length - i - 1].replace(" ", "")
+
+          if line_without_spaces == "#solution":
             solution_pos = i
-          elif line_without_spaces.replace("\n", "") == "#end":
+
+          if last_line_without_spaces == "#end":
             end_pos = i
 
         if solution_pos is not None:
@@ -546,11 +574,11 @@ class Problem:
       ) = set_language_attributes(programming_language)
 
     mem_time_calc = conf_file["cfkit"][
-      "calculate_memory_usage_and_execution_time"]
+      "calculate_memory_usage_and_execution_time"].strip().lower()
 
     if mem_time_calc == "false":
       execute_command += " < %%{input_file}%% > %%{output_file}%% 2> %%{time_mem_err_output_file}%%"
-      
+
       mem_time_calc = False
     else:
       execute_command = calculate_memory_usage_and_execution_time_command
@@ -586,8 +614,15 @@ class Problem:
           f"returned non-zero exit status: <bright_text>{err.returncode}</bright_text>",
           exit_code_after_print_statement=1
         )
+    # =============================================================================================
 
-    def fill_checker_log_list(checker_log_list: list[str], data: list[str], i: int):
+
+    def fill_checker_log_list(
+      checker_log_list: list[str],
+      data: list[str],
+      i: int,
+      columns_num: int = 55
+    ):
       """
       Documentation
       """
@@ -596,7 +631,7 @@ class Problem:
       elif data_length == 1 and data[-1] == "":
         data = ["(Empty)"]
       for line in data:
-        checker_log_list[i] += f"| {line} {' ' * (55 - len(line) - 2)}|\n"
+        checker_log_list[i] += f"| {line} {' ' * (columns_num - len(line) - 2)}|\n"
 
     def save_accepted_test(verdict, checker_log_list, i, solution_accpeted):
       """
@@ -646,19 +681,14 @@ class Problem:
         raise InterruptedError(["Runtime error", f"Exit code is {exitcode}", "error_2"])
 
       #* Check if the output is empty
-      observed_len = 0
-      for line in observed:
-        observed_len += 1 if line else 0
-
-      if observed_len == 0:
+      if len(observed) == 0:
         colored_text(
-          "\n" + f"<{warning_error_color}>{warning_error}:</{warning_error_color}> No output was generated in test {i}"
+          "\n" + f"<{warning_error_color}>{warning_error}:</{warning_error_color}> "
+          f"No output was generated in test {i}"
         )
         return True
       return False
 
-
-    # =============================================================================================
     def test_solution_against_samples(
       input_samples_list: list[str],
       expected_output_samples: list[str] = None,
@@ -672,7 +702,7 @@ class Problem:
 
       accepeted = True
       verdict = [None] * number_of_tests * expected_output_bool
-      errors_memory_time_of_solution: list[str] = [None] * number_of_tests * mem_time_calc
+      errors_memory_time_of_solution: list[str] = [None] * number_of_tests
 
       #* Loop through samples
       # =============================================================================
@@ -697,16 +727,11 @@ class Problem:
           working_in_script
         )
 
-        if mem_time_calc:
-          errors_memory_time_of_solution[i] = read_text_from_file(
-            errors_memory_time_of_solution_filenames_list[i]
-          ) # To use it later in printing results
+        errors_memory_time_of_solution[i] = read_text_from_file(
+          errors_memory_time_of_solution_filenames_list[i]
+        ) # To use it later in printing results
 
-        observed = read_text_from_file(participant_output_filenames_list[i])
-        while len(observed) > 0 and observed[-1] == "\n":
-          observed = observed[:-1]
-        observed_without_nl = observed.replace(" \n", " ").replace("\n", " ")
-        observed = observed.split("\n")
+        observed = read_text_from_file(participant_output_filenames_list[i]).split("\n")
 
         checker_log_list[i] = f"Input\n {'-' * 55}\n"
         fill_checker_log_list(checker_log_list, read_text_from_file(input_sample).split("\n"), i)
@@ -716,20 +741,21 @@ class Problem:
 
         try:
           if not expected_output_bool:
-            checker_log_list[i] += " " + "-" * 55 + "\n"
+            checker_log_list[i] += " " + "-" * 55
             try:
               check_exit_code_and_empty_output(exitcode, observed, "Warning", "warning", i + 1 + start)
             except InterruptedError:
               continue # To prevent save error in the main except statement
+
           else:
-            expected = read_text_from_file(expected_output_samples[i])
-            while len(expected) > 0 and expected[-1] == "\n":
-              expected = expected[:-1]
-            expected_without_nl = expected.replace(" \n", " ").replace("\n", " ")
-            expected = expected.split("\n")
+            expected_str = read_text_from_file(expected_output_samples[i])
+            expected = expected_str.split("\n")
+            # Remove the content of the variable if multiple_answers is False (for better performance)
+            expected_str = expected_str * multiple_answers
 
             checker_log_list[i] += f" {'-' * 55}\n\nAnswer\n {'-' * 55}\n"
             fill_checker_log_list(checker_log_list, expected, i)
+
             checker_log_list[i] += f" {'-' * 55}\nChecker log: "
 
             if (
@@ -748,35 +774,30 @@ class Problem:
               )
               continue
 
-            #* Compare the results if the output is an integer or a string
-            if expected_without_nl == observed_without_nl or (
-              any_order and
-              Counter(expected_without_nl.split(" ")) == Counter(observed_without_nl.split(" "))
-            ):
+            # This line could raise an InterruptedError
+            equal, wrong_answer_message = check_answer(
+              expected,
+              observed,
+              any_order,
+              multiple_answers,
+              check_formatting,
+              expected_str
+            )
+
+            if equal:
               accepeted = save_accepted_test(verdict, checker_log_list, i, accepeted)
-            
-            #* In case of wrong answer and results are floating point numbers
+
             else:
-              expected = [item for item in expected if item]
-              observed = [item for item in observed if item]
-
-              # This line could raise an InterruptedError
-              equal, wrong_answer_message = check_answer(expected, observed, check_formatting)
-
-              if equal:
-                accepeted = save_accepted_test(verdict, checker_log_list, i, accepeted)
-
-              else:
-                accepeted = save_error(
-                  "Wrong answer",
-                  verdict,
-                  i,
-                  "wrong",
-                  errors,
-                  wrong_answer_message,
-                  checker_log_list,
-                  start
-                )
+              accepeted = save_error(
+                "Wrong answer",
+                verdict,
+                i,
+                "wrong",
+                errors,
+                wrong_answer_message,
+                checker_log_list,
+                start
+              )
 
         except InterruptedError as err:
           err.args = err.args[0]
@@ -791,6 +812,16 @@ class Problem:
             checker_log_list,
             start
           )
+          if err.args[0] == "Runtime error":
+            checker_log_list[i] += f"\n\nDiagnostics\n {'-' * 70}\n"
+            fill_checker_log_list(
+              checker_log_list,
+              errors_memory_time_of_solution[i].split("\n")[2 * mem_time_calc:],
+              i,
+              70
+            )
+            checker_log_list[i] += f" {'-' * 70}"
+
 
       return (
         accepeted,
@@ -802,76 +833,89 @@ class Problem:
       )
 
 
-    def validate_custom_samples(
-        input_samples: list[str],
-        output_samples: list[str],
-        input_samples_without_expected_output: list[str],
-        length
-    ):
-      custom_input_without_expected_output_bool = True
-      i = 0
-      while i < length:
-        try:
-          output_samples.index(
-            f"{OUTPUT_EXTENSION_FILE}{input_samples[i][len(INPUT_EXTENSION_FILE):]}"
-          )
-          i += 1
-        except ValueError:
-          input_samples_without_expected_output.append(input_samples.pop(i))
-          length -= 1
-          custom_input_without_expected_output_bool = False
-      return custom_input_without_expected_output_bool
+    if print_answers:
+      def validate_custom_samples(
+        data1: list[str],
+        data2: list[str],
+        func,
+        length: int,
+        filename1: str,
+        filename2: str
+      ):
+        # Remove extra samples (their name doesn't correspond to any input/output sample)
+        custom_input_without_expected_output_bool = True
+        i = 0
+        while i < length:
+          try:
+            test_case_num_of_custom_input = filename1.find("%%test_case_num%%")
+            prefix = filename1[:test_case_num_of_custom_input]
+            suffix = filename1[test_case_num_of_custom_input + 17:]
+            suffix = data1[i].find(suffix) if suffix else len(data1[i])
+            data2.index(
+              filename2.replace("%%test_case_num%%", data1[i][len(prefix):suffix])
+            )
+            i += 1
+          except ValueError:
+            func(data1.pop(i))
+            length -= 1
+            custom_input_without_expected_output_bool = False
+        return custom_input_without_expected_output_bool, length
 
-    custom_input_samples_num = len(self._custom_input_samples)
-    input_samples_without_expected_output = []
-    expected_output_bool = validate_custom_samples(
-      self._custom_input_samples,
-      self._expected_custom_output_samples,
-      input_samples_without_expected_output,
-      custom_input_samples_num
-    )
 
-    # Remove extra output samples (their name doesn't correspond to any input sample)
-    i = 0
-    expected_custom_output_samples_num = len(self._expected_custom_output_samples)
-    while i < expected_custom_output_samples_num:
-      try:
-        self._custom_input_samples.index(
-          f"{INPUT_EXTENSION_FILE}{self._expected_custom_output_samples[i][len(OUTPUT_EXTENSION_FILE):]}"
-        )
-        i += 1
-      except ValueError:
-        self._expected_custom_output_samples.pop(i)
-        expected_custom_output_samples_num -= 1
+      input_samples_without_expected_output = []
+      custom_input_without_expected_output_bool, input_samples_with_expected_output_num = validate_custom_samples(
+        self._custom_input_samples,
+        self._expected_custom_output_samples,
+        lambda x: input_samples_without_expected_output.append(x),
+        len(self._custom_input_samples),
+        CUSTOM_INPUT_FILENAME,
+        CUSTOM_OUTPUT_FILENAME
+      )
 
-    (
-      accepeted,
-      verdict,
-      checker_log_list,
-      errors_memory_time_of_solution,
-      participant_output_filenames_list,
-      errors_memory_time_of_solution_filenames_list
-    ) = test_solution_against_samples(
-      self._input_samples + self._custom_input_samples,
-      self._expected_output_samples + self._expected_custom_output_samples
-    )
+      validate_custom_samples(
+        self._expected_custom_output_samples,
+        self._custom_input_samples,
+        lambda x: None,
+        len(self._expected_custom_output_samples),
+        CUSTOM_OUTPUT_FILENAME,
+        CUSTOM_INPUT_FILENAME
+      )
 
-    input_samples_num = len(self._input_samples)
-    input_samples_with_expected_output_num = len(self._custom_input_samples) + input_samples_num
-    if not expected_output_bool:
+      (
+        accepeted,
+        verdict,
+        checker_log_list,
+        errors_memory_time_of_solution,
+        participant_output_filenames_list,
+        errors_memory_time_of_solution_filenames_list
+      ) = test_solution_against_samples(
+        self._input_samples + self._custom_input_samples,
+        self._expected_output_samples + self._expected_custom_output_samples
+      )
+
+      input_samples_num = len(self._input_samples)
+      input_samples_with_expected_output_num = input_samples_with_expected_output_num + input_samples_num
+    else:
+      input_samples_with_expected_output_num = 0
+      input_samples_without_expected_output = self._input_samples + self._custom_input_samples
+      accepeted = None
+      custom_input_without_expected_output_bool = False
+
+    if not custom_input_without_expected_output_bool:
       (
         _,
         _,
-        checker_log_list_custom,
-        errors_memory_time_of_solution_custom,
-        participant_output_filenames_list_custom,
-        errors_memory_time_of_solution_filenames_list_custom
+        checker_log_list_no_expec_out,
+        err_mem_time_of_sol_no_expec_out,
+        participant_output_filenames_list_no_expec_out,
+        err_mem_time_of_sol_filenames_list_no_expec_out
       ) = test_solution_against_samples(
         input_samples_without_expected_output,
         None,
         False,
         input_samples_with_expected_output_num
       )
+
 
     # Finished testing the solution
     def print_results() -> None:
@@ -902,32 +946,32 @@ class Problem:
             warnings["Memory limit exceeded"] += 1
 
           time_limit_exceeded_message = ""
-          if time_taken > self.time_limit_seconds_number * 1000:
+          if time_taken > self.time_limit_seconds * 1000:
             time_limit_exceeded_message = " (Time limit exceeded)"
             warnings["Time limit exceeded"] += 1
 
           return time_limit_exceeded_message, memory_exceeded_limit_message
+        if print_answers:
+          memory, time = extract_list(errors_memory_time_of_solution)
 
-        memory, time = extract_list(errors_memory_time_of_solution)
+          for i, verdict_response in enumerate(verdict):
+            time_limit_exceeded_message, memory_limit_exceeded_message = check_memory_time(
+              memory[i][0],
+              memory[i][1],
+              time[i]
+            )
+            colored_text(
+              "\n\n" * verbose * (i > 0)+ f"<keyword>Test case</keyword> <values>{i + 1}</values>"
+              f"{(' (Custom &apos;' + self._custom_input_samples[i - input_samples_num] + '&apos;), ') if i >= input_samples_num else ', '}"
+              f"time: <values_1>{time[i]} ms</values_1>{time_limit_exceeded_message}, "
+              f"memory: <values_2>{memory[i][0]} {memory[i][1]}</values_2>"
+              f"{memory_limit_exceeded_message}, "
+              f"verdict: {verdict_response}"
+            )
+            print(checker_log_list[i] * verbose, end="\n" * verbose)
 
-        for i, verdict_response in enumerate(verdict):
-          time_limit_exceeded_message, memory_limit_exceeded_message = check_memory_time(
-            memory[i][0],
-            memory[i][1],
-            time[i]
-          )
-          colored_text(
-            "\n" + '\n' * (i > 0) + f"<keyword>Test case</keyword> <values>{i + 1}</values>"
-            f"{(' (Custom &apos;' + self._custom_input_samples[i - input_samples_num] + '&apos;), ') if i >= input_samples_num else ', '}"
-            f"time: <values_1>{time[i]} ms</values_1>{time_limit_exceeded_message}, "
-            f"memory: <values_2>{memory[i][0]} {memory[i][1]}</values_2>"
-            f"{memory_limit_exceeded_message}, "
-            f"verdict: {verdict_response}"
-          )
-          print(checker_log_list[i] * verbose)
-
-        if not expected_output_bool:
-          memory, time = extract_list(errors_memory_time_of_solution_custom)
+        if not custom_input_without_expected_output_bool:
+          memory, time = extract_list(err_mem_time_of_sol_no_expec_out)
           for i in range(
             input_samples_with_expected_output_num,
             input_samples_with_expected_output_num + input_samples_without_expected_output_num
@@ -939,34 +983,36 @@ class Problem:
               time[aux]
             )
             colored_text(
-              "\n" + "\n" * (i > 0) + f"<keyword>Test case</keyword> <values>{i + 1}</values>"
-              " (Custom &apos;" + input_samples_without_expected_output[aux] + "&apos;), "
+              "\n\n" * verbose * (i > 0)+ f"<keyword>Test case</keyword> <values>{i + 1}</values>"
+              " (" + ("Custom " * print_answers) + "&apos;" + input_samples_without_expected_output[aux] + "&apos;), "
               f"time: <values_1>{time[aux]} ms</values_1>{time_limit_exceeded_message}, "
               f"memory: <values_2>{memory[aux][0]} {memory[aux][1]}</values_2>"
               f"{memory_limit_exceeded_message}"
             )
-            print(checker_log_list_custom[aux] * verbose)
+            print(checker_log_list_no_expec_out[aux] * verbose, end="\n" * verbose)
 
       else:
-        for i, verdict_response in enumerate(verdict):
-          colored_text(
-            "\n" + '\n' * (i > 0) + f"<keyword>Test case</keyword> <values>{i + 1}</values>"
-            f"{(' (Custom &apos;' + self._custom_input_samples[i - input_samples_num] + '&apos;), ') if i >= input_samples_num else ', '}"
-            f"verdict: {verdict_response}"
-          )
-          print(checker_log_list[i] * verbose)
+        if print_answers:
+          for i, verdict_response in enumerate(verdict):
+            colored_text(
+              "\n\n" * verbose * (i > 0)+ f"<keyword>Test case</keyword> <values>{i + 1}</values>"
+              f"{(' (Custom &apos;' + self._custom_input_samples[i - input_samples_num] + '&apos;), ') if i >= input_samples_num else ', '}"
+              f"verdict: {verdict_response}"
+            )
+            print(checker_log_list[i] * verbose, end="\n" * verbose)
 
-        if not expected_output_bool:
+        if not custom_input_without_expected_output_bool:
           for i in range(
             input_samples_with_expected_output_num,
             input_samples_with_expected_output_num + input_samples_without_expected_output_num
           ):
             aux = i - input_samples_with_expected_output_num
             colored_text(
-              "\n" + "\n" * (i > 0) + f"<keyword>Test case</keyword> <values>{i + 1}</values>"
-              " (Custom &apos;" + input_samples_without_expected_output[aux] + "&apos;)"
+              "\n\n" * verbose * (i > 0)+ f"<keyword>Test case</keyword> <values>{i + 1}</values>"
+              " (" + ("Custom " * print_answers) + "&apos;" + input_samples_without_expected_output[aux] + "&apos;)"
             )
-            print(checker_log_list_custom[aux] * verbose)
+            print(checker_log_list_no_expec_out[aux] * verbose, end="\n" * verbose)
+
 
     test_results_file_path = osPath.join(resources_folder, "test_samples_results.json")
     test_results: dict = read_json_file(test_results_file_path)
@@ -978,11 +1024,10 @@ class Problem:
           test_results["warnings"] = warnings
         return test_results["warnings"]
 
+    print_results()
     # If solution get accepted
     if accepeted:
-      print_results()
-      colored_text("\n\nVerdict: <accepted>Demo accepeted</accepted>")
-
+      colored_text("\nVerdict: <accepted>Demo accepeted</accepted>")
       # Saving test results
       # ========================================================================
       if test_results["unsolved_problems"].get(self.problem_index) is not None:
@@ -1006,8 +1051,6 @@ class Problem:
         if mem_time_calc:
           test_results["demo_accepted"][self.problem_index]["warnings"] = warnings
 
-      # ========================================================================
-
       else:
         print("\nYou have already solved this problem!")
         augment_errors_warnings(errors, test_results["demo_accepted"][self.problem_index]["errors"])
@@ -1018,6 +1061,7 @@ class Problem:
           )
 
       write_json_file(test_results, test_results_file_path, 2)
+      # ========================================================================
 
       # Removing test samples files
       # =========================================================
@@ -1027,16 +1071,17 @@ class Problem:
         remove_files(self._expected_output_samples)
         remove_files(participant_output_filenames_list)
         remove_files(errors_memory_time_of_solution_filenames_list)
-        if not expected_output_bool:
-          remove_files(errors_memory_time_of_solution_filenames_list_custom)
-          remove_files(participant_output_filenames_list_custom)
+        if not custom_input_without_expected_output_bool:
+          remove_files(err_mem_time_of_sol_filenames_list_no_expec_out)
+          remove_files(participant_output_filenames_list_no_expec_out)
       # =========================================================
 
     #* The solution is not correct, whether the verdict outputs 'wrong answer' or an error
-    else:
-      print_results()
-      colored_text(f"\n\nVerdict: {self._fwrong}")
+    elif accepeted is False:
+      colored_text(f"\nVerdict: {self._fwrong}")
 
+      # Saving test results
+      # ===========================================================================================
       if test_results["demo_accepted"].get(self.problem_index) is not None:
         augment_errors_warnings(errors, test_results["demo_accepted"][self.problem_index]["errors"])
         if mem_time_calc:
@@ -1067,11 +1112,9 @@ class Problem:
         )
 
       write_json_file(test_results, test_results_file_path, 2)
+      # ===========================================================================================
 
     if working_in_script:
       if stop_program:
         sysExit(0)
       # os.remove("cfkit_module_user_code.py")
-
-if __name__ == "__main__":
-  pass

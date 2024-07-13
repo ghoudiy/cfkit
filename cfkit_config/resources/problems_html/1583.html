@@ -1,0 +1,1506 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN">
+<html lang="en">
+<head>
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-743380-5"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-743380-5');
+        </script>
+
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta name="X-Csrf-Token" content="b731fa95a00dc3b1e88bd959dd7a181e"/>
+    <meta id="viewport" name="viewport" content="width=device-width, initial-scale=0.01"/>
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery-1.8.3.js"></script>
+    <script type="application/javascript">
+        window.locale = "en";
+        window.standaloneContest = false;
+        function adjustViewport() {
+            var screenWidthPx = Math.min($(window).width(), window.screen.width);
+            var siteWidthPx = 1100; // min width of site
+            var ratio = Math.min(screenWidthPx / siteWidthPx, 1.0);
+            var viewport = "width=device-width, initial-scale=" + ratio;
+            $('#viewport').attr('content', viewport);
+            var style = $('<style>html * { max-height: 1000000px; }</style>');
+            $('html > head').append(style);
+        }
+
+        if ( /Android|webOS|iPhone|iPad|iPod|BlackBerry/i.test(navigator.userAgent) ) {
+            adjustViewport();
+        }
+
+        /* Protection against trailing dot in domain. */
+        let hostLength = window.location.host.length;
+        if (hostLength > 1 && window.location.host[hostLength - 1] === '.') {
+            window.location = window.location.protocol + "//" + window.location.host.substring(0, hostLength - 1);
+        }
+    </script>
+
+    <meta http-equiv="pragma" content="no-cache">
+    <meta http-equiv="expires" content="-1">
+    <meta http-equiv="profileName" content="k3">
+    <meta name="google-site-verification" content="OTd2dN5x4nS4OPknPI9JFg36fKxjqY0i1PSfFPv_J90"/>
+    <meta property="fb:admins" content="100001352546622" />
+    <meta property="og:image" content="//codeforces.org/s/74235/images/codeforces-sponsored-by-ton.png" />
+    <link rel="image_src" href="//codeforces.org/s/74235/images/codeforces-sponsored-by-ton.png" />
+    <meta property="og:title" content="Problems - Codeforces"/>
+    <meta property="og:description" content=""/>
+    
+    <meta property="og:site_name" content="Codeforces"/>
+    
+    
+    
+    
+    
+    
+    <meta name="utc_offset" content="+03:00"/>
+    <meta name="verify-reformal" content="f56f99fd7e087fb6ccb48ef2" />
+    <title>Problems - Codeforces</title>
+        <meta name="description" content="Codeforces. Programming competitions and contests, programming community" />
+        <meta name="keywords" content="programming algorithm contest competition informatics olympiads c++ java graphs vkcup" />
+    <meta name="robots" content="index, follow" />
+
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/font-awesome.min.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/line-awesome.min.css" type="text/css" charset="utf-8" />
+
+        <link href='//fonts.googleapis.com/css?family=PT+Sans+Narrow:400,700&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+        <link href='//fonts.googleapis.com/css?family=Cuprum&subset=latin,cyrillic' rel='stylesheet' type='text/css'>
+
+
+    <link rel="apple-touch-icon" sizes="57x57" href="//codeforces.org/s/74235/apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="//codeforces.org/s/74235/apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="//codeforces.org/s/74235/apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="//codeforces.org/s/74235/apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="//codeforces.org/s/74235/apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="//codeforces.org/s/74235/apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="//codeforces.org/s/74235/apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="//codeforces.org/s/74235/apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="//codeforces.org/s/74235/apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="//codeforces.org/s/74235/android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="//codeforces.org/s/74235/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="//codeforces.org/s/74235/favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="//codeforces.org/s/74235/favicon-16x16.png">
+    <link rel="manifest" href="/manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="//codeforces.org/s/74235/ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <!--CombineResourcesFilter-->
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/prettify.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/clear.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/ttypography.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/problem-statement.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/second-level-menu.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/roundbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/datatable.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/table-form.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/topic.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.jgrowl.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/facebox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.wysiwyg.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.autocomplete.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/codeforces.datepick.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/colorbox.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/css/jquery.drafts.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/74235/css/community.css" type="text/css" charset="utf-8" />
+        <link rel="stylesheet" href="//codeforces.org/s/74235/css/sidebar-menu.css" type="text/css" charset="utf-8" />
+
+    <!-- MathJax -->
+    <script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+      tex2jax: {inlineMath: [['$$$','$$$']], displayMath: [['$$$$$$','$$$$$$']]}
+    });
+    MathJax.Hub.Register.StartupHook("End", function () {
+        Codeforces.runMathJaxListeners();
+    });
+    </script>
+    <script type="text/javascript" async
+            src="https://mathjax.codeforces.org/MathJax.js?config=TeX-AMS_HTML-full"
+    >
+    </script>
+    <!-- /MathJax -->
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/prettify/prettify.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/moment-with-locales.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/pushstream.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.easing.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.lavalamp.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.jgrowl.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.swipe.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.hotkeys.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/facebox.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.wysiwyg.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.colorpicker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.table.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.image.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/controls/wysiwyg.link.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.autocomplete.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.datepick.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.ie6blocker.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.colorbox-min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.ba-bbq.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/jquery.drafts.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/clipboard.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/autosize.min.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/sjcl.js"></script>
+    <script type="text/javascript" src="/scripts/035ab48d8606d47d3582ea5213de84e9/en/codeforces-options.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/codeforces.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/EventCatcher.js?v=20160131"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/preparedVerdictFormats-en.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/js/confetti.min.js"></script>
+    <!--/CombineResourcesFilter-->
+
+    <link rel="stylesheet" href="//codeforces.org/s/74235/markitup/skins/markitup/style.css" type="text/css" charset="utf-8" />
+    <link rel="stylesheet" href="//codeforces.org/s/74235/markitup/sets/markdown/style.css" type="text/css" charset="utf-8" />
+
+
+    <script type="text/javascript" src="//codeforces.org/s/74235/markitup/jquery.markitup.js"></script>
+    <script type="text/javascript" src="//codeforces.org/s/74235/markitup/sets/markdown/set.js"></script>
+
+    <!--[if IE]>
+    <style>
+        #sidebar {
+            padding-left: 1em;
+            margin: 1em 1em 1em 0;
+        }
+    </style>
+    <![endif]-->
+
+
+
+
+</head>
+<body class=" "><span style='display:none;' class='csrf-token' data-csrf='b731fa95a00dc3b1e88bd959dd7a181e'>&nbsp;</span>
+
+<!-- .notificationTextCleaner used in Codeforces.showAnnouncements() -->
+<div class="notificationTextCleaner" style="font-size: 0"></div>
+<div class="button-up" style="display: none; opacity: 0.7; width: 50px; height:100%; position: fixed; left: 0; top: 0; cursor: pointer; text-align: center; line-height: 35px; color: #d3dbe4; font-weight: bold; font-size: 3.0rem;"><i class="icon-circle-arrow-up"></i></div>
+<div class="verdictPrototypeDiv" style="display: none;"></div>
+
+<!-- Codeforces JavaScripts. -->
+<script type="text/javascript">
+    String.prototype.hashCode = function() {
+        var hash = 0, i, chr;
+        if (this.length === 0) return hash;
+        for (i = 0; i < this.length; i++) {
+            chr   = this.charCodeAt(i);
+            hash  = ((hash << 5) - hash) + chr;
+            hash |= 0; // Convert to 32bit integer
+        }
+        return hash;
+    };
+
+    var queryMobile = Codeforces.queryString.mobile;
+    if (queryMobile === "true" || queryMobile === "false") {
+        Codeforces.putToStorage("useMobile", queryMobile === "true");
+    } else {
+        var useMobile = Codeforces.getFromStorage("useMobile");
+        if (useMobile === true || useMobile === false) {
+            if (useMobile != false) {
+                Codeforces.redirect(Codeforces.updateUrlParameter(document.location.href, "mobile", useMobile));
+            }
+        }
+    }
+</script>
+
+<script type="text/javascript">
+    if (window.parent.frames.length > 0) {
+        window.stop();
+    }
+</script>
+
+
+
+
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+    (function () {
+        jQuery.expr[':'].containsCI = function(elem, index, match) {
+            return !match || !match.length || match.length < 4 || !match[3] || (
+                    elem.textContent || elem.innerText || jQuery(elem).text() || ''
+            ).toLowerCase().indexOf(match[3].toLowerCase()) >= 0;
+        }
+    }(jQuery));
+
+    $.ajaxPrefilter(function(options, originalOptions, xhr) {
+        var csrf = Codeforces.getCsrfToken();
+
+        if (csrf) {
+            var data = originalOptions.data;
+            if (originalOptions.data !== undefined) {
+                if (Object.prototype.toString.call(originalOptions.data) === '[object String]') {
+                    data = $.deparam(originalOptions.data);
+                }
+            } else {
+                data = {};
+            }
+            options.data = $.param($.extend(data, { csrf_token: csrf }));
+        }
+    });
+
+    window.getCodeforcesServerTime = function(callback) {
+        $.post("/data/time", {}, callback, "json");
+    }
+
+    window.updateTypography = function () {
+        $("div.ttypography code").addClass("tt");
+        $("div.ttypography pre>code").addClass("prettyprint").removeClass("tt");
+        $("div.ttypography table").addClass("bordertable");
+        prettyPrint();
+    }
+
+    $.ajaxSetup({ scriptCharset: "utf-8" ,contentType: "application/x-www-form-urlencoded; charset=UTF-8", headers: {
+        'X-Csrf-Token': Codeforces.getCsrfToken()
+    }});
+
+    window.updateTypography();
+
+    Codeforces.signForms();
+
+    setTimeout(function() {
+        $(".second-level-menu-list").lavaLamp({
+            fx: "backout",
+            speed: 700
+        });
+    }, 100);
+
+
+    Codeforces.countdown();
+    $("a[rel='photobox']").colorbox();
+
+
+    function showAnnouncements(json) {
+        //info("j=" + JSON.stringify(json));
+
+        if (json.t != "a") {
+            return;
+        }
+
+        setTimeout(function() {
+            Codeforces.showAnnouncements(json.d, "en");
+        }, Math.random() * 500);
+    }
+
+    function showEventCatcherUserMessage(json) {
+        if (json.t == "s") {
+            var points = json.d[5];
+            var passedTestCount = json.d[7];
+            var judgedTestCount = json.d[8];
+            var verdict = preparedVerdictFormats[json.d[12]];
+            var verdictPrototypeDiv = $(".verdictPrototypeDiv");
+            verdictPrototypeDiv.html(verdict);
+            if (judgedTestCount != null && judgedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-judged").text(judgedTestCount);
+            }
+            if (passedTestCount != null && passedTestCount != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-passed").text(passedTestCount);
+            }
+            if (points != null && points != undefined) {
+                verdictPrototypeDiv.find(".verdict-format-points").text(points);
+            }
+            Codeforces.showMessage(verdictPrototypeDiv.text());
+        }
+    }
+
+    $(".clickable-title").each(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            var tmp = document.createElement("DIV");
+            tmp.innerHTML = title;
+            $(this).attr("title", tmp.textContent || tmp.innerText || "");
+        }
+    });
+
+    $(".clickable-title").click(function() {
+        var title = $(this).attr("data-title");
+        if (title) {
+            Codeforces.alert(title);
+        } else {
+            Codeforces.alert($(this).attr("title"));
+        }
+    }).css("position", "relative").css("bottom", "3px");
+
+        Codeforces.showDelayedMessage();
+
+    Codeforces.reformatTimes();
+
+    //Codeforces.initializePubSub();
+    if (window.codeforcesOptions.subscribeServerUrl) {
+        window.eventCatcher = new EventCatcher(
+            window.codeforcesOptions.subscribeServerUrl,
+            [
+                Codeforces.getGlobalChannel(),
+                Codeforces.getUserChannel(),
+                Codeforces.getUserShowMessageChannel(),
+                Codeforces.getContestChannel(),
+                Codeforces.getParticipantChannel(),
+                Codeforces.getTalkChannel()
+            ]
+        );
+
+        if (Codeforces.getParticipantChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getParticipantChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getContestChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getContestChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getGlobalChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getGlobalChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserChannel(), function(json) {
+                showAnnouncements(json);
+            });
+        }
+
+        if (Codeforces.getUserShowMessageChannel()) {
+            window.eventCatcher.subscribe(Codeforces.getUserShowMessageChannel(), function(json) {
+                showEventCatcherUserMessage(json);
+            });
+        }
+    }
+
+    Codeforces.setupContestTimes("/data/contests");
+    Codeforces.setupSpoilers();
+    Codeforces.setupTutorials("/data/problemTutorial");
+        });
+    </script>
+
+
+<div id="body">
+<div style="width: 950px; margin: 0 auto;" class="compact-problemset">
+    <div id="header" style="position: relative; margin: 0;">
+        <div style="float:left;">
+            <div><a href="/technocup2022"><img src="//assets.codeforces.com/images/technocup-logo-en.png"/></a></div>
+        </div>
+        <div class="lang">
+            <div style="text-align: right;">
+                <a href="?locale=en"><img src="//codeforces.org/s/74235/images/flags/24/gb.png" title="In English" alt="In English"/></a>
+                <a href="?locale=ru"><img src="//codeforces.org/s/74235/images/flags/24/ru.png" title="По-русски" alt="По-русски"/></a>
+            </div>
+        </div>
+        <br style="clear: both;"/>
+    </div>
+
+    <br style="clear: both;"/>
+
+    <div style="text-align: center; font-size: 1.8rem; margin-bottom: 0.5em;"
+         class="caption">Technocup 2022 - Elimination Round 1</div>
+    <div style="border-top: 1px solid #ccc; height: 1em;"></div>
+
+    <div class="problem-frames">
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+    <style>
+        #facebox .content:has(.diff-popup) {
+            width: 90vw;
+            max-width: 120rem !important;
+        }
+
+        .testCaseMarker {
+            position: absolute;
+            font-weight: bold;
+            font-size: 1rem;
+        }
+
+        .diff-popup {
+            width: 90vw;
+            max-width: 120rem !important;
+            display: none;
+            overflow: auto;
+        }
+
+        .input-output-copier {
+            font-size: 1.2rem;
+            float: right;
+            color: #888 !important;
+            cursor: pointer;
+            border: 1px solid rgb(185, 185, 185);
+            padding: 3px;
+            margin: 1px;
+            line-height: 1.1rem;
+            text-transform: none;
+        }
+
+        .input-output-copier:hover {
+            background-color: #def;
+        }
+
+        .test-explanation textarea {
+            width: 100%;
+            height: 1.5em;
+        }
+
+        .pending-submission-message {
+            color: darkorange !important;
+        }
+    </style>
+    <script>
+        const OPENING_SPACE = String.fromCharCode(1001);
+        const CLOSING_SPACE = String.fromCharCode(1002);
+
+        const nodeToText = function (node, pre) {
+            let result = [];
+
+            if (node.tagName === "SCRIPT" || node.tagName === "math"
+                || (node.classList && node.classList.contains("input-output-copier")))
+                return [];
+
+            if (node.tagName === "NOBR") {
+                result.push(OPENING_SPACE);
+            }
+
+            if (node.nodeType === Node.TEXT_NODE) {
+                let s = node.textContent;
+                if (!pre) {
+                    s = s.replace(/\s+/g, " ");
+                }
+                if (s.length > 0) {
+                    result.push(s);
+                }
+            }
+
+            if (pre && node.tagName === "BR") {
+                result.push("\n");
+            }
+
+            node.childNodes.forEach(function (child) {
+                result.push(nodeToText(child, node.tagName === "PRE").join(""));
+            });
+
+            if (node.tagName === "DIV"
+                || node.tagName === "P"
+                || node.tagName === "PRE"
+                || node.tagName === "UL"
+                || node.tagName === "LI"
+            ) {
+                result.push("\n");
+            }
+
+            if (node.tagName === "NOBR") {
+                result.push(CLOSING_SPACE);
+            }
+
+            return result;
+        }
+
+        const isSpecial = function (c) {
+            return c === ',' || c === '.' || c === ';' || c === ')' || c === ' ';
+        }
+
+        const convertStatementToText = function(statmentNode) {
+            const text = nodeToText(statmentNode, false).join("").replace(/ +/g, " ").replace(/\n\n+/g, "\n\n");
+            let result = [];
+            for (let i = 0; i < text.length; i++) {
+                const c = text.charAt(i);
+                if (c === OPENING_SPACE) {
+                    if (!((i > 0 && text.charAt(i - 1) === '(') || (result.length > 0 && result[result.length - 1] === ' '))) {
+                        result.push('+');
+                    }
+                } else if (c === CLOSING_SPACE) {
+                    if (!(i + 1 < text.length && isSpecial(text.charAt(i + 1)))) {
+                        result.push('-');
+                    }
+                } else {
+                    result.push(c);
+                }
+            }
+            return result.join("").split("\n").map(value => value.trim()).join("\n");
+        };
+    </script>
+    <div class="diff-popup">
+    </div>
+
+<div class="problemindexholder" problemindex="A" data-uuid="ps_ee4ab319933cb6e148d5d797fdf09eda8ae7aef4">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">A. Windblume Ode</div><div class="time-limit"><div class="property-title">time limit per test</div>1 second</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">A bow adorned with nameless flowers that bears the earnest hopes of an equally nameless person.</span></p><p>You have obtained the elegant bow known as the Windblume Ode. Inscribed in the weapon is an array of $$$n$$$ ($$$n \ge 3$$$) positive <span class="tex-font-style-bf">distinct</span> integers (i.e. different, no duplicates are allowed).</p><p>Find the largest subset (i.e. having the maximum number of elements) of this array such that its sum is a composite number. A positive integer $$$x$$$ is called composite if there exists a positive integer $$$y$$$ such that $$$1 &lt; y &lt; x$$$ and $$$x$$$ is divisible by $$$y$$$.</p><p>If there are multiple subsets with this largest size with the composite sum, you can output any of them. It can be proven that under the constraints of the problem such a non-empty subset always exists.</p></div><div class="input-specification"><div class="section-title">Input</div><p>Each test consists of multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 100$$$). Description of the test cases follows.</p><p>The first line of each test case contains an integer $$$n$$$ ($$$3 \leq n \leq 100$$$) — the length of the array.</p><p>The second line of each test case contains $$$n$$$ <span class="tex-font-style-bf">distinct</span> integers $$$a_{1},a_{2},\dots,a_{n}$$$ ($$$1 \leq a_{i} \leq 200$$$) — the elements of the array.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Each test case should have two lines of output.</p><p>The first line should contain a single integer $$$x$$$: the size of the largest subset with composite sum. The next line should contain $$$x$$$ space separated integers representing the indices of the subset of the initial array.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+4
+3
+8 1 2
+4
+6 9 4 2
+9
+1 2 3 4 5 6 7 8 9
+3
+200 199 198
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+2 1
+4
+2 1 4 3
+9
+6 9 1 2 3 4 5 7 8
+3
+1 2 3 
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the first test case, the subset $$$\{a_2, a_1\}$$$ has a sum of $$$9$$$, which is a composite number. The only subset of size $$$3$$$ has a prime sum equal to $$$11$$$. Note that you could also have selected the subset $$$\{a_1, a_3\}$$$ with sum $$$8 + 2 = 10$$$, which is composite as it's divisible by $$$2$$$.</p><p>In the second test case, the sum of all elements equals to $$$21$$$, which is a composite number. Here we simply take the whole array as our subset.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=A]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        window.changedTests = new Set();
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+        String.prototype.replaceAll = function (search, replace) {
+            return this.split(search).join(replace);
+        };
+
+        $(".sample-test .title").each(function () {
+            const preId = ("id" + Math.random()).replaceAll(".", "0");
+            const cpyId = ("id" + Math.random()).replaceAll(".", "0");
+
+            $(this).parent().find("pre").attr("id", preId);
+            const $copy = $("<div title='Copy' data-clipboard-target='#" + preId + "' id='" + cpyId + "' class='input-output-copier'>Copy</div>");
+            $(this).append($copy);
+
+            const clipboard = new Clipboard('#' + cpyId, {
+                text: function (trigger) {
+                    const pre = document.querySelector('#' + preId);
+                    const lines = pre.querySelectorAll(".test-example-line");
+                    return Codeforces.filterClipboardText(pre.innerText, lines.length);
+                }
+            });
+
+            const isInput = $(this).parent().hasClass("input");
+
+            clipboard.on('success', function (e) {
+                if (isInput) {
+                    Codeforces.showMessage("The example input has been copied into the clipboard");
+                } else {
+                    Codeforces.showMessage("The example output has been copied into the clipboard");
+                }
+                e.clearSelection();
+            });
+        });
+
+        $(".test-form-item input").change(function () {
+            addPendingSubmissionMessage($($(this).closest("form")), "You changed the answer, do not forget to submit it if you want to save the changes");
+            const index = $(this).closest(".problemindexholder").attr("problemindex");
+            let test = "";
+            $(this).closest("form input").each(function () {
+                const test_ = $(this).attr("name");
+                if (test_ && test_.substring(0, 4) === "test") {
+                    test = test_;
+                }
+            });
+            if (index.length > 0 && test.length > 0) {
+                const indexTest = index + "::" + test;
+                window.changedTests.add(indexTest);
+            }
+        });
+
+        $(window).on('beforeunload', function () {
+            if (window.changedTests.size > 0) {
+                return 'Dialog text here';
+            }
+        });
+
+        autosize($('.test-explanation textarea'));
+
+        $(".test-example-line").hover(function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        let top = 1E20;
+                        let left = 1E20;
+                        let problem = $(this).closest(".problemindexholder");
+                        $(this).closest(".input").find("." + clazz).css("background-color", "#FFFDE7").each(function() {
+                            top = Math.min(top, $(this).offset().top);
+                            left = Math.min(left, $(this).offset().left);
+                        });
+                        let testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        if (testCaseMarker.length === 0) {
+                            const html = "<div class=\"testCaseMarker testCaseMarker_" + end + " notice\"></div>";
+                            problem.append($(html));
+                            testCaseMarker = problem.find(".testCaseMarker_" + end);
+                        }
+                        if (testCaseMarker) {
+                            testCaseMarker.show()
+                                    .offset({top, left: left - 20})
+                                    .text(end);
+                        }
+                    }
+                }
+            });
+        }, function() {
+            $(this).attr("class").split(" ").forEach((clazz) => {
+                if (clazz.substr(0, "test-example-line-".length) === "test-example-line-") {
+                    let end = clazz.substr("test-example-line-".length);
+                    if (end !== "even" && end !== "odd" && end !== "0") {
+                        $("." + clazz).css("background-color", "");
+                        $(this).closest(".problemindexholder").find(".testCaseMarker_" + end).hide();
+                    }
+                }
+            });
+        });
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="B" data-uuid="ps_f46926f8441e45dff0c97763382f851c3543bb3c">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">B. Omkar and Heavenly Tree</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Lord Omkar would like to have a tree with $$$n$$$ nodes ($$$3 \le n \le 10^5$$$) and has asked his disciples to construct the tree. However, Lord Omkar has created $$$m$$$ ($$$\mathbf{1 \le m &lt; n}$$$) restrictions to ensure that the tree will be as heavenly as possible. </p><p>A tree with $$$n$$$ nodes is an connected undirected graph with $$$n$$$ nodes and $$$n-1$$$ edges. Note that for any two nodes, there is exactly one simple path between them, where a simple path is a path between two nodes that does not contain any node more than once.</p><p>Here is an example of a tree: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/0c2c664b43f98f7f388ef52d12fba06d30758778.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>A restriction consists of $$$3$$$ pairwise distinct integers, $$$a$$$, $$$b$$$, and $$$c$$$ ($$$1 \le a,b,c \le n$$$). It signifies that node $$$b$$$ cannot lie on the simple path between node $$$a$$$ and node $$$c$$$. </p><p>Can you help Lord Omkar and become his most trusted disciple? You will need to find heavenly trees for multiple sets of restrictions. It can be shown that a heavenly tree will always exist for any set of restrictions under the given constraints.</p></div><div class="input-specification"><div class="section-title">Input</div><p>Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \leq t \leq 10^4$$$). Description of the test cases follows.</p><p>The first line of each test case contains two integers, $$$n$$$ and $$$m$$$ ($$$3 \leq n \leq 10^5$$$, $$$\mathbf{1 \leq m &lt; n}$$$), representing the size of the tree and the number of restrictions.</p><p>The $$$i$$$-th of the next $$$m$$$ lines contains three integers $$$a_i$$$, $$$b_i$$$, $$$c_i$$$ ($$$1 \le a_i, b_i, c_i \le n$$$, <span class="tex-font-style-bf">$$$a$$$, $$$b$$$, $$$c$$$ are distinct</span>), signifying that node $$$b_i$$$ cannot lie on the simple path between nodes $$$a_i$$$ and $$$c_i$$$. </p><p>It is guaranteed that the sum of $$$n$$$ across all test cases will not exceed $$$10^5$$$.</p></div><div class="output-specification"><div class="section-title">Output</div><p>For each test case, output $$$n-1$$$ lines representing the $$$n-1$$$ edges in the tree. On each line, output two integers $$$u$$$ and $$$v$$$ ($$$1 \le u, v \le n$$$, $$$u \neq v$$$) signifying that there is an edge between nodes $$$u$$$ and $$$v$$$. Given edges have to form a tree that satisfies Omkar's restrictions.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+2
+7 4
+1 2 3
+3 4 5
+5 6 7
+6 5 4
+5 3
+1 2 3
+2 3 4
+3 4 5
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1 2
+1 3
+3 5
+3 4
+2 7
+7 6
+5 1
+1 3
+3 2
+2 4
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>The output of the first sample case corresponds to the following tree: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/5026d10ec0a05362ee58628c4fadde31d96fbbaf.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> For the first restriction, the simple path between $$$1$$$ and $$$3$$$ is $$$1, 3$$$, which doesn't contain $$$2$$$. The simple path between $$$3$$$ and $$$5$$$ is $$$3, 5$$$, which doesn't contain $$$4$$$. The simple path between $$$5$$$ and $$$7$$$ is $$$5, 3, 1, 2, 7$$$, which doesn't contain $$$6$$$. The simple path between $$$6$$$ and $$$4$$$ is $$$6, 7, 2, 1, 3, 4$$$, which doesn't contain $$$5$$$. Thus, this tree meets all of the restrictions.<p>The output of the second sample case corresponds to the following tree: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/91bb7614d530ff4a97985fdbc5086f2e60568451.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=B]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="C" data-uuid="ps_b1efeccc95366e3d24ff4d550720504ad1bfe111">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">C. Omkar and Determination</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">The problem statement looms below, filling you with determination.</span></p><p>Consider a grid in which some cells are empty and some cells are filled. Call a cell in this grid <span class="tex-font-style-bf">exitable</span> if, starting at that cell, you can exit the grid by moving up and left through only empty cells. This includes the cell itself, so all filled in cells are not exitable. Note that you can exit the grid from any leftmost empty cell (cell in the first column) by going left, and from any topmost empty cell (cell in the first row) by going up.</p><p>Let's call a grid <span class="tex-font-style-bf">determinable</span> if, given only which cells are exitable, we can exactly determine which cells are filled in and which aren't.</p><p>You are given a grid $$$a$$$ of dimensions $$$n \times m$$$ , i. e. a grid with $$$n$$$ rows and $$$m$$$ columns. You need to answer $$$q$$$ queries ($$$1 \leq q \leq 2 \cdot 10^5$$$). Each query gives two integers $$$x_1, x_2$$$ ($$$1 \leq x_1 \leq x_2 \leq m$$$) and asks whether the subgrid of $$$a$$$ consisting of the columns $$$x_1, x_1 + 1, \ldots, x_2 - 1, x_2$$$ is determinable.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n, m$$$ ($$$1 \leq n, m \leq 10^6$$$, $$$nm \leq 10^6$$$)  — the dimensions of the grid $$$a$$$.</p><p>$$$n$$$ lines follow. The $$$y$$$-th line contains $$$m$$$ characters, the $$$x$$$-th of which is '<span class="tex-font-style-tt">X</span>' if the cell on the intersection of the the $$$y$$$-th row and $$$x$$$-th column is filled and &quot;<span class="tex-font-style-tt">.</span>&quot; if it is empty.</p><p>The next line contains a single integer $$$q$$$ ($$$1 \leq q \leq 2 \cdot 10^5$$$)  — the number of queries.</p><p>$$$q$$$ lines follow. Each line contains two integers $$$x_1$$$ and $$$x_2$$$ ($$$1 \leq x_1 \leq x_2 \leq m$$$), representing a query asking whether the subgrid of $$$a$$$ containing the columns $$$x_1, x_1 + 1, \ldots, x_2 - 1, x_2$$$ is determinable.</p></div><div class="output-specification"><div class="section-title">Output</div><p>For each query, output one line containing &quot;<span class="tex-font-style-tt">YES</span>&quot; if the subgrid specified by the query is determinable and &quot;<span class="tex-font-style-tt">NO</span>&quot; otherwise. The output is case insensitive (so &quot;<span class="tex-font-style-tt">yEs</span>&quot; and &quot;<span class="tex-font-style-tt">No</span>&quot; will also be accepted).</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+4 5
+..XXX
+...X.
+...X.
+...X.
+5
+1 3
+3 3
+4 5
+5 5
+1 5
+</pre></div><div class="output"><div class="title">Output</div><pre>
+YES
+YES
+NO
+YES
+NO
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>For each query of the example, the corresponding subgrid is displayed twice below: first in its input format, then with each cell marked as &quot;<span class="tex-font-style-tt">E</span>&quot; if it is exitable and &quot;<span class="tex-font-style-tt">N</span>&quot; otherwise.</p><p>For the first query: </p><pre class="verbatim"><br />..X EEN<br />... EEE<br />... EEE<br />... EEE<br /></pre><pre class="verbatim"><br /><br /></pre><p>For the second query: </p><pre class="verbatim"><br />X N<br />. E<br />. E<br />. E<br /></pre><p>Note that you can exit the grid by going left from any leftmost cell (or up from any topmost cell); you do not need to reach the top left corner cell to exit the grid.</p><pre class="verbatim"><br /><br /></pre><p>For the third query: </p><pre class="verbatim"><br />XX NN<br />X. NN<br />X. NN<br />X. NN<br /></pre><p>This subgrid cannot be determined only from whether each cell is exitable, because the below grid produces the above &quot;exitability grid&quot; as well: </p><pre class="verbatim"><br />XX<br />XX<br />XX<br />XX<br /></pre><pre class="verbatim"><br /><br /></pre><p>For the fourth query: </p><pre class="verbatim"><br />X N<br />. E<br />. E<br />. E<br /></pre><pre class="verbatim"><br /><br /></pre><p>For the fifth query: </p><pre class="verbatim"><br />..XXX EENNN<br />...X. EEENN<br />...X. EEENN<br />...X. EEENN<br /></pre><p>This query is simply the entire grid. It cannot be determined only from whether each cell is exitable because the below grid produces the above &quot;exitability grid&quot; as well: </p><pre class="verbatim"><br />..XXX<br />...XX<br />...XX<br />...XX<br /></pre></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=C]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="D" data-uuid="ps_b0f4ca7ad431b6c2df4e7f52c6bd2e962a423ed4">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">D. Omkar and the Meaning of Life</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>It turns out that the meaning of life is a permutation $$$p_1, p_2, \ldots, p_n$$$ of the integers $$$1, 2, \ldots, n$$$ ($$$2 \leq n \leq 100$$$). Omkar, having created all life, knows this permutation, and will allow you to figure it out using some queries.</p><p>A query consists of an array $$$a_1, a_2, \ldots, a_n$$$ of integers between $$$1$$$ and $$$n$$$. $$$a$$$ is <span class="tex-font-style-bf">not</span> required to be a permutation. Omkar will first compute the pairwise sum of $$$a$$$ and $$$p$$$, meaning that he will compute an array $$$s$$$ where $$$s_j = p_j + a_j$$$ for all $$$j = 1, 2, \ldots, n$$$. Then, he will find the smallest index $$$k$$$ such that $$$s_k$$$ occurs more than once in $$$s$$$, and answer with $$$k$$$. If there is no such index $$$k$$$, then he will answer with $$$0$$$.</p><p>You can perform at most $$$2n$$$ queries. Figure out the meaning of life $$$p$$$.</p></div><div><div class="section-title">Interaction</div><p>Start the interaction by reading single integer $$$n$$$ ($$$2 \leq n \leq 100$$$)  — the length of the permutation $$$p$$$.</p><p>You can then make queries. A query consists of a single line &quot;$$$? \enspace a_1 \enspace a_2 \enspace \ldots \enspace a_n$$$&quot; ($$$1 \leq a_j \leq n$$$).</p><p>The answer to each query will be a single integer $$$k$$$ as described above ($$$0 \leq k \leq n$$$).</p><p>After making a query do not forget to output end of line and flush the output. Otherwise, you will get <span class="tex-font-style-tt">Idleness limit exceeded</span>. To do this, use:</p><ul><li> <span class="tex-font-style-tt">fflush(stdout)</span> or <span class="tex-font-style-tt">cout.flush()</span> in C++;</li><li> <span class="tex-font-style-tt">System.out.flush()</span> in Java;</li><li> <span class="tex-font-style-tt">flush(output)</span> in Pascal;</li><li> <span class="tex-font-style-tt">stdout.flush()</span> in Python;</li><li> see documentation for other languages.</li></ul><p>To output your answer, print a single line &quot;$$$! \enspace p_1 \enspace p_2 \enspace \ldots \enspace p_n$$$&quot; then terminate.</p><p>You can make at most $$$2n$$$ queries. Outputting the answer does not count as a query.</p><p><span class="tex-font-style-bf">Hack Format</span></p><p>To hack, first output a line containing $$$n$$$ ($$$2 \leq n \leq 100$$$), then output another line containing the hidden permutation $$$p_1, p_2, \ldots, p_n$$$ of numbers from $$$1$$$ to $$$n$$$.</p></div><div class="sample-tests"><div class="section-title">Example</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5
+
+2
+
+0
+
+1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+
+? 4 4 2 3 2
+
+? 3 5 1 5 5
+
+? 5 2 4 3 1
+
+! 3 2 1 5 4
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>In the sample, the hidden permutation $$$p$$$ is $$$[3, 2, 1, 5, 4]$$$. Three queries were made.</p><p>The first query is $$$a = [4, 4, 2, 3, 2]$$$. This yields $$$s = [3 + 4, 2 + 4, 1 + 2, 5 + 3, 4 + 2] = [7, 6, 3, 8, 6]$$$. $$$6$$$ is the only number that appears more than once, and it appears first at index $$$2$$$, making the answer to the query $$$2$$$.</p><p>The second query is $$$a = [3, 5, 1, 5, 5]$$$. This yields $$$s = [3 + 3, 2 + 5, 1 + 1, 5 + 5, 4 + 5] = [6, 7, 2, 10, 9]$$$. There are no numbers that appear more than once here, so the answer to the query is $$$0$$$.</p><p>The third query is $$$a = [5, 2, 4, 3, 1]$$$. This yields $$$s = [3 + 5, 2 + 2, 1 + 4, 5 + 3, 4 + 1] = [8, 4, 5, 8, 5]$$$. $$$5$$$ and $$$8$$$ both occur more than once here. $$$5$$$ first appears at index $$$3$$$, while $$$8$$$ first appears at index $$$1$$$, and $$$1 &lt; 3$$$, making the answer to the query $$$1$$$.</p><p>Note that the sample is only meant to provide an example of how the interaction works; it is not guaranteed that the above queries represent a correct strategy with which to determine the answer.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=D]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="E" data-uuid="ps_88e960b86d9a6177f51957aa40727f49c7620105">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">E. Moment of Bloom</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">She does her utmost to flawlessly carry out a person's last rites and preserve the world's balance of yin and yang.</span></p><p>Hu Tao, being the little prankster she is, has tried to scare you with this graph problem! You are given a connected undirected graph of $$$n$$$ nodes with $$$m$$$ edges. You also have $$$q$$$ queries. Each query consists of two nodes $$$a$$$ and $$$b$$$.</p><p>Initially, all edges in the graph have a weight of $$$0$$$. For each query, you must choose a simple path starting from $$$a$$$ and ending at $$$b$$$. Then you add $$$1$$$ to every edge along this path. Determine if it's possible, after processing all $$$q$$$ queries, for all edges in this graph to have an even weight. If so, output the choice of paths for each query. </p><p>If it is not possible, determine the smallest number of extra queries you could add to make it possible. It can be shown that this number will not exceed $$$10^{18}$$$ under the given constraints.</p><p>A simple path is defined as any path that does not visit a node more than once.</p><p>An edge is said to have an even weight if its value is divisible by $$$2$$$.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n$$$ and $$$m$$$ ($$$2 \leq n \leq 3 \cdot 10^5$$$, $$$n-1 \leq m \leq \min{\left(\frac{n(n-1)}{2}, 3 \cdot 10^5\right)}$$$).</p><p>Each of the next $$$m$$$ lines contains two integers $$$x$$$ and $$$y$$$ ($$$1 \leq x, y \leq n$$$, $$$x\neq y$$$) indicating an undirected edge between node $$$x$$$ and $$$y$$$. The input will not contain self-loops or duplicate edges, and the provided graph will be connected.</p><p>The next line contains a single integer $$$q$$$ ($$$1 \leq q \leq 3 \cdot 10^5$$$).</p><p>Each of the next $$$q$$$ lines contains two integers $$$a$$$ and $$$b$$$ ($$$1 \leq a, b \leq n, a \neq b$$$), the description of each query.</p><p>It is guaranteed that $$$nq \leq 3 \cdot 10^5$$$.</p></div><div class="output-specification"><div class="section-title">Output</div><p>If it is possible to force all edge weights to be even, print &quot;<span class="tex-font-style-tt">YES</span>&quot; on the first line, followed by $$$2q$$$ lines indicating the choice of path for each query in the same order the queries are given. For each query, the first line should contain a single integer $$$x$$$: the number of nodes in the chosen path. The next line should then contain $$$x$$$ spaced separated integers $$$p_i$$$ indicating the path you take ($$$p_1 = a, p_x = b$$$ and all numbers should fall between $$$1$$$ and $$$n$$$). This path cannot contain duplicate nodes and must be a valid simple path in the graph.</p><p>If it is impossible to force all edge weights to be even, print &quot;<span class="tex-font-style-tt">NO</span>&quot; on the first line and the minimum number of added queries on the second line.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+6 7
+2 1
+2 3
+3 5
+1 4
+6 1
+5 6
+4 5
+3
+1 4
+5 1
+4 5
+</pre></div><div class="output"><div class="title">Output</div><pre>
+YES
+2
+1 4
+4
+5 3 2 1
+5
+4 1 2 3 5
+</pre></div><div class="input"><div class="title">Input</div><pre>
+5 7
+4 3
+4 5
+2 1
+1 4
+1 3
+3 5
+3 2
+4
+4 2
+3 5
+5 1
+4 5
+</pre></div><div class="output"><div class="title">Output</div><pre>
+NO
+2
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>Here is what the queries look like for the first test case (red corresponds to the 1st query, blue 2nd query, and green 3rd query): </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/cff60d7a348c8b938062354e8c3d181a88699f55.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> Notice that every edge in the graph is part of either $$$0$$$ or $$$2$$$ colored query edges.<p>The graph in the second test case looks like this: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/5c3f010a5485b22edaa65b86e0c9caa043cf64dd.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> There does not exist an assignment of paths that will force all edges to have even weights with the given queries. One must add at least $$$2$$$ new queries to obtain a set of queries that can satisfy the condition.</div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=E]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="F" data-uuid="ps_e446b54f4edc0d4c9645a576dcd7f111de5f715a">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">F. Defender of Childhood Dreams</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">Even if you just leave them be, they will fall to pieces all by themselves. So, someone has to protect them, right?</span></p><p>You find yourself playing with Teucer again in the city of Liyue. As you take the eccentric little kid around, you notice something interesting about the structure of the city.</p><p>Liyue can be represented as a directed graph containing $$$n$$$ nodes. Nodes are labeled from $$$1$$$ to $$$n$$$. There is a directed edge from node $$$a$$$ to node $$$b$$$ if and only if $$$a &lt; b$$$.</p><p>A path between nodes $$$a$$$ and $$$b$$$ is defined as a sequence of edges such that you can start at $$$a$$$, travel along all of these edges in the corresponding direction, and end at $$$b$$$. The length of a path is defined by the number of edges. A rainbow path of length $$$x$$$ is defined as a path in the graph such that there exists at least 2 distinct colors among the set of $$$x$$$ edges.</p><p>Teucer's favorite number is $$$k$$$. You are curious about the following scenario: If you were to label each edge with a color, what is the minimum number of colors needed to ensure that all paths of length $$$k$$$ or longer are rainbow paths?</p><p>Teucer wants to surprise his older brother with a map of Liyue. He also wants to know a valid coloring of edges that uses the minimum number of colors. Please help him with this task!</p></div><div class="input-specification"><div class="section-title">Input</div><p>The only line of input contains two integers $$$n$$$ and $$$k$$$ ($$$2 \leq k &lt; n \leq 1000$$$). </p></div><div class="output-specification"><div class="section-title">Output</div><p>On the first line, output $$$c$$$, the minimum colors you need to satisfy the above requirements.</p><p>On the second line, print a valid edge coloring as an array of $$$\frac{n(n-1)}{2}$$$ integers ranging from $$$1$$$ to $$$c$$$. Exactly $$$c$$$ distinct colors should exist in the construction. Print the edges in increasing order by the start node first, then by the second node.</p><p>For example, if $$$n=4$$$, the edge colors will correspond to this order of edges: ($$$1$$$, $$$2$$$), ($$$1$$$, $$$3$$$), ($$$1$$$, $$$4$$$), ($$$2$$$, $$$3$$$), ($$$2$$$, $$$4$$$), ($$$3$$$, $$$4$$$)</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5 3
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+1 2 2 2 2 2 2 1 1 1
+</pre></div><div class="input"><div class="title">Input</div><pre>
+5 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+3 2 2 1 2 2 1 3 1 1 
+</pre></div><div class="input"><div class="title">Input</div><pre>
+8 7
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+</pre></div><div class="input"><div class="title">Input</div><pre>
+3 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+1 2 2 
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>The corresponding construction for the first test case looks like this: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/4ed4615cf5869b764e47aca80be9e0b47953c256.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> It is impossible to satisfy the constraints with less than $$$2$$$ colors.<p>The corresponding construction for the second test case looks like this: </p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/c65f97a455ec1e59cf43a04dc054aee1dff91e47.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center> One can show there exists no construction using less than $$$3$$$ colors.</div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=F]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 2em;"
+        >
+
+
+<div class="problemindexholder" problemindex="G" data-uuid="ps_3e6172355b10b1e5fd293e47f98265516046adec">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">G. Omkar and Time Travel</div><div class="time-limit"><div class="property-title">time limit per test</div>2 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>256 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p><span class="tex-font-style-it">El Psy Kongroo.</span></p><p>Omkar is watching <span class="tex-font-style-it">Steins;Gate</span>.</p><p>In <span class="tex-font-style-it">Steins;Gate</span>, Okabe Rintarou needs to complete $$$n$$$ tasks ($$$1 \leq n \leq 2 \cdot 10^5$$$). Unfortunately, he doesn't know when he needs to complete the tasks.</p><p>Initially, the time is $$$0$$$. Time travel will now happen according to the following rules:</p><ul><li><p>For each $$$k = 1, 2, \ldots, n$$$, Okabe will realize at time $$$b_k$$$ that he was supposed to complete the $$$k$$$-th task at time $$$a_k$$$ ($$$a_k &lt; b_k$$$). </p></li><li><p>When he realizes this, if $$$k$$$-th task was already completed at time $$$a_k$$$, Okabe keeps the usual flow of time. Otherwise, he time travels to time $$$a_k$$$ then immediately completes the task.</p></li><li><p>If Okabe time travels to time $$$a_k$$$, all tasks completed after this time will become incomplete again. That is, for every $$$j$$$, if $$$a_j&gt;a_k$$$, the $$$j$$$-th task will become incomplete, if it was complete (if it was incomplete, nothing will change).</p></li><li><p>Okabe has bad memory, so he can time travel to time $$$a_k$$$ <span class="tex-font-style-bf">only immediately after</span> getting to time $$$b_k$$$ and learning that he was supposed to complete the $$$k$$$-th task at time $$$a_k$$$. That is, even if Okabe already had to perform $$$k$$$-th task before, he wouldn't remember it before stumbling on the info about this task at time $$$b_k$$$ again.</p></li></ul><p>Please refer to the notes for an example of time travelling.</p><p>There is a certain set $$$s$$$ of tasks such that the first moment that all of the tasks in $$$s$$$ are simultaneously completed (regardless of whether any other tasks are currently completed), a funny scene will take place. Omkar loves this scene and wants to know how many times Okabe will time travel before this scene takes place. Find this number modulo $$$10^9 + 7$$$. It can be proven that eventually all $$$n$$$ tasks will be completed and so the answer always exists.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains an integer $$$n$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$)  — the number of tasks that Okabe needs to complete.</p><p>$$$n$$$ lines follow. The $$$k$$$-th of these lines contain two integers $$$a_k$$$ and $$$b_k$$$ ($$$1 \leq a_k &lt; b_k \leq 2n$$$)  — the time at which Okabe needs to complete the $$$k$$$-th task and the time that he realizes this respectively. All $$$2n$$$ of these times are distinct (so every time from $$$1$$$ to $$$2n$$$ inclusive appears exactly once in the input).</p><p>The next line contains a single integer $$$t$$$ ($$$1 \leq t \leq n$$$)  — the size of the set $$$s$$$ of tasks that lead to the funny scene.</p><p>The last line contains $$$t$$$ integers $$$s_1, s_2, \ldots, s_t$$$  — ($$$1 \leq s_k \leq n$$$, the numbers $$$s_1, s_2, \ldots, s_t$$$ are distinct)  — the set $$$s$$$ of tasks.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output a single integer  — the number of times that Okabe time travels until all tasks in the set $$$s$$$ are simultaneously completed, modulo $$$10^9 + 7$$$.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+2
+1 4
+2 3
+2
+1 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3
+</pre></div><div class="input"><div class="title">Input</div><pre>
+2
+1 4
+2 3
+1
+1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2
+</pre></div><div class="input"><div class="title">Input</div><pre>
+1
+1 2
+1
+1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1
+</pre></div><div class="input"><div class="title">Input</div><pre>
+6
+10 12
+3 7
+4 6
+2 9
+5 8
+1 11
+3
+2 4 6
+</pre></div><div class="output"><div class="title">Output</div><pre>
+17
+</pre></div><div class="input"><div class="title">Input</div><pre>
+16
+31 32
+3 26
+17 19
+4 24
+1 28
+15 21
+12 16
+18 29
+20 23
+7 8
+11 14
+9 22
+6 30
+5 10
+25 27
+2 13
+6
+3 8 2 5 12 11
+</pre></div><div class="output"><div class="title">Output</div><pre>
+138
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>For the first sample, all tasks need to be completed in order for the funny scene to occur.</p><p>Initially, the time is $$$0$$$. Nothing happens until time $$$3$$$, when Okabe realizes that he should have done the $$$2$$$-nd task at time $$$2$$$. He then time travels to time $$$2$$$ and completes the task.</p><p>As the task is done now, he does not time travel again when the time is again $$$3$$$. However, at time $$$4$$$, he travels to time $$$1$$$ to complete the $$$1$$$-st task.</p><p>This undoes the $$$2$$$-nd task. This means that the $$$2$$$-nd task is not currently completed, meaning that the funny scene will <span class="tex-font-style-bf">not</span> occur at this point even though the $$$1$$$-st task is currently completed and Okabe had previously completed the $$$2$$$-nd task.</p><p>Once it is again time $$$3$$$ he travels back to time $$$2$$$ once more and does the $$$2$$$-nd task again.</p><p>Now all tasks are complete, with Okabe having time travelled $$$3$$$ times.</p><p>The second sample has the same tasks for Okabe to complete. However, this time the funny scene only needs the first task to be completed in order to occur. From reading the above sample you can see that this occurs once Okabe has time travelled $$$2$$$ times.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=G]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+        <div
+                    style="margin-bottom: 1em;"
+        >
+
+
+<div class="problemindexholder" problemindex="H" data-uuid="ps_3efeadf3e9bedfa160997908a7ace05f41aec299">
+    <div style="display: none; margin:1em 0;text-align: center; position: relative;" class="alert alert-info diff-notifier">
+        <div>The problem statement has recently been changed. <a class="view-changes" href="#">View the changes.</a></div>
+        <span class="diff-notifier-close" style="position: absolute; top: 0.2em; right: 0.3em; cursor: pointer; font-size: 1.4em;">&times;</span>
+    </div>
+        <div class="ttypography"><div class="problem-statement"><div class="header"><div class="title">H. Omkar and Tours</div><div class="time-limit"><div class="property-title">time limit per test</div>3 seconds</div><div class="memory-limit"><div class="property-title">memory limit per test</div>512 megabytes</div><div class="input-file"><div class="property-title">input</div>standard input</div><div class="output-file"><div class="property-title">output</div>standard output</div></div><div><p>Omkar is hosting tours of his country, Omkarland! There are $$$n$$$ cities in Omkarland, and, rather curiously, there are exactly $$$n-1$$$ bidirectional roads connecting the cities to each other. It is guaranteed that you can reach any city from any other city through the road network.</p><p>Every city has an enjoyment value $$$e$$$. Each road has a capacity $$$c$$$, denoting the maximum number of vehicles that can be on it, and an associated toll $$$t$$$. However, the toll system in Omkarland has an interesting quirk: if a vehicle travels on multiple roads on a single journey, they pay only the highest toll of any single road on which they traveled. (In other words, they pay $$$\max t$$$ over all the roads on which they traveled.) If a vehicle traverses no roads, they pay $$$0$$$ toll.</p><p>Omkar has decided to host $$$q$$$ tour groups. Each tour group consists of $$$v$$$ vehicles starting at city $$$x$$$. (Keep in mind that a tour group with $$$v$$$ vehicles can travel only on roads with capacity $$$\geq v$$$.) Being the tour organizer, Omkar wants his groups to have as much fun as they possibly can, but also must reimburse his groups for the tolls that they have to pay. Thus, for each tour group, Omkar wants to know two things: first, what is the enjoyment value of the city $$$y$$$ with maximum enjoyment value that the tour group can reach from their starting city, and second, how much per vehicle will Omkar have to pay to reimburse the entire group for their trip from $$$x$$$ to $$$y$$$? (This trip from $$$x$$$ to $$$y$$$ will always be on the shortest path from $$$x$$$ to $$$y$$$.)</p><p>In the case that there are multiple reachable cities with the maximum enjoyment value, Omkar will let his tour group choose which one they want to go to. Therefore, to prepare for all possible scenarios, he wants to know the amount of money per vehicle that he needs to guarantee that he can reimburse the group regardless of which city they choose.</p></div><div class="input-specification"><div class="section-title">Input</div><p>The first line contains two integers $$$n$$$ and $$$q$$$ ($$$2 \leq n \leq 2 \cdot 10^5$$$, $$$1 \leq q \leq 2 \cdot 10^5$$$), representing the number of cities and the number of groups, respectively.</p><p>The next line contains $$$n$$$ integers $$$e_1, e_2, \ldots, e_n$$$ ($$$1 \leq e_i \leq 10^9$$$), where $$$e_i$$$ represents the enjoyment value for city $$$i$$$.</p><p>The next $$$n-1$$$ lines each contain four integers $$$a$$$, $$$b$$$, $$$c$$$, and $$$t$$$ ($$$1 \leq a,b \leq n$$$, $$$1 \leq c \leq 10^9$$$, $$$1 \leq t \leq 10^9$$$), representing an road between city $$$a$$$ and city $$$b$$$ with capacity $$$c$$$ and toll $$$t$$$.</p><p>The next $$$q$$$ lines each contain two integers $$$v$$$ and $$$x$$$ ($$$1 \leq v \leq 10^9$$$, $$$1 \leq x \leq n$$$), representing the number of vehicles in the tour group and the starting city, respectively.</p></div><div class="output-specification"><div class="section-title">Output</div><p>Output $$$q$$$ lines. The $$$i$$$-th line should contain two integers: the highest possible enjoyment value of a city reachable by the $$$i$$$-th tour group, and the amount of money per vehicle Omkar needs to guarantee that he can reimburse the $$$i$$$-th tour group.</p></div><div class="sample-tests"><div class="section-title">Examples</div><div class="sample-test"><div class="input"><div class="title">Input</div><pre>
+5 3
+2 2 3 3 3
+1 2 4 7
+1 3 2 8
+2 4 8 2
+2 5 1 1
+1 3
+9 5
+6 2
+</pre></div><div class="output"><div class="title">Output</div><pre>
+3 8
+3 0
+3 2
+</pre></div><div class="input"><div class="title">Input</div><pre>
+5 5
+1 2 3 4 5
+1 2 4 1
+1 3 3 1
+1 4 2 1
+2 5 1 1
+5 1
+4 1
+3 1
+2 1
+1 1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+1 0
+2 1
+3 1
+4 1
+5 1
+</pre></div><div class="input"><div class="title">Input</div><pre>
+5 5
+1 2 2 2 2
+1 2 5 8
+1 3 6 3
+1 4 4 5
+1 5 7 1
+4 1
+5 1
+6 1
+7 1
+8 1
+</pre></div><div class="output"><div class="title">Output</div><pre>
+2 8
+2 8
+2 3
+2 1
+1 0
+</pre></div></div></div><div class="note"><div class="section-title">Note</div><p>A map of the first sample is shown below. For the nodes, unbolded numbers represent indices and bolded numbers represent enjoyment values. For the edges, unbolded numbers represent capacities and bolded numbers represent tolls.</p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/8319a6780f57297d2f3083afd9ef1da70882a101.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>For the first query, a tour group of size $$$1$$$ starting at city $$$3$$$ can reach cities $$$1$$$, $$$2$$$, $$$3$$$, $$$4$$$, and $$$5$$$. Thus, the largest enjoyment value that they can reach is $$$3$$$. If the tour group chooses to go to city $$$4$$$, Omkar will have to pay $$$8$$$ per vehicle, which is the maximum.</p><p>For the second query, a tour group of size $$$9$$$ starting at city $$$5$$$ can reach only city $$$5$$$. Thus, the largest reachable enjoyment value is still $$$3$$$, and Omkar will pay $$$0$$$ per vehicle.</p><p>For the third query, a tour group of size $$$6$$$ starting at city $$$2$$$ can reach cities $$$2$$$ and $$$4$$$. The largest reachable enjoyment value is again $$$3$$$. If the tour group chooses to go to city $$$4$$$, Omkar will have to pay $$$2$$$ per vehicle, which is the maximum.</p><p>A map of the second sample is shown below:</p><center> <img class="tex-graphics" src="https://espresso.codeforces.com/505737d42e5d52ba3d6a451cfa125c3a860ee162.png" style="max-width: 100.0%;max-height: 100.0%;" /> </center><p>For the first query, a tour group of size $$$5$$$ starting at city $$$1$$$ can only reach city $$$1$$$. Thus, their maximum enjoyment value is $$$1$$$ and the cost Omkar will have to pay is $$$0$$$ per vehicle.</p><p>For the second query, a tour group of size $$$4$$$ starting at city $$$1$$$ can reach cities $$$1$$$ and $$$2$$$. Thus, their maximum enjoyment value is $$$2$$$ and Omkar will pay $$$1$$$ per vehicle.</p><p>For the third query, a tour group of size $$$3$$$ starting at city $$$1$$$ can reach cities $$$1$$$, $$$2$$$, and $$$3$$$. Thus, their maximum enjoyment value is $$$3$$$ and Omkar will pay $$$1$$$ per vehicle.</p><p>For the fourth query, a tour group of size $$$2$$$ starting at city $$$1$$$ can reach cities $$$1$$$, $$$2$$$, $$$3$$$ and $$$4$$$. Thus, their maximum enjoyment value is $$$4$$$ and Omkar will pay $$$1$$$ per vehicle.</p><p>For the fifth query, a tour group of size $$$1$$$ starting at city $$$1$$$ can reach cities $$$1$$$, $$$2$$$, $$$3$$$, $$$4$$$, and $$$5$$$. Thus, their maximum enjoyment value is $$$5$$$ and Omkar will pay $$$1$$$ per vehicle.</p></div></div><p>  </p></div>
+</div>
+
+    <script>
+        $(function () {
+            Codeforces.addMathJaxListener(function () {
+                let $problem = $("div[problemindex=H]");
+                let uuid = $problem.attr("data-uuid");
+                let statementText = convertStatementToText($problem.find(".ttypography").get(0));
+
+                let previousStatementText = Codeforces.getFromStorage(uuid);
+                if (previousStatementText) {
+                    if (previousStatementText !== statementText) {
+                        $problem.find(".diff-notifier").show();
+
+                        $problem.find(".diff-notifier-close").click(function() {
+                            Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                            $problem.find(".diff-notifier").hide();
+                        });
+
+                        $problem.find("a.view-changes").click(function() {
+                            $.post("/data/diff", {action: "getDiff", a: previousStatementText, b: statementText}, function (result) {
+                                if (result["success"] === "true") {
+                                    Codeforces.facebox(".diff-popup", "//codeforces.org/s/74235");
+                                    $("#facebox .diff-popup").html(result["diff"]);
+                                }
+                            }, "json");
+                        });
+                    }
+                } else {
+                    Codeforces.putToStorageTtl(uuid, statementText, 6 * 60 * 60);
+                }
+            });
+        });
+    </script>
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        function endsWith(string, suffix) {
+            return string.indexOf(suffix, string.length - suffix.length) !== -1;
+        }
+
+        const inputFileDiv = $("div.input-file");
+        const inputFile = inputFileDiv.text();
+        const outputFileDiv = $("div.output-file");
+        const outputFile = outputFileDiv.text();
+
+
+        if (!endsWith(inputFile, "standard input")
+            && !endsWith(inputFile, "standard input")) {
+            inputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        if (!endsWith(outputFile, "standard output")
+            && !endsWith(outputFile, "standard output")) {
+            outputFileDiv.attr("style", "font-weight: bold");
+        }
+
+        const titleDiv = $("div.header div.title");
+
+
+
+
+    });
+</script>
+        </div>
+    </div>
+
+    <div id="footer">
+        <div><a href="https://codeforces.com/">Codeforces</a> (c) Copyright 2010-2024 Mike Mirzayanov</div>
+        <div>The only programming contests Web 2.0 platform</div>
+
+    </div>
+
+</div>
+</div>
+    <script type="application/javascript">
+        if ('serviceWorker' in navigator && 'fetch' in window && 'caches' in window) {
+            navigator.serviceWorker.register('/service-worker-74235.js')
+                .then(function (registration) {
+                    console.log('Service worker registered: ', registration);
+                })
+                .catch(function (error) {
+                    console.log('Registration failed: ', error);
+                });
+        }
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'8a18daf07f627782',t:'MTcyMDcwMTU1NS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>

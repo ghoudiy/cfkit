@@ -2,36 +2,11 @@ Codeforces Round 143 (Div. 2)
 
 
 A. Team
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-One day three best friends Petya, Vasya and Tonya decided to form a team and take part in programming contests. Participants are usually offered several problems during programming contests. Long before the start the friends decided that they will implement a problem if at least two of them are sure about the solution. Otherwise, the friends won't write the problem's solution.
-This contest offers
-n
-problems to the participants. For each problem we know, which friend is sure about the solution. Help the friends find the number of problems for which they will write a solution.
-Input
-The first input line contains a single integer
-n
-(
-1 ≤
-n
-≤ 1000
-) — the number of problems in the contest. Then
-n
-lines contain three integers each, each integer is either
-0
-or
-1
-. If the first number in the line equals
-1
-, then Petya is sure about the problem's solution, otherwise he isn't sure. The second number shows Vasya's view on the solution, the third number shows Tonya's view. The numbers on the lines are separated by spaces.
-Output
-Print a single integer — the number of problems the friends will implement on the contest.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3
@@ -48,61 +23,11 @@ Output
 1
 ----------------------------------------------------------------------------------------------------
 B. Magic, Wizardry and Wonders
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Vasya the Great Magician and Conjurer loves all kinds of miracles and wizardry. In one wave of a magic wand he can turn an object into something else. But, as you all know, there is no better magic in the Universe than the magic of numbers. That's why Vasya adores math and spends a lot of time turning some numbers into some other ones.
-This morning he has
-n
-cards with integers lined up in front of him. Each integer is not less than 1, but not greater than
-l
-. When Vasya waves his magic wand, two rightmost cards vanish from the line and a new card magically appears in their place. It contains the difference between the left and the right numbers on the two vanished cards. Vasya was very interested to know what would happen next, and so he waved with his magic wand on and on, until the table had a single card left.
-Suppose that Vasya originally had the following cards: 4, 1, 1, 3 (listed from left to right). Then after the first wave the line would be: 4, 1, -2, and after the second one: 4, 3, and after the third one the table would have a single card with number 1.
-Please note that in spite of the fact that initially all the numbers on the cards were not less than 1 and not greater than
-l
-, the numbers on the appearing cards can be anything, no restrictions are imposed on them.
-It is now evening. Vasya is very tired and wants to return everything back, but does not remember which cards he had in the morning. He only remembers that there were
-n
-cards, they contained integers from 1 to
-l
-, and after all magical actions he was left with a single card containing number
-d
-.
-Help Vasya to recover the initial set of cards with numbers.
-Input
-The single line contains three space-separated integers:
-n
-(
-2 ≤
-n
-≤ 100
-) — the initial number of cards on the table,
-d
-(
-|
-d
-| ≤ 10
-4
-) — the number on the card that was left on the table after all the magical actions, and
-l
-(
-1 ≤
-l
-≤ 100
-) — the limits for the initial integers.
-Output
-If Vasya is mistaken, that is, if there doesn't exist a set that meets the requirements given in the statement, then print a single number -1, otherwise print the sought set containing
-n
-integers from
-1
-to
-l
-. Separate the integers by spaces. Print the integers in the order, in which they were written on the cards from left to right. If there are several suitable sets of numbers, you can print any of them.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 3 3 2
@@ -118,76 +43,11 @@ Output
 2 4 1 4 1
 ----------------------------------------------------------------------------------------------------
 C. To Add or Not to Add
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-A piece of paper contains an array of
-n
-integers
-a
-1
-,
-a
-2
-, ...,
-a
-n
-. Your task is to find a number that occurs the maximum number of times in this array.
-However, before looking for such number, you are allowed to perform not more than
-k
-following operations — choose an arbitrary element from the array and add
-1
-to it. In other words, you are allowed to increase some array element by
-1
-no more than
-k
-times (you are allowed to increase the same element of the array multiple times).
-Your task is to find the maximum number of occurrences of some number in the array after performing no more than
-k
-allowed operations. If there are several such numbers, your task is to find the minimum one.
-Input
-The first line contains two integers
-n
-and
-k
-(
-1 ≤
-n
-≤ 10
-5
-;
-0 ≤
-k
-≤ 10
-9
-) — the number of elements in the array and the number of operations you are allowed to perform, correspondingly.
-The third line contains a sequence of
-n
-integers
-a
-1
-,
-a
-2
-, ...,
-a
-n
-(|
-a
-i
-| ≤ 10
-9
-)
-— the initial array. The numbers in the lines are separated by single spaces.
-Output
-In a single line print two numbers — the maximum number of occurrences of some number in the array after at most
-k
-allowed operations are performed, and the minimum number that reaches the given maximum. Separate the printed numbers by whitespaces.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 5 3
@@ -206,141 +66,11 @@ Output
 4 2
 ----------------------------------------------------------------------------------------------------
 D. Magic Box
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-One day Vasya was going home when he saw a box lying on the road. The box can be represented as a rectangular parallelepiped. Vasya needed no time to realize that the box is special, as all its edges are parallel to the coordinate axes, one of its vertices is at point
-(0, 0, 0)
-, and the opposite one is at point
-(
-x
-1
-,
-y
-1
-,
-z
-1
-)
-. The six faces of the box contain some numbers
-a
-1
-,
-a
-2
-, ...,
-a
-6
-, exactly one number right in the center of each face.
-The numbers are located on the box like that:
-number
-a
-1
-is written on the face that lies on the ZOX plane;
-a
-2
-is written on the face, parallel to the plane from the previous point;
-a
-3
-is written on the face that lies on the XOY plane;
-a
-4
-is written on the face, parallel to the plane from the previous point;
-a
-5
-is written on the face that lies on the YOZ plane;
-a
-6
-is written on the face, parallel to the plane from the previous point.
-At the moment Vasya is looking at the box from point
-(
-x
-,
-y
-,
-z
-)
-. Find the sum of numbers that Vasya sees. Note that all faces of the box are not transparent and Vasya can't see the numbers through the box. The picture contains transparent faces just to make it easier to perceive. You can consider that if Vasya is looking from point, lying on the plane of some face, than he can not see the number that is written on this face. It is enough to see the center of a face to see the corresponding number for Vasya. Also note that Vasya always reads correctly the
-a
-i
-numbers that he sees, independently of their rotation, angle and other factors (that is, for example, if Vasya sees some
-a
-i
-= 6
-, then he can't mistake this number for
-9
-and so on).
-Input
-The fist input line contains three space-separated integers
-x
-,
-y
-and
-z
-(
-|
-x
-|, |
-y
-|, |
-z
-| ≤ 10
-6
-) — the coordinates of Vasya's position in space. The second line contains three space-separated integers
-x
-1
-,
-y
-1
-,
-z
-1
-(
-1 ≤
-x
-1
-,
-y
-1
-,
-z
-1
-≤ 10
-6
-) — the coordinates of the box's vertex that is opposite to the vertex at point
-(0, 0, 0)
-. The third line contains six space-separated integers
-a
-1
-,
-a
-2
-, ...,
-a
-6
-(
-1 ≤
-a
-i
-≤ 10
-6
-) — the numbers that are written on the box faces.
-It is guaranteed that point
-(
-x
-,
-y
-,
-z
-)
-is located strictly outside the box.
-Output
-Print a single integer — the sum of all numbers on the box faces that Vasya sees.
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 2 2 2
@@ -356,216 +86,11 @@ Output
 4
 ----------------------------------------------------------------------------------------------------
 E. Cactus
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-A connected undirected graph is called a
-vertex cactus
-, if each vertex of this graph belongs to at most one simple cycle.
-A
-simple cycle
-in a undirected graph is a sequence of distinct vertices
-v
-1
-,
-v
-2
-, ...,
-v
-t
-(
-t
-> 2)
-, such that for any
-i
-(1 ≤
-i
-<
-t
-)
-exists an edge between vertices
-v
-i
-and
-v
-i
-+ 1
-, and also exists an edge between vertices
-v
-1
-and
-v
-t
-.
-A
-simple path
-in a undirected graph is a sequence of not necessarily distinct vertices
-v
-1
-,
-v
-2
-, ...,
-v
-t
-(
-t
-> 0)
-, such that for any
-i
-(1 ≤
-i
-<
-t
-)
-exists an edge between vertices
-v
-i
-and
-v
-i
-+ 1
-and furthermore each
-edge occurs no more than once
-. We'll say that a simple path
-v
-1
-,
-v
-2
-, ...,
-v
-t
-starts at vertex
-v
-1
-and ends at vertex
-v
-t
-.
-You've got a graph consisting of
-n
-vertices and
-m
-edges, that is a vertex cactus. Also, you've got a list of
-k
-pairs of interesting vertices
-x
-i
-,
-y
-i
-, for which you want to know the following information — the number of distinct simple paths that start at vertex
-x
-i
-and end at vertex
-y
-i
-. We will consider two simple paths distinct if the sets of edges of the paths are distinct.
-For each pair of interesting vertices count the number of distinct simple paths between them. As this number can be rather large, you should calculate it modulo
-1000000007
-(
-10
-9
-+ 7
-).
-Input
-The first line contains two space-separated integers
-n
-,
-m
-(2 ≤
-n
-≤ 10
-5
-; 1 ≤
-m
-≤ 10
-5
-)
-— the number of vertices and edges in the graph, correspondingly. Next
-m
-lines contain the description of the edges: the
-i
--th line contains two space-separated integers
-a
-i
-,
-b
-i
-(1 ≤
-a
-i
-,
-b
-i
-≤
-n
-)
-— the indexes of the vertices connected by the
-i
--th edge.
-The next line contains a single integer
-k
-(1 ≤
-k
-≤ 10
-5
-)
-— the number of pairs of interesting vertices. Next
-k
-lines contain the list of pairs of interesting vertices: the
-i
--th line contains two space-separated numbers
-x
-i
-,
-y
-i
-(1 ≤
-x
-i
-,
-y
-i
-≤
-n
-;
-x
-i
-≠
-y
-i
-)
-— the indexes of interesting vertices in the
-i
--th pair.
-It is guaranteed that the given graph is a vertex cactus. It is guaranteed that the graph contains no loops or multiple edges. Consider the graph vertices are numbered from 1 to
-n
-.
-Output
-Print
-k
-lines: in the
-i
--th line print a single integer — the number of distinct simple ways, starting at
-x
-i
-and ending at
-y
-i
-, modulo
-1000000007
-(
-10
-9
-+ 7
-).
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
 Examples
 Input
 10 11

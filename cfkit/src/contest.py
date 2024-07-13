@@ -1,22 +1,21 @@
 """
 Documentation
 """
-from os import getcwd, chdir
+from os import getcwd, chdir, path as osPath
+from typing import Optional
 
 from cfkit.utils.check import raise_error_if_path_missing
 from cfkit.client.fetch import get_response
-from cfkit.utils.common import (
-  file_name,
+from cfkit.utils.common import file_name, retrieve_template
+from cfkit.utils.file_operations import (
   create_file_folder,
-  retrieve_template,
-  problems_content,
-  samples_dir,
-  read_text_from_file,
   read_json_file,
-  fetch_samples,
+  read_text_from_file,
   write_text_to_file
 )
+from cfkit.utils.parse_samples import fetch_samples, samples_dir, problems_content
 from cfkit.utils.print import colored_text
+
 from cfkit.utils.variables import conf_file
 from cfkit.utils.variables import resources_folder
 from cfkit.utils.variables import language_conf_path
@@ -29,30 +28,29 @@ class Contest:
   """
   def __init__(self, contest_id: int) -> None:
     self.name = None
-    self._id = contest_id
+    self.contest_id = contest_id
     self._content = self.__content()
     self.problems = list(map(lambda x: x[0], self._content))
-    self._problems_letters = list(map(lambda x: x[:x.find('.')], self.problems))
+    self.problems_letters = list(map(lambda x: x[:x.find('.')], self.problems))
 
   def __content(self):
-    if isinstance(self._id, str) and self._id.isdigit():
-      self._id = int(self._id)
+    if isinstance(self.contest_id, str) and self.contest_id.isdigit():
+      self.contest_id = int(self.contest_id)
 
-    # Debugging
-    if isinstance(self._id, int):
-      contest_problems_statement_file_path = resources_folder.joinpath("problems",f"{self._id}.txt")
+    if isinstance(self.contest_id, int):
+      contest_problems_statement_file_path = resources_folder.joinpath("problems",f"{self.contest_id}.txt")
       if not contest_problems_statement_file_path.exists():
         response, self.name = problems_content(
           get_response(
-            f"https://codeforces.com/contest/{self._id}/problems",
-            self._id,
-            self._id
+            f"https://codeforces.com/contest/{self.contest_id}/problems",
+            self.contest_id,
+            self.contest_id
           ),
-          self._id,
+          self.contest_id,
           html_page=True
         )
       else:
-        response, self.name = problems_content(contest_problems_statement_file_path, self._id)
+        response, self.name = problems_content(contest_problems_statement_file_path, self.contest_id)
       return response
     colored_text(
       "Contest ID must be an integer",
@@ -62,9 +60,9 @@ class Contest:
 
   def create_problems_files(
       self,
-      programming_language_extension: str | list | tuple | None = None,
-      add_problem_name_to_file_name: bool = False,
-      path: Directory = None
+      path: Optional[Directory] = None,
+      programming_language_extension: Optional[str] | Optional[tuple] | Optional[list] = None,
+      add_problem_name_to_file_name: bool = False
     ) -> None:
     """
     Documentation
@@ -76,8 +74,8 @@ class Contest:
       raise_error_if_path_missing(path, 'd')
     chdir(path)
 
-    if path.basename(path) != str(self._id):
-      folder_name = create_file_folder(str(self._id), 'd')
+    if osPath.basename(path) != str(self.contest_id):
+      folder_name = create_file_folder(str(self.contest_id), 'd')
     chdir(folder_name)
 
     problems_num = len(self.problems)
@@ -166,7 +164,7 @@ class Contest:
         index //= 2 # since (i - problems_num + problems_extensions_length) was added twice
 
         problems_files.append(
-          file_name(self._problems_letters[i], problem_name, programming_language_extension[index])
+          file_name(self.problems_letters[i], problem_name, programming_language_extension[index])
         )
 
     else:
@@ -176,7 +174,7 @@ class Contest:
         )
         index //= 2 # since (i - problems_num + problems_extensions_length) was added twice
         problems_files.append(
-          f"{self._problems_letters[i].lower()}.{programming_language_extension[index]}"
+          f"{self.problems_letters[i].lower()}.{programming_language_extension[index]}"
         )
 
     def create_solution_file(one_extension = True):
@@ -209,10 +207,9 @@ class Contest:
 
     colored_text("Problems Files Created!", one_color="correct")
 
-
   def parse(
       self,
-      path: Directory = None,
+      path: Optional[Directory] = None,
       create_tests_dir: bool = True,
     ) -> None:
     """
@@ -221,28 +218,14 @@ class Contest:
     if path is None:
       path = getcwd()
 
-    print(f"Parsing {self._id} contest")
+    print(f"Parsing contest {self.contest_id}")
     fetch_samples(
       problem_statement=self._content,
       path_to_save_samples=samples_dir(
         create_tests_dir,
         path,
-        None,
         False
       ),
-      attributes=("contest", self._id, self.name)
+      attributes=("contest", self.contest_id, self.name)
     )
     colored_text("All test cases parsed successfully.", one_color="correct")
-
-if __name__ == "__main__":
-  # Contest("1882")?
-  # print(contest_one.name)
-  # print(contest_one.problems)
-  # contest_one.parse()
-  # print(one)
-  # for i in one._content:
-  #   print(i)
-  #   print('-' * 50)
-  # one.create_problems_files(["cpp", "java", "py", "cxx"], True)
-  # print(one.problems_list())
-  pass

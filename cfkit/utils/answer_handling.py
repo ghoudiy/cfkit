@@ -1,11 +1,11 @@
 """
 Documentation
 """
-
 from math import isclose
+from collections import Counter
 
 from cfkit.utils.check import is_number
-from cfkit.utils.common import english_ending
+from cfkit.utils.common import english_ending, trim_data
 
 
 def wrong_answer_verdict(
@@ -18,23 +18,23 @@ def wrong_answer_verdict(
   '''
   verdict wrong answer message
   '''
-  if word_or_number == "number":
+  if word_or_number == "numbers":
     expected_value_as_float = float(expected_value)
     observed_value_as_float = float(observed_value)
     return (
       "Wrong answer:" + (f"{line}{english_ending(line)} line," if line > 0 else '') + " "
       f"{column}{english_ending(column)} numbers "
-      f"differ - expected: '{expected_value}', found: '{observed_value}'"
+      f"differ - expected: '{expected_value}', found: '{observed_value}' "
     ) + (
-      f" error = '{(abs(expected_value_as_float - observed_value_as_float) / observed_value_as_float):5f}'\n\n" if (
-        word_or_number == 'numbers' and int(expected_value) != expected_value) else '\n\n'
+      f"error = '{(abs(expected_value_as_float - observed_value_as_float) / observed_value_as_float):5f}'" if (
+        int(expected_value) != float(expected_value)) else ''
     )
 
   return (
-  "Wrong answer:" + (f"{line}{english_ending(line)} line," if line > 0 else '') + " "
+  "Wrong answer:" + (f"{line}{english_ending(line)} line, " if line > 0 else '') + " "
   f"{column}{english_ending(column)} words "
   f"differ - expected: '{expected_value}', found: '{observed_value}'"
-    )
+  )
 
 def compare_values(expected_value, observed_value, line, column) -> bool:
   """
@@ -49,7 +49,6 @@ def compare_values(expected_value, observed_value, line, column) -> bool:
     equal = expected_value == observed_value
     numbers_or_words = 'words'
 
-  wrong_answer_message = None
   if not equal:
     wrong_answer_message = wrong_answer_verdict(
       line,
@@ -59,7 +58,7 @@ def compare_values(expected_value, observed_value, line, column) -> bool:
       observed_value
     )
     return False, wrong_answer_message
-  return True, wrong_answer_message
+  return True, None
 
 def check_length(line1, line2, message, err_type: str, one_color: str) -> None:
   """
@@ -77,72 +76,86 @@ def check_length(line1, line2, message, err_type: str, one_color: str) -> None:
 def check_answer(
     expected: list[str],
     observed: list[str],
-    check_formatting: bool
-  ) -> tuple[bool, str] | tuple[bool, None]:
+    any_order: bool,
+    multiple_answers: bool,
+    check_formatting: bool,
+    expected_str: str
+  ) -> tuple[bool, str | bool, None]:
   """
   Documentation
   """
-  wrong_answer_message = None
-  if check_formatting:
-    check_length(
-      expected,
-      observed,
-      "Wrong answer: expected %1% line(s), found %2%\n\n",
-      "Formatting error",
-      "error_3"
-    )
-
-  equal = False
-  if check_formatting:
-    for line_number, values in enumerate(zip(expected, observed)):
-      expected_line = values[0].split(' ')
-      observed_line = values[1].split(' ')
+  def compare(expected):
+    if check_formatting:
       check_length(
-        expected_line,
-        observed_line,
-        f"Wrong answer: {line_number + 1}{english_ending(line_number + 1)} line, "
-        "expected %1% value(s), found %2%\n\n",
+        expected,
+        observed,
+        "Wrong answer: expected %1% line(s), found %2%",
         "Formatting error",
         "error_3"
       )
-      for column_number, column_value in enumerate(zip(expected_line, observed_line)):
-        # column_value[0] is the exepected value and column_value[1] is the observed value
-        equal, wrong_answer_message = compare_values(
-          column_value[0],
-          column_value[1],
-          line_number + 1,
-          column_number + 1
+      for line_number, values in enumerate(zip(expected, observed)):
+        expected_line = values[0].split(' ')
+        observed_line = values[1].split(' ')
+        check_length(
+          expected_line,
+          observed_line,
+          f"Wrong answer: {line_number + 1}{english_ending(line_number + 1)} line, "
+          "expected %1% value(s), found %2%",
+          "Formatting error",
+          "error_3"
         )
+        for column_number, column_value in enumerate(zip(expected_line, observed_line)):
+          # column_value[0] is the exepected value and column_value[1] is the observed value
+          equal, wrong_answer_message = compare_values(
+            column_value[0],
+            column_value[1],
+            line_number + 1,
+            column_number + 1
+          )
+          if not equal:
+            return False, wrong_answer_message
+
+    else:
+      expected_trimmed = trim_data(expected)
+      observed_trimmed = trim_data(observed)
+        #* Compare the results if the output is an integer or a string
+      if expected_trimmed == observed_trimmed or (
+        any_order and
+        Counter(expected_trimmed) == Counter(observed_trimmed)
+      ):
+        return True, None
+
+      check_length(
+        expected_trimmed,
+        observed_trimmed,
+        "Wrong answer: expected %1% value(s), found %2%",
+        "Wrong answer",
+        "wrong"
+      )
+
+      for column_num, output in enumerate(zip(expected_trimmed, observed_trimmed)):
+        equal, wrong_answer_message = compare_values(output[0], output[1], 0, column_num + 1)
         if not equal:
-          return False, wrong_answer_message
+          return equal, wrong_answer_message
 
-  else:
-    data = [[], []]
-    if len(observed) == 0 and len(expected) > 0:
-      equal, wrong_answer_message = compare_values(expected[0].split(" ")[0], '', 0, 1)
+    return True, None
 
-    for line_number, values in enumerate(zip(expected, observed)):
-      expected_line = values[0].split(' ')
-      observed_line = values[1].split(' ')
-      data[0].extend(expected_line)
-      data[1].extend(observed_line)
-    
+  if multiple_answers:
+    accpeted = None
+    expected_str = expected_str.split("\n# another answer\n")
+    equal = False
+    wrong_answer_messages = "The output doesn't match any of the answers. Errors:\n"
+    for i in range(len(expected_str)):
+      try:
+        equal, wrong_answer_message = compare(expected_str[i].split("\n"))
+        wrong_answer_messages += (f"Answer {i + 1}: {wrong_answer_message}" + "\n") if not equal else ''
+      except InterruptedError as err:
+        wrong_answer_messages += f"Answer {i + 1}: {err.args[0][1]}" + "\n"
+      finally:
+        accpeted = accpeted or equal
 
-    data[0] = [item for item in data[0] if item]
-    data[1] = [item for item in data[1] if item]
-    print(data[0], data[1])
-    check_length(
-      data[0], # expected
-      data[1], # observed
-      "Wrong answer: expected %1% value(s), found %2%\n\n",
-      "Wrong answer",
-      "wrong"
-    )
+    if not accpeted:
+      return False, wrong_answer_messages
+    return True, None
 
-    for column_num, output in enumerate(zip(data[0], data[1])):
-      equal, wrong_answer_message = compare_values(output[0], output[1], 0, column_num + 1)
-      if not equal:
-        return equal, wrong_answer_message
-
-  # End of check_answer() function
-  return True, None
+  return compare(expected)

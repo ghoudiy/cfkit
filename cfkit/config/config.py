@@ -1,37 +1,46 @@
 """
 Documentation
 """
+from os import path as osPath
 from pathlib import Path
 
-from cfkit.utils.common import (
-  read_json_file,
-  write_json_file,
-  # create_file_folder,
-  # config_folder,
-  # json_folder
-)
-
+from cfkit.utils.file_operations import read_json_file, write_json_file
 from cfkit.utils.input import select_option
+from cfkit.utils.print import colored_text
 from cfkit.config.implementation import detect_implementation
+
+from cfkit.utils.constants import LANGUAGES
 from cfkit.utils.variables import conf_file
+from cfkit.utils.variables import config_file_path
 from cfkit.utils.variables import language_conf_path
 from cfkit.utils.variables import MACHINE
-
 
 def set_language_attributes(programming_language: str) -> str:
   """
   Documentation
   """
-  command, save_command = detect_implementation(programming_language)
+  command, save_command, default_implementation = detect_implementation(programming_language)
   command, implementation = command[0], command[1]
-  calculate_memory_usage_and_execution_time_command = Path(__file__).parent.parent.joinpath(
+  calculate_memory_usage_and_execution_time_command = str(Path(__file__).parent.parent.joinpath(
     "dependencies",
     "memory_time_usage.exe " if MACHINE == "win32" else "./memory_time_usage.exe "
-  ).__str__()
+  ))
   if implementation == "compiler":
-    execute_command = f"%%{{dir_name}}%%{'/./' if MACHINE != 'win32' else ''}%%{{output}}%%.exe "
-    calculate_memory_usage_and_execution_time_command += f'"{execute_command}"' + (
-      " %%{time_mem_err_output_file}%% "
+    aux = conf_file["cfkit"]["add_exe_extension_to_executable_file_linux_macos"].strip().lower()
+    if aux not in ("true", "false", ""):
+      colored_text(
+        "The configuration option "
+        "<error_6>`add_exe_extension_to_executable_file_linux_macos`</error_6>"
+        "must be set to either <error_6>`true`</error_6> or <error_6>`false`</error_6>",
+        exit_code_after_print_statement=6
+      )
+
+    execute_command = osPath.join(
+      ("./" if MACHINE != "win32" else "") + "%%{dir_name}%%", "%%{output}%%" + (
+        ".exe" if aux == "true" else "")
+    )
+    calculate_memory_usage_and_execution_time_command += f'"{execute_command}" ' + (
+      "%%{time_mem_err_output_file}%% "
       "%%{input_file}%% %%{output_file}%%"
     )
   else:
@@ -39,6 +48,10 @@ def set_language_attributes(programming_language: str) -> str:
       f" \"{command}\" %%{{time_mem_err_output_file}}%% "
       "%%{input_file}%% %%{output_file}%%"
     )
+
+  if MACHINE == "win32" and isinstance(command, str) and command.find("%%{output}%%.exe") == -1:
+    command = command.replace("%%{output}%%", "%%{output}%%.exe")
+
   if save_command:
 
     language_conf = read_json_file(language_conf_path)
@@ -53,6 +66,8 @@ def set_language_attributes(programming_language: str) -> str:
       language_conf[programming_language][
         "calculate_memory_usage_and_execution_time_command"
       ] = calculate_memory_usage_and_execution_time_command
+    if default_implementation:
+      language_conf[programming_language]["default_implementation"] = default_implementation
     write_json_file(language_conf, language_conf_path, 4)
 
   if implementation == "compiler":
@@ -63,11 +78,18 @@ def set_default_language():
   """
   Documentation
   """
-  default_language = conf_file["cfkit"]["default_language"]
-  if default_language is None:
-    pass
+  default_language = conf_file["cfkit"]["default_language"].strip()
+  if len(default_language) == 0 or default_language not in LANGUAGES:
+    conf_file["cfkit"]["default_language"] = select_option(
+      "Please select the default programming language you will use to solve problems: ",
+      LANGUAGES,
+      index=False,
+      disp_horizontally=False
+    )
+    with open(config_file_path, 'w', encoding="UTF-8") as file:
+      conf_file.write(file)
 
-def set_default_compiler(set_as_default: bool, programming_language: str) -> int:
+def set_default_submission_language(set_as_default: bool, programming_language: str) -> int:
   """
   Documentation
   """
@@ -110,9 +132,8 @@ def set_default_compiler(set_as_default: bool, programming_language: str) -> int
       "JavaScript V8 4.8.0": 34,
       "Node.js 12.16.3": 55
     }
-    data = tuple(languages.keys())
-    
-    user_choice = select_option("Compiler index: ", data, index=False)
+
+    user_choice = select_option("Compiler index: ", tuple(languages.keys()), index=False)
 
     configuration[programming_language]["default_submission_language"] = user_choice
     if set_as_default:
@@ -121,8 +142,3 @@ def set_default_compiler(set_as_default: bool, programming_language: str) -> int
     return languages[user_choice]
   return configuration[programming_language]["default_submission_language"]
 
-if __name__ == "__main__":
-  print(set_language_attributes("C++"))
-
-# create_file_folder(config_folder, 'd')
-# create_file_folder(language_conf)

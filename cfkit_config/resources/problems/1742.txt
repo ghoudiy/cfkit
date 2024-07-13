@@ -2,34 +2,12 @@ Codeforces Round 827 (Div. 4)
 
 
 A. Sum
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given three integers $$$a$$$, $$$b$$$, and $$$c$$$. Determine if one of them is the sum of the other two.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 9261$$$) — the number of test cases.
-The description of each test case consists of three integers $$$a$$$, $$$b$$$, $$$c$$$ ($$$0 \leq a, b, c \leq 20$$$).
-Output
-For each test case, output "
-YES
-" if one of the numbers is the sum of the other two, and "
-NO
-" otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 7
 1 4 3
@@ -49,35 +27,12 @@ NO
 YES
 ----------------------------------------------------------------------------------------------------
 B. Increasing
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given an array $$$a$$$ of $$$n$$$ positive integers. Determine if, by rearranging the elements, you can make the array strictly increasing. In other words, determine if it is possible to rearrange the elements such that $$$a_1 < a_2 < \dots < a_n$$$ holds.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 100$$$) — the length of the array.
-The second line of each test case contains $$$n$$$ integers $$$a_i$$$ ($$$1 \leq a_i \leq 10^9$$$) — the elements of the array.
-Output
-For each test case, output "
-YES
-" (without quotes) if the array satisfies the condition, and "
-NO
-" (without quotes) otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 4
@@ -92,37 +47,12 @@ YES
 YES
 ----------------------------------------------------------------------------------------------------
 C. Stripes
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-On an $$$8 \times 8$$$ grid, some horizontal rows have been painted red, and some vertical columns have been painted blue, in some order. The stripes are drawn sequentially, one after the other. When the stripe is drawn, it repaints all the cells through which it passes.
-Determine which color was used last.
-The red stripe was painted after the blue one, so the answer is
-R
-.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \leq t \leq 4000$$$) — the number of test cases. The description of test cases follows. There is an empty line before each test case.
-Each test case consists of $$$8$$$ lines, each containing $$$8$$$ characters. Each of these characters is either '
-R
-', '
-B
-', or '
-.
-', denoting a red square, a blue square, and an unpainted square, respectively.
-It is guaranteed that the given field is obtained from a colorless one by drawing horizontal red rows and vertical blue columns.
-At least one stripe is painted.
-Output
-For each test case, output '
-R
-' if a red stripe was painted last, and '
-B
-' if a blue stripe was painted last (without quotes).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 4
 ....B...
@@ -164,29 +94,12 @@ B
 R
 ----------------------------------------------------------------------------------------------------
 D. Coprime
-time limit per test
-3 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Given an array of $$$n$$$ positive integers $$$a_1, a_2, \dots, a_n$$$ ($$$1 \le a_i \le 1000$$$). Find the maximum value of $$$i + j$$$ such that $$$a_i$$$ and $$$a_j$$$ are coprime,$$$^{\dagger}$$$ or $$$-1$$$ if no such $$$i$$$, $$$j$$$ exist.
-For example consider the array $$$[1, 3, 5, 2, 4, 7, 7]$$$. The maximum value of $$$i + j$$$ that can be obtained is $$$5 + 7$$$, since $$$a_5 = 4$$$ and $$$a_7 = 7$$$ are coprime.
-$$$^{\dagger}$$$ Two integers $$$p$$$ and $$$q$$$ are
-coprime
-if the only positive integer that is a divisor of both of them is $$$1$$$ (that is, their
-greatest common divisor
-is $$$1$$$).
-Input
-The input consists of multiple test cases. The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 10$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains an integer $$$n$$$ ($$$2 \leq n \leq 2\cdot10^5$$$) — the length of the array.
-The following line contains $$$n$$$ space-separated positive integers $$$a_1$$$, $$$a_2$$$,..., $$$a_n$$$ ($$$1 \leq a_i \leq 1000$$$) — the elements of the array.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2\cdot10^5$$$.
-Output
-For each test case, output a single integer  — the maximum value of $$$i + j$$$ such that $$$i$$$ and $$$j$$$ satisfy the condition that $$$a_i$$$ and $$$a_j$$$ are coprime, or output $$$-1$$$ in case no $$$i$$$, $$$j$$$ satisfy the condition.
-Example
+time limit per test: 3 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 3
@@ -210,30 +123,12 @@ Output
 7
 ----------------------------------------------------------------------------------------------------
 E. Scuza
-time limit per test
-3 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Timur has a stairway with $$$n$$$ steps. The $$$i$$$-th step is $$$a_i$$$ meters higher than its predecessor. The first step is $$$a_1$$$ meters higher than the ground, and the ground starts at $$$0$$$ meters.
-The stairs for the first test case.
-Timur has $$$q$$$ questions, each denoted by an integer $$$k_1, \dots, k_q$$$. For each question $$$k_i$$$, you have to print the maximum possible height Timur can achieve by climbing the steps if his legs are of length $$$k_i$$$. Timur can only climb the $$$j$$$-th step if his legs are of length at least $$$a_j$$$. In other words, $$$k_i \geq a_j$$$ for each step $$$j$$$ climbed.
-Note that you should answer each question independently.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases.
-The first line of each test case contains two integers $$$n, q$$$ ($$$1 \leq n, q \leq 2\cdot10^5$$$) — the number of steps and the number of questions, respectively.
-The second line of each test case contains $$$n$$$ integers ($$$1 \leq a_i \leq 10^9$$$) — the height of the steps.
-The third line of each test case contains $$$q$$$ integers ($$$0 \leq k_i \leq 10^9$$$) — the numbers for each question.
-It is guaranteed that the sum of $$$n$$$ does not exceed $$$2\cdot10^5$$$, and the sum of $$$q$$$ does not exceed $$$2\cdot10^5$$$.
-Output
-For each test case, output a single line containing $$$q$$$ integers, the answer for each question.
-Please note, that the answer for some questions won't fit into 32-bit integer type, so you should use at least 64-bit integer type in your programming language (like
-long long
-for C++).
-Example
+time limit per test: 3 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 4 5
@@ -251,39 +146,12 @@ Output
 3000000000
 ----------------------------------------------------------------------------------------------------
 F. Smaller
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Alperen has two strings, $$$s$$$ and $$$t$$$ which are both initially equal to "
-a
-".
-He will perform $$$q$$$ operations of two types on the given strings:
-$$$1 \;\; k \;\; x$$$ — Append the string $$$x$$$ exactly $$$k$$$ times at the end of string $$$s$$$. In other words, $$$s := s + \underbrace{x + \dots + x}_{k \text{ times}}$$$.
-$$$2 \;\; k \;\; x$$$ — Append the string $$$x$$$ exactly $$$k$$$ times at the end of string $$$t$$$. In other words, $$$t := t + \underbrace{x + \dots + x}_{k \text{ times}}$$$.
-After each operation, determine if it is possible to
-rearrange
-the characters of $$$s$$$ and $$$t$$$ such that $$$s$$$ is lexicographically smaller$$$^{\dagger}$$$ than $$$t$$$.
-Note that the strings change after performing each operation and
-don't
-go back to their initial states.
-$$$^{\dagger}$$$ Simply speaking, the lexicographical order is the order in which words are listed in a dictionary. A formal definition is as follows: string $$$p$$$ is lexicographically smaller than string $$$q$$$ if there exists a position $$$i$$$ such that $$$p_i < q_i$$$, and for all $$$j < i$$$, $$$p_j = q_j$$$. If no such $$$i$$$ exists, then $$$p$$$ is lexicographically smaller than $$$q$$$ if the length of $$$p$$$ is less than the length of $$$q$$$. For example, $$$\texttt{abdc} < \texttt{abe}$$$ and $$$\texttt{abc} < \texttt{abcd}$$$, where we write $$$p < q$$$ if $$$p$$$ is lexicographically smaller than $$$q$$$.
-Input
-The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 10^4$$$) — the number of test cases.
-The first line of each test case contains an integer $$$q$$$ $$$(1 \leq q \leq 10^5)$$$ — the number of operations Alperen will perform.
-Then $$$q$$$ lines follow, each containing two positive integers $$$d$$$ and $$$k$$$ ($$$1 \leq d \leq 2$$$; $$$1 \leq k \leq 10^5$$$) and a non-empty string $$$x$$$ consisting of lowercase English letters — the type of the operation, the number of times we will append string $$$x$$$ and the string we need to append respectively.
-It is guaranteed that the sum of $$$q$$$ over all test cases doesn't exceed $$$10^5$$$ and that the sum of lengths of all strings $$$x$$$ in the input doesn't exceed $$$5 \cdot 10^5$$$.
-Output
-For each operation, output "
-YES
-", if it is possible to arrange the elements in both strings in such a way that $$$s$$$ is lexicographically smaller than $$$t$$$ and "
-NO
-" otherwise.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 5
@@ -312,30 +180,12 @@ NO
 YES
 ----------------------------------------------------------------------------------------------------
 G. Orray
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given an array $$$a$$$ consisting of $$$n$$$ nonnegative integers.
-Let's define the prefix OR array $$$b$$$ as the array $$$b_i = a_1~\mathsf{OR}~a_2~\mathsf{OR}~\dots~\mathsf{OR}~a_i$$$, where $$$\mathsf{OR}$$$ represents the
-bitwise OR operation
-. In other words, the array $$$b$$$ is formed by computing the $$$\mathsf{OR}$$$ of every prefix of $$$a$$$.
-You are asked to rearrange the elements of the array $$$a$$$ in such a way that its prefix OR array is lexicographically maximum.
-An array $$$x$$$ is lexicographically greater than an array $$$y$$$ if in the first position where $$$x$$$ and $$$y$$$ differ, $$$x_i > y_i$$$.
-Input
-The first line of the input contains a single integer $$$t$$$ ($$$1 \le t \le 100$$$) — the number of test cases. The description of test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$) — the length of the array $$$a$$$.
-The second line of each test case contains $$$n$$$
-nonnegative
-integers $$$a_1, \ldots, a_n$$$ ($$$0 \leq a_i \leq 10^9$$$).
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case print $$$n$$$ integers — any rearrangement of the array $$$a$$$ that obtains the lexicographically maximum prefix OR array.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 5
 4

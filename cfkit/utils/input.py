@@ -8,7 +8,15 @@ from prompt_toolkit.shortcuts import confirm as promptConfirm
 from cfkit.utils.check import check_command
 from cfkit.utils.print import display_horizontally
 
-def select_option(message: str, data: list, index: bool = True, disp_horizontally: bool = True) -> int | Any:
+def select_option(
+    message: str,
+    data: list,
+    index: bool = True,
+    disp_horizontally: bool = True
+  ) -> int | Any:
+  """
+  Documentation
+  """
   if disp_horizontally:
     display_horizontally(data)
   else:
@@ -48,6 +56,9 @@ def enter_number(message: str, error_message: str, num_range: range) -> int:
   return int(num)
 
 def confirm(message: str, default: bool = True):
+  """
+  Documentation
+  """
   if default is True:
     return promptConfirm(message, " [Y/n] ") in ("", True)
   return promptConfirm(message, " [y/N] ") is True

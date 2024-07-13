@@ -8,7 +8,7 @@ from typing import TypeAlias
 
 Directory: TypeAlias = Path
 
-PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d?"
+PROBLEM_CODE_PATTERN = r"\A[1-9]{1}\d{,3}[A-z]\d{,2}"
 
 NOTE = """
 <red>II.</red> Do not include any input or output specifications in your command! (i.e. &apos;&lt; in &gt; out&apos;)
@@ -119,3 +119,11 @@ ALL_ACTIONS = (
   "gen", 
   "run"
 )
+
+HTML_CLASS_PATTERN = r"class\s*=\s*" + '[\'"]'
+
+HTML_DIV_CLASS_PATTERN = rf"<\s*div\s*{HTML_CLASS_PATTERN}class_name[\"']\s*>"
+
+HTML_DOUBLE_DIV_CLASS_PATTERN = HTML_DIV_CLASS_PATTERN + r"\s*" + HTML_DIV_CLASS_PATTERN
+
+HTML_CLOSE_DIV_TAG = r"<\s*/\s*div\s*>"

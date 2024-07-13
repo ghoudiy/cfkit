@@ -2,36 +2,12 @@ Codeforces Round 859 (Div. 4)
 
 
 A. Plus or Minus
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given three integers $$$a$$$, $$$b$$$, and $$$c$$$ such that
-exactly one
-of these two equations is true:
-$$$a+b=c$$$
-$$$a-b=c$$$
-Output
-+
-if the first equation is true, and
--
-otherwise.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 162$$$) — the number of test cases.
-The description of each test case consists of three integers $$$a$$$, $$$b$$$, $$$c$$$ ($$$1 \leq a, b \leq 9$$$, $$$-8 \leq c \leq 18$$$). The additional constraint on the input: it will be generated so that
-exactly
-one of the two equations will be true.
-Output
-For each test case, output either
-+
-or
--
-on a new line, representing the correct equation.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 11
 1 2 3
@@ -59,39 +35,12 @@ Output
 +
 ----------------------------------------------------------------------------------------------------
 B. Grab the Candies
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-Mihai and Bianca are playing with bags of candies. They have a row $$$a$$$ of $$$n$$$ bags of candies. The $$$i$$$-th bag has $$$a_i$$$ candies. The bags are given to the players in the order from the first bag to the $$$n$$$-th bag.
-If a bag has an even number of candies, Mihai grabs the bag. Otherwise, Bianca grabs the bag. Once a bag is grabbed, the number of candies in it gets added to the total number of candies of the player that took it.
-Mihai wants to show off, so he wants to reorder the array so that at any moment (except at the start when they both have no candies), Mihai will have
-strictly more
-candies than Bianca. Help Mihai find out if such a reordering exists.
-Input
-The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 100$$$) — the number of bags in the array.
-The second line of each test case contains $$$n$$$ space-separated integers $$$a_i$$$ ($$$1 \leq a_i \leq 100$$$) — the number of candies in each bag.
-Output
-For each test case, output "
-YES
-" (without quotes) if such a reordering exists, and "
-NO
-" (without quotes) otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 3
 4
@@ -106,47 +55,12 @@ NO
 NO
 ----------------------------------------------------------------------------------------------------
 C. Find and Replace
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given a string $$$s$$$ consisting of lowercase Latin characters. In an operation, you can take a character and replace
-all
-occurrences of this character with $$$\texttt{0}$$$ or replace
-all
-occurrences of this character with $$$\texttt{1}$$$.
-Is it possible to perform some number of moves so that the resulting string is an alternating binary string$$$^{\dagger}$$$?
-For example, consider the string $$$\texttt{abacaba}$$$. You can perform the following moves:
-Replace $$$\texttt{a}$$$ with $$$\texttt{0}$$$. Now the string is $$$\color{red}{\texttt{0}}\texttt{b}\color{red}{\texttt{0}}\texttt{c}\color{red}{\texttt{0}}\texttt{b}\color{red}{\texttt{0}}$$$.
-Replace $$$\texttt{b}$$$ with $$$\texttt{1}$$$. Now the string is $$${\texttt{0}}\color{red}{\texttt{1}}{\texttt{0}}\texttt{c}{\texttt{0}}\color{red}{\texttt{1}}{\texttt{0}}$$$.
-Replace $$$\texttt{c}$$$ with $$$\texttt{1}$$$. Now the string is $$${\texttt{0}}{\texttt{1}}{\texttt{0}}\color{red}{\texttt{1}}{\texttt{0}}{\texttt{1}}{\texttt{0}}$$$. This is an alternating binary string.
-$$$^{\dagger}$$$An
-alternating binary string
-is a string of $$$\texttt{0}$$$s and $$$\texttt{1}$$$s such that no two adjacent bits are equal. For example, $$$\texttt{01010101}$$$, $$$\texttt{101}$$$, $$$\texttt{1}$$$ are alternating binary strings, but $$$\texttt{0110}$$$, $$$\texttt{0a0a0}$$$, $$$\texttt{10100}$$$ are not.
-Input
-The input consists of multiple test cases. The first line contains an integer $$$t$$$ ($$$1 \leq t \leq 100$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains an integer $$$n$$$ ($$$1 \leq n \leq 2000$$$) — the length of the string $$$s$$$.
-The second line of each test case contains a string consisting of $$$n$$$ lowercase Latin characters — the string $$$s$$$.
-Output
-For each test case, output "
-YES
-" (without quotes) if you can make the string into an alternating binary string, and "
-NO
-" (without quotes) otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 8
 7
@@ -176,41 +90,12 @@ NO
 NO
 ----------------------------------------------------------------------------------------------------
 D. Odd Queries
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You have an array $$$a_1, a_2, \dots, a_n$$$. Answer $$$q$$$ queries of the following form:
-If we change all elements in the range $$$a_l, a_{l+1}, \dots, a_r$$$ of the array to $$$k$$$, will the sum of the entire array be odd?
-Note that queries are
-independent
-and do not affect future queries.
-Input
-Each test contains multiple test cases. The first line contains the number of test cases $$$t$$$ ($$$1 \le t \le 10^4$$$). The description of the test cases follows.
-The first line of each test case consists of $$$2$$$ integers $$$n$$$ and $$$q$$$ ($$$1 \le n \le 2 \cdot 10^5$$$; $$$1 \le q \le 2 \cdot 10^5$$$) — the length of the array and the number of queries.
-The second line of each test case consists of $$$n$$$ integers $$$a_i$$$ ($$$1 \le a_i \le 10^9$$$) — the array $$$a$$$.
-The next $$$q$$$ lines of each test case consists of $$$3$$$ integers $$$l,r,k$$$ ($$$1 \le l \le r \le n$$$; $$$1 \le k \le 10^9$$$) — the queries.
-It is guaranteed that the sum of $$$n$$$ over all test cases doesn't exceed $$$2 \cdot 10^5$$$, and the sum of $$$q$$$ doesn't exceed $$$2 \cdot 10^5$$$.
-Output
-For each query, output "
-YES
-" if the sum of the entire array becomes odd, and "
-NO
-" otherwise.
-You can output the answer in any case (upper or lower). For example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-", and "
-YES
-" will be recognized as positive responses.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 2
 5 5
@@ -240,64 +125,12 @@ NO
 YES
 ----------------------------------------------------------------------------------------------------
 E. Interview
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-This is an interactive problem. If you are unsure how interactive problems work, then it is recommended to read
-the guide for participants
-.
-Before the last stage of the exam, the director conducted an interview. He gave Gon $$$n$$$ piles of stones, the $$$i$$$-th pile having $$$a_i$$$ stones.
-Each stone is identical and weighs $$$1$$$ grams, except for one special stone that is part of an unknown pile and weighs $$$2$$$ grams.
-A picture of the first test case. Pile $$$2$$$ has the special stone. The piles have weights of $$$1,3,3,4,5$$$, respectively.
-Gon can only ask the director questions of one kind: he can choose $$$k$$$ piles, and the director will tell him the total weight of the piles chosen. More formally, Gon can choose an integer $$$k$$$ ($$$1 \leq k \leq n$$$) and $$$k$$$ unique piles $$$p_1, p_2, \dots, p_k$$$ ($$$1 \leq p_i \leq n$$$), and the director will return the total weight $$$m_{p_1} + m_{p_2} + \dots + m_{p_k}$$$, where $$$m_i$$$ denotes the weight of pile $$$i$$$.
-Gon is tasked with finding the pile that contains the special stone. However, the director is busy. Help Gon find this pile in at most $$$\mathbf{30}$$$ queries.
-Input
-The input data contains several test cases. The first line contains one integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$) — the number of piles.
-The second line of each test case contains $$$n$$$ integers $$$a_i$$$ ($$$1 \leq a_i \leq 10^4$$$) — the number of stones in each pile.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
-After reading the input for each test case, proceed with the interaction as follows.
-Interaction
-You can perform the operation at most $$$\mathbf{30}$$$ times to guess the pile.
-To make a guess, print a line with the following format:
-$$$\texttt{?}\ k \ p_1 \ p_2 \ p_3 \ ... \ p_{k-1}\ p_k$$$ ($$$1 \leq k \leq n$$$; $$$1 \leq p_i \leq n$$$; all $$$p_i$$$ are distinct) — the indices of the piles.
-After each operation, you should read a line containing a single integer $$$x$$$ — the sum of weights of the chosen piles. (Formally, $$$x = m_{p_1} + m_{p_2} + \dots + m_{p_k}$$$.)
-When you know the index of the pile with the special stone, print one line in the following format: $$$\texttt{!}\ m$$$ ($$$1 \leq m \leq n$$$).
-After that, move on to the next test case, or terminate the program if there are no more test cases remaining.
-If your program performs more than $$$30$$$ operations for one test case or makes an invalid query, you may receive a
-Wrong Answer
-verdict.
-After you print a query or the answer, please remember to output the end of the line and flush the output. Otherwise, you may get
-Idleness limit exceeded
-or some other verdict. To do this, use the following:
-fflush(stdout)
-or
-cout.flush()
-in C++;
-System.out.flush()
-in Java;
-flush(output)
-in Pascal;
-stdout.flush()
-in Python;
-see the documentation for other languages.
-It is additionally recommended to read the
-interactive problems guide for participants
-.
-Hacks
-To make a hack, use the following format.
-The first line should contain a single integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
-The first line of each test case should contain two integers $$$n, m$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$) – the number of piles and the pile with the special stone.
-The second line of each test case should contain $$$n$$$ integers $$$a_i$$$ ($$$1 \leq a_i \leq 10^4$$$) — the number of stones in each pile.
-Note that the interactor is
-not
-adaptive, meaning that the answer is known before the participant asks the queries and doesn't depend on the queries asked by the participant.
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 2
 5
@@ -331,34 +164,12 @@ Output
 ! 7
 ----------------------------------------------------------------------------------------------------
 F. Bouncy Ball
-time limit per test
-1 second
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-You are given a room that can be represented by a $$$n \times m$$$ grid. There is a ball at position $$$(i_1, j_1)$$$ (the intersection of row $$$i_1$$$ and column $$$j_1$$$), and it starts going diagonally in one of the four directions:
-The ball is going down and right, denoted by $$$\texttt{DR}$$$; it means that after a step, the ball's location goes from $$$(i, j)$$$ to $$$(i+1, j+1)$$$.
-The ball is going down and left, denoted by $$$\texttt{DL}$$$; it means that after a step, the ball's location goes from $$$(i, j)$$$ to $$$(i+1, j-1)$$$.
-The ball is going up and right, denoted by $$$\texttt{UR}$$$; it means that after a step, the ball's location goes from $$$(i, j)$$$ to $$$(i-1, j+1)$$$.
-The ball is going up and left, denoted by $$$\texttt{UL}$$$; it means that after a step, the ball's location goes from $$$(i, j)$$$ to $$$(i-1, j-1)$$$.
-After each step, the ball maintains its direction unless it hits a wall (that is, the direction takes it out of the room's bounds in the next step). In this case, the ball's direction gets flipped along the axis of the wall; if the ball hits a corner, both directions get flipped. Any instance of this is called a
-bounce
-. The ball never stops moving.
-In the above example, the ball starts at $$$(1, 7)$$$ and goes $$$\texttt{DL}$$$ until it reaches the bottom wall, then it bounces and continues in the direction $$$\texttt{UL}$$$. After reaching the left wall, the ball bounces and continues to go in the direction $$$\texttt{UR}$$$. When the ball reaches the upper wall, it bounces and continues in the direction $$$\texttt{DR}$$$. After reaching the bottom-right corner, it bounces
-once
-and continues in direction $$$\texttt{UL}$$$, and so on.
-Your task is to find how many bounces the ball will go through until it reaches cell $$$(i_2, j_2)$$$ in the room, or report that it never reaches cell $$$(i_2, j_2)$$$ by printing $$$-1$$$.
-Note that the ball first goes in a cell and only after that bounces if it needs to.
-Input
-The first line contains a single integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases.
-The first line of each test case contains six integers and a string $$$n, m, i_1, j_1, i_2, j_2, d$$$ ($$$2 \leq n, m \leq 25000$$$; $$$1 \leq i_1, i_2 \leq n$$$; $$$1 \leq j_1, j_2 \leq m$$$; $$$d \in\{ \texttt{DR}, \texttt{DL}, \texttt{UR}, \texttt{UL}\}$$$) — the dimensions of the grid, the starting coordinates of the ball, the coordinates of the final cell and the starting direction of the ball.
-It is guaranteed that the sum of $$$n \cdot m$$$ over all test cases does not exceed $$$5 \cdot 10^4$$$.
-Output
-For each test case, output a single integer — the number of bounces the ball does until it reaches cell $$$(i_2, j_2)$$$ for the first time, or $$$-1$$$ if the ball never reaches the final cell.
-Example
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 5 7 1 7 2 4 DL
@@ -376,39 +187,12 @@ Output
 0
 ----------------------------------------------------------------------------------------------------
 G1. Subsequence Addition (Easy Version)
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-The only difference between the two versions is that in this version, the constraints are lower.
-Initially, array $$$a$$$ contains just the number $$$1$$$. You can perform several operations in order to change the array. In an operation, you can select some subsequence$$$^{\dagger}$$$ of $$$a$$$ and add into $$$a$$$ an element equal to the sum of all elements of the subsequence.
-You are given a final array $$$c$$$. Check if $$$c$$$ can be obtained from the initial array $$$a$$$ by performing some number (possibly 0) of operations on the initial array.
-$$$^{\dagger}$$$ A sequence $$$b$$$ is a subsequence of a sequence $$$a$$$ if $$$b$$$ can be obtained from $$$a$$$ by the deletion of several (possibly zero, but not all) elements. In other words, select $$$k$$$ ($$$1 \leq k \leq |a|$$$) distinct indices $$$i_1, i_2, \dots, i_k$$$ and insert anywhere into $$$a$$$ a new element with the value equal to $$$a_{i_1} + a_{i_2} + \dots + a_{i_k}$$$.
-Input
-The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 5000$$$)  — the number of elements the final array $$$c$$$ should have.
-The second line of each test case contains $$$n$$$ space-separated integers $$$c_i$$$ ($$$1 \leq c_i \leq 5000$$$)  — the elements of the final array $$$c$$$ that should be obtained from the initial array $$$a$$$.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$5000$$$.
-Output
-For each test case, output "
-YES
-" (without quotes) if such a sequence of operations exists, and "
-NO
-" (without quotes) otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 1
@@ -432,39 +216,12 @@ YES
 YES
 ----------------------------------------------------------------------------------------------------
 G2. Subsequence Addition (Hard Version)
-time limit per test
-2 seconds
-memory limit per test
-256 megabytes
-input
-standard input
-output
-standard output
-The only difference between the two versions is that in this version, the constraints are higher.
-Initially, array $$$a$$$ contains just the number $$$1$$$. You can perform several operations in order to change the array. In an operation, you can select some subsequence$$$^{\dagger}$$$ of $$$a$$$ and add into $$$a$$$ an element equal to the sum of all elements of the subsequence.
-You are given a final array $$$c$$$. Check if $$$c$$$ can be obtained from the initial array $$$a$$$ by performing some number (possibly 0) of operations on the initial array.
-$$$^{\dagger}$$$ A sequence $$$b$$$ is a subsequence of a sequence $$$a$$$ if $$$b$$$ can be obtained from $$$a$$$ by the deletion of several (possibly zero, but not all) elements. In other words, select $$$k$$$ ($$$1 \leq k \leq |a|$$$) distinct indices $$$i_1, i_2, \dots, i_k$$$ and insert anywhere into $$$a$$$ a new element with the value equal to $$$a_{i_1} + a_{i_2} + \dots + a_{i_k}$$$.
-Input
-The first line of the input contains an integer $$$t$$$ ($$$1 \leq t \leq 1000$$$) — the number of test cases. The description of the test cases follows.
-The first line of each test case contains a single integer $$$n$$$ ($$$1 \leq n \leq 2 \cdot 10^5$$$)  — the number of elements the final array $$$c$$$ should have.
-The second line of each test case contains $$$n$$$ space-separated integers $$$c_i$$$ ($$$1 \leq c_i \leq 2 \cdot 10^5$$$)  — the elements of the final array $$$c$$$ that should be obtained from the initial array $$$a$$$.
-It is guaranteed that the sum of $$$n$$$ over all test cases does not exceed $$$2 \cdot 10^5$$$.
-Output
-For each test case, output "
-YES
-" (without quotes) if such a sequence of operations exists, and "
-NO
-" (without quotes) otherwise.
-You can output the answer in any case (for example, the strings "
-yEs
-", "
-yes
-", "
-Yes
-" and "
-YES
-" will be recognized as a positive answer).
-Example
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
 Input
 6
 1

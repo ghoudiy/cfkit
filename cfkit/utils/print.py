@@ -6,6 +6,7 @@ from sys import exit as sysExit
 from os import get_terminal_size
 
 from prompt_toolkit import print_formatted_text, HTML
+from prompt_toolkit.shortcuts import prompt
 from prompt_toolkit.styles import Style
 from cfkit.utils.variables import color_conf
 
@@ -20,18 +21,17 @@ def colored_text(
   Documentation
   """
 
-  style = Style([(key, value) for key, value in color_conf["theme"].items()])
+  style = Style(list(color_conf["theme"].items()))
 
   if one_color:
     message = f"<{one_color}>{message}</{one_color}>"
 
   if input_statement:
-    from prompt_toolkit.shortcuts import prompt
     return prompt(HTML(message), style=style)
 
   elif exit_code_after_print_statement == 0:
     print_formatted_text(HTML(message), style=style, **kwargs)
-  
+
   else:
     print_formatted_text(HTML(message), style=style, **kwargs)
     sysExit(exit_code_after_print_statement)
