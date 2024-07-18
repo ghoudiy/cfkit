@@ -63,27 +63,25 @@ def convert_to_megabytes(memory: str) -> float:
   """
   Documentation
   """
-  if not memory.isdigit():
-    space = memory.rfind(" ")
-    unit = memory[space+1:].lower()
-    conversion_factors = {
-      "gigabytes": 0.0009765625,
-      "гигабайты": 0.0009765625,
-      "megabytes": 1,
-      "мегабайт": 1,
-      "kilobytes": 1024,
-      "килобайты": 1024,
-      "bytes": 1048576,
-      "байты": 1048576
-    }
-    if unit in conversion_factors:
-      return float(memory[:space]) * conversion_factors[unit]
-    colored_text(
-      "Could not recognize the memory size",
-      one_color="error",
-      exit_code_after_print_statement=1
-    )
-  return float(memory)
+  space = memory.rfind(" ")
+  unit = memory[space+1:].lower()
+  conversion_factors = {
+    "gigabytes": 0.0009765625,
+    "гигабайты": 0.0009765625,
+    "megabytes": 1,
+    "мегабайт": 1,
+    "kilobytes": 1024,
+    "килобайты": 1024,
+    "bytes": 1048576,
+    "байты": 1048576
+  }
+  if unit in conversion_factors:
+    return float(memory[:space]) * conversion_factors[unit]
+  colored_text(
+    "Could not recognize the memory size",
+    one_color="error",
+    exit_code_after_print_statement=1
+  )
 
 def retrieve_template(file_path: str) -> str:
   """
@@ -110,8 +108,8 @@ def retrieve_template(file_path: str) -> str:
         else:
           colored_text(f"<error_4>No such file or directory</error_4> &apos;{template_path}&apos;")
 
-    templates = list(filter(bool, templates)) # Maybe the user enter a path of an empty folder
-    # print(templates)
+    templates = [templ for templ in templates if templ] # Maybe the user enter a path of an empty folder
+
     if len(templates) > 1:
       print("Available templates: ")
       template = select_option("Template index: ", templates, index=False)
@@ -125,15 +123,6 @@ def retrieve_template(file_path: str) -> str:
       exit_code_after_print_statement=1
     )
   return default_template_path
-
-def retrieve_default_language():
-  """
-  Documentation
-  """
-  default_language = conf_file["cfkit"]["default_language"]
-  # print(default_language)
-  if default_language not in read_json_file(language_conf_path):
-    pass
 
 def adjusting_paths(
     problem_index: str,
@@ -184,36 +173,6 @@ def execute_file(
   except CalledProcessError as err:
     exitcode = err.returncode
   return exitcode
-
-def execute_solution(
-    solution_file: str,
-    problem_index: str,
-    execute_command: str,
-    input_sample: str,
-    participant_output_path: str,
-    errors_memory_time_of_solution_filename: str,
-    working_in_script: bool
-  ):
-  """
-  Documentation
-  """
-  if not working_in_script:
-    return execute_file(
-      solution_file,
-      problem_index,
-      input_sample,
-      participant_output_path,
-      errors_memory_time_of_solution_filename,
-      execute_command
-    )
-  return execute_file(
-    "cfkit_module_user_code.py",
-    problem_index,
-    input_sample,
-    participant_output_path,
-    errors_memory_time_of_solution_filename,
-    execute_command
-  )
 
 def augment_errors_warnings(data: dict, test_results: dict):
   """

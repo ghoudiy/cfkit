@@ -3,11 +3,11 @@
 from argparse import ArgumentParser
 from sys import exit as sysExit, argv
 from re import search
+from pathlib import Path
+from shutil import copy
+from platform import uname
 
-from cfkit.contest import Contest
-from cfkit.problem import Problem
-from cfkit.utils.print import colored_text
-
+from cfkit.utils.constants import LANGUAGES
 from cfkit.utils.constants import HELP_MESSAGE
 from cfkit.utils.constants import ALL_ACTIONS
 
@@ -23,60 +23,16 @@ def get_action():
 
   return argv.pop(1)
 
-#// def _next_previous(next_or_previous, contest_or_problem):
-#//   """
-#//   Documentation
-#//   """
-#//   last_fetched = read_json_file(resources_folder.joinpath("last_fetched_data.json"))
-#//   if contest_or_problem == "contest":
-#//     contest_id = int(last_fetched["last_fetched_contest"]["contest_id"])
-#//     if next_or_previous == "next":
-#//       return contest_id + 1
-#//     if contest_id == 1:
-#//       print("There were no contests before contest 1.")
-#//       sysExit(1)
-#//     return contest_id - 1
-
-#//   problem_index = last_fetched["last_fetched_problem"]["problem_index"]
-#//   pos_letter = len(problem_index) - 1 if problem_index[-1].isalpha() else len(problem_index) - 2
-#//   contestid = int(problem_index[:pos_letter])
-#//   contest_problems_statement_file_path = resources_folder.joinpath(
-#//     "problems",
-#//     f"{contestid}").with_suffix(".txt")
-#//   if not contest_problems_statement_file_path.exists():
-#//     problems, _ = problems_content(
-#//       get_response(
-#//         f"https://codeforces.com/contest/{contestid}/problems", contestid, contestid),
-#//       contestid, html_page=True
-#//     )
-#//   else:
-#//     problems, _ = problems_content(contest_problems_statement_file_path, contestid)
-
-#//   i = -1
-#//   test = False
-#//   while not test and i < len(problems) - 1:
-#//     i += 1
-#//     test = problems[i][0].startswith(problem_index[pos_letter:])
-
-#//   if next_or_previous == "next":
-#//     if i == len(problems):
-#//       print(f"{contestid}{problems[i][0][:problems[i][0].find('.')]} is the last problem in this contest.")
-#//       sysExit(1)
-#//     return f"{contestid}{problems[i+1][0][:problems[i+1][0].find('.')]}"
-#//   if i == 1:
-#//     print(f"{contestid}{problems[i][0][:problems[i][0].find('.')]} is the first problem in this contest.")
-#//     sysExit(1)
-#//   return f"{contestid}{problems[i-1][0][:problems[i-1][0].find('.')]}"
-
 def _check_problem_index(problem_index):
   """
   Documentation
   """
+  from cfkit.utils.print import colored_text
+
   if problem_index.isdigit() and 1 <= int(problem_index) <= 9999:
     return problem_index, "contest"
   try:
 
-    #// if ((i:=search(r"\A\d{1,4}[A-z](\d)?", problem_index)) is not None) or ((j:=search(r"\A[A-z]{1}(\d)?", problem_index)) is not None):
     if ((search(r"\A\d{1,4}[A-z]\d{,2}", problem_index)) is not None) or ((search(r"\A[A-z]{1}\d{,2}", problem_index)) is not None):
       pass
 
@@ -89,9 +45,6 @@ def _check_problem_index(problem_index):
 
     elif problem_index.isdigit() and argv[2].isalpha():
       problem_index = problem_index + argv[2]
-
-    # elif problem_index in ("next", "previous") and argv[2] == "problem":
-    #   problem_index = _next_previous(problem_index, argv[2])
 
     else:
       colored_text(
@@ -111,13 +64,14 @@ def list_action():
   """
   Documentation
   """
+  from cfkit.main.contest import Contest
+
   parser = ArgumentParser(description='list options')
 
   parser.add_argument("contestid", action='store', help="ContestId")
   parser.add_argument("-l", "--letters", action='store_true', dest="letters", help="Problem letters")
 
   args = parser.parse_args()
-
   if args.letters:
     print(*Contest(args.contestid).problems_letters, sep="\n")
   else:
@@ -127,6 +81,9 @@ def parse_action():
   """
   Documentation
   """
+  from cfkit.main.contest import Contest
+  from cfkit.main.problem import Problem
+
   parser = ArgumentParser(description='Parse options')
 
   parser.add_argument("problem_index", action='store', help="Problem index (e.g. 4a)")
@@ -146,13 +103,14 @@ def parse_action():
     Problem(problem_index).parse(path_option, create_tests_dir_option, short_names_option)
   else:
     Contest(int(problem_index)).parse(path_option, create_tests_dir_option)
-  # elif problem_index in ("next", "previous") and argv[2] == "contest":
-  #   Contest(_next_previous(problem_index, "contest")).parse(path_option, create_tests_dir_option)
 
 def gen_action():
   """
   Documentation
   """
+  from cfkit.main.contest import Contest
+  from cfkit.main.problem import Problem
+
   parser = ArgumentParser(description='Generate options')
 
   parser.add_argument("problem_index", action='store', help="Problem index (e.g. 4a)")
@@ -178,6 +136,8 @@ def run_action():
   """
   Documentation
   """
+  from cfkit.main.problem import Problem
+
   parser = ArgumentParser(description='Run options')
 
   parser.add_argument("file", action='store', help="Solution file")
@@ -217,14 +177,100 @@ def run_action():
       args.not_verbose
     )
 
+def config_action():
+  if argv[1] != "all":
+    print("Please run `cf config all`")
+    sysExit(1)
+  else:
+    source_dir = Path(__file__).parent.parent
+
+    data_dir = source_dir.joinpath("data")
+    target_dir = Path.home() / '.cfkit'
+
+    if not target_dir.exists():
+      target_dir.mkdir(parents=True)
+
+    for item in data_dir.rglob('*'):
+      target_item = target_dir / item.relative_to(data_dir)
+      if item.is_dir():
+        target_item.mkdir(parents=True, exist_ok=True)
+      else:
+        copy(item, target_item)
+
+    from cfkit.utils.print import colored_text
+    from cfkit.utils.input import confirm, select_option
+    from cfkit.config.config import set_language_attributes#, set_default_submission_language
+    from cfkit.utils.variables import conf_file
+    from cfkit.utils.variables import config_file_path
+
+    conf_file["cfkit"]["user"] = input("Your username: ")
+    if len(conf_file["cfkit"]["user"]) == 0:
+      colored_text("Username cannot be empty", one_color="error_4", exit_code_after_print_statement=4)
+      conf_file["cfkit"]["default_language"] = select_option(
+        "Please select the default programming language you will use to solve problems: ",
+        LANGUAGES,
+        index=False,
+        disp_horizontally=False
+    )
+    conf_file["cfkit"]["default_language"] = select_option(
+      "Please select the default programming language you will use to solve problems: ",
+      LANGUAGES,
+      index=False,
+      disp_horizontally=False
+    )
+    
+    with open(config_file_path, 'w', encoding="UTF-8") as file:
+      conf_file.write(file)
+    
+    set_language_attributes(conf_file["cfkit"]["default_language"])
+
+    var = uname()
+    arch = var.machine.lower()
+    operating_sys = var.system.lower()
+
+    def configure_mem_time_usage(mem_time_calc_exec):
+      conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = confirm(
+        "Do you want to calculate memory usage and execution time?"
+      )
+      dst = source_dir.joinpath("dependencies", "memory_time_usage.exe")
+      if operating_sys != "windows":
+        mem_time_calc_exec = mem_time_calc_exec[:-4]
+        dst = source_dir.joinpath("dependencies", "memory_time_usage")
+
+      mem_time_calc_exec = source_dir.joinpath("dependencies", mem_time_calc_exec)
+      copy(mem_time_calc_exec, dst)
+
+    if arch in ('i386', 'i686'):
+      if operating_sys == "darwin":
+        print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+      else:
+        configure_mem_time_usage(f"{operating_sys}_386.exe'")
+
+    elif arch in ('x86_64', "amd64"):
+      configure_mem_time_usage(f"{operating_sys}_amd64.exe'")
+
+    elif arch.startswith('arm'):
+      if operating_sys != "linux":
+        print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+      else:
+        configure_mem_time_usage(f"{operating_sys}_arm.exe'")
+
+    elif arch == 'aarch64':
+      configure_mem_time_usage(f"{operating_sys}_arm64.exe'")
+
+    else:
+      print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+
+
 def main():
   """
   Documentation
   """
   actions = {
-    "list"  : list_action,
-    "parse" : parse_action,
-    "gen"   : gen_action,
-    "run"   : run_action,
+    "list"   : list_action,
+    "parse"  : parse_action,
+    "gen"    : gen_action,
+    "run"    : run_action,
+    "config" : config_action,
   }
   actions[get_action()]()

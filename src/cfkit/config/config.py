@@ -6,12 +6,8 @@ from pathlib import Path
 
 from cfkit.utils.file_operations import read_json_file, write_json_file
 from cfkit.utils.input import select_option
-from cfkit.utils.print import colored_text
 from cfkit.config.implementation import detect_implementation
 
-from cfkit.utils.constants import LANGUAGES
-from cfkit.utils.variables import conf_file
-from cfkit.utils.variables import config_file_path
 from cfkit.utils.variables import language_conf_path
 from cfkit.utils.variables import MACHINE
 
@@ -23,22 +19,14 @@ def set_language_attributes(programming_language: str) -> str:
   command, implementation = command[0], command[1]
   calculate_memory_usage_and_execution_time_command = str(Path(__file__).parent.parent.joinpath(
     "dependencies",
-    "memory_time_usage.exe " if MACHINE == "win32" else "./memory_time_usage.exe "
+    "memory_time_usage.exe " if MACHINE == "win32" else "./memory_time_usage "
   ))
   if implementation == "compiler":
-    aux = conf_file["cfkit"]["add_exe_extension_to_executable_file_linux_macos"].strip().lower()
-    if aux not in ("true", "false", ""):
-      colored_text(
-        "The configuration option "
-        "<error_6>`add_exe_extension_to_executable_file_linux_macos`</error_6>"
-        "must be set to either <error_6>`true`</error_6> or <error_6>`false`</error_6>",
-        exit_code_after_print_statement=6
-      )
+    if MACHINE == "win32":
+      execute_command = osPath.join("%%{dir_name}%%", "%%{output}%%.exe")
+    else:
+      execute_command = osPath.join("%%{dir_name}%%", "./%%{output}%%")
 
-    execute_command = osPath.join(
-      "%%{dir_name}%%", ("./" if MACHINE != "win32" else "") + "%%{output}%%" + (
-        ".exe" if aux == "true" else "")
-    )
     calculate_memory_usage_and_execution_time_command += f'"{execute_command}" ' + (
       "%%{time_mem_err_output_file}%% "
       "%%{input_file}%% %%{output_file}%%"
@@ -73,21 +61,6 @@ def set_language_attributes(programming_language: str) -> str:
   if implementation == "compiler":
     return command, execute_command, calculate_memory_usage_and_execution_time_command
   return None, command, calculate_memory_usage_and_execution_time_command
-
-def set_default_language():
-  """
-  Documentation
-  """
-  default_language = conf_file["cfkit"]["default_language"].strip()
-  if len(default_language) == 0 or default_language not in LANGUAGES:
-    conf_file["cfkit"]["default_language"] = select_option(
-      "Please select the default programming language you will use to solve problems: ",
-      LANGUAGES,
-      index=False,
-      disp_horizontally=False
-    )
-    with open(config_file_path, 'w', encoding="UTF-8") as file:
-      conf_file.write(file)
 
 def set_default_submission_language(set_as_default: bool, programming_language: str) -> int:
   """
@@ -141,4 +114,3 @@ def set_default_submission_language(set_as_default: bool, programming_language: 
 
     return languages[user_choice]
   return configuration[programming_language]["default_submission_language"]
-

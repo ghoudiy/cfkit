@@ -1,7 +1,7 @@
 """
 Documentation
 """
-from os import path as osPath, getcwd, chdir, listdir
+from os import path as osPath, getcwd, chdir, listdir, remove as osRemove
 from sys import argv as sysArgv, exit as sysExit
 from pathlib import Path
 from re import search, findall, compile as reCompile
@@ -12,8 +12,8 @@ from subprocess import CalledProcessError, run
 
 from cfkit.utils.common import (
   file_name,
+  execute_file,
   adjusting_paths,
-  execute_solution,
   retrieve_template,
   convert_to_megabytes,
   augment_errors_warnings,
@@ -51,7 +51,6 @@ from cfkit.utils.variables import (
 
 from cfkit.utils.constants import (
   Directory,
-  LANGUAGES,
   EXTENSIONS,
   LANGUAGES_EXTENSIONS,
   PROBLEM_CODE_PATTERN,
@@ -286,9 +285,7 @@ class Problem:
         print(
           "You should set a default language so that you don't have to",
           "enter the programming language every time"
-        ) # grammar checked
-
-      elif default_language not in LANGUAGES:
+        )
         file_extension = input("Extension: ")
         while file_extension not in EXTENSIONS:
           colored_text("Extension is not recognised! Please try again", one_color="error_4")
@@ -691,6 +688,27 @@ class Problem:
         )
         return True
       return False
+   
+    def execute_solution(
+        solution_file: str,
+        problem_index: str,
+        execute_command: str,
+        input_sample: str,
+        participant_output_path: str,
+        errors_memory_time_of_solution_filename: str,
+        working_in_script: bool
+      ):
+      if not working_in_script:
+        solution_file = "cfkit_module_user_code.py"
+
+      return execute_file(
+        solution_file,
+        problem_index,
+        input_sample,
+        participant_output_path,
+        errors_memory_time_of_solution_filename,
+        execute_command
+      )
 
     def test_solution_against_samples(
       input_samples_list: list[str],
@@ -1124,6 +1142,6 @@ class Problem:
       # ===========================================================================================
 
     if working_in_script:
+      osRemove("cfkit_module_user_code.py")
       if stop_program:
         sysExit(0)
-      # os.remove("cfkit_module_user_code.py")
