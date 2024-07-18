@@ -1,0 +1,10 @@
+{
+    "C#": {
+        "Mono": "mcs -o+ -out:%%{output}%%.exe %%{file}%% && mono %%{output}%%.exe"
+    },
+    "Go": "go run %%{file}%%",
+    "Haskell": "runghc %%{file}%%",   
+    "Java": "java -Duser.language=en %%{file}%%",
+    "Kotlin": "kotlinc %%{file}%% -include-runtime -d %%{output}%%.jar && java -jar %%{output}%%.jar",
+    "Scala": "scala %%{file}%%"
+}

@@ -1,0 +1,133 @@
+{
+    "C": {
+        "win32": {
+            "Comprehensive": "gcc -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -lm -s -Wl,--stack=268435456 -O2 -o %%{output}%%.exe %%{file}%%",
+            "Balanced": "gcc -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -s -O2 -o %%{output}%%.exe %%{file}%%",
+            "Essential": "gcc -Wall -Wextra -O2 -o %%{output}%%.exe %%{file}%%"
+        },
+        "linux": {
+            "Comprehensive": "gcc -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -lm -s -O2 -o %%{output}%% %%{file}%%",
+            "Balanced": "gcc -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -s -O2 -o %%{output}%% %%{file}%%",
+            "Essential": "gcc -Wall -Wextra -O2 -o %%{output}%% %%{file}%%"
+        },
+        "darwin": {
+            "Comprehensive": "gcc -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -lm -s -O2 -o %%{output}%% %%{file}%%",
+            "Balanced": "gcc -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -s -O2 -o %%{output}%% %%{file}%%",
+            "Essential": "gcc -Wall -Wextra -O2 -o %%{output}%% %%{file}%%"
+        }
+    },
+    "C++": {
+        "Clang++": {
+            "Clang++17": {
+                "win32": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++17 -Wl,-stack_size,268435456 -o %%{output}%%.exe %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%%.exe %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%%.exe %%{file}%%"
+                    },
+                "linux": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%% %%{file}%%"
+                },
+                "darwin": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%% %%{file}%%"
+                }
+            },
+            "Clang++20": {
+                "win32": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -Wl,-stack_size,268435456 -o %%{output}%%.exe %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%%.exe %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%%.exe %%{file}%%"
+                },
+                "linux": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%% %%{file}%%"
+                },
+                "darwin": {
+                    "Comprehensive": "clang++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wformat=2 -Wshift-overflow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Balanced": "clang++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Essential": "clang++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%% %%{file}%%"
+                }
+            }
+        },
+        "GNU G++": {
+            "GNU G++ 14": {
+                "win32": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -Wl,--stack,268435456 -O2 -std=c++14 -o %%{output}%%.exe %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++14 -o %%{output}%%.exe %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++14 -o %%{output}%%.exe %%{file}%%"
+                    },
+                "linux": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++14 -o %%{output}%% %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++14 -o %%{output}%% %%{file}%%",
+                    "Essential": null
+                    },
+                "darwin": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++14 -o %%{output}%% %%{file}%%",
+                    "Balanced": null,
+                    "Essential": null
+                }
+            },
+            "GNU G++ 17": {
+                "win32": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -Wl,--stack=268435456 -O2 -std=c++17 -o %%{output}%%.exe %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%%.exe %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%%.exe %%{file}%%"
+                },
+                "linux": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%% %%{file}%%"
+                },
+                "darwin": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++17 -o %%{output}%% %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++17 -o %%{output}%% %%{file}%%"
+                }
+            },
+            "GNU G++ 20": {
+                "win32": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -Wl,--stack=268435456 -O2 -std=c++20 -o %%{output}%%.exe %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%%.exe %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%%.exe %%{file}%%"
+                    },
+                "linux": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%% %%{file}%%"
+                },
+                "darwin": {
+                    "Comprehensive": "g++ -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Balanced": "g++ -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -O2 -std=c++20 -o %%{output}%% %%{file}%%",
+                    "Essential": "g++ -Wall -Wextra -O2 -std=c++20 -o %%{output}%% %%{file}%%"
+                }
+            }
+        },
+        "Microsoft Visual Studio C++ 2017": "cl /std:c++17 /W4 /analyze /w44263 /w44270 /STACK268435456 /EHsc /O2 /Fe:%%{output}%% %%{file}%%"
+    },
+    "C#": {
+        ".NET": "csc /o+ /out:%%{output}%% %%{file}%%"
+    },
+    "D": {
+        "DMD": {
+            "win32": "dmd -L/STACK:268435456 -O -release %%{file}%% -of=%%{output}%%.exe",
+            "linux": "dmd -O -release %%{file}%% -of=%%{output}%%",
+            "darwin": "dmd -O -release %%{file}%% -of=%%{output}%%"
+        },
+        "GDC": {
+            "win32": "gdc -Wall -Wextra -fno-strict-aliasing -pedantic -Wshadow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -Wl,--stack=268435456 -O2 -o %%{output}%%.exe %%{file}%%",
+            "linux": "gdc -Wall -Wextra -fno-strict-aliasing -pedantic -Wshadow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -o %%{output}%% %%{file}%%",
+            "darwin": "gdc -Wall -Wextra -fno-strict-aliasing -pedantic -Wshadow -fsanitize=undefined -fno-sanitize-recover -fstack-protector -O2 -o %%{output}%% %%{file}%%"
+        }
+    },
+    "OCaml": "ocamlopt nums.cmxa str.cmxa -pp camlp4o -o %%{output}%% -ocaml %%{file}%%",
+    "Delphi": "dcc{architecture} -Q -cc %%{file}%% && ren %%{file}%% %%{output}%%",
+    "Pascal": {
+        "Free Pascal": "fpc -n -O2 -viwn -Mdelphi %%{file}%% -o %%{output}%%",
+        "PascalABC.NET": "pabcnetc %%{file}%% && ren %%{file}%% %%{output}%% && ren %%{file}%%.dpr %%{output}%%.dpr"
+    },
+    "Rust": "rustc -C opt-level=2 -o %%{output}%% %%{file}%%"
+}

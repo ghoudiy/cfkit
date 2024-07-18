@@ -1,0 +1,508 @@
+Codeforces Round 854 by cybercats (Div. 1 + Div. 2)
+
+
+A. Recent Actions
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+10
+1 1
+2
+3 2
+5 4
+4 5
+5 9 9 5 7
+5 5
+6 7 8 9 10
+3 4
+4 4 4 4
+4 4
+5 5 6 6
+3 5
+4 5 5 5 4
+4 20
+5 5 24 24 24 5 6 7 8 9 10 12 13 14 15 16 17 18 19 20
+5 7
+7 8 7 11 7 12 10
+6 7
+8 11 7 8 8 8 12
+Output
+1 
+-1 2 1 
+-1 5 2 1 
+5 4 3 2 1 
+-1 -1 1 
+-1 -1 3 1 
+-1 2 1 
+8 7 3 1 
+7 6 4 2 1 
+-1 -1 7 3 2 1 
+----------------------------------------------------------------------------------------------------
+B. Equalize by Divide
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+10
+1
+100
+3
+1 1 1
+2
+2 1
+2
+5 5
+3
+4 3 2
+4
+3 3 4 4
+2
+2 100
+5
+5 3 6 7 8
+6
+3 3 80 3 8 3
+4
+19 40 19 55
+Output
+0
+0
+-1
+0
+2
+1 3
+2 1
+4
+3 1
+4 2
+1 3
+2 4
+6
+2 1
+2 1
+2 1
+2 1
+2 1
+2 1
+8
+5 2
+4 2
+3 2
+1 3
+1 3
+2 1
+4 1
+5 1
+4
+5 1
+3 1
+3 1
+3 1
+9
+4 2
+2 1
+1 2
+1 2
+3 2
+3 2
+1 4
+2 4
+3 4
+----------------------------------------------------------------------------------------------------
+C. Double Lexicographically Minimum
+time limit per test: 2 seconds
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+12
+a
+aab
+abb
+abc
+aabb
+aabbb
+aaabb
+abbb
+abbbb
+abbcc
+eaga
+ffcaba
+Output
+a
+aba
+bab
+bca
+abba
+abbba
+ababa
+bbab
+bbabb
+bbcca
+agea
+acffba
+----------------------------------------------------------------------------------------------------
+D1. Hot Start Up (easy version)
+time limit per test: 1 second
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+9
+3 2
+1 2 2
+3 2
+2 1
+4 2
+1 2 1 2
+5 3
+2 1
+4 3
+1 2 3 1
+100 100 100
+1 1 1
+5 2
+2 1 2 1 1
+65 45
+54 7
+5 3
+1 3 2 1 2
+2 2 2
+1 1 1
+5 1
+1 1 1 1 1
+1000000000
+999999999
+5 6
+1 6 1 4 1
+3 6 4 1 4 5
+1 1 1 1 4 1
+1 3
+3
+4 5 6
+1 2 3
+8 3
+3 3 3 1 2 3 2 1
+10 10 8
+10 10 5
+Output
+6
+11
+301
+225
+8
+4999999996
+11
+6
+63
+----------------------------------------------------------------------------------------------------
+D2. Hot Start Up (hard version)
+time limit per test: 1 second
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+9
+3 2
+1 2 2
+3 2
+2 1
+4 2
+1 2 1 2
+5 3
+2 1
+4 3
+1 2 3 1
+100 100 100
+1 1 1
+5 2
+2 1 2 1 1
+65 45
+54 7
+5 3
+1 3 2 1 2
+2 2 2
+1 1 1
+5 1
+1 1 1 1 1
+1000000000
+999999999
+5 6
+1 6 1 4 1
+3 6 4 1 4 5
+1 1 1 1 4 1
+1 3
+3
+4 5 6
+1 2 3
+8 3
+3 3 3 1 2 3 2 1
+10 10 8
+10 10 5
+Output
+6
+11
+301
+225
+8
+4999999996
+11
+6
+63
+----------------------------------------------------------------------------------------------------
+E. City Union
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+11
+1 3
+#.#
+2 2
+.#
+#.
+4 4
+..##
+...#
+#...
+##..
+6 6
+.##...
+##....
+......
+....##
+.....#
+...###
+6 5
+.#..#
+.#..#
+.#..#
+.#.##
+.#...
+##...
+5 5
+#####
+#...#
+#.#.#
+#...#
+#####
+4 4
+.##.
+##.#
+#.##
+.##.
+5 5
+..###
+....#
+.....
+#....
+#....
+5 6
+.##...
+##....
+#....#
+....##
+...##.
+6 5
+..##.
+...##
+....#
+#....
+##...
+.##..
+5 4
+..##
+..#.
+..#.
+#...
+#...
+Output
+###
+.#
+##
+..##
+..##
+###.
+##..
+.##...
+###...
+..#...
+..####
+...###
+...###
+.####
+.####
+.####
+.####
+.#...
+##...
+#####
+#####
+#####
+#####
+#####
+.##.
+####
+####
+.##.
+..###
+..###
+..#..
+###..
+#....
+.##...
+###...
+######
+...###
+...##.
+..##.
+..###
+..###
+###..
+###..
+.##..
+..##
+..#.
+..#.
+###.
+#...
+----------------------------------------------------------------------------------------------------
+F. Halve or Subtract
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+7
+3 2 1 1
+9 3 5
+2 1 2 0
+1000000000 1
+5 3 1 1
+2 8 3 19 3
+6 9 4 2
+1 2 3 4 5 6
+3 10 3 3
+1 2 3
+5 1 0 0
+999999999 999999999 999999999 999999999 999999999
+5 5 4 3
+5 9 10 7 4
+Output
+11
+500000001
+23
+6
+0
+4999999995
+6
+----------------------------------------------------------------------------------------------------
+G. Count Voting
+time limit per test: 1 second
+memory limit per test: 256 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+3
+1 1 1
+1 2 3
+Output
+2
+Input
+5
+2 0 1 0 2
+1 2 3 4 5
+Output
+10
+Input
+5
+1 2 2 0 0
+3 5 4 3 4
+Output
+5
+----------------------------------------------------------------------------------------------------
+H. Tree Cutting
+time limit per test: 2 seconds
+memory limit per test: 512 megabytes
+input: standard input
+output: standard output
+
+Examples
+Input
+3
+1 2
+2 3
+2
+2 1
+Output
+4
+Input
+7
+2 1
+3 2
+4 1
+5 3
+6 4
+7 4
+2
+4 2
+Output
+2
+Input
+7
+1 2
+1 3
+1 4
+2 5
+3 6
+4 7
+1
+2
+Output
+3
+Input
+7
+1 2
+1 3
+1 4
+2 5
+3 6
+4 7
+4
+6 5 2 1
+Output
+24
+Input
+8
+1 2
+2 3
+3 4
+3 5
+3 6
+3 7
+3 8
+2
+7 4
+Output
+0
+----------------------------------------------------------------------------------------------------
