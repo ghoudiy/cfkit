@@ -1,0 +1,34 @@
+[project]
+name = "cfkit"
+version = "0.0.11"
+authors = [
+  {name = "Yassine Ghoudi", email = "ghoudi.dev@gmail.com"}
+]
+description = "A tool for managing coding competitions."
+readme = "README.md"
+license = {file = "LICENSE.txt"}
+requires-python = ">=3.8"
+keywords = ["CLI", "Python", "competition", "management"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Operating System :: OS Independent"
+]
+
+[build-system]
+requires=[
+  "requests",
+  "MechanicalSoup",
+  "beautifulsoup4",
+  "prompt_toolkit",
+  "setuptools>=61",
+  "wheel"
+]
+build-backend = "setuptools.build_meta"
+
+[project.urls]
+Homepage = "https://github.com/ghoudiy/cfkit"
+Issues = "https://github.com/ghoudiy/cfkit/issues"
+
+[project.scripts]
+cf = "cfkit.cmd.cli:main"
