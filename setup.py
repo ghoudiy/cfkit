@@ -3,39 +3,40 @@ from pathlib import Path
 from platform import uname
 from setuptools import setup, find_packages
 
+
 with open("README.md", 'r', encoding="UTF-8") as file:
   long_description = file.read()
 
-package_data = {
-  "src/json": ["json/*.json"],
-  "docs": ["docs/*.md"],
-  "examples": ["examples/*.gif"],
-  '': ["README.md", "LICENSE.txt"],
+# package_data = {
+#   "cfkit/json": ["src/cfkit/json/*.json"],
+#   "docs": ["docs/*.md"],
+#   "examples": ["examples/*.gif"],
+#   '': ["README.md", "LICENSE.txt"],
 
-}
-var = uname()
-arch = var.machine
-operating_sys = var.system
-if arch == 'i386' or arch == 'i686':
-  if operating_sys == "darwin":
-    print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
-  else:
-    package_data["dependencies"] = [f'src/dependencies/memory_time_usage_{operating_sys}_386.exe', "src/dependencies/memory_time_usage.go"]
+# }
+# var = uname()
+# arch = var.machine
+# operating_sys = var.system
+# if arch == 'i386' or arch == 'i686':
+#   if operating_sys == "darwin":
+#     print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+#   else:
+#     package_data["cfkit/dependencies"] = [f'cfkit/dependencies/memory_time_usage_{operating_sys}_386.exe', "cfkit/dependencies/memory_time_usage.go"]
 
-elif arch == 'x86_64':
-  package_data["dependencies"] = [f'src/dependencies/memory_time_usage_{operating_sys}_amd64.exe', "src/dependencies/memory_time_usage.go"]
+# elif arch == 'x86_64':
+#   package_data["cfkit/dependencies"] = [f'cfkit/dependencies/memory_time_usage_{operating_sys}_amd64.exe', "cfkit/dependencies/memory_time_usage.go"]
 
-elif arch.startswith('arm'):
-  if operating_sys != "linux":
-    print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
-  else:
-    package_data["dependencies"] = [f'src/dependencies/memory_time_usage_{operating_sys}_arm.exe', "src/dependencies/memory_time_usage.go"]
+# elif arch.startswith('arm'):
+#   if operating_sys != "linux":
+#     print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+#   else:
+#     package_data["cfkit/dependencies"] = [f'cfkit/dependencies/memory_time_usage_{operating_sys}_arm.exe', "cfkit/dependencies/memory_time_usage.go"]
 
-elif arch == 'aarch64':
-  package_data["dependencies"] = [f'src/dependencies/memory_time_usage_{operating_sys}_arm64.exe', "src/dependencies/memory_time_usage.go"]
+# elif arch == 'aarch64':
+#   package_data["cfkit/dependencies"] = [f'cfkit/dependencies/memory_time_usage_{operating_sys}_arm64.exe', "cfkit/dependencies/memory_time_usage.go"]
 
-else:
-  print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
+# else:
+#   print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
 
 
 setup(
@@ -48,9 +49,8 @@ setup(
   long_description_content_type="text/markdown",
   url="https://github.com/ghoudiy/cfkit",
   license="MIT",
-  package_dir={'cfkit': 'src'},
   packages=find_packages(where="src"),
-  package_data=package_data,
+  # package_data=package_data,
   include_package_data=True,
   python_requires=">=3.8",
   install_requires=[
@@ -66,7 +66,7 @@ setup(
   },
   classifiers=[
     'Programming Language :: Python :: 3',
-    'License :: OSI Approved :: MIT License',
+    'License :: OSI cfkitroved :: MIT License',
     'Operating System :: OS Independent',
   ],
   keywords="CLI, Tool, Python"
