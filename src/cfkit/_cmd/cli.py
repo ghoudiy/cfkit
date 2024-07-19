@@ -231,7 +231,7 @@ def config_action():
         mem_time_calc_exec = mem_time_calc_exec[:-4]
         dst = source_dir.joinpath("_dependencies", "memory_time_usage")
 
-      mem_time_calc_exec = source_dir.joinpath("_dependencies", mem_time_calc_exec)
+      mem_time_calc_exec = source_dir.joinpath("_dependencies", f"memory_time_usage_{mem_time_calc_exec}")
       copy(mem_time_calc_exec, dst)
 
     if arch in ('i386', 'i686'):
