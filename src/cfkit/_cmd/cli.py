@@ -7,9 +7,7 @@ from pathlib import Path
 from shutil import copy
 from platform import uname
 
-from cfkit.utils.constants import LANGUAGES
-from cfkit.utils.constants import HELP_MESSAGE
-from cfkit.utils.constants import ALL_ACTIONS
+from cfkit._utils.constants import LANGUAGES, HELP_MESSAGE, ALL_ACTIONS
 
 
 def get_action():
@@ -27,7 +25,7 @@ def _check_problem_index(problem_index):
   """
   Documentation
   """
-  from cfkit.utils.print import colored_text
+  from cfkit._utils.print import colored_text
 
   if problem_index.isdigit() and 1 <= int(problem_index) <= 9999:
     return problem_index, "contest"
@@ -39,12 +37,6 @@ def _check_problem_index(problem_index):
     elif aux := search(r"\A(\d{,2}[A-z])(\d{2,4})", problem_index):
       aux = aux.groups()
       problem_index = aux[1] + aux[0][::-1]
-
-    elif problem_index.isalpha() and argv[2].isdigit():
-      problem_index = argv[2] + problem_index
-
-    elif problem_index.isdigit() and argv[2].isalpha():
-      problem_index = problem_index + argv[2]
 
     else:
       colored_text(
@@ -64,7 +56,7 @@ def list_action():
   """
   Documentation
   """
-  from cfkit.main.contest import Contest
+  from cfkit.codeforces._contest import Contest
 
   parser = ArgumentParser(description='list options')
 
@@ -81,8 +73,8 @@ def parse_action():
   """
   Documentation
   """
-  from cfkit.main.contest import Contest
-  from cfkit.main.problem import Problem
+  from cfkit.codeforces._contest import Contest
+  from cfkit.codeforces._problem import Problem
 
   parser = ArgumentParser(description='Parse options')
 
@@ -108,8 +100,8 @@ def gen_action():
   """
   Documentation
   """
-  from cfkit.main.contest import Contest
-  from cfkit.main.problem import Problem
+  from cfkit.codeforces._contest import Contest
+  from cfkit.codeforces._problem import Problem
 
   parser = ArgumentParser(description='Generate options')
 
@@ -136,7 +128,7 @@ def run_action():
   """
   Documentation
   """
-  from cfkit.main.problem import Problem
+  from cfkit.codeforces._problem import Problem
 
   parser = ArgumentParser(description='Run options')
 
@@ -178,13 +170,16 @@ def run_action():
     )
 
 def config_action():
+  """
+  Documentation
+  """
   if argv[1] != "all":
     print("Please run `cf config all`")
     sysExit(1)
   else:
     source_dir = Path(__file__).parent.parent
 
-    data_dir = source_dir.joinpath("data")
+    data_dir = source_dir.joinpath("_data")
     target_dir = Path.home() / '.cfkit'
 
     if not target_dir.exists():
@@ -197,11 +192,10 @@ def config_action():
       else:
         copy(item, target_item)
 
-    from cfkit.utils.print import colored_text
-    from cfkit.utils.input import confirm, select_option
-    from cfkit.config.config import set_language_attributes#, set_default_submission_language
-    from cfkit.utils.variables import conf_file
-    from cfkit.utils.variables import config_file_path
+    from cfkit._utils.print import colored_text
+    from cfkit._utils.input import confirm, select_option
+    from cfkit._config.config import set_language_attributes#, set_default_submission_language
+    from cfkit._utils.variables import conf_file, config_file_path
 
     conf_file["cfkit"]["user"] = input("Your username: ")
     if len(conf_file["cfkit"]["user"]) == 0:
@@ -218,10 +212,10 @@ def config_action():
       index=False,
       disp_horizontally=False
     )
-    
+
     with open(config_file_path, 'w', encoding="UTF-8") as file:
       conf_file.write(file)
-    
+
     set_language_attributes(conf_file["cfkit"]["default_language"])
 
     var = uname()
@@ -229,34 +223,34 @@ def config_action():
     operating_sys = var.system.lower()
 
     def configure_mem_time_usage(mem_time_calc_exec):
-      conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = confirm(
+      conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = str(confirm(
         "Do you want to calculate memory usage and execution time?"
-      )
-      dst = source_dir.joinpath("dependencies", "memory_time_usage.exe")
+      ))
+      dst = source_dir.joinpath("_dependencies", "memory_time_usage.exe")
       if operating_sys != "windows":
         mem_time_calc_exec = mem_time_calc_exec[:-4]
-        dst = source_dir.joinpath("dependencies", "memory_time_usage")
+        dst = source_dir.joinpath("_dependencies", "memory_time_usage")
 
-      mem_time_calc_exec = source_dir.joinpath("dependencies", mem_time_calc_exec)
+      mem_time_calc_exec = source_dir.joinpath("_dependencies", mem_time_calc_exec)
       copy(mem_time_calc_exec, dst)
 
     if arch in ('i386', 'i686'):
       if operating_sys == "darwin":
         print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
       else:
-        configure_mem_time_usage(f"{operating_sys}_386.exe'")
+        configure_mem_time_usage(f"{operating_sys}_386.exe")
 
     elif arch in ('x86_64', "amd64"):
-      configure_mem_time_usage(f"{operating_sys}_amd64.exe'")
+      configure_mem_time_usage(f"{operating_sys}_amd64.exe")
 
     elif arch.startswith('arm'):
       if operating_sys != "linux":
         print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
       else:
-        configure_mem_time_usage(f"{operating_sys}_arm.exe'")
+        configure_mem_time_usage(f"{operating_sys}_arm.exe")
 
     elif arch == 'aarch64':
-      configure_mem_time_usage(f"{operating_sys}_arm64.exe'")
+      configure_mem_time_usage(f"{operating_sys}_arm64.exe")
 
     else:
       print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")

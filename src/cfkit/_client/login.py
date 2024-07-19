@@ -10,8 +10,8 @@ from requests.utils import dict_from_cookiejar
 from requests.cookies import RequestsCookieJar
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.utils.file_operations import write_json_file
-from cfkit.utils.variables import resources_folder
+from cfkit._utils.file_operations import write_json_file
+from cfkit._utils.variables import resources_folder
 
 
 def login() -> tuple[str, RequestsCookieJar]:
@@ -22,9 +22,10 @@ def login() -> tuple[str, RequestsCookieJar]:
     username_length = len(username)
     is_alnum = username.isalnum()
     bounds = 3 <= username_length <= 24
-    if is_alnum and bounds:
-      return True
-    elif bounds and not is_alnum:
+    if bounds:
+      if is_alnum:
+        return True
+
       i = 0
       test = True
       while test and i < username_length:

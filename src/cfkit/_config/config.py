@@ -4,12 +4,11 @@ Documentation
 from os import path as osPath
 from pathlib import Path
 
-from cfkit.utils.file_operations import read_json_file, write_json_file
-from cfkit.utils.input import select_option
-from cfkit.config.implementation import detect_implementation
+from cfkit._utils.file_operations import read_json_file, write_json_file
+from cfkit._utils.input import select_option
+from cfkit._config.implementation import detect_implementation
 
-from cfkit.utils.variables import language_conf_path
-from cfkit.utils.variables import MACHINE
+from cfkit._utils.variables import language_conf_path, MACHINE
 
 def set_language_attributes(programming_language: str) -> str:
   """
@@ -18,7 +17,7 @@ def set_language_attributes(programming_language: str) -> str:
   command, save_command, default_implementation = detect_implementation(programming_language)
   command, implementation = command[0], command[1]
   calculate_memory_usage_and_execution_time_command = str(Path(__file__).parent.parent.joinpath(
-    "dependencies",
+    "_dependencies",
     "memory_time_usage.exe " if MACHINE == "win32" else "./memory_time_usage "
   ))
   if implementation == "compiler":

@@ -55,7 +55,7 @@ ERRORS_MEMORY_TIME_FILENAME = (
 ERRORS_MEMORY_TIME_FILENAME_PATTERN = r"%%problem_code%%_test_case\d+_err_memory_time\." + OUTPUT_EXTENSION_FILE
 # -------------------------------------------------------------------------
 
-json_folder = Path(__file__).parent.parent.joinpath("json")
+json_folder = Path(__file__).parent.parent.joinpath("_json")
 
 template_folder = config_folder.joinpath("templates")
 
@@ -86,7 +86,7 @@ history_file_path = resources_folder.joinpath("history.json")
 #  '-' * 55
 # | %%output%% ' ' * %%columns_num%% - len(line) - 1 |
 #  '-' * 55
- 
+
 # Answer
 #  '-' * 55
 # | %%answer%% ' ' * %%columns_num%% - len(line) - 1 |
@@ -104,7 +104,7 @@ history_file_path = resources_folder.joinpath("history.json")
 #  '-' * 55
 # | %%output%% ' ' * %%columns_num%% - len(line) - 1 |
 #  '-' * 55
- 
+
 # Answer
 #  '-' * 55
 # | %%answer%% ' ' * %%columns_num%% - len(line) - 1 |

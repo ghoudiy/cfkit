@@ -5,12 +5,12 @@ from datetime import datetime
 from requests.utils import cookiejar_from_dict
 from mechanicalsoup import StatefulBrowser
 
-from cfkit.client.login import login
-from cfkit.utils.file_operations import read_json_file
-from cfkit.utils.print import colored_text
-from cfkit.config.config import set_default_submission_language
-from cfkit.utils.variables import resources_folder
-from cfkit.utils.constants import EXTENSIONS
+from cfkit._client.login import login
+from cfkit._utils.file_operations import read_json_file
+from cfkit._utils.print import colored_text
+from cfkit._config.config import set_default_submission_language
+from cfkit._utils.variables import resources_folder
+from cfkit._utils.constants import EXTENSIONS
 
 def submit(contest_id, problem_code, file_path):
   """

@@ -5,8 +5,8 @@ Documentation
 from typing import Any
 from prompt_toolkit.shortcuts import confirm as promptConfirm
 
-from cfkit.utils.check import check_command
-from cfkit.utils.print import display_horizontally
+from cfkit._utils.check import check_command
+from cfkit._utils.print import display_horizontally
 
 def select_option(
     message: str,

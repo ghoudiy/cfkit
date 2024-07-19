@@ -4,8 +4,8 @@ Documentation
 from math import isclose
 from collections import Counter
 
-from cfkit.utils.check import is_number
-from cfkit.utils.common import english_ending, trim_data
+from cfkit._utils.check import is_number
+from cfkit._utils.common import english_ending, trim_data
 
 
 def wrong_answer_verdict(

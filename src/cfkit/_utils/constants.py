@@ -117,7 +117,8 @@ ALL_ACTIONS = (
   "list", 
   "parse", 
   "gen", 
-  "run"
+  "run",
+  "config"
 )
 
 HTML_CLASS_PATTERN = r"class\s*=\s*" + '[\'"]'

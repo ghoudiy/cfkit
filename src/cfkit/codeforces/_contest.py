@@ -4,23 +4,20 @@ Documentation
 from os import getcwd, chdir, path as osPath
 from typing import Optional
 
-from cfkit.utils.check import raise_error_if_path_missing
-from cfkit.client.fetch import get_response
-from cfkit.utils.common import file_name, retrieve_template
-from cfkit.utils.file_operations import (
+from cfkit._utils.check import raise_error_if_path_missing
+from cfkit._client.fetch import get_response
+from cfkit._utils.common import file_name, retrieve_template
+from cfkit._utils.file_operations import (
   create_file_folder,
   read_json_file,
   read_text_from_file,
   write_text_to_file
 )
-from cfkit.utils.parse_samples import fetch_samples, samples_dir, problems_content
-from cfkit.utils.print import colored_text
+from cfkit._utils.parse_samples import fetch_samples, samples_dir, problems_content
+from cfkit._utils.print import colored_text
 
-from cfkit.utils.variables import conf_file
-from cfkit.utils.variables import resources_folder
-from cfkit.utils.variables import language_conf_path
-from cfkit.utils.constants import Directory
-from cfkit.utils.constants import EXTENSIONS
+from cfkit._utils.variables import conf_file, resources_folder, language_conf_path
+from cfkit._utils.constants import Directory, EXTENSIONS
 
 class Contest:
   """

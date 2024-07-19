@@ -11,8 +11,8 @@ from shutil import rmtree
 from os import remove as osRemove
 
 # Cfkit Imports
-from cfkit.utils.check import raise_error_if_path_exists
-from cfkit.utils.input import enter_number
+from cfkit._utils.check import raise_error_if_path_exists
+from cfkit._utils.input import enter_number
 
 
 def read_json_file(json_file_path: str | Path) -> dict[Any, Any]:

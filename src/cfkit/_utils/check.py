@@ -5,7 +5,7 @@ Documentation
 from os import path as osPath
 from requests import HTTPError
 
-from cfkit.utils.print import colored_text
+from cfkit._utils.print import colored_text
 
 def raise_error_if_path_exists(file_path: str, file_or_dir: str):
   """

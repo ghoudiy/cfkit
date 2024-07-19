@@ -9,17 +9,17 @@ from os import path as osPath
 from subprocess import run, CalledProcessError
 
 # Cfkit Imports
-from cfkit.utils.print import colored_text
-from cfkit.utils.input import select_option
-from cfkit.utils.file_operations import read_json_file
+from cfkit._utils.print import colored_text
+from cfkit._utils.input import select_option
+from cfkit._utils.file_operations import read_json_file
 
-from cfkit.utils.variables import OUTPUT_FILENAME
-from cfkit.utils.variables import conf_file
-from cfkit.utils.variables import template_folder
-from cfkit.utils.variables import language_conf_path
-from cfkit.utils.variables import ERRORS_MEMORY_TIME_FILENAME
-from cfkit.utils.constants import EXTENSIONS
-from cfkit.utils.constants import LANGUAGES_EXTENSIONS
+from cfkit._utils.variables import (
+  OUTPUT_FILENAME,
+  template_folder,
+  language_conf_path,
+  ERRORS_MEMORY_TIME_FILENAME
+)
+from cfkit._utils.constants import EXTENSIONS, LANGUAGES_EXTENSIONS
 
 
 def english_ending(num: int) -> str:

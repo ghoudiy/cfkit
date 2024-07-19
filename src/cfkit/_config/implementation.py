@@ -7,15 +7,13 @@ from sys import exit as sysExit, maxsize
 from subprocess import run
 from webbrowser import open as webOpen
 
-from cfkit.utils.file_operations import read_json_file
-from cfkit.utils.print import colored_text
-from cfkit.utils.input import retype, enter_number, select_option, confirm
-from cfkit.utils.check import check_command
+from cfkit._utils.file_operations import read_json_file
+from cfkit._utils.print import colored_text
+from cfkit._utils.input import retype, enter_number, select_option, confirm
+from cfkit._utils.check import check_command
 
-from cfkit.utils.variables import json_folder
-from cfkit.utils.variables import MACHINE
-from cfkit.utils.constants import COMPILING_NOTE
-from cfkit.utils.constants import NOTE
+from cfkit._utils.variables import json_folder, MACHINE
+from cfkit._utils.constants import COMPILING_NOTE, NOTE
 
 
 def detect_implementation(programming_language: str):

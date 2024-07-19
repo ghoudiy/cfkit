@@ -2,13 +2,12 @@
 Documentation
 """
 
-from os import listdir, path as osPath
 from requests import get, exceptions as requestsExceptions
 
-from cfkit.utils.print import colored_text
-from cfkit.utils.check import check_status
-from cfkit.utils.file_operations import write_json_file
-from cfkit.utils.variables import config_folder
+from cfkit._utils.print import colored_text
+from cfkit._utils.check import check_status
+from cfkit._utils.file_operations import write_json_file
+from cfkit._utils.variables import config_folder
 
 
 def get_url_with_timeout(url: str, seconds: float = 15):

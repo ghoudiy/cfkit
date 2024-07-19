@@ -11,21 +11,23 @@ from datetime import datetime
 from bs4 import BeautifulSoup
 
 # Cfkit Imports
-from cfkit.utils.check import raise_error_if_path_missing
-from cfkit.utils.print import colored_text
-from cfkit.utils.file_operations import (
+from cfkit._utils.check import raise_error_if_path_missing
+from cfkit._utils.print import colored_text
+from cfkit._utils.file_operations import (
   read_json_file,
   write_json_file,
   create_file_folder
 )
 
-from cfkit.utils.variables import resources_folder
-from cfkit.utils.variables import INPUT_FILENAME
-from cfkit.utils.variables import EXPECTED_OUTPUT_FILENAME
-from cfkit.utils.variables import SHORT_INPUT_FILENAME
-from cfkit.utils.variables import SHORT_EXPECTED_OUTPUT_FILENAME
-from cfkit.utils.variables import history_file_path
-from cfkit.utils.constants import Directory
+from cfkit._utils.variables import (
+  resources_folder,
+  INPUT_FILENAME,
+  EXPECTED_OUTPUT_FILENAME,
+  SHORT_INPUT_FILENAME,
+  SHORT_EXPECTED_OUTPUT_FILENAME,
+  history_file_path
+)
+from cfkit._utils.constants import Directory
 
 
 def problems_content(
@@ -57,7 +59,7 @@ def problems_content(
       try:
         problem_samples_div = div.find_all("div", class_="sample-test")
         assert len(problem_samples_div) > 0
-        
+
         problem_samples = []
         for problem_sample in problem_samples_div:
           aux = problem_sample.get_text(strip=True)
@@ -70,7 +72,7 @@ def problems_content(
           problem_sample = [sample for sample in problem_sample if sample]
 
           assert len(problem_sample) > 0
-          
+
           for i in range(len(problem_sample)):
             if problem_sample[i] == "Входные данные":
               problem_sample[i] = "Input"
@@ -197,7 +199,8 @@ def fetch_samples(
     input_samples_filenames = [None] * samples_num
     expected_output_samples_filenames = [None] * samples_num
 
-    func = lambda problem_statement: problem_statement.index("Input")
+    def func(problem_statement):
+      return problem_statement.index("Input")
     for i in range(1, samples_num):
       get_input_output_samples(i, func)
 

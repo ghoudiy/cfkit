@@ -10,7 +10,7 @@ from inspect import currentframe
 from typing import Optional
 from subprocess import CalledProcessError, run
 
-from cfkit.utils.common import (
+from cfkit._utils.common import (
   file_name,
   execute_file,
   adjusting_paths,
@@ -19,8 +19,8 @@ from cfkit.utils.common import (
   augment_errors_warnings,
 )
 
-from cfkit.utils.parse_samples import samples_dir, fetch_samples, problems_content
-from cfkit.utils.file_operations import (
+from cfkit._utils.parse_samples import samples_dir, fetch_samples, problems_content
+from cfkit._utils.file_operations import (
   remove_files,
   read_json_file,
   write_json_file,
@@ -28,16 +28,15 @@ from cfkit.utils.file_operations import (
   read_text_from_file,
   create_file_folder
 )
-from cfkit.utils.input import confirm
-from cfkit.utils.print import colored_text
-from cfkit.config.config import set_language_attributes
-from cfkit.client.fetch import get_response
-from cfkit.utils.check import check_file
-from cfkit.utils.check import raise_error_if_path_missing
-from cfkit.utils.answer_handling import check_answer
+from cfkit._utils.input import confirm
+from cfkit._utils.print import colored_text
+from cfkit._config.config import set_language_attributes
+from cfkit._client.fetch import get_response
+from cfkit._utils.check import check_file, raise_error_if_path_missing
+from cfkit._utils.answer_handling import check_answer
 
 
-from cfkit.utils.variables import (
+from cfkit._utils.variables import (
   conf_file,
   resources_folder,
   language_conf_path,
@@ -49,7 +48,7 @@ from cfkit.utils.variables import (
   CUSTOM_OUTPUT_FILENAME_PATTERN
 )
 
-from cfkit.utils.constants import (
+from cfkit._utils.constants import (
   Directory,
   EXTENSIONS,
   LANGUAGES_EXTENSIONS,
@@ -143,7 +142,7 @@ class Problem:
       exit_code_after_print_statement=1
     )
 
-  def __validate_parameters(self, problem_code: (tuple | str)):
+  def __validate_parameters(self, problem_code: str | tuple[str, str] | list[str, str] | None):
     '''
     Check if the problem code is available
     '''
@@ -154,19 +153,18 @@ class Problem:
     if isinstance(problem_code, str):
       # If the user gives the problem code
       if not osPath.isfile(problem_code):
-        #// if osPath.isdir(problem_code):
-        #//   colored_text(
-        #//     "\nYou should enter a problem code or a file not a directory\n",
-        #//     one_color="error_4",
-        #//     exit_code_after_print_statement=1
-        #//   )
         #* If the user enters a file path that does not exist
         file_extension = problem_code.rfind(".")
+
         if file_extension != -1 and problem_code[file_extension+1:] in EXTENSIONS:
           colored_text(
             f"\n<error_4>No such file</error_4> &apos;{problem_code}&apos;\n",
             exit_code_after_print_statement=1
           )
+        
+        elif file_extension == -1 and (contestid:=osPath.basename(getcwd())).isdigit() and 1 <= int(contestid) <= 9999:
+          problem_code = f"{contestid}{problem_code}"
+        
         content = self.__retrieve_html_source_code(problem_code)
 
       # If the user gives the solution file instead of problem code
@@ -688,7 +686,7 @@ class Problem:
         )
         return True
       return False
-   
+
     def execute_solution(
         solution_file: str,
         problem_index: str,
