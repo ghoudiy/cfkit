@@ -120,7 +120,7 @@ def retrieve_template(file_path: str) -> str:
     colored_text(
       "The path of the default template is not a file",
       one_color="error_2",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=2
     )
   return default_template_path
 

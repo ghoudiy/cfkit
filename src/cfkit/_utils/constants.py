@@ -120,11 +120,3 @@ ALL_ACTIONS = (
   "run",
   "config"
 )
-
-HTML_CLASS_PATTERN = r"class\s*=\s*" + '[\'"]'
-
-HTML_DIV_CLASS_PATTERN = rf"<\s*div\s*{HTML_CLASS_PATTERN}class_name[\"']\s*>"
-
-HTML_DOUBLE_DIV_CLASS_PATTERN = HTML_DIV_CLASS_PATTERN + r"\s*" + HTML_DIV_CLASS_PATTERN
-
-HTML_CLOSE_DIV_TAG = r"<\s*/\s*div\s*>"

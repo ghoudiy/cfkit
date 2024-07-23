@@ -3,9 +3,6 @@
 from argparse import ArgumentParser
 from sys import exit as sysExit, argv
 from re import search
-from pathlib import Path
-from shutil import copy
-from platform import uname
 
 from cfkit._utils.constants import LANGUAGES, HELP_MESSAGE, ALL_ACTIONS
 
@@ -81,7 +78,7 @@ def parse_action():
   parser.add_argument("problem_index", action='store', help="Problem index (e.g. 4a)")
   parser.add_argument('-c', '--create', action='store_true', dest='create_tests_dir', help='Create tests directory')
   parser.add_argument('-p', '--path', action='store', dest='path', default=None, help='Path where samples will be created')
-  parser.add_argument('-s', '--short', action='store_true', dest='short_names', help="Name samples 'in' and 'out'")
+  parser.add_argument('-s', '--short', action='store_true', dest='short_names', help="Names samples as 'in' and 'out' (Works only when parsing a problem)")
 
   args = parser.parse_args()
 
@@ -173,6 +170,9 @@ def config_action():
   """
   Documentation
   """
+  from pathlib import Path
+  from shutil import copy
+  from platform import uname
   if argv[1] != "all":
     print("Please run `cf config all`")
     sysExit(1)
@@ -213,9 +213,6 @@ def config_action():
       disp_horizontally=False
     )
 
-    with open(config_file_path, 'w', encoding="UTF-8") as file:
-      conf_file.write(file)
-
     set_language_attributes(conf_file["cfkit"]["default_language"])
 
     var = uname()
@@ -255,6 +252,8 @@ def config_action():
     else:
       print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
 
+    with open(config_file_path, 'w', encoding="UTF-8") as file:
+      conf_file.write(file)
 
 def main():
   """

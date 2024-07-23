@@ -117,7 +117,7 @@ def problems_content(
     if i == len(problems) and not test:
       colored_text(
         f"<error_4>No such problem</error_4> &apos;{problem_index}&apos; <error_4>in contest</error_4> &apos;{contest_id}&apos;",
-        exit_code_after_print_statement=1
+        exit_code_after_print_statement=4
       )
     return problems[i-1], contest_name
   return problems, contest_name

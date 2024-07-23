@@ -58,7 +58,6 @@ def create_file_folder(
     # Empty the file
     with path_to_file.open('w', encoding="UTF-8"):
       pass
-    # return path_to_file.name
 
   elif not path_to_file.exists():
     if file_or_dir == 'd':

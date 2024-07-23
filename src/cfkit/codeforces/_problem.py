@@ -39,9 +39,10 @@ from cfkit._utils.answer_handling import check_answer
 from cfkit._utils.variables import (
   conf_file,
   resources_folder,
+  config_folder,
   language_conf_path,
   INPUT_FILENAME_PATTERN,
-  OUTPUT_FILENAME_PATTERN,
+  EXPECTED_OUTPUT_FILENAME_PATTERN,
   CUSTOM_INPUT_FILENAME,
   CUSTOM_OUTPUT_FILENAME,
   CUSTOM_INPUT_FILENAME_PATTERN,
@@ -139,7 +140,7 @@ class Problem:
 
     colored_text(
       f"<error_4>No such problem</error_4> &apos;{code}&apos;",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=4
     )
 
   def __validate_parameters(self, problem_code: str | tuple[str, str] | list[str, str] | None):
@@ -159,7 +160,7 @@ class Problem:
         if file_extension != -1 and problem_code[file_extension+1:] in EXTENSIONS:
           colored_text(
             f"\n<error_4>No such file</error_4> &apos;{problem_code}&apos;\n",
-            exit_code_after_print_statement=1
+            exit_code_after_print_statement=4
           )
         
         elif file_extension == -1 and (contestid:=osPath.basename(getcwd())).isdigit() and 1 <= int(contestid) <= 9999:
@@ -215,7 +216,7 @@ class Problem:
             colored_text(
               "Could not extract the problem code from the given path",
               one_color="error_4",
-              exit_code_after_print_statement=1
+              exit_code_after_print_statement=4
             )
 
     elif isinstance(problem_code, (tuple, list)):
@@ -239,13 +240,13 @@ class Problem:
       else:
         colored_text(
           f"\n<error_4>No such file</error_4> &apos;{problem_code[0]}&apos;\n",
-          exit_code_after_print_statement=1
+          exit_code_after_print_statement=4
         )
     else:
       colored_text(
         "Problem code must be a string, tuple, or list.",
         one_color="error_4",
-        exit_code_after_print_statement=1
+        exit_code_after_print_statement=4
       )
     return content, problem_code.upper()
 
@@ -421,34 +422,42 @@ class Problem:
           colored_text(
             "You have entered different paths",
             one_color="error_4",
-            exit_code_after_print_statement=1
+            exit_code_after_print_statement=4
           )
-        elif file_path.samefile(osPath.abspath(sysArgv[0])):
-          working_in_script = True
-          line_number = currentframe().f_back.f_back.f_lineno
+        # elif file_path.samefile(osPath.abspath(sysArgv[0])):
+        #   working_in_script = True
+        #   line_number = currentframe().f_back.f_back.f_lineno
       # -------------------------------------------------------------------------------------------
 
-      def input_output_list(data_path) -> None:
+      def input_output_list(
+        data_path,
+        INPUT_FILENAME_PATTERN,
+        EXPECTED_OUTPUT_FILENAME_PATTERN,
+        CUSTOM_INPUT_FILENAME_PATTERN,
+        CUSTOM_OUTPUT_FILENAME_PATTERN
+      ) -> None:
         list_of_files = listdir(data_path)
         if run_custom_samples_only is False:
-          INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{INPUT_FILENAME_PATTERN}$")
-          OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{OUTPUT_FILENAME_PATTERN}$")
+          INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{INPUT_FILENAME_PATTERN.replace('%%problem_code%%', self.problem_index)}$")
+          EXPECTED_OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{EXPECTED_OUTPUT_FILENAME_PATTERN.replace('%%problem_code%%', self.problem_index)}$")
 
           self._input_samples = sorted(
             [file for file in list_of_files if INPUT_FILENAME_COMPILED_PATTERN.search(file)]
           )
           self._expected_output_samples = sorted(
-            [file for file in list_of_files if OUTPUT_FILENAME_COMPILED_PATTERN.search(file)]
+            [file for file in list_of_files if EXPECTED_OUTPUT_FILENAME_COMPILED_PATTERN.search(file)]
           )
 
-        CUSTOM_INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_INPUT_FILENAME_PATTERN}$")
-        CUSTOM_OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_OUTPUT_FILENAME_PATTERN}$")
+        CUSTOM_INPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_INPUT_FILENAME_PATTERN.replace('%%problem_code%%', self.problem_index)}$")
+        CUSTOM_OUTPUT_FILENAME_COMPILED_PATTERN = reCompile(rf"\A{CUSTOM_OUTPUT_FILENAME_PATTERN.replace('%%problem_code%%', self.problem_index)}$")
+        
         self._custom_input_samples = sorted(
           [file for file in list_of_files if CUSTOM_INPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
         self._expected_custom_output_samples = sorted(
           [file for file in list_of_files if CUSTOM_OUTPUT_FILENAME_COMPILED_PATTERN.search(file)]
         )
+
 
       del file_path # Now we have the solution file stored in self._solution_file
       cwd = getcwd()
@@ -459,7 +468,13 @@ class Problem:
         self._data_path = osPath.join(cwd, 'tests')
         test = True
         if osPath.exists(self._data_path):
-          input_output_list(self._data_path)
+          input_output_list(
+            self._data_path,
+            INPUT_FILENAME_PATTERN,
+            EXPECTED_OUTPUT_FILENAME_PATTERN,
+            CUSTOM_INPUT_FILENAME_PATTERN,
+            CUSTOM_OUTPUT_FILENAME_PATTERN
+          )
           if (run_custom_samples_only is False) and (
             (input_samples_num:=len(self._input_samples)) > 0 and input_samples_num == len(self._expected_output_samples)
           ):
@@ -555,7 +570,7 @@ class Problem:
       colored_text(
         "Oops! It looks like that the provided language is not supported by Codeforces.",
         one_color="error_4",
-        exit_code_after_print_statement=1
+        exit_code_after_print_statement=4
       )
 
     language_conf = read_json_file(language_conf_path)
@@ -578,13 +593,19 @@ class Problem:
       execute_command += " < %%{input_file}%% > %%{output_file}%% 2> %%{time_mem_err_output_file}%%"
 
       mem_time_calc = False
-    else:
+    elif mem_time_calc == "true":
       execute_command = calculate_memory_usage_and_execution_time_command
       mem_time_calc = True
       warnings = {
         "Memory limit exceeded": 0,
         "Time limit exceeded": 0,
       }
+    else:
+      colored_text(
+        "The calculate_memory_usage_and_execution_time option must have a value of either "
+        "`true` or `false`",
+        exit_code_after_print_statement=6
+      )
 
     errors = {
       "Wrong answer": 0,
@@ -593,6 +614,59 @@ class Problem:
       "Formatting error": 0
     }
     # =============================================================================================
+    
+    test_results_file_path = osPath.join(config_folder, "test_samples_results.json")
+    test_results: dict = read_json_file(test_results_file_path)
+    test_results["progress"]["total_attempts"] += 1
+    if mem_time_calc:
+      def augment_warnings(warnings: dict, test_results: dict):
+        if (mem_time_calc and test_results.get("warnings") is not None):
+          augment_errors_warnings(warnings, test_results["warnings"])
+        elif (mem_time_calc and test_results.get("warnings") is None):
+          test_results["warnings"] = warnings
+        return test_results["warnings"]
+
+    def move_programming_language_to_right(programming_language, key):
+      if programming_language in test_results[key][self.problem_index]["programming_language"] and test_results[key][self.problem_index]["programming_language"][-1] != programming_language:
+        test_results[key][self.problem_index]["programming_language"].remove(programming_language)
+        test_results[key][self.problem_index]["programming_language"].append(programming_language)
+
+    def save_non_accepted_test_result():
+      # Saving test results
+      # ===========================================================================================
+      if test_results["demo_accepted"].get(self.problem_index) is not None:
+        move_programming_language_to_right(programming_language, "demo_accepted")
+        augment_errors_warnings(errors, test_results["demo_accepted"][self.problem_index]["errors"])
+        if mem_time_calc:
+          test_results["demo_accepted"][self.problem_index]["warnings"] = augment_warnings(
+            warnings,
+            test_results["demo_accepted"][self.problem_index]
+          )
+
+      elif test_results["unsolved_problems"].get(self.problem_index) is None:
+        test_results["unsolved_problems"][self.problem_index] = {}
+        test_results["unsolved_problems"][self.problem_index]["problem_name"] = self.name
+        test_results["unsolved_problems"][self.problem_index]["programming_language"] = [programming_language]
+        test_results["unsolved_problems"][self.problem_index]["timestamp"] = datetime.now(
+          ).strftime("%Y-%m-%d %H:%M:%S")
+        test_results["unsolved_problems"][self.problem_index]["errors"] = errors
+        if mem_time_calc:
+          test_results["unsolved_problems"][self.problem_index]["warnings"] = warnings
+
+      else:
+        move_programming_language_to_right(programming_language, "unsolved_problems")
+        augment_errors_warnings(
+          errors,
+          test_results["unsolved_problems"][self.problem_index]["errors"]
+        )
+        if mem_time_calc:
+          test_results["unsolved_problems"][self.problem_index]["warnings"] = augment_warnings(
+          warnings,
+          test_results["unsolved_problems"][self.problem_index]
+        )
+
+      write_json_file(test_results, test_results_file_path, 2)
+      # ===========================================================================================
 
     #* Compile the solution file if the language requires compilation
     # =============================================================================================
@@ -606,7 +680,10 @@ class Problem:
           check=True,
         )
       except CalledProcessError as err:
+        
         errors["Compilation error"] = 1
+        save_non_accepted_test_result()
+        write_json_file(test_results, test_results_file_path, 2)
         colored_text(
           f"\n<error_1>Compilation error</error_1>\n<keyword>Command:</keyword> `{err.cmd}` "
           f"returned non-zero exit status: <bright_text>{err.returncode}</bright_text>",
@@ -1036,19 +1113,7 @@ class Problem:
             )
             print(checker_log_list_no_expec_out[aux] * verbose, end="\n" * verbose)
 
-
-    test_results_file_path = osPath.join(resources_folder, "test_samples_results.json")
-    test_results: dict = read_json_file(test_results_file_path)
-    if mem_time_calc:
-      def augment_warnings(warnings: dict, test_results: dict):
-        if (mem_time_calc and test_results.get("warnings") is not None):
-          augment_errors_warnings(warnings, test_results["warnings"])
-        elif (mem_time_calc and test_results.get("warnings") is None):
-          test_results["warnings"] = warnings
-        return test_results["warnings"]
-
     print_results()
-    test_results["progress"]["total_attempts"] += 1
     # If solution get accepted
     if accepeted:
       colored_text("\nVerdict: <accepted>Demo accepeted</accepted>")
@@ -1057,6 +1122,7 @@ class Problem:
       test_results["progress"]["problems_solved"] += 1
 
       if test_results["unsolved_problems"].get(self.problem_index) is not None:
+        move_programming_language_to_right(programming_language, "unsolved_problems")
         test_results["demo_accepted"][
           self.problem_index] = test_results["unsolved_problems"].pop(self.problem_index)
         test_results["demo_accepted"][self.problem_index]["timestamp"] = datetime.now(
@@ -1068,9 +1134,10 @@ class Problem:
         )
 
       elif test_results["demo_accepted"].get(self.problem_index) is None:
+        colored_text("Great job! You solved this problem on your first attempt! Keep up the pace :)", one_color="Cyan")
         test_results["demo_accepted"][self.problem_index] = {}
         test_results["demo_accepted"][self.problem_index]["problem_name"] = self.name
-        test_results["demo_accepted"][self.problem_index]["programming_language"] = programming_language
+        test_results["demo_accepted"][self.problem_index]["programming_language"] = [programming_language]
         test_results["demo_accepted"][self.problem_index]["timestamp"] = datetime.now(
           ).strftime("%Y-%m-%d %H:%M:%S")
         test_results["demo_accepted"][self.problem_index]["errors"] = errors
@@ -1079,6 +1146,7 @@ class Problem:
 
       else:
         print("\nYou have already solved this problem!")
+        move_programming_language_to_right(programming_language, "demo_accepted")
         augment_errors_warnings(errors, test_results["demo_accepted"][self.problem_index]["errors"])
         if mem_time_calc:
           test_results["demo_accepted"][self.problem_index]["warnings"] = augment_warnings(
@@ -1104,40 +1172,8 @@ class Problem:
     #* The solution is not correct, whether the verdict outputs 'wrong answer' or an error
     elif accepeted is False:
       colored_text(f"\nVerdict: {self._fwrong}")
+      save_non_accepted_test_result()
 
-      # Saving test results
-      # ===========================================================================================
-      if test_results["demo_accepted"].get(self.problem_index) is not None:
-        augment_errors_warnings(errors, test_results["demo_accepted"][self.problem_index]["errors"])
-        if mem_time_calc:
-          test_results["demo_accepted"][self.problem_index]["warnings"] = augment_warnings(
-            warnings,
-            test_results["demo_accepted"][self.problem_index]
-          )
-
-      elif test_results["unsolved_problems"].get(self.problem_index) is None:
-        test_results["unsolved_problems"][self.problem_index] = {}
-        test_results["unsolved_problems"][self.problem_index]["problem_name"] = self.name
-        test_results["unsolved_problems"][self.problem_index]["programming_language"] = programming_language
-        test_results["unsolved_problems"][self.problem_index]["timestamp"] = datetime.now(
-          ).strftime("%Y-%m-%d %H:%M:%S")
-        test_results["unsolved_problems"][self.problem_index]["errors"] = errors
-        if mem_time_calc:
-          test_results["unsolved_problems"][self.problem_index]["warnings"] = warnings
-
-      else:
-        augment_errors_warnings(
-          errors,
-          test_results["unsolved_problems"][self.problem_index]["errors"]
-        )
-        if mem_time_calc:
-          test_results["unsolved_problems"][self.problem_index]["warnings"] = augment_warnings(
-          warnings,
-          test_results["unsolved_problems"][self.problem_index]
-        )
-
-      write_json_file(test_results, test_results_file_path, 2)
-      # ===========================================================================================
 
     if working_in_script:
       osRemove("cfkit_module_user_code.py")

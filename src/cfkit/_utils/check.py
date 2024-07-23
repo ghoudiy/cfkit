@@ -16,7 +16,7 @@ def raise_error_if_path_exists(file_path: str, file_or_dir: str):
       f"<error_4>File exists</error_4> &apos;{file_path}&apos;"
         if file_or_dir == 'f' else
       f"<error_4>Directory exists</error_4> &apos;{file_path}&apos;",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=4
     )
 
 def raise_error_if_path_missing(file_path: str, file_or_dir):
@@ -28,7 +28,7 @@ def raise_error_if_path_missing(file_path: str, file_or_dir):
       f"<error_4>No such file</error_4>: &apos;{file_path}&apos;"
         if file_or_dir == 'f' else
       f"<error_4>No such directory</error_4> '{file_path}'",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=4
     )
 
 def check_status(response):
@@ -38,7 +38,7 @@ def check_status(response):
   try:
     response.raise_for_status()
   except HTTPError as err:
-    colored_text(f"<error_5>HTTP Error</error_5>: {err}", exit_code_after_print_statement=1)
+    colored_text(f"<error_5>HTTP Error</error_5>: {err}", exit_code_after_print_statement=5)
 
 def check_command(command: str, message: str | tuple) -> str:
   """

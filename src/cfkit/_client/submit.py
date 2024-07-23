@@ -44,7 +44,7 @@ def submit(contest_id, problem_code, file_path):
     colored_text(
       "Login failed. Please check your credentials.",
       one_color="error_4",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=4
     )
 
   browser.open(f'https://codeforces.com/contest/{contest_id}/submit')

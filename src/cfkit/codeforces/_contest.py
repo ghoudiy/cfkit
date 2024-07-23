@@ -52,7 +52,7 @@ class Contest:
     colored_text(
       "Contest ID must be an integer",
       one_color="error_4",
-      exit_code_after_print_statement=1
+      exit_code_after_print_statement=4
     )
 
   def create_problems_files(
