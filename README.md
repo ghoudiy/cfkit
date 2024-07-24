@@ -3,14 +3,6 @@
 
 Welcome to the Codeforces Contest Assistant project! This tool is designed to simplify the testing process for contestants participating in Codeforces programming competitions.
 
-## Table of Contents
-
-- [Overview](#overview)
-- [Features](#features)
-- [Getting Started](#getting-started)
-- [Usage](#usage)
-- [Contribution](#contribution)
-- [License](#license)
 
 ## Overview
 
@@ -27,25 +19,10 @@ The primary objective of this program is to facilitate the testing process for c
 
 To get started with the Codeforces Contest Assistant, follow these steps:
 
-1. Clone the repository: `git clone https://github.com/ghoudiy/cfkit`
-2. Install any necessary dependencies (if applicable).
-3. Run the program and start using its features.
+1. pip install cfkit
+2. cf config all
+# You are ready to go!
 
-## Usage
-
-Here are some basic usage instructions:
-
-- [Detailed instructions and examples go here]
-
-## Contribution
-
-We welcome contributions from the community! If you'd like to contribute to the project, please follow these guidelines:
-
-1. Fork the repository.
-2. Create a new branch for your feature or bug fix.
-3. Make your changes and commit them.
-4. Push your changes to your fork.
-5. Open a pull request with a clear description of your changes.
 
 ## License
 

@@ -187,9 +187,9 @@ def config_action():
 
     for item in data_dir.rglob('*'):
       target_item = target_dir / item.relative_to(data_dir)
-      if item.is_dir():
+      if item.is_dir() and item.name != "__pycache__":
         target_item.mkdir(parents=True, exist_ok=True)
-      else:
+      elif not item.name.endswith(".pyc"):
         copy(item, target_item)
 
     from cfkit._utils.print import colored_text
