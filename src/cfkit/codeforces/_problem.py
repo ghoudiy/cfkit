@@ -689,6 +689,8 @@ class Problem:
           f"returned non-zero exit status: <bright_text>{err.returncode}</bright_text>",
           exit_code_after_print_statement=1
         )
+      else:
+        colored_text("Compilation is done", one_color="correct")
     # =============================================================================================
 
 

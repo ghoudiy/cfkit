@@ -169,10 +169,6 @@ def detect_implementation(programming_language: str):
           if lang == "JavaScript":
             implementation = "interpreters"
 
-      #! Debugging
-      # for key in implementation_lists:
-      #   implementation_lists[key] = True
-
       for key in [key for key, value in implementation_lists.items() if not value]:
         del implementation_lists[key]
 

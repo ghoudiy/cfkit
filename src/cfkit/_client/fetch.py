@@ -31,31 +31,9 @@ def get_response(url: str, code, contest_id: int = 0) -> str:
   """
   Documentation
   """
-  # #! Debugging
-  # if f"{contest_id}.html" in listdir("/home/ghoudiy/Downloads/Test/problems_html/"):
-  #   with open(f"/home/ghoudiy/Downloads/Test/problems_html/{contest_id}.html", 'r') as file:
-  #     html_source_code = file.read()
-  #     # print("from problems_html folder")
-
-  # else:
-  #   response = get_url_with_timeout(url)
-  #   check_status(response)
-  #   html_source_code = response.text
-  #   #! Debugging
-  #   if not osPath.exists(f"/home/ghoudiy/Downloads/Test/problems_html/{contest_id}.html"):
-  #     with open(f"/home/ghoudiy/Downloads/Test/problems_html/{contest_id}.html", 'w') as file:
-  #       file.write(html_source_code)
-  #       # print("Saved in problems_html_folder")
-
   response = get_url_with_timeout(url)
   check_status(response)
   html_source_code = response.text
-  # #! Debugging
-  # if not osPath.exists(f"/home/ghoudiy/Downloads/Test/problems_html/{contest_id}.html"):
-  #   with open(f"/home/ghoudiy/Downloads/Test/problems_html/{contest_id}.html", 'w') as file:
-  #     file.write(html_source_code)
-      # print("Saved in problems_html_folder")
-
 
   problems = html_source_code.find('<div class="problem-statement">') != -1
   contest_started = html_source_code.find(
@@ -71,23 +49,17 @@ def get_response(url: str, code, contest_id: int = 0) -> str:
         f"&apos;{contest_id}&apos;",
         exit_code_after_print_statement=403
       )
-      # #! Debugging
-      # with open("/home/ghoudiy/.cfkit/resources/contests_require_login.txt", 'a') as file:
-      #   file.write(f"You are not allowed to participate in this contest '{contest_id}'")
     else:
       colored_text(
         f"<error_4>No such contest</error_4> &apos;{code}&apos;",
         exit_code_after_print_statement=4
       )
-      # #! Debugging
-      # with open("/home/ghoudiy/.cfkit/resources/contests_does_not_exists.txt", 'a') as file:
-      #   file.write(f"No such contest '{contest_id}'")
 
   elif not contest_started:
     colored_text(
       "Contest has not started yet",
       one_color="error_5",
-      # exit_code_after_print_statement=5
+      exit_code_after_print_statement=5
     )
     raise InterruptedError
 
