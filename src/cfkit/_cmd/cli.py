@@ -247,7 +247,7 @@ def config_action():
       else:
         configure_mem_time_usage(f"{operating_sys}_arm.exe")
 
-    elif arch == 'aarch64':
+    elif arch in ('aarch64', 'arm64'):
       configure_mem_time_usage(f"{operating_sys}_arm64.exe")
 
     else:

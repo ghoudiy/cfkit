@@ -775,7 +775,7 @@ class Problem:
         errors_memory_time_of_solution_filename: str,
         working_in_script: bool
       ):
-      if not working_in_script:
+      if working_in_script:
         solution_file = "cfkit_module_user_code.py"
 
       return execute_file(
