@@ -2,11 +2,10 @@
 Documentation
 """
 
-from typing import Any
+from typing import Any, Optional
 from prompt_toolkit.shortcuts import confirm as promptConfirm
 
-from cfkit._utils.check import check_command
-from cfkit._utils.print import display_horizontally
+from cfkit._utils.print import display_horizontally, colored_text
 
 def select_option(
     message: str,
@@ -32,18 +31,19 @@ def select_option(
     return choice
   return data[choice-1]
 
-def retype(data: str, input_type: str, _command: str = None) -> str:
+def retype(data: str, input_type: str, _command: Optional[str] = None) -> str:
   """
   Documentation
   """
-  if not confirm(f"Confirm the {input_type}"):
+  from cfkit._utils.check import check_command
+  if not confirm(f"\nConfirm the {input_type}"):
     if _command is not None:
       return retype(
-        check_command(input(f"Please retype the {input_type}:\n"), _command),
+        check_command(input(f"\nPlease retype the {input_type}:\n"), _command),
         input_type,
         _command
       )
-    return retype(input(f"Please retype the {input_type}:\n"), input_type)
+    return retype(input(f"\nPlease retype the {input_type}:\n"), input_type)
   return data
 
 def enter_number(message: str, error_message: str, num_range: range) -> int:
@@ -62,3 +62,10 @@ def confirm(message: str, default: bool = True):
   if default is True:
     return promptConfirm(message, " [Y/n] ") in ("", True)
   return promptConfirm(message, " [y/N] ") is True
+
+def prompt(message, **kwargs):
+  """
+  Documentation
+  """
+  colored_text(message, end="", **kwargs)
+  return input()

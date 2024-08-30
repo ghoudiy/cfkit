@@ -389,7 +389,7 @@ def detect_implementation(programming_language: str):
       )
     else:
       implementation = "compile and execute"
-      message = f"{placeholders[1][3:]}\n{placeholders[2]}"
+      message = f"{placeholders[1]}\n{placeholders[2]}"
       command = retype(
         check_command(
           input("\nEnter below the command you'd like to use:\n").strip(),

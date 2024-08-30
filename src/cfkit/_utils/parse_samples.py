@@ -33,12 +33,17 @@ from cfkit._utils.constants import Directory
 def problems_content(
     content: str,
     contest_id: int,
+    *args,
     problem_index: str = "",
-    html_page = False
+    html_page = False,
   ) -> (list[list[str]] | str):
   """
   Documentation
   """
+  if args[0]:
+    with open(args[0], 'r', encoding="UTF-8") as file:
+      content = file.read()
+
   if html_page:
     # Parse problems statements from 'contestId/problems' page
     soup = BeautifulSoup(content, 'html.parser')

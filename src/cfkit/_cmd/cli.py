@@ -41,7 +41,6 @@ def _check_problem_index(problem_index):
         one_color="error_4",
         exit_code_after_print_statement=4
       )
-      sysExit(1)
 
   except IndexError:
     print(HELP_MESSAGE)
@@ -58,13 +57,14 @@ def list_action():
   parser = ArgumentParser(description='list options')
 
   parser.add_argument("contestid", action='store', help="ContestId")
-  parser.add_argument("-l", "--letters", action='store_true', dest="letters", help="Problem letters")
+  parser.add_argument("-c", "--code", action='store_true', dest="letters", help="Problem letters")
+  parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()
   if args.letters:
-    print(*Contest(args.contestid).problems_letters, sep="\n")
+    print(*Contest(args.contestid, args.local).problems_letters, sep="\n")
   else:
-    print(*Contest(args.contestid).problems, sep="\n")
+    print(*Contest(args.contestid, args.local).problems, sep="\n")
 
 def parse_action():
   """
@@ -79,19 +79,16 @@ def parse_action():
   parser.add_argument('-c', '--create', action='store_true', dest='create_tests_dir', help='Create tests directory')
   parser.add_argument('-p', '--path', action='store', dest='path', default=None, help='Path where samples will be created')
   parser.add_argument('-s', '--short', action='store_true', dest='short_names', help="Names samples as 'in' and 'out' (Works only when parsing a problem)")
+  parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()
 
   problem_index, contest_or_problem = _check_problem_index(args.problem_index)
-  path_option = args.path
-  create_tests_dir_option = args.create_tests_dir
-  path_option = args.path
-  short_names_option = args.short_names
-
+  
   if contest_or_problem == "problem":
-    Problem(problem_index).parse(path_option, create_tests_dir_option, short_names_option)
+    Problem(problem_index, args.local).parse(args.path, args.create_tests_dir, args.short_names)
   else:
-    Contest(int(problem_index)).parse(path_option, create_tests_dir_option)
+    Contest(int(problem_index), args.local).parse(args.path, args.create_tests_dir)
 
 def gen_action():
   """
@@ -107,25 +104,23 @@ def gen_action():
   parser.add_argument('-e', '--ext', action='store', dest='ext', help='File extension')
   parser.add_argument('-n', '--name', action='store_true', dest='problem_name', help="Add problem name to file name")
   parser.add_argument('-p', '--path', action='store', dest='path', default=None, help='Path where file will be created')
+  parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()
 
   problem_index, contest_problem = _check_problem_index(args.problem_index)
-  ext = args.ext
-  create_contest_folder = args.create_contest_folder
-  problem_name = args.problem_name
-  path = args.path
 
   if contest_problem == "problem":
-    Problem(problem_index).create_solution_file(path, ext, create_contest_folder, problem_name)
+    Problem(problem_index, args.local).create_solution_file(args.path, args.ext, args.create_contest_folder, args.problem_name)
   else:
-    Contest(problem_index).create_problems_files(path, ext, problem_name)
+    Contest(problem_index, args.local).create_problems_files(args.path, args.ext, args.problem_name)
 
 def run_action():
   """
   Documentation
   """
   from cfkit.codeforces._problem import Problem
+  from cfkit._utils.variables import conf_file
 
   parser = ArgumentParser(description='Run options')
 
@@ -133,37 +128,43 @@ def run_action():
   parser.add_argument("-p", "--problem", action='store', dest="problem_code", help="Problem code")
   parser.add_argument("-o", "--order", action='store_true', dest="order", help="Any order")
   parser.add_argument("-c", "--custom", action='store_true', dest="custom", help="Run custom samples only")
-  parser.add_argument('-f', '--format', action='store_true', dest='formatting', help='Check formatting')
   parser.add_argument('-r', '--remove', action='store_true', dest='remove', help='Remove samples and output files')
-  parser.add_argument('-nv', '--notVerbose', action='store_false', dest='not_verbose', help='Do not print input, output and answer')
   parser.add_argument('-m', '--multiple-answers', action='store_true', dest='multiple_answers', help='There are multiple correct answers')
+  parser.add_argument('-s', '--space', action='store_false', dest='ignore_extra_spaces', help='Do not ignore extra spaces')
+  parser.add_argument('-n', '--newline', action='store_false', dest='ignore_extra_newlines', help='Do not ignore extra new lines')
+  parser.add_argument('-v', '--verbose-off', action='store_false', dest='not_verbose', help='Do not print input, output and answer')
   parser.add_argument('-a', '--no-answers', action='store_false', dest='print_answers', help='Do not print answers')
+  parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()
 
   if args.problem_code is None:
-    Problem(args.file).run_demo(
+    Problem(args.file, args.local).run_demo(
       args.file,
       args.order,
       args.multiple_answers,
-      args.formatting,
+      conf_file["cfkit"]["always_check_presentation"].lower() == "yes",
       args.custom,
       args.print_answers,
       args.remove,
       None,
-      args.not_verbose
+      args.not_verbose,
+      args.ignore_extra_spaces,
+      args.ignore_extra_newlines
     )
   else:
-    Problem(args.problem_code).run_demo(
+    Problem(args.problem_code, args.local).run_demo(
       args.file,
       args.order,
       args.multiple_answers,
-      args.formatting,
+      conf_file["cfkit"]["always_check_presentation"].lower() == "yes",
       args.custom,
       args.print_answers,
       args.remove,
       None,
-      args.not_verbose
+      args.not_verbose,
+      args.ignore_extra_spaces,
+      args.ignore_extra_newlines
     )
 
 def config_action():
@@ -221,9 +222,9 @@ def config_action():
     operating_sys = var.system.lower()
 
     def configure_mem_time_usage(mem_time_calc_exec):
-      conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = str(confirm(
+      conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = "yes" if confirm(
         "Do you want to calculate memory usage and execution time?"
-      ))
+      ) else "no"
       dst = source_dir.joinpath("_dependencies", "memory_time_usage.exe")
       if operating_sys != "windows":
         mem_time_calc_exec = mem_time_calc_exec[:-4]
@@ -241,14 +242,14 @@ def config_action():
     elif arch in ('x86_64', "amd64"):
       configure_mem_time_usage(f"{operating_sys}_amd64.exe")
 
+    elif arch in ('aarch64', 'arm64'):
+      configure_mem_time_usage(f"{operating_sys}_arm64.exe")
+
     elif arch.startswith('arm'):
       if operating_sys != "linux":
         print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")
       else:
         configure_mem_time_usage(f"{operating_sys}_arm.exe")
-
-    elif arch in ('aarch64', 'arm64'):
-      configure_mem_time_usage(f"{operating_sys}_arm64.exe")
 
     else:
       print("Unfortunately, memory and time tracking features are not supported on your current system configuration.")

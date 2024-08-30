@@ -61,6 +61,8 @@ ERRORS_MEMORY_TIME_FILENAME = (
   "%%problem_code%%" + "_test_case" + "%%test_case_num%%" + "_err_memory_time." + OUTPUT_EXTENSION_FILE
 )
 ERRORS_MEMORY_TIME_FILENAME_PATTERN = r"%%problem_code%%_test_case\d+_err_memory_time\." + OUTPUT_EXTENSION_FILE
+
+separator = '-' * 55
 # -------------------------------------------------------------------------
 
 json_folder = Path(__file__).parent.parent.joinpath("_json")
@@ -101,7 +103,7 @@ history_file_path = resources_folder.joinpath("history.json")
 #  '-' * 55
 # """
 
-# TEST_RESULT_TEXT_WITH_MEM_TIME_USAGE_AND_ANSWER_CUSTOM = """
+# TEST_RESULT_TEXT_WITH_MEM_TIME_USAGE_AND_ANSWER_CUSTOM_SAMPLE = """
 # Test case %%test_case_num%% (Custom '%%filename%%'), time: %%time%%, memory: %%memory%%, verdict: %%verdict%%
 # Input
 #  '-' * 55

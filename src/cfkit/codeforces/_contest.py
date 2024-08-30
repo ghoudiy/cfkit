@@ -23,14 +23,14 @@ class Contest:
   """
   Documentation
   """
-  def __init__(self, contest_id: int) -> None:
+  def __init__(self, contest_id: int, /, *args) -> None:
     self.name = None
     self.contest_id = contest_id
-    self._content = self.__content()
+    self._content = self.__content(*args)
     self.problems = list(map(lambda x: x[0], self._content))
     self.problems_letters = list(map(lambda x: x[:x.find('.')], self.problems))
 
-  def __content(self):
+  def __content(self, *args):
     if isinstance(self.contest_id, str) and self.contest_id.isdigit():
       self.contest_id = int(self.contest_id)
 
@@ -39,15 +39,16 @@ class Contest:
       if not contest_problems_statement_file_path.exists():
         response, self.name = problems_content(
           get_response(
-            f"https://codeforces.com/contest/{self.contest_id}/problems",
+            f"codeforces.com/contest/{self.contest_id}/problems",
             self.contest_id,
             self.contest_id
           ),
           self.contest_id,
+          *args,
           html_page=True
         )
       else:
-        response, self.name = problems_content(contest_problems_statement_file_path, self.contest_id)
+        response, self.name = problems_content(contest_problems_statement_file_path, self.contest_id, *args)
       return response
     colored_text(
       "Contest ID must be an integer",
@@ -73,7 +74,7 @@ class Contest:
 
     if osPath.basename(path) != str(self.contest_id):
       folder_name = create_file_folder(str(self.contest_id), 'd')
-    chdir(folder_name)
+      chdir(folder_name)
 
     problems_num = len(self.problems)
 
@@ -152,7 +153,8 @@ class Contest:
     # Comment
     problems_files = []
     if add_problem_name_to_file_name:
-      for i, problem_name in enumerate(self.problems):
+      i = 0
+      for problem_name in self.problems:
         pt_pos = problem_name.find(".")
         problem_name = problem_name[pt_pos+2:]
         index = (
@@ -163,9 +165,11 @@ class Contest:
         problems_files.append(
           file_name(self.problems_letters[i], problem_name, programming_language_extension[index])
         )
+        i += 1
 
     else:
-      for i, problem_name in enumerate(self.problems):
+      i = 0
+      for problem_name in self.problems:
         index = (
           (i-problems_num+problems_extensions_length)+abs(i-problems_num+problems_extensions_length)
         )
@@ -173,6 +177,7 @@ class Contest:
         problems_files.append(
           f"{self.problems_letters[i].lower()}.{programming_language_extension[index]}"
         )
+        i += 1
 
     def create_solution_file(one_extension = True):
       def write_to_multiple_files_at_once(files, template):
@@ -207,7 +212,7 @@ class Contest:
   def parse(
       self,
       path: Optional[Directory] = None,
-      create_tests_dir: bool = True,
+      create_tests_dir: bool = True
     ) -> None:
     """
     Documentation

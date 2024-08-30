@@ -14,6 +14,7 @@ from cfkit._utils.input import select_option
 from cfkit._utils.file_operations import read_json_file
 
 from cfkit._utils.variables import (
+  separator,
   OUTPUT_FILENAME,
   template_folder,
   language_conf_path,
@@ -52,12 +53,25 @@ def trim_data(data: list[str]) -> list[str]:
   Documentation
   """
   data_without_new_lines = []
-  for values in data:
-    values = values.split(" ")
-    values = [value for value in values if value]
-    if values:
-      data_without_new_lines.extend(values)
-  return data_without_new_lines
+  values = []
+  for i in range(len(data)):
+    data[i] = data[i].strip().split(" ")
+    for j in range(len(data[i])):
+      if data[i][j]:
+        values.append(data[i][j])
+        data_without_new_lines.append((i, j, data[i][j]))
+  return data_without_new_lines, values
+
+def remove_empty_lines(data: list[str]):
+  """
+  Documentation
+  """
+  i = 0
+  while (l:=len(data)) > 0 and i < l:
+    if data[i] == "":
+      data.pop(i)
+    else:
+      i += 1
 
 def convert_to_megabytes(memory: str) -> float:
   """
@@ -183,3 +197,50 @@ def augment_errors_warnings(data: dict, test_results: dict):
       test_results[key] += data[key]
     else:
       test_results[key] = data[key]
+
+def fill_checker_log_list(
+  checker_log_list: list[list] | list[str],
+  data: list[str],
+  i: int,
+  replace_non_xml_valid_char_bool: bool = False,
+  columns_num: int = 55,
+):
+  """
+  Documentation
+  """
+  while (data_length:=len(data)) > 1 and data[-1] == "":
+    data.pop()
+  if data_length == 1 and data[0] == "":
+    data = ["(Empty)"]
+  if replace_non_xml_valid_char_bool:
+    for line in data:
+      checker_log_list[i] += f"| {replace_non_xml_valid_characters(line)} {' ' * (columns_num - len(line) - 2)}|\n"
+  else:
+    for line in data:
+      checker_log_list[i] += f"| {line} {' ' * (columns_num - len(line) - 2)}|\n"
+
+def replace_non_xml_valid_characters(text: str) -> str:
+  """
+  Documentation
+  """
+  return (
+    text.replace("&", "&amp;")
+    .replace("<", "&lt;")
+    .replace(">", "&gt;")
+    .replace('"', "&quot;")
+  )
+
+def fill_checker_log_normal_way(checker_log_list, test_sample_num, input_string, observed, expected):
+  """
+  Documentation
+  """
+  checker_log_list[test_sample_num] = f"Input\n {separator}\n"
+  fill_checker_log_list(checker_log_list, input_string, test_sample_num)
+
+  checker_log_list[test_sample_num] += f" {separator}\n\nOutput\n {separator}\n"
+  fill_checker_log_list(checker_log_list, observed, test_sample_num)
+
+  checker_log_list[test_sample_num] += f" {separator}\n\nAnswer\n {separator}\n"
+  fill_checker_log_list(checker_log_list, expected, test_sample_num)
+
+  checker_log_list[test_sample_num] += f" {separator}\nChecker log: "
