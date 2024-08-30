@@ -6,14 +6,12 @@ from sys import exit as sysExit
 from os import get_terminal_size
 
 from prompt_toolkit import print_formatted_text, HTML
-from prompt_toolkit.shortcuts import prompt
 from prompt_toolkit.styles import Style
 from cfkit._utils.variables import color_conf
 
 def colored_text(
   message: str,
   one_color: str = "",
-  input_statement: bool = False,
   exit_code_after_print_statement: int = 0,
   **kwargs
 ) -> str:
@@ -26,15 +24,11 @@ def colored_text(
   if one_color:
     message = f"<{one_color}>{message}</{one_color}>"
 
-  if input_statement:
-    return prompt(HTML(message), style=style)
+  print_formatted_text(HTML(message), style=style, **kwargs)
 
-  elif exit_code_after_print_statement == 0:
-    print_formatted_text(HTML(message), style=style, **kwargs)
-
-  else:
-    print_formatted_text(HTML(message), style=style, **kwargs)
+  if exit_code_after_print_statement != 0:
     sysExit(exit_code_after_print_statement)
+
 
 def display_horizontally(data: tuple) -> None:
   """
