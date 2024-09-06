@@ -6,7 +6,7 @@ from typing import Optional
 
 from cfkit._utils.check import raise_error_if_path_missing
 from cfkit._client.fetch import get_response
-from cfkit._utils.common import file_name, retrieve_template
+from cfkit._utils.common import file_name, retrieve_template, insert_placeholders_template
 from cfkit._utils.file_operations import (
   create_file_folder,
   read_json_file,
@@ -161,9 +161,8 @@ class Contest:
           (i-problems_num+problems_extensions_length)+abs(i-problems_num+problems_extensions_length)
         )
         index //= 2 # since (i - problems_num + problems_extensions_length) was added twice
-
         problems_files.append(
-          file_name(self.problems_letters[i], problem_name, programming_language_extension[index])
+          file_name(problem_name, self.problems_letters[i], programming_language_extension[index])
         )
         i += 1
 
@@ -182,8 +181,7 @@ class Contest:
     def create_solution_file(one_extension = True):
       def write_to_multiple_files_at_once(files, template):
         for file in files:
-          template_source_code = read_text_from_file(template)
-          write_text_to_file(template_source_code, file)
+          write_text_to_file(insert_placeholders_template(read_text_from_file(template)), file)
 
       if one_extension:
         write_to_multiple_files_at_once(problems_files, retrieve_template(problems_files[0]))

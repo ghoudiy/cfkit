@@ -86,7 +86,8 @@ def folder_file_exists(name: str, file_or_dir: str) -> str:
     "1. Write in the same directory" if file_or_dir == "directory" else "Override the file",
     f"2. Replace the old {file_or_dir} with the new one",
     f"3. Create a new {file_or_dir} with another name",
-    "4. Abort"
+    "4. Abort",
+    sep="\n"
   )
   user_choice = enter_number("What do you want to do? ", "What do you want to do? ", range(1, 5))
 

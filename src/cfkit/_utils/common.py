@@ -3,10 +3,11 @@ Documentation
 """
 
 # Standard Library Imports
+from os import path as osPath
 from re import sub as reSub
 from pathlib import Path
-from os import path as osPath
 from subprocess import run, CalledProcessError
+from datetime import datetime
 
 # Cfkit Imports
 from cfkit._utils.print import colored_text
@@ -14,6 +15,7 @@ from cfkit._utils.input import select_option
 from cfkit._utils.file_operations import read_json_file
 
 from cfkit._utils.variables import (
+  conf_file,
   separator,
   OUTPUT_FILENAME,
   template_folder,
@@ -102,9 +104,11 @@ def retrieve_template(file_path: str) -> str:
   Documentation
   """
   language_conf = read_json_file(language_conf_path)
-  programming_language = EXTENSIONS[file_path[file_path.find(".")+1:]]
+
+  if (programming_language:=EXTENSIONS.get(file_path[file_path.rfind(".")+1:])) is None:
+    colored_text("Extension is not recognised! Please try again", one_color="error_4", exit_code_after_print_statement=4)
+
   default_template_path = language_conf[programming_language]["default_template"]
-  # // Add an option in the terminal to make the user choose between templates
   if not default_template_path:
     language_template_folder = template_folder.joinpath(
       LANGUAGES_EXTENSIONS[programming_language][0]
@@ -122,7 +126,16 @@ def retrieve_template(file_path: str) -> str:
         else:
           colored_text(f"<error_4>No such file or directory</error_4> &apos;{template_path}&apos;")
 
-    templates = [templ for templ in templates if templ] # Maybe the user enter a path of an empty folder
+    templates: list[Path] = [templ for templ in templates if templ] # Maybe the user enter a path of an empty folder
+    
+    i = -1
+    test = False
+    len_templates = len(templates)
+    while not test and i < len_templates - 1:
+      i += 1
+      test = templates[i].name.startswith("default.")
+    if test:
+      return templates[i]
 
     if len(templates) > 1:
       print("Available templates: ")
@@ -244,3 +257,14 @@ def fill_checker_log_normal_way(checker_log_list, test_sample_num, input_string,
   fill_checker_log_list(checker_log_list, expected, test_sample_num)
 
   checker_log_list[test_sample_num] += f" {separator}\nChecker log: "
+
+def insert_placeholders_template(code):
+  return (
+    code.replace("$%author%$", conf_file["cfkit"]["user"])
+    .replace("$%year%$",   str(datetime.now().year))
+    .replace("$%month%$",  str(datetime.now().month))
+    .replace("$%day%$",    str(datetime.now().day))
+    .replace("$%hour%$",   str(datetime.now().hour))
+    .replace("$%minute%$", str(datetime.now().minute))
+    .replace("$%second%$", str(datetime.now().second))
+  )

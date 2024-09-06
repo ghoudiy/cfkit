@@ -41,6 +41,7 @@ Available commands:
     parse   parse input and output samples from problem statement
     gen     generate solution file with the default template if found
     run     test solution file against samples and print the verdict response
+    config  config cfkit
 
 Type cf <command> --help for usage help on a specific command.
 For example, cf run --help will list all testing options.
