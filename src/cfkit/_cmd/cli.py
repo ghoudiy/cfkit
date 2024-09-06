@@ -95,11 +95,11 @@ def gen_action():
   Documentation
   """
   from cfkit.codeforces._contest import Contest
-  from cfkit.codeforces._problem import Problem
+  from cfkit.codeforces._problem import Problem, retrieve_template, insert_placeholders_template, conf_file, colored_text, EXTENSIONS, LANGUAGES_EXTENSIONS
 
   parser = ArgumentParser(description='Generate options')
 
-  parser.add_argument("problem_index", action='store', help="Problem index (e.g. 4a)")
+  parser.add_argument("problem_index_or_file_name", action='store', help="Problem index (e.g. 4a) or file name (e.g. 4a.py)")
   parser.add_argument('-c', '--create', action='store_true', dest='create_contest_folder', help='Create contest folder')
   parser.add_argument('-e', '--ext', action='store', dest='ext', help='File extension')
   parser.add_argument('-n', '--name', action='store_true', dest='problem_name', help="Add problem name to file name")
@@ -108,7 +108,28 @@ def gen_action():
 
   args = parser.parse_args()
 
-  problem_index, contest_problem = _check_problem_index(args.problem_index)
+  if args.create_contest_folder is False and args.problem_name is False:
+    if args.problem_index_or_file_name.find(".") == -1:
+      default_language = conf_file["cfkit"]["default_language"].strip()
+      if default_language == "":
+        print(
+          "You should set a default language so that you don't have to",
+          "enter the programming language every time"
+        )
+        file_extension = input("Extension: ")
+        while file_extension not in EXTENSIONS:
+          colored_text("Extension is not recognised! Please try again", one_color="error_4")
+          file_extension = input("Extension: ")
+        args.problem_index_or_file_name += f".{file_extension}"
+      else:
+        args.problem_index_or_file_name += f".{LANGUAGES_EXTENSIONS[default_language][0]}"
+
+    with open(args.problem_index_or_file_name, 'w') as file:
+      with open(retrieve_template(args.problem_index_or_file_name), 'r', encoding="UTF-8") as ff:
+        file.write(insert_placeholders_template(ff.read()))
+        sysExit(0)
+
+  problem_index, contest_problem = _check_problem_index(args.problem_index_or_file_name)
 
   if contest_problem == "problem":
     Problem(problem_index, args.local).create_solution_file(args.path, args.ext, args.create_contest_folder, args.problem_name)
@@ -130,10 +151,10 @@ def run_action():
   parser.add_argument("-c", "--custom", action='store_true', dest="custom", help="Run custom samples only")
   parser.add_argument('-r', '--remove', action='store_true', dest='remove', help='Remove samples and output files')
   parser.add_argument('-m', '--multiple-answers', action='store_true', dest='multiple_answers', help='There are multiple correct answers')
-  parser.add_argument('-s', '--space', action='store_false', dest='ignore_extra_spaces', help='Do not ignore extra spaces')
-  parser.add_argument('-n', '--newline', action='store_false', dest='ignore_extra_newlines', help='Do not ignore extra new lines')
-  parser.add_argument('-v', '--verbose-off', action='store_false', dest='not_verbose', help='Do not print input, output and answer')
-  parser.add_argument('-a', '--no-answers', action='store_false', dest='print_answers', help='Do not print answers')
+  parser.add_argument('-s', '--space', action='store_false', dest='ignore_extra_spaces', help='Does not ignore extra spaces')
+  parser.add_argument('-n', '--newline', action='store_false', dest='ignore_extra_newlines', help='Does not ignore extra new lines')
+  parser.add_argument('-v', '--verbose-off', action='store_false', dest='not_verbose', help='Does not print input, output and answer')
+  parser.add_argument('-a', '--no-answers', action='store_false', dest='print_answers', help='Does not print answers')
   parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()

@@ -19,6 +19,7 @@ from cfkit._utils.common import (
   fill_checker_log_list,
   augment_errors_warnings,
   fill_checker_log_normal_way,
+  insert_placeholders_template,
   replace_non_xml_valid_characters,
 )
 
@@ -176,15 +177,15 @@ class Problem:
 
       # If the user gives the solution file instead of problem code
       else:
-        def enter_code() -> tuple[str, str]:
-          '''If the problem code couldn't be recognized from the given path'''
-          colored_text(
-            "\nProblem code could not be recognized from the given path",
-            one_color="error_4"
-          )
-          code = input("Please enter the problem code: ").strip()
-          content = self.__retrieve_html_source_code(code, *args)
-          return content, code
+        # def enter_code() -> tuple[str, str]:
+        #   '''If the problem code couldn't be recognized from the given path'''
+        #   colored_text(
+        #     "\nProblem code could not be recognized from the given path",
+        #     one_color="error_4"
+        #   )
+        #   code = input("Please enter the problem code: ").strip()
+        #   content = self.__retrieve_html_source_code(code, *args)
+        #   return content, code
 
         # Searching for the problem code in the given path
         base_name = osPath.basename(problem_code)
@@ -192,14 +193,14 @@ class Problem:
         if match_problem_code_from_file_name is not None: # contestIdProblemIndex.py (e.g. 1234a.py)
           match_problem_code_from_file_name = match_problem_code_from_file_name.group()
           self._solution_file = problem_code
-          if confirm(f"'{match_problem_code_from_file_name}' Is this the desired problem?"):
-            print()
-            content = self.__retrieve_html_source_code(
-              match_problem_code_from_file_name, *args
-            )
-            problem_code = match_problem_code_from_file_name
-          else:
-            content, problem_code = enter_code()
+          # if confirm(f"'{match_problem_code_from_file_name}' Is this the desired problem?"):
+          print()
+          content = self.__retrieve_html_source_code(
+            match_problem_code_from_file_name, *args
+          )
+          problem_code = match_problem_code_from_file_name
+          # else:
+          #   content, problem_code = enter_code()
 
         else: # contestId/problem_code (e.g. 1234/a.py: where 1234 is the folder)
           dir_name = osPath.dirname(problem_code)
@@ -210,15 +211,15 @@ class Problem:
           # the file name represents the problem code.
           if dir_name.isdigit() and search(r"[A-z]\d{,2}\.", base_name) is not None:
             self._solution_file = problem_code
-            if confirm(
-              f"'{dir_name + (base_name[0] if base_name[1] == '.' else base_name[:2])}' "
-              "Is this the desired problem?"
-            ):
-              print()
-              content = self.__retrieve_html_source_code(dir_name + base_name[0], *args)
-              problem_code = dir_name + base_name[0]
-            else:
-              content, problem_code = enter_code()
+            # if confirm(
+            #   f"'{dir_name + (base_name[0] if base_name[1] == '.' else base_name[:2])}' "
+            #   "Is this the desired problem?"
+            # ):
+            print()
+            content = self.__retrieve_html_source_code(dir_name + base_name[0], *args)
+            problem_code = dir_name + base_name[0]
+            # else:
+              # content, problem_code = enter_code()
           else:
             colored_text(
               "Could not extract the problem code from the given path",
@@ -274,14 +275,12 @@ class Problem:
       file_extension: str
     ) -> None:
       if add_problem_name_to_file_name:
-        solution_file = file_name(
+        return file_name(
           problem_name[problem_name.find(" ") + 1:],
           problem_code,
           file_extension
         )
-      else:
-        solution_file = problem_code + "." + file_extension
-      return solution_file
+      return problem_code + "." + file_extension
 
     # Cheking file extension
     # =============================================================================================
@@ -326,7 +325,7 @@ class Problem:
         file_extension
       )
 
-    write_text_to_file(read_text_from_file(retrieve_template(solution_file)), solution_file)
+    write_text_to_file(insert_placeholders_template(read_text_from_file(retrieve_template(solution_file)), solution_file))
 
     # Grammar checked
     colored_text("The solution file has been successfully created", one_color="correct")
@@ -336,7 +335,6 @@ class Problem:
     path: Optional[Directory] = None,
     create_tests_dir: bool = False,
     short_names: bool = False,
-    parse_from_html_file: bool = False,
     __check_path: bool = True,
     __print_message: bool = True
   ) -> None:
@@ -386,7 +384,6 @@ class Problem:
     Test a participant's solution against Codeforces problem samples
     and download them if they are missed.
     """
-    # working_in_script, code, line_number = check_path(file_path)
     def check_path(file_path) -> tuple[bool, list[str], int | bool, None, None]:
       """
       Documentation

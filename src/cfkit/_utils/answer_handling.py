@@ -251,7 +251,7 @@ def compare(
     check_length(
       expected_length,
       observed_length,
-      "<wrong>Wrong answer</wrong>: <u>expected</u> %1% value(s), <u>found</u> %2%",
+      "  \n<wrong>Wrong answer</wrong>: <u>expected</u> %1% value(s), <u>found</u> %2%",
       "Wrong answer",
       "wrong",
       True
@@ -339,16 +339,17 @@ def check_answer(
     if not accpeted:
       return False, wrong_answer_messages
     return True, None
-
-  return compare(
-    expected,
-    observed,
-    checker_log_list,
-    test_sample_num,
-    any_order,
-    check_presentation,
-    input_string,
-    ignore_extra_spaces,
-    ignore_extra_newlines
-  )
-
+  try:
+    return compare(
+      expected,
+      observed,
+      checker_log_list,
+      test_sample_num,
+      any_order,
+      check_presentation,
+      input_string,
+      ignore_extra_spaces,
+      ignore_extra_newlines
+    )
+  except InterruptedError:
+    pass
