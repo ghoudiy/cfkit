@@ -194,7 +194,7 @@ class Problem:
           match_problem_code_from_file_name = match_problem_code_from_file_name.group()
           self._solution_file = problem_code
           # if confirm(f"'{match_problem_code_from_file_name}' Is this the desired problem?"):
-          print()
+          # print()
           content = self.__retrieve_html_source_code(
             match_problem_code_from_file_name, *args
           )
@@ -215,7 +215,7 @@ class Problem:
             #   f"'{dir_name + (base_name[0] if base_name[1] == '.' else base_name[:2])}' "
             #   "Is this the desired problem?"
             # ):
-            print()
+            # print()
             content = self.__retrieve_html_source_code(dir_name + base_name[0], *args)
             problem_code = dir_name + base_name[0]
             # else:
@@ -1015,6 +1015,7 @@ class Problem:
     def print_results(accepted) -> None:
 
       input_samples_without_expected_output_num = len(input_samples_without_expected_output)
+      opposite_of_accepted = 1 - accepeted
       if mem_time_calc:
         def check_memory_time(memory_taken: float, memory_unit: str, time_taken: float):
           if memory_unit == "KB":
@@ -1033,8 +1034,6 @@ class Problem:
             warnings["Time limit exceeded"] += 1
 
           return time_limit_exceeded_message, memory_exceeded_limit_message
-
-        opposite_of_accepted = 1 - accepeted
 
         if print_answers:
 

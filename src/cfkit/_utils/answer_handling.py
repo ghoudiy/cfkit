@@ -30,17 +30,17 @@ def wrong_answer_verdict(
     observed_value_as_float = float(observed_value)
     return (
       "<wrong>Wrong answer</wrong>:" + (f" {line}{english_ending(line)} line," if line > 0 else '') + ""
-      f" {column}{english_ending(column)} numbers "
-      f"<i>differ</i> - <u>expected</u>: '{expected_value}', <u>found</u>: '{observed_value}'"
+      f" {column}{english_ending(column)} numbers - "
+      f"expected: '{expected_value}', found: '{observed_value}'"
     ) + (
-      f", error = '{(abs(expected_value_as_float - observed_value_as_float) / observed_value_as_float):5f}'" if (
-        int(expected_value) != float(expected_value)) else ''
+      f", error = {(abs(expected_value_as_float - observed_value_as_float) / observed_value_as_float):5f}" if (
+        int(expected_value_as_float) != expected_value_as_float) else ''
     )
 
   return (
-  "<wrong>Wrong answer</wrong>: " + (f"{line}{english_ending(line)} line," if line > 0 else '') + " "
-  f"{column}{english_ending(column)} words "
-  f"<i>differ</i> - <u>expected</u>: '{replace_non_xml_valid_characters(expected_value)}', <u>found</u>: '{replace_non_xml_valid_characters(observed_value)}'"
+  "<wrong>Wrong answer</wrong>:" + (f" {line}{english_ending(line)} line," if line > 0 else '') + ""
+  f" {column}{english_ending(column)} words - "
+  f"expected: '{replace_non_xml_valid_characters(expected_value)}', found: '{replace_non_xml_valid_characters(observed_value)}'"
   )
 
 def compare_values(expected_value, observed_value, line, column) -> bool:
