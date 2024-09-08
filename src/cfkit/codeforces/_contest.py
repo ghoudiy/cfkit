@@ -27,8 +27,8 @@ class Contest:
     self.name = None
     self.contest_id = contest_id
     self._content = self.__content(*args)
-    self.problems = list(map(lambda x: x[0], self._content))
-    self.problems_letters = list(map(lambda x: x[:x.find('.')], self.problems))
+    self.problems_names = list(map(lambda x: x[0], self._content))
+    self.problems_letters = list(map(lambda x: x[:x.find('.')], self.problems_names))
 
   def __content(self, *args):
     if isinstance(self.contest_id, str) and self.contest_id.isdigit():
@@ -77,7 +77,7 @@ class Contest:
       folder_name = create_file_folder(str(self.contest_id), 'd')
       chdir(folder_name)
 
-    problems_num = len(self.problems)
+    problems_num = len(self.problems_names)
 
     def enter_extensions(language_conf: dict) -> tuple[list, int]:
       # Show availables extensions
@@ -158,7 +158,7 @@ class Contest:
       contestid = f"{self.contest_id}"
     if add_problem_name_to_file_name:
       i = 0
-      for problem_name in self.problems:
+      for problem_name in self.problems_names:
         pt_pos = problem_name.find(".")
         problem_name = problem_name[pt_pos+2:]
         index = (
@@ -172,7 +172,7 @@ class Contest:
 
     else:
       i = 0
-      for problem_name in self.problems:
+      for problem_name in self.problems_names:
         index = (
           (i-problems_num+problems_extensions_length)+abs(i-problems_num+problems_extensions_length)
         )

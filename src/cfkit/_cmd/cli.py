@@ -57,14 +57,17 @@ def list_action():
   parser = ArgumentParser(description='list options')
 
   parser.add_argument("contestid", action='store', help="ContestId")
-  parser.add_argument("-c", "--code", action='store_true', dest="letters", help="Problem letters")
+  # parser.add_argument("-c", "--code", action='store_true', dest="letters", help="Problem letters")
   parser.add_argument('-l', '--local', action='store', dest='local', help='Parse from html file')
 
   args = parser.parse_args()
-  if args.letters:
-    print(*Contest(args.contestid, args.local).problems_letters, sep="\n")
-  else:
-    print(*Contest(args.contestid, args.local).problems, sep="\n")
+  contest = Contest(args.contestid, args.local)
+  max_width = max(len(name) for name in contest.problems_names) + 1
+  print(f"{'Problem name':<{max_width}} {'Time Limit':<12} {'Memory Limit':<15} {'Input':<16} {'Output':<16}\n{'-' * 100}")
+  for problem in contest._content:
+    for i in range(1, 5):
+      problem[i] = problem[i][problem[i].find(": ") + 2:]
+    print(f"{problem[0]:<{max_width}} {problem[1]:<12} {problem[2]:<15} {problem[3]:<16} {problem[4]:<16}")
 
 def parse_action():
   """
