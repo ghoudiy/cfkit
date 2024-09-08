@@ -786,7 +786,7 @@ class Problem:
       errors_memory_time_of_solution_filenames_list: list[str] = [None] * number_of_tests
       participant_output_filenames_list: list[str] = [None] * number_of_tests
 
-      accepeted = True
+      accepted = True
       verdict = [None] * number_of_tests * expected_output_bool
       memory: list[tuple[float, str]] = [None] * number_of_tests * mem_time_calc
       time: list[float] = [None] * number_of_tests * mem_time_calc
@@ -867,10 +867,10 @@ class Problem:
             )
 
             if equal:
-              accepeted = save_accepted_test(verdict, checker_log_list, test_sample_num, accepeted)
+              accepted = save_accepted_test(verdict, checker_log_list, test_sample_num, accepted)
 
             else:
-              accepeted = save_error(
+              accepted = save_error(
                 "Wrong answer",
                 verdict,
                 test_sample_num,
@@ -884,7 +884,7 @@ class Problem:
         except InterruptedError as err:
           err.args = err.args[0]
           # err.args[0]: error type, err.args[1]: message, err.args[2]: one_color
-          accepeted = save_error(
+          accepted = save_error(
             err.args[0], # Could be Runtime error, Wrong answer or Presentation error
             verdict,
             test_sample_num,
@@ -910,7 +910,7 @@ class Problem:
         test_sample_num += 1
 
       return (
-        accepeted,
+        accepted,
         verdict,
         checker_log_list,
         memory,
@@ -973,7 +973,7 @@ class Problem:
       )
 
       (
-        accepeted,
+        accepted,
         verdict,
         checker_log_list,
         memory,
@@ -990,7 +990,7 @@ class Problem:
     else:
       input_samples_with_expected_output_num = 0
       input_samples_without_expected_output = self._input_samples + self._custom_input_samples
-      accepeted = None
+      accepted = None
       custom_input_without_expected_output_bool = True
 
     if custom_input_without_expected_output_bool:
@@ -1015,7 +1015,6 @@ class Problem:
     def print_results(accepted) -> None:
 
       input_samples_without_expected_output_num = len(input_samples_without_expected_output)
-      opposite_of_accepted = 1 - accepeted
       if mem_time_calc:
         def check_memory_time(memory_taken: float, memory_unit: str, time_taken: float):
           if memory_unit == "KB":
@@ -1036,6 +1035,7 @@ class Problem:
           return time_limit_exceeded_message, memory_exceeded_limit_message
 
         if print_answers:
+          opposite_of_accepted = 1 - accepted
 
           for i in range(len(verdict)):
             time_limit_exceeded_message, memory_limit_exceeded_message = check_memory_time(
@@ -1052,7 +1052,7 @@ class Problem:
               f"verdict: {verdict[i]}"
             )
             colored_text(checker_log_list[i] * verbose * opposite_of_accepted, end="\n" * verbose * opposite_of_accepted)
-            print(checker_log_list[i] * accepeted * verbose, end="\n" * verbose * accepeted)
+            print(checker_log_list[i] * accepted * verbose, end="\n" * verbose * accepted)
 
         if custom_input_without_expected_output_bool:
           for i in range(
@@ -1076,6 +1076,7 @@ class Problem:
 
       else:
         if print_answers:
+          opposite_of_accepted = 1 - accepted
           for i in range(len(verdict)):
             colored_text(
               "\n\n" * verbose * (i > 0)+ f"<keyword>Test case</keyword> <values>{i + 1}</values>"
@@ -1083,7 +1084,7 @@ class Problem:
               f"verdict: {verdict[i]}"
             )
             colored_text(checker_log_list[i] * verbose * opposite_of_accepted, end="\n" * verbose * opposite_of_accepted)
-            print(checker_log_list[i] * verbose * accepeted, end="\n" * verbose * accepeted)
+            print(checker_log_list[i] * verbose * accepted, end="\n" * verbose * accepted)
 
         if custom_input_without_expected_output_bool:
           for i in range(
@@ -1098,10 +1099,10 @@ class Problem:
             colored_text(checker_log_list_no_expec_out[aux] * verbose, end="\n" * verbose)
 
 
-    print_results(accepeted)
+    print_results(accepted)
     # If solution get accepted
-    if accepeted:
-      colored_text("\nVerdict: <accepted>Demo accepeted</accepted>")
+    if accepted:
+      colored_text("\nVerdict: <accepted>Demo accepted</accepted>")
       # Saving test results
       # ========================================================================
       test_results["progress"]["problems_solved"] += 1
@@ -1155,7 +1156,7 @@ class Problem:
       # =========================================================
 
     #* The solution is not correct, whether the verdict outputs 'wrong answer' or an error
-    elif accepeted is False:
+    elif accepted is False:
       colored_text(f"\nVerdict: {self._fwrong}")
       save_non_accepted_test_result()
 

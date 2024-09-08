@@ -1,4 +1,16 @@
-### 1\. Introduction
+# cfkit
+[![platform](https://img.shields.io/badge/platform-Windows%20%7C%20macOS%20%7C%20Linux-blue.svg)](https://github.com/xalanq/cf-tool/releases)
+[![Language](https://img.shields.io/badge/Language-Python-blue)](https://www.python.org/)
+[![Python_version](https://img.shields.io/badge/Python->=3.8-gree)](https://www.python.org/)
+[![license](https://img.shields.io/badge/license-MIT-%23373737.svg)](https://raw.githubusercontent.com/xalanq/cf-tool/master/LICENSE)
+
+cfkit is a lightweight and efficient CLI tool designed for [Codeforces](https://codeforces.com/).
+
+It’s easy to use, fast and works across platforms.
+
+[Installation](#2-installation) | [Usage](#3-usage) | [FAQ](#4-faq)
+
+## 1\. Introduction
 
 #### Overview:
 
@@ -23,7 +35,7 @@ cfkit is a **fast, cross-platform (Windows, macOS, Linux) command-line interface
 *   **Enhanced CLI Output:** Distinguish correct and incorrect results easily with colored output.
   
 
-### 2\. Installation
+## 2\. Installation
 
 Ensure [Python](https://www.python.org/) is installed on your system. Then, run these commands in your terminal:  
 `pip install cfkit`  
@@ -31,7 +43,7 @@ Ensure [Python](https://www.python.org/) is installed on your system. Then, run 
 
 #### And your are ready to go!
 
-### 3\. Usage
+## 3\. Usage
 ```
 cf run 2000a.cpp    Compiles and tests your solution locally,
                     fetching and parsing missing sample test cases,
@@ -48,13 +60,29 @@ cf run 2000a.cpp    Compiles and tests your solution locally,
 ```
 cf gen 2000a    Generates a code file from the default (or chosen) template.
 ```
-cf parse 2000   Fetch all sample test cases from a contest.
 
-### 4\. FAQ
+In your template code, you can include various placeholders. When you generate code from the template, these placeholders will be automatically replaced with specific values:
+```plain
+$%author%$ (e.g., ghoudiy).  
+$%year%$ (e.g., 2024).  
+$%month%$ (e.g., 9).  
+$%day%$ (e.g., 7).  
+$%hour%$ (e.g., 12).  
+$%minute%$ (e.g., 05).  
+$%second%$ (e.g., 00).  
+```
+
+```
+cf parse 2000   Fetch all sample test cases from a contest.
+```
+## 4\. FAQ
 **Q:** How do I add a new test case?  
 **A:** To add a new test case, create two files: `inK.txt` and `outK.txt`, where **K** is a number. If you're using **Linux or MacOs**, omit the **.txt** extension (e.g., `in1`, `ou1`, `in2`, `out2`). You can create additional test cases by increasing the value of K (e.g., `in1.txt`, `out1.txt`, `in2.txt`, `out2.txt`).
 
-### 5\. Contact
+**Q**: How to update cfkit package?  
+**A**: `pip install --upgrade cfkit`
+
+## 5\. Contact
 I’m always open to feedback, suggestions, and collaboration! If you have any questions or want to get in touch, feel free to reach out:
 
 Email: ghoudi.dev@gmail.com  

@@ -52,7 +52,7 @@ def file_name(name: str, code: str, extension: str) -> str:
 
 def trim_data(data: list[str]) -> list[str]:
   """
-  Documentation
+  Remove empty lines and extra spaces
   """
   data_without_new_lines = []
   values = []
