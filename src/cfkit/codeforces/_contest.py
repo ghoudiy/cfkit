@@ -60,7 +60,8 @@ class Contest:
       self,
       path: Optional[Directory] = None,
       programming_language_extension: Optional[str] | Optional[tuple] | Optional[list] = None,
-      add_problem_name_to_file_name: bool = False
+      add_problem_name_to_file_name: bool = False,
+      create_contest_folder: bool = False
     ) -> None:
     """
     Documentation
@@ -72,7 +73,7 @@ class Contest:
       raise_error_if_path_missing(path, 'd')
     chdir(path)
 
-    if osPath.basename(path) != str(self.contest_id):
+    if create_contest_folder and osPath.basename(path) != str(self.contest_id):
       folder_name = create_file_folder(str(self.contest_id), 'd')
       chdir(folder_name)
 
@@ -152,6 +153,9 @@ class Contest:
 
     # Comment
     problems_files = []
+    contestid = ""
+    if not create_contest_folder:
+      contestid = f"{self.contest_id}"
     if add_problem_name_to_file_name:
       i = 0
       for problem_name in self.problems:
@@ -162,7 +166,7 @@ class Contest:
         )
         index //= 2 # since (i - problems_num + problems_extensions_length) was added twice
         problems_files.append(
-          file_name(problem_name, self.problems_letters[i], programming_language_extension[index])
+          file_name(problem_name, f"{contestid}{self.problems_letters[i]}", programming_language_extension[index])
         )
         i += 1
 
@@ -174,7 +178,7 @@ class Contest:
         )
         index //= 2 # since (i - problems_num + problems_extensions_length) was added twice
         problems_files.append(
-          f"{self.problems_letters[i].lower()}.{programming_language_extension[index]}"
+          f"{contestid}{self.problems_letters[i].lower()}.{programming_language_extension[index]}"
         )
         i += 1
 

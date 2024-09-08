@@ -99,7 +99,7 @@ def gen_action():
 
   parser = ArgumentParser(description='Generate options')
 
-  parser.add_argument("problem_index_or_file_name", action='store', help="Problem index (e.g. 4a) or file name (e.g. 4a.py)")
+  parser.add_argument("code", action='store', help="Problem index (e.g. 4a) or file name (e.g. 4a.py)")
   parser.add_argument('-c', '--create', action='store_true', dest='create_contest_folder', help='Create contest folder')
   parser.add_argument('-e', '--ext', action='store', dest='ext', help='File extension')
   parser.add_argument('-n', '--name', action='store_true', dest='problem_name', help="Add problem name to file name")
@@ -108,8 +108,8 @@ def gen_action():
 
   args = parser.parse_args()
 
-  if args.create_contest_folder is False and args.problem_name is False:
-    if args.problem_index_or_file_name.find(".") == -1:
+  if args.create_contest_folder is False and args.problem_name is False and args.code.isdigit() is False:
+    if args.code.find(".") == -1:
       default_language = conf_file["cfkit"]["default_language"].strip()
       if default_language == "":
         print(
@@ -120,21 +120,21 @@ def gen_action():
         while file_extension not in EXTENSIONS:
           colored_text("Extension is not recognised! Please try again", one_color="error_4")
           file_extension = input("Extension: ")
-        args.problem_index_or_file_name += f".{file_extension}"
+        args.code += f".{file_extension}"
       else:
-        args.problem_index_or_file_name += f".{LANGUAGES_EXTENSIONS[default_language][0]}"
+        args.code += f".{LANGUAGES_EXTENSIONS[default_language][0]}"
 
-    with open(args.problem_index_or_file_name, 'w') as file:
-      with open(retrieve_template(args.problem_index_or_file_name), 'r', encoding="UTF-8") as ff:
+    with open(args.code, 'w') as file:
+      with open(retrieve_template(args.code), 'r', encoding="UTF-8") as ff:
         file.write(insert_placeholders_template(ff.read()))
         sysExit(0)
 
-  problem_index, contest_problem = _check_problem_index(args.problem_index_or_file_name)
+  problem_index, contest_problem = _check_problem_index(args.code)
 
   if contest_problem == "problem":
     Problem(problem_index, args.local).create_solution_file(args.path, args.ext, args.create_contest_folder, args.problem_name)
   else:
-    Contest(problem_index, args.local).create_problems_files(args.path, args.ext, args.problem_name)
+    Contest(problem_index, args.local).create_problems_files(args.path, args.ext, args.problem_name, args.create_contest_folder)
 
 def run_action():
   """
