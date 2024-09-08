@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
   name="cfkit",
-  version="0.0.27",
+  version="0.0.18",
   author="Yassine Ghoudi",
   author_email="ghoudi.dev@gmail.com",
   description="A tool for managing coding competitions.",

@@ -351,5 +351,6 @@ def check_answer(
       ignore_extra_spaces,
       ignore_extra_newlines
     )
-  except InterruptedError:
-    pass
+  except InterruptedError as err:
+    fill_checker_log_normal_way(checker_log_list, test_sample_num, input_string, observed, expected)
+    raise InterruptedError(*err.args)

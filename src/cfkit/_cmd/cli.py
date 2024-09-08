@@ -113,19 +113,20 @@ def gen_action():
 
   if args.create_contest_folder is False and args.problem_name is False and args.code.isdigit() is False:
     if args.code.find(".") == -1:
-      default_language = conf_file["cfkit"]["default_language"].strip()
-      if default_language == "":
-        print(
-          "You should set a default language so that you don't have to",
-          "enter the programming language every time"
-        )
-        file_extension = input("Extension: ")
-        while file_extension not in EXTENSIONS:
-          colored_text("Extension is not recognised! Please try again", one_color="error_4")
-          file_extension = input("Extension: ")
-        args.code += f".{file_extension}"
-      else:
-        args.code += f".{LANGUAGES_EXTENSIONS[default_language][0]}"
+      if args.ext is None:
+        default_language = conf_file["cfkit"]["default_language"].strip()
+        if default_language == "":
+          print(
+            "You should set a default language so that you don't have to",
+            "enter the programming language every time"
+          )
+          args.ext = input("Extension: ")
+          while args.ext not in EXTENSIONS:
+            colored_text("Extension is not recognised! Please try again", one_color="error_4")
+            args.ext = input("Extension: ")
+        else:
+          args.ext = LANGUAGES_EXTENSIONS[default_language][0]
+      args.code += f".{args.ext}"
 
     with open(args.code, 'w') as file:
       with open(retrieve_template(args.code), 'r', encoding="UTF-8") as ff:

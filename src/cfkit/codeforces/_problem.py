@@ -325,7 +325,7 @@ class Problem:
         file_extension
       )
 
-    write_text_to_file(insert_placeholders_template(read_text_from_file(retrieve_template(solution_file)), solution_file))
+    write_text_to_file(insert_placeholders_template(read_text_from_file(retrieve_template(solution_file))), solution_file)
 
     # Grammar checked
     colored_text("The solution file has been successfully created", one_color="correct")
