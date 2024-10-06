@@ -73,7 +73,7 @@ class Contest:
       raise_error_if_path_missing(path, 'd')
     chdir(path)
 
-    if create_contest_folder and osPath.basename(path) != str(self.contest_id):
+    if (test:=osPath.basename(path) != str(self.contest_id)) and create_contest_folder:
       folder_name = create_file_folder(str(self.contest_id), 'd')
       chdir(folder_name)
 
@@ -154,7 +154,7 @@ class Contest:
     # Comment
     problems_files = []
     contestid = ""
-    if not create_contest_folder:
+    if not create_contest_folder and test:
       contestid = f"{self.contest_id}"
     if add_problem_name_to_file_name:
       i = 0

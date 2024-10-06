@@ -170,8 +170,15 @@ def compare(
     for values in zip(expected, observed):
       err_num = 0
       space = (line_number < 10) * ' '
-      expected_line = func1(values[0].strip().split(' '))
-      observed_line = func1(values[1].strip().split(' '))
+      aux = values[0].strip()
+      aux2 = values[1].strip()
+      len_val_exp = len(values[0])
+      len_val_obs = len(values[1])
+      expected_line = func1(aux.strip().split(' '))
+      observed_line = func1(aux2.split(' '))
+      stripped_spaces_num_exp = len_val_exp - len(aux)
+      stripped_spaces_num_obs = len_val_obs - len(aux2)
+      del aux, aux2
 
       observed_length = len(observed_line)
       expected_length = len(expected_line)
@@ -222,17 +229,18 @@ def compare(
             out_line += f" {replace_non_xml_valid_characters(column_value[1])}"
             answer_line += f" {replace_non_xml_valid_characters(column_value[0])}"
           column_number += 1
-
+          
+      nr_spaces_exp = (55 - len(values[0]) - 2 + stripped_spaces_num_exp)
       if err_num > 0:
-        expected_log += f"<skyblue>{line_number}</skyblue>{space}|{answer_line} {' ' * (55 - len(values[0]) - 2)}|\n"
-        output_log += f"<skyblue>{line_number}</skyblue>{space}|{out_line} {' ' * (55 - len(values[1]) - 2 - extra_spaces_num)}|\n"
+        expected_log += f"<skyblue>{line_number}</skyblue>{space}|{answer_line} {' ' * nr_spaces_exp}|\n"
+        output_log += f"<skyblue>{line_number}</skyblue>{space}|{out_line} {' ' * (55 - len(values[1]) - 2 + stripped_spaces_num_obs - extra_spaces_num)}|\n"
       else:
         if conf_file['cfkit']['show_line_number'] == 'yes':
-          output_log += f"{line_number}{space}|{out_line} {' ' * (55 - len(values[1]) - 2)}|\n"
-          expected_log += f"{line_number}{space}|{answer_line} {' ' * (55 - len(values[0]) - 2)}|\n"
+          output_log += f"{line_number}{space}|{out_line} {' ' * (55 - len(values[1]) - 2 + stripped_spaces_num_obs)}|\n"
+          expected_log += f"{line_number}{space}|{answer_line} {' ' * nr_spaces_exp}|\n"
         else:
-          expected_log += f"  |{answer_line} {' ' * (55 - len(values[0]) - 2)}|\n"
-          output_log += f"  |{out_line} {' ' * (55 - len(values[1]) - 2)}|\n"
+          expected_log += f"  |{answer_line} {' ' * nr_spaces_exp}|\n"
+          output_log += f"  |{out_line} {' ' * (55 - len(values[1]) - 2 + stripped_spaces_num_obs)}|\n"
 
       line_number += 1
 

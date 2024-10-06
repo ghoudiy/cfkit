@@ -1,5 +1,5 @@
 package main
-// Part of this code is derived from cf-tool
+
 import (
   "bufio"
   "bytes"
@@ -14,6 +14,7 @@ import (
 
 func splitCmd(s string) (res []string) {
   var buf bytes.Buffer
+  var quoteChar rune // Keeps track of the currently opened quote type (' or ")
   insideQuotes := false
   for _, r := range s {
     switch {
@@ -22,14 +23,19 @@ func splitCmd(s string) (res []string) {
         res = append(res, buf.String())
         buf.Reset()
       }
-    case r == '"' || r == '\'':
+    case (r == '"' || r == '\''):
       if insideQuotes {
-        res = append(res, buf.String())
-        buf.Reset()
-        insideQuotes = false
-        continue
+        if r == quoteChar { // Close the quote only if it matches the opened quote
+          res = append(res, buf.String())
+          buf.Reset()
+          insideQuotes = false
+        } else {
+          buf.WriteRune(r) // Add mismatched quotes to the buffer
+        }
+      } else {
+        insideQuotes = true
+        quoteChar = r // Remember which quote type was opened
       }
-      insideQuotes = true
     default:
       buf.WriteRune(r)
     }

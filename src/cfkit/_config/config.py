@@ -32,7 +32,7 @@ def set_language_attributes(programming_language: str) -> str:
     )
   else:
     calculate_memory_usage_and_execution_time_command += (
-      f" \"{command}\" %%{{time_mem_err_output_file}}%% "
+      f" '{command}' %%{{time_mem_err_output_file}}%% "
       "%%{input_file}%% %%{output_file}%%"
     )
 

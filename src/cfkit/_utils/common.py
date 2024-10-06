@@ -188,10 +188,10 @@ def execute_file(
   Execute the specified file with provided input, capture the output,
   and save it to the specified path while controlling memory usage in a Go program.
   '''
-  run_command = run_command.replace("%%{file}%%", file)
-  run_command = run_command.replace("%%{time_mem_err_output_file}%%", time_mem_err_path)
-  run_command = run_command.replace("%%{input_file}%%", input_path)
-  run_command = run_command.replace("%%{output_file}%%", output_path)
+  run_command = run_command.replace("%%{file}%%", f'"{file}"')
+  run_command = run_command.replace("%%{time_mem_err_output_file}%%", f'"{time_mem_err_path}"')
+  run_command = run_command.replace("%%{input_file}%%", f'"{input_path}"')
+  run_command = run_command.replace("%%{output_file}%%", f'"{output_path}"')
   run_command = run_command.replace("%%{output}%%", problem_index)
   run_command = run_command.replace("%%{dir_name}%%", osPath.dirname(input_path))
 
