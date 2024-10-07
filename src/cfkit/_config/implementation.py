@@ -31,7 +31,7 @@ def detect_implementation(programming_language: str):
     Check if the specified programming language is installed on the system and added to the PATH.
     '''
     aux = run(command, capture_output=True, shell=True, text=True, check=False).returncode
-    return aux == 0 if command != "pabcnetc" else aux == 3762504530
+    return aux == 0# if command != "pabcnetc" else aux == 3762504530
 
   def change_rename_command(command) -> str | None:
     '''

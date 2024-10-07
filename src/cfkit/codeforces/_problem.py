@@ -696,8 +696,8 @@ class Problem:
     if compile_command is not None:
       try:
         run(
-          compile_command.replace("%%{file}%%", self._solution_file).replace(
-            "%%{output}%%", self.problem_index
+          compile_command.replace('%%{file}%%', self._solution_file).replace(
+            '%%{output}%%', self.problem_index
           ),
           shell=True,
           check=True,

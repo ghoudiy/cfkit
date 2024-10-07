@@ -206,11 +206,11 @@ def config_action():
   if argv[1] == "edit":
     try:
       if operating_sys == "windows":
-        run(f"open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # macOS
+        run(f"notepad \"{Path.home().joinpath('.cfkit', 'cfkit.conf')}\"", shell=True)  # macOS
       elif operating_sys == "darwin":
-        run(f"open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # macOS
+        run(f"open \"{Path.home().joinpath('.cfkit', 'cfkit.conf')}\"", shell=True)  # macOS
       else:
-        run(f"xdg-open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # Linux
+        run(f"xdg-open \"{Path.home().joinpath('.cfkit', 'cfkit.conf')}\"", shell=True)  # Linux
     except Exception as e:
       print(f"An error occurred: {e}")
       sysExit(1)
