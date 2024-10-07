@@ -1,5 +1,5 @@
 package main
-
+// Part of this code is taken from cf-tool
 import (
   "bufio"
   "bytes"
@@ -97,7 +97,6 @@ func judge(command, memory_time_path, input_file, output_file string) error {
   exec_errors := io.Writer(&e)
 
   cmds := splitCmd(command)
-
   cmd := exec.Command(cmds[0], cmds[1:]...)
   cmd.Stdin = input
   cmd.Stdout = output

@@ -746,7 +746,7 @@ class Problem:
         self._fwrong = f"<{one_color}>{error} on test {i + 1 + start}</{one_color}>"
       return False
 
-    def check_exit_code_and_empty_output(exitcode: int, i: int):
+    def check_exit_code(exitcode: int, i: int):
       """
       Check if the exit code is non-zero.
       """
@@ -840,7 +840,7 @@ class Problem:
 
             checker_log_list[test_sample_num] += " " + separator
             try:
-              check_exit_code_and_empty_output(exitcode, test_sample_num + 1 + start)
+              check_exit_code(exitcode, test_sample_num + 1 + start)
             except InterruptedError:
               continue # To prevent saving error in the main except statement
 
@@ -850,7 +850,7 @@ class Problem:
             # Remove the content of the variable if multiple_answers is False (for better performance)
             expected_str = expected_str * multiple_answers
 
-            check_exit_code_and_empty_output(exitcode, test_sample_num + 1 + start) # This line could raise an InterruptedError
+            check_exit_code(exitcode, test_sample_num + 1 + start) # This line could raise an InterruptedError
 
             equal, wrong_answer_message = check_answer(
               expected,

@@ -20,6 +20,7 @@ def set_language_attributes(programming_language: str) -> str:
     "_dependencies",
     'memory_time_usage.exe" ' if MACHINE == 'win32' else './memory_time_usage" '
   ))
+
   if implementation == "compiler":
     if MACHINE == "win32":
       execute_command = osPath.join('"%%{dir_name}%%', '%%{output}%%.exe"')
