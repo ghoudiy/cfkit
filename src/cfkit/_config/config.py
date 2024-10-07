@@ -16,15 +16,15 @@ def set_language_attributes(programming_language: str) -> str:
   """
   command, save_command, default_implementation = detect_implementation(programming_language)
   command, implementation = command[0], command[1]
-  calculate_memory_usage_and_execution_time_command = str(Path(__file__).parent.parent.joinpath(
+  calculate_memory_usage_and_execution_time_command = '"' + str(Path(__file__).parent.parent.joinpath(
     "_dependencies",
-    "memory_time_usage.exe " if MACHINE == "win32" else "./memory_time_usage "
+    'memory_time_usage.exe" ' if MACHINE == 'win32' else './memory_time_usage" '
   ))
   if implementation == "compiler":
     if MACHINE == "win32":
-      execute_command = osPath.join("%%{dir_name}%%", "%%{output}%%.exe")
+      execute_command = osPath.join('"%%{dir_name}%%', '%%{output}%%.exe"')
     else:
-      execute_command = osPath.join("%%{dir_name}%%", "./%%{output}%%")
+      execute_command = osPath.join('"%%{dir_name}%%', './%%{output}%%"')
 
     calculate_memory_usage_and_execution_time_command += f'"{execute_command}" ' + (
       "%%{time_mem_err_output_file}%% "
@@ -32,7 +32,7 @@ def set_language_attributes(programming_language: str) -> str:
     )
   else:
     calculate_memory_usage_and_execution_time_command += (
-      f" '{command}' %%{{time_mem_err_output_file}}%% "
+      f"'{command}' %%{{time_mem_err_output_file}}%% "
       "%%{input_file}%% %%{output_file}%%"
     )
 

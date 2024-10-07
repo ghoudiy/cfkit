@@ -199,10 +199,23 @@ def config_action():
   from pathlib import Path
   from shutil import copy
   from platform import uname
-  if argv[1] != "all":
-    print("Please run `cf config all`")
-    sysExit(1)
-  else:
+  from subprocess import run
+  var = uname()
+  arch = var.machine.lower()
+  operating_sys = var.system.lower()
+  if argv[1] == "edit":
+    try:
+      if operating_sys == "windows":
+        run(f"open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # macOS
+      elif operating_sys == "darwin":
+        run(f"open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # macOS
+      else:
+        run(f"xdg-open {Path.home().joinpath('.cfkit', 'cfkit.conf')}", shell=True)  # Linux
+    except Exception as e:
+      print(f"An error occurred: {e}")
+      sysExit(1)
+
+  elif argv[1] == "all":
     source_dir = Path(__file__).parent.parent
 
     data_dir = source_dir.joinpath("_data")
@@ -242,10 +255,6 @@ def config_action():
 
     set_language_attributes(conf_file["cfkit"]["default_language"])
 
-    var = uname()
-    arch = var.machine.lower()
-    operating_sys = var.system.lower()
-
     def configure_mem_time_usage(mem_time_calc_exec):
       conf_file["cfkit"]["calculate_memory_usage_and_execution_time"] = "yes" if confirm(
         "Do you want to calculate memory usage and execution time?"
@@ -281,6 +290,10 @@ def config_action():
 
     with open(config_file_path, 'w', encoding="UTF-8") as file:
       conf_file.write(file)
+
+  else:
+    print("There are only two options: `cf config all`, `cf config edit`")
+    sysExit(1)
 
 def main():
   """
