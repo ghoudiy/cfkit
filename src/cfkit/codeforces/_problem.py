@@ -613,7 +613,7 @@ class Problem:
       "calculate_memory_usage_and_execution_time"].strip().lower()
 
     if mem_time_calc == "no":
-      execute_command += " < %%{input_file}%% > %%{output_file}%% 2> %%{time_mem_err_output_file}%%"
+      execute_command += '< "%%{input_file}%%" > "%%{output_file}%%" 2> "%%{time_mem_err_output_file}%%"'
 
       mem_time_calc = False
     elif mem_time_calc == "yes":

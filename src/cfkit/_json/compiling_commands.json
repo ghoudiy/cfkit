@@ -2,7 +2,7 @@
     "C": {
         "win32": {
             "Comprehensive": "gcc -Wall -Wextra -Wconversion -static -fno-strict-aliasing -pedantic -Wshadow -Wfloat-equal -Wlogical-op -Wformat=2 -Wshift-overflow=2 -Wduplicated-cond -fsanitize=undefined -fno-sanitize-recover -fstack-protector -lm -s -Wl,--stack=268435456 -O2 -o \"%%{output}%%.exe\" \"%%{file}%%\"",
-            "Balanced": "gcc -Wall -Wextra -Wshadow -Wfloat-equal -fsanitize=undefined -fstack-protector -s -O2 -o \"%%{output}%%.exe\" \"%%{file}%%\"",
+            "Balanced": "gcc -Wall -Wextra -Wshadow -Wfloat-equal -fstack-protector -s -O2 -o \"%%{output}%%.exe\" \"%%{file}%%\"",
             "Essential": "gcc -Wall -Wextra -O2 -o \"%%{output}%%.exe\" \"%%{file}%%\""
         },
         "linux": {

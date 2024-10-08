@@ -20,14 +20,14 @@ def set_language_attributes(programming_language: str) -> str:
     "_dependencies",
     'memory_time_usage.exe" ' if MACHINE == 'win32' else './memory_time_usage" '
   ))
-  print(calculate_memory_usage_and_execution_time_command)
+
   if implementation == "compiler":
     if MACHINE == "win32":
-      execute_command = osPath.join('"%%{dir_name}%%', '%%{output}%%.exe"')
+      execute_command = osPath.join('"%%{dir_name}%%', '%%{output}%%.exe" ')
     else:
-      execute_command = osPath.join('"%%{dir_name}%%', './%%{output}%%"')
+      execute_command = osPath.join('"%%{dir_name}%%', './%%{output}%%" ')
 
-    calculate_memory_usage_and_execution_time_command += f'"{execute_command}" ' + (
+    calculate_memory_usage_and_execution_time_command += execute_command + (
       '"%%{time_mem_err_output_file}%%" '
       '"%%{input_file}%%" "%%{output_file}%%"'
     )
