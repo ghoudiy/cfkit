@@ -89,9 +89,7 @@ func judge(command, memory_time_path, input_file, output_file string) error {
 
     _, err = fmt.Fprint(memory_time_file, time_memory_str + plain(error_output.Bytes()))
     print_error(err, err_num)
-    os.Exit(1)
   }
-
 
   var e bytes.Buffer
   exec_errors := io.Writer(&e)
