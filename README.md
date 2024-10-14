@@ -33,7 +33,8 @@ cfkit is a **fast, cross-platform (Windows, macOS, Linux) command-line interface
 *   **Contest Problem Stats:** Lists problem statistics for specific contests.
   
 *   **Enhanced CLI Output:** Distinguish correct and incorrect results easily with colored output.
-  
+
+![](./examples/run_solution.gif)
 
 ## 2\. Installation
 
