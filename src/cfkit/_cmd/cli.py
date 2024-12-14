@@ -224,6 +224,7 @@ def config_action():
     if not target_dir.exists():
       target_dir.mkdir(parents=True)
 
+    print("Starting to copy important files...")
     for item in data_dir.rglob('*'):
       target_item = target_dir / item.relative_to(data_dir)
       if item.name != "__pycache__":
@@ -231,6 +232,7 @@ def config_action():
           target_item.mkdir(parents=True, exist_ok=True)
         elif not item.name.endswith(".pyc"):
           copy(item, target_item)
+    print("All important files have been successfully copied.")
 
     from cfkit._utils.print import colored_text
     from cfkit._utils.input import confirm, select_option

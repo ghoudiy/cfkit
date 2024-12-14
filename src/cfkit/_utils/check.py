@@ -45,16 +45,6 @@ def check_command(command: str, message: str | tuple) -> str:
       command = input("\nPlease enter your command correctly:\n")
   return command
 
-def is_number(text: str) -> bool:
-  """
-  Documentation
-  """
-  try:
-    float(text)
-    return True
-  except ValueError:
-    return False
-
 def check_file(file_path) -> str:
   """
   Documentation

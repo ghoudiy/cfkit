@@ -4,7 +4,6 @@ Documentation
 from math import isclose
 from collections import Counter
 
-from cfkit._utils.check import is_number
 from cfkit._utils.common import (
   english_ending,
   trim_data,
@@ -47,15 +46,17 @@ def compare_values(expected_value, observed_value, line, column) -> bool:
   """
   Compare two values only
   """
-  if is_number(expected_value) and is_number(observed_value):
-    num1 = float(expected_value)
-    num2 = float(observed_value)
-    equal = isclose(num1, num2, rel_tol=1.5E-5 + 1E-15)
+  try: # if values are integers
+    equal = int(expected_value) == int(observed_value)
     numbers_or_words = 'numbers'
-  else:
-    equal = expected_value == observed_value
-    numbers_or_words = 'words'
-
+  except ValueError:
+    try: # if values are floating point numbers
+      equal = isclose(float(expected_value), float(observed_value), rel_tol=1.5E-5 + 1E-15)
+      numbers_or_words = 'numbers'
+    except ValueError: # if values are strings
+      equal = expected_value == observed_value
+      numbers_or_words = 'words'
+  
   if not equal:
     wrong_answer_message = wrong_answer_verdict(
       line,
