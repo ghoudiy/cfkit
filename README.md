@@ -3,7 +3,7 @@
 [![Language](https://img.shields.io/badge/Language-Python-blue)](https://www.python.org/)
 [![Python_version](https://img.shields.io/badge/Python->=3.8-gree)](https://www.python.org/)
 [![license](https://img.shields.io/badge/license-MIT-%23373737.svg)](https://raw.githubusercontent.com/xalanq/cf-tool/master/LICENSE)
-
+[![PyPI Downloads](https://static.pepy.tech/badge/cfkit)](https://pepy.tech/projects/cfkit)
 cfkit is a lightweight and efficient CLI tool designed for [Codeforces](https://codeforces.com/).
 
 It’s easy to use, fast and works across platforms.
